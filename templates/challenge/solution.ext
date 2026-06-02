@@ -1,0 +1,12 @@
+Recommended proposal: the fast + lean (runtime-first) solution.
+
+This is the canonical answer for the challenge: the fastest runtime that still keeps
+memory low. Replace this file with the implementation and rename it with the selected
+language extension (for example solution.cpp, solution.rs, solution.go, ...).
+
+Two more proposals are required alongside it:
+- solution-runtime.{ext} - the asymptotic-speed / early-exit extreme.
+- solution-memory.{ext}  - the minimum-memory extreme.
+
+Each proposal may use a different language, chosen by performance analysis. See
+docs/challenge-format.md.

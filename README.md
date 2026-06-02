@@ -42,7 +42,6 @@ coding-challenges/
 ├── algorithms/
 ├── patterns/
 ├── templates/
-├── scripts/
 ├── stats/
 └── website/
 ```
@@ -110,9 +109,14 @@ The pattern catalog is intended to become the most valuable section of the repos
 
 Each challenge is stored as a self-contained unit.
 
+The full standard is documented in [`docs/challenge-format.md`](docs/challenge-format.md).
+Reusable starter files are available under [`templates/challenge/`](templates/challenge/).
+
 ```text
 0238-product-of-array-except-self/
-├── solution.cs
+├── solution.{ext}            # recommended: fast + lean
+├── solution-runtime.{ext}    # extreme: asymptotic speed / early-exit
+├── solution-memory.{ext}     # extreme: minimum memory
 ├── notes.md
 ├── complexity.md
 └── metadata.json
@@ -120,12 +124,14 @@ Each challenge is stored as a self-contained unit.
 
 ### Components
 
-| File          | Purpose                                      |
-| ------------- | -------------------------------------------- |
-| solution.cs   | Final accepted implementation                |
-| notes.md      | Problem analysis and reasoning               |
-| complexity.md | Time and space complexity evaluation         |
-| metadata.json | Structured data for automation and reporting |
+| File                   | Purpose                                               |
+| ---------------------- | ----------------------------------------------------- |
+| solution.{ext}         | Recommended proposal: fastest runtime that stays lean |
+| solution-runtime.{ext} | Speed extreme: asymptotically fastest / early-exit    |
+| solution-memory.{ext}  | Memory extreme: minimum footprint                     |
+| notes.md               | Problem analysis, reasoning, and trade-offs           |
+| complexity.md          | Time and space complexity for each proposal           |
+| metadata.json          | Structured data (incl. variants[]) for automation     |
 
 ---
 
@@ -155,18 +161,33 @@ Improved solutions may replace previous implementations when better approaches a
 
 ## Technology Stack
 
-Current primary language:
+There is no default or primary language.
 
-* C#
+Each challenge ships three proposals (recommended fast + lean, speed extreme, memory extreme); each proposal uses the most performant language for its goal, selected from the allowed language set and justified in the challenge notes. The proposals may use different languages.
 
-Potential future languages:
+Allowed languages:
 
+* C++
+* Java
+* Python3
 * Python
+* JavaScript
 * TypeScript
+* C#
+* C
 * Go
+* Kotlin
+* Swift
 * Rust
+* Ruby
+* PHP
+* Dart
+* Scala
+* Elixir
+* Erlang
+* Racket
 
-The repository architecture is language-agnostic and designed for multi-language expansion.
+The repository architecture is language-agnostic and designed for performance-driven language selection per proposal.
 
 ---
 
@@ -182,7 +203,7 @@ Repository metrics may include:
 * Learning velocity
 * Monthly progress trends
 
-Statistics are generated through automated scripts and stored under:
+These statistics may be produced by future tooling and stored under:
 
 ```text
 stats/

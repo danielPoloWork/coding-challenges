@@ -1,0 +1,10 @@
+Memory-extreme proposal: the smallest possible memory footprint, accepted even if it
+costs some runtime.
+
+Replace this file with the implementation and rename it with the selected language
+extension. Choose the language by performance analysis for minimum memory (e.g. C, Rust).
+
+If this proposal would coincide with the recommended solution.{ext} (a Pareto-optimal
+problem where the fast + lean solution is also the leanest), do not create this file at
+all - keep only solution.{ext} and explain in notes.md. Add this file only when the
+memory extreme is a genuinely different, non-dominated solution.

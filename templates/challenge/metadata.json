@@ -1,0 +1,49 @@
+{
+  "id": "",
+  "title": "",
+  "slug": "",
+  "platform": "",
+  "platformPath": "",
+  "url": "",
+  "difficulty": "",
+  "topics": [],
+  "patterns": [],
+  "status": "solved",
+  "dateSolved": "",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "recommendedSolution": "solution.{ext}",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.{ext}",
+      "language": "",
+      "languageReason": "Why this language is the most performant choice for a fast-and-lean default on this problem. Do not cite any repository-wide language requirement.",
+      "approachJustification": "",
+      "timeComplexity": "",
+      "spaceComplexity": ""
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.{ext}",
+      "language": "",
+      "languageReason": "Why this language wins on raw/asymptotic runtime for this problem.",
+      "approachJustification": "",
+      "timeComplexity": "",
+      "spaceComplexity": ""
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.{ext}",
+      "language": "",
+      "languageReason": "Why this language minimizes the memory footprint for this problem.",
+      "approachJustification": "",
+      "timeComplexity": "",
+      "spaceComplexity": ""
+    }
+  ],
+  "reasoningSummary": "",
+  "approachJustification": "",
+  "performanceStrategy": "",
+  "timeComplexity": "",
+  "spaceComplexity": ""
+}

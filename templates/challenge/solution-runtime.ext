@@ -1,0 +1,10 @@
+Speed-extreme proposal: the asymptotically fastest / best constant-factor / early-exit
+solution, accepted even if it uses more memory.
+
+Replace this file with the implementation and rename it with the selected language
+extension. Choose the language by performance analysis for raw runtime (e.g. C++, C, Rust).
+
+If this proposal would coincide with the recommended solution.{ext} (a Pareto-optimal
+problem where the fast + lean solution is also the fastest), do not create this file at
+all - keep only solution.{ext} and explain in notes.md. Add this file only when the
+speed extreme is a genuinely different, non-dominated solution.

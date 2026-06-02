@@ -1,0 +1,52 @@
+{
+  "id": "217",
+  "title": "Contains Duplicate",
+  "slug": "contains-duplicate",
+  "platform": "leetcode",
+  "platformPath": "platforms/leetcode/0217-contains-duplicate",
+  "url": "https://leetcode.com/problems/contains-duplicate/",
+  "difficulty": "Easy",
+  "topics": ["Array", "Hash Table", "Sorting"],
+  "patterns": ["hashing", "sorting"],
+  "status": "solved",
+  "dateSolved": "2026-06-02",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "recommendedSolution": "solution.cpp",
+  "note": "No single algorithm is both asymptotically fastest (O(n)) and minimal memory (O(1)) for this problem. solution.cpp is the recommended balance (runtime-first, O(1) extra memory): at n <= 1e5 an in-place sort ties the hash set in practical runtime while needing no auxiliary table. The two extremes are kept as documented variants. See notes.md.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ std::sort is introsort with an inlined comparator, so it is markedly faster than C's qsort (which calls the comparator through a function pointer) while still sorting in place. Native, no GC or interpreter startup.",
+      "approachJustification": "In-place std::sort followed by an adjacent-equality scan. O(1) extra memory; practical runtime ties the hash set at n <= 1e5.",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "Native, no GC or interpreter startup, with the control to build a flat open-addressing hash set whose contiguous storage is far more cache-friendly than std::unordered_set's node-based layout. Asymptotically O(n) and wins decisively when a duplicate appears early (early exit).",
+      "approachJustification": "Open-addressing hash set (linear probing, load factor <= 0.5) with a Murmur3-style finalizer; returns on the first collision.",
+      "timeComplexity": "O(n) average",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "Smallest runtime/stdlib baseline among the allowed languages, which minimizes the reported memory footprint. Manual control allows an in-place sort with zero auxiliary allocation. Slower than std::sort because qsort calls its comparator through a function pointer.",
+      "approachJustification": "In-place qsort followed by an adjacent-equality scan, using an overflow-safe comparator.",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "language": "C++",
+  "languageReason": "See variants[].languageReason. Recommended default is solution.cpp (C++ in-place sort): best practical runtime/memory balance for this problem.",
+  "reasoningSummary": "Detecting any duplicate is either 'remember what you have seen' (hashing: spend memory to gain asymptotic speed) or 'bring equal values next to each other' (sorting: spend a log factor of time to keep memory at O(1)). The value range (-1e9..1e9) rules out a counting array. At n <= 1e5 the two are a practical runtime tie, so the in-place sort is the recommended fast-and-lean default.",
+  "approachJustification": "Ship a recommended balanced default (in-place sort) plus the two Pareto endpoints: a flat hash set for asymptotic/early-exit speed and a C in-place sort for the absolute-minimum memory baseline.",
+  "performanceStrategy": "Recommended: in-place std::sort (inlined introsort) + adjacent scan, O(1) extra memory. Extremes: flat open-addressing + early exit (asymptotic speed); C qsort baseline (minimum memory).",
+  "timeComplexity": "O(n log n) recommended / O(n) average (hash) / O(n log n) (C sort)",
+  "spaceComplexity": "O(1) extra recommended / O(n) (hash) / O(1) extra (C sort)"
+}
