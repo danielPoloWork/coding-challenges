@@ -35,16 +35,27 @@ Performance target:
 
 Solve each challenge with the explicit goal of reaching the top 1% of accepted solutions for execution time and overall performance. Correctness is mandatory, but a merely accepted solution is not enough when a faster or more memory-efficient approach is available.
 
-Supported platform directories currently include:
+Supported platform directories (see `platforms/README.md` for the catalog):
 
 - `platforms/leetcode/`
 - `platforms/hackerrank/`
-- `platforms/codesignal/`
 - `platforms/codewars/`
+- `platforms/codesignal/`
+- `platforms/algocademy/`
+- `platforms/topcoder/`
+- `platforms/exercism/`
+- `platforms/pramp/`
+- `platforms/interview-cake/`
+- `platforms/codility/`
+- `platforms/stratascratch/`
+- `platforms/codechef/`
+- `platforms/project-euler/`
 
 If a new platform is needed, create `platforms/{new-platform}/` first, then place the challenge inside it.
 
 Choose each proposal's language by performance analysis for that proposal's goal. There is no default language, and the three proposals may use different languages.
+
+Reason about language and performance; do not run benchmarks locally. Language choice and complexity/performance are argued analytically from the problem constraints (the local benchmark tooling was removed). However, DO verify correctness locally: for each proposal, write a throwaway Python script that faithfully mirrors the algorithm and compare it against a reference (brute force / library function) on edge cases plus randomized stress, as done for 0217 and 0912; then remove the temporary script. No compiler invocations are needed - the Python mirror checks the algorithm, and the platform's judge gives the final confirmation.
 
 Never state or imply that this repository requires C#, Java, Python, or any other specific language for every challenge. The repository has an allowed language set, not a default or mandatory language.
 
@@ -87,6 +98,10 @@ In `notes.md`, always explain how the solutions were derived:
 - Explain the optimizations used to target top 1% execution time and performance for each proposal.
 - Compare the proposals and state the time-space trade-off between them.
 - State why each proposal is the best fit for its objective.
+
+Re-solving an existing challenge (didactic):
+
+If a challenge already exists and is proposed again, solve it in a language not yet used for that challenge, as a didactic exercise. Add a new `platforms/{platform}/{ext}/{id}-{slug}/` folder for that language with `solution.{ext}` plus its docs. In `notes.md`, state explicitly that the implementation is didactic (for learning and language coverage, not a new performance champion), and reference the existing performant solutions per category - global (the recommended solution), runtime (the speed extreme), and memory (the memory extreme) - via `crossReferences` in `metadata.json` and links in the notes, so readers can compare against the most performant solution for each axis. The didactic entry must be correct and idiomatic, but is not expected to beat the champions.
 
 Prefer clarity, traceability, and consistent naming over clever shortcuts.
 

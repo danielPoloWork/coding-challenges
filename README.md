@@ -23,12 +23,21 @@ Over time, this repository evolves into a structured engineering reference syste
 
 ## Supported Platforms
 
+See [`platforms/README.md`](platforms/README.md) for the full catalog (strengths, ideal use, links).
+
 * LeetCode
 * HackerRank
+* Codewars
 * CodeSignal
-* CodeWars
-
-Additional platforms may be added in the future.
+* AlgoCademy
+* TopCoder
+* Exercism
+* Pramp
+* Interview Cake
+* Codility
+* StrataScratch
+* CodeChef
+* Project Euler
 
 ---
 
@@ -54,8 +63,17 @@ Contains solutions organized according to the original source platform.
 platforms/
 ├── leetcode/
 ├── hackerrank/
+├── codewars/
 ├── codesignal/
-└── codewars/
+├── algocademy/
+├── topcoder/
+├── exercism/
+├── pramp/
+├── interview-cake/
+├── codility/
+├── stratascratch/
+├── codechef/
+└── project-euler/
 ```
 
 This structure enables traceability back to the original challenge.

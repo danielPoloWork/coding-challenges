@@ -56,8 +56,17 @@ Supported platform directories:
 ```text
 platforms/leetcode/
 platforms/hackerrank/
-platforms/codesignal/
 platforms/codewars/
+platforms/codesignal/
+platforms/algocademy/
+platforms/topcoder/
+platforms/exercism/
+platforms/pramp/
+platforms/interview-cake/
+platforms/codility/
+platforms/stratascratch/
+platforms/codechef/
+platforms/project-euler/
 ```
 
 If a challenge comes from a new platform, create a new kebab-case platform directory first:
@@ -125,6 +134,8 @@ This means:
 - Keep correctness mandatory; performance must not rely on undefined behavior or invalid assumptions.
 
 Document the top 1% performance strategy in `notes.md` and summarize it in `complexity.md`.
+
+Reason about performance analytically; do not run benchmarks locally. But verify correctness locally: mirror each proposal's algorithm in a throwaway Python script and check it against a reference (brute force / library function) on edge cases plus randomized inputs (as done for 0217 and 0912), then delete the script. Performance is argued from the constraints and confirmed on the target platform's judge.
 
 ## Language Selection
 
@@ -220,6 +231,15 @@ Metadata in each language folder should identify:
 - `challengeRecommended`: path to the challenge's overall recommended solution (may be in another language folder)
 - `crossReferences`: the sibling proposals in other language folders (role, language, path, file)
 - Solution reasoning summary and completion status
+
+## Didactic Re-implementations
+
+When a challenge that already exists is solved again, do it in a language not yet used for that challenge, as a didactic exercise:
+
+- Create a new `platforms/{platform}/{ext}/{id}-{slug}/` folder for the new language, with `solution.{ext}`, `notes.md`, `complexity.md`, and `metadata.json`.
+- In `notes.md`, state clearly that the implementation is **didactic** (for learning and language coverage), not a new performance champion.
+- Reference the existing most-performant solutions per category - **global** (the recommended solution), **runtime** (the speed extreme), and **memory** (the memory extreme) - via `crossReferences` in `metadata.json` and links in the notes, so the didactic version can be compared against the best per axis.
+- The didactic solution must be correct and idiomatic for its language; it is not required to match or beat the champions.
 
 ## Standard Answer Format
 
