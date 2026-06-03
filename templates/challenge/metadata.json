@@ -3,7 +3,9 @@
   "title": "",
   "slug": "",
   "platform": "",
-  "platformPath": "",
+  "language": "",
+  "languageExt": "",
+  "platformPath": "platforms/{platform}/{ext}/{id}-{slug}",
   "url": "",
   "difficulty": "",
   "topics": [],
@@ -11,13 +13,15 @@
   "status": "solved",
   "dateSolved": "",
   "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/{platform}/{ext}/{id}-{slug}/solution.{ext}",
   "recommendedSolution": "solution.{ext}",
+  "note": "This folder holds the proposals written in one language. Keep in variants[] only the proposals in THIS folder's language; move the others to crossReferences (their own language folders).",
   "variants": [
     {
       "role": "recommended-balanced",
       "file": "solution.{ext}",
       "language": "",
-      "languageReason": "Why this language is the most performant choice for a fast-and-lean default on this problem. Do not cite any repository-wide language requirement.",
+      "languageReason": "Why this language gives the best fast-and-lean default for this problem. Do not cite a repository-wide language requirement.",
       "approachJustification": "",
       "timeComplexity": "",
       "spaceComplexity": ""
@@ -26,7 +30,7 @@
       "role": "fastest-runtime",
       "file": "solution-runtime.{ext}",
       "language": "",
-      "languageReason": "Why this language wins on raw/asymptotic runtime for this problem.",
+      "languageReason": "Why this language wins raw/asymptotic runtime for this problem.",
       "approachJustification": "",
       "timeComplexity": "",
       "spaceComplexity": ""
@@ -41,9 +45,17 @@
       "spaceComplexity": ""
     }
   ],
+  "crossReferences": [
+    {
+      "role": "",
+      "language": "",
+      "path": "platforms/{platform}/{otherExt}/{id}-{slug}",
+      "file": "solution-...",
+      "timeComplexity": "",
+      "spaceComplexity": ""
+    }
+  ],
   "reasoningSummary": "",
-  "approachJustification": "",
-  "performanceStrategy": "",
   "timeComplexity": "",
   "spaceComplexity": ""
 }

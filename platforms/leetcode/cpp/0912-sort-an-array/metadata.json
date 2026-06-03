@@ -1,0 +1,52 @@
+{
+  "id": "912",
+  "title": "Sort an Array",
+  "slug": "sort-an-array",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/0912-sort-an-array",
+  "url": "https://leetcode.com/problems/sort-an-array/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Sorting", "Counting Sort", "Divide and Conquer"],
+  "patterns": ["sorting"],
+  "status": "solved",
+  "dateSolved": "2026-06-02",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/0912-sort-an-array/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals. The minimum-memory champion (in-place heapsort) is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "std::sort is introsort with an inlined comparator: fast on any input, O(log n) stack, no range assumption. Best general balance.",
+      "approachJustification": "std::sort in place.",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(log n)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "A tight native counting-sort loop is comparison-free and linear; the bounded value range (R = 100001) makes it the raw-speed winner.",
+      "approachJustification": "Counting sort over the offset range.",
+      "timeComplexity": "O(n + R)",
+      "spaceComplexity": "O(R)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/0912-sort-an-array",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "reasoningSummary": "Comparison sorts are O(n log n); the small fixed value range lets counting sort beat that on raw speed at O(R) memory, while in-place heapsort (C) reaches O(1) extra memory. Introsort is the balanced default.",
+  "timeComplexity": "O(n log n) recommended / O(n + R) (counting)",
+  "spaceComplexity": "O(log n) recommended / O(R) (counting)"
+}

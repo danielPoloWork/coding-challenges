@@ -5,14 +5,16 @@ This repository is a structured knowledge base for coding challenges.
 When adding or solving a challenge, always create the self-contained challenge folder inside the correct platform directory:
 
 ```text
-platforms/{platform}/{problem-id}-{kebab-case-title}/
-+-- solution.{ext}            # recommended: fast + lean (runtime-first)
-+-- solution-runtime.{ext}    # extreme: asymptotic speed / early-exit
-+-- solution-memory.{ext}     # extreme: minimum memory
+platforms/{platform}/{ext}/{problem-id}-{kebab-case-title}/
++-- solution.{ext}            # recommended proposal, if in this language
++-- solution-runtime.{ext}    # speed extreme, if in this language
++-- solution-memory.{ext}     # memory extreme, if in this language
 +-- notes.md
 +-- complexity.md
 `-- metadata.json
 ```
+
+`{ext}` is the language extension (`cpp`, `c`, `py`, `rs`, `go`, ...). Use one folder per language; each holds only its language's proposals and cross-references the siblings.
 
 Never create challenge folders at the repository root, directly under `algorithms/`, or directly under `patterns/`.
 
@@ -24,10 +26,10 @@ Each challenge entry must include:
   - `solution.{ext}` - the recommended default: the fastest runtime that still keeps memory low (runtime-first, memory-conscious).
   - `solution-runtime.{ext}` - the speed extreme: the asymptotically fastest / best constant-factor / early-exit approach, even at higher memory cost.
   - `solution-memory.{ext}` - the memory extreme: the absolute minimum memory footprint, even at some runtime cost.
-  Proposals may use different languages. When proposals coincide (a Pareto-optimal problem where one solution is both fastest and leanest), ship only the recommended fast + lean `solution.{ext}` and say so in `notes.md` - do not add coincident `solution-runtime`/`solution-memory` files. Add a speed or memory extreme only when it is a genuinely different, non-dominated solution.
+  Proposals may use different languages, and each lives in its language folder `platforms/{platform}/{ext}/{id}-{slug}/` (proposals sharing a language sit together; each folder cross-references the siblings via `crossReferences` in `metadata.json`). When proposals coincide (a Pareto-optimal problem where one solution is both fastest and leanest), ship only the recommended fast + lean solution and say so in `notes.md` - do not add coincident files. Add a speed or memory extreme only when it is a genuinely different, non-dominated solution.
 - Problem analysis, reasoning, and trade-off justification in `notes.md`.
 - Explicit time and space complexity in `complexity.md`.
-- Structured metadata in `metadata.json`, with `platform` matching the parent directory under `platforms/`.
+- Structured metadata in `metadata.json`, with `platform` matching the platform directory under `platforms/` (the grandparent of the challenge folder, above the language `{ext}` folder), plus `languageExt`, `challengeRecommended`, and `crossReferences`.
 
 Performance target:
 

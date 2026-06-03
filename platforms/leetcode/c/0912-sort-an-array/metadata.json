@@ -1,0 +1,51 @@
+{
+  "id": "912",
+  "title": "Sort an Array",
+  "slug": "sort-an-array",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/0912-sort-an-array",
+  "url": "https://leetcode.com/problems/sort-an-array/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Sorting", "Heap (Priority Queue)"],
+  "patterns": ["sorting"],
+  "status": "solved",
+  "dateSolved": "2026-06-02",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/0912-sort-an-array/solution.cpp",
+  "recommendedSolution": "solution-memory.c",
+  "note": "C proposal: the minimum-memory champion (in-place heapsort). Recommended and speed proposals are in C++ (see crossReferences).",
+  "variants": [
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "Smallest runtime/stdlib baseline -> minimum reported memory; manual control enables a truly in-place, allocation-free heapsort.",
+      "approachJustification": "In-place heapsort with an iterative sift-down (no auxiliary array, no recursion stack).",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/0912-sort-an-array",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(log n)"
+    },
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/0912-sort-an-array",
+      "file": "solution-runtime.cpp",
+      "timeComplexity": "O(n + R)",
+      "spaceComplexity": "O(R)"
+    }
+  ],
+  "reasoningSummary": "In-place heapsort sorts with zero auxiliary memory and no recursion stack - the minimum-memory proposal; it makes no assumption about the value range.",
+  "timeComplexity": "O(n log n)",
+  "spaceComplexity": "O(1) extra"
+}

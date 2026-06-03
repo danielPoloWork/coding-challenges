@@ -8,18 +8,21 @@ The goal is to make each solution easy to read, compare, search, and process wit
 
 Every challenge must be stored under its source platform.
 
-Use this full path convention:
+Use this full path convention (one folder per language used):
 
 ```text
-platforms/{platform}/{problem-id}-{kebab-case-title}/
+platforms/{platform}/{ext}/{problem-id}-{kebab-case-title}/
 ```
+
+`{ext}` is the language's file extension (e.g. `cpp`, `c`, `py`, `rs`, `go`, `js`, `ts`, `java`, `kt`). A challenge solved in more than one language has one such folder per language, cross-referenced (see Required Files).
 
 Examples:
 
 ```text
-platforms/leetcode/0001-two-sum/
-platforms/hackerrank/balanced-brackets/
-platforms/codewars/sum-of-intervals/
+platforms/leetcode/cpp/0001-two-sum/
+platforms/leetcode/c/0001-two-sum/
+platforms/hackerrank/cpp/balanced-brackets/
+platforms/codewars/py/sum-of-intervals/
 ```
 
 The challenge folder name itself uses this convention:
@@ -63,20 +66,22 @@ If a challenge comes from a new platform, create a new kebab-case platform direc
 platforms/{new-platform}/
 ```
 
-The `platform` field in `metadata.json` must match the parent platform directory.
+The `platform` field in `metadata.json` must match the platform directory (the grandparent of the challenge folder, above the language `{ext}` folder).
 
 ## Required Files
 
-Each challenge folder must contain:
+Each language folder (`platforms/{platform}/{ext}/{id}-{slug}/`) is self-contained and holds the proposals written in its language plus the three docs:
 
 ```text
-solution.{ext}            # recommended: fast + lean (runtime-first)
-solution-runtime.{ext}    # extreme: asymptotic speed / early-exit
-solution-memory.{ext}     # extreme: minimum memory
+solution.{ext}            # the recommended proposal, if it is in this language
+solution-runtime.{ext}    # the speed-extreme proposal, if it is in this language
+solution-memory.{ext}     # the memory-extreme proposal, if it is in this language
 notes.md
 complexity.md
 metadata.json
 ```
+
+A folder holds only its language's proposals. Example: if the recommended and speed proposals are C++ and the memory proposal is C, the `cpp/` folder holds `solution.cpp` + `solution-runtime.cpp` and the `c/` folder holds `solution-memory.c`; each folder's `metadata.json` lists its own `variants[]` and links the others via `crossReferences`.
 
 ## File Responsibilities
 
@@ -88,7 +93,7 @@ Every challenge ships **three** solution proposals, each in the language chosen 
 - `solution-runtime.{ext}` - **Speed extreme.** The asymptotically fastest / best constant-factor / early-exit approach, accepted even if it costs more memory.
 - `solution-memory.{ext}` - **Memory extreme.** The smallest possible memory footprint, accepted even if it costs some runtime.
 
-Different proposals may use different languages (for example C++ for speed, C for minimum memory). When proposals coincide (a Pareto-optimal problem where one solution is both fastest and leanest), ship only the recommended fast + lean `solution.{ext}` and say so in `notes.md` - do not add coincident `solution-runtime`/`solution-memory` files. Add a speed extreme or memory extreme only when it is a genuinely different, non-dominated solution.
+Different proposals may use different languages (for example C++ for speed, C for minimum memory). Each proposal lives in the folder of its language - `platforms/{platform}/{ext}/{id}-{slug}/` - so proposals that share a language sit together and each folder cross-references the siblings via `crossReferences` in `metadata.json`. When proposals coincide (a Pareto-optimal problem where one solution is both fastest and leanest), ship only the recommended fast + lean solution and say so in `notes.md` - do not add coincident files. Add a speed extreme or memory extreme only when it is a genuinely different, non-dominated solution.
 
 Each proposal should target the top 1% of accepted submissions for its objective.
 
@@ -206,17 +211,15 @@ Always include:
 
 Contains structured information for automation, statistics, and future reporting.
 
-Metadata should identify:
+Metadata in each language folder should identify:
 
-- Platform
-- Difficulty
-- Topics
-- Patterns
-- The three proposals as a `variants[]` array (role, file, language, language reason, approach justification, time/space complexity)
-- Recommended solution file
-- Solution reasoning summary
-- Selected approach justification
-- Completion status
+- Platform, difficulty, topics, patterns
+- `language` and `languageExt` for this folder
+- This folder's proposals as a `variants[]` array (role, file, language, language reason, approach justification, time/space complexity)
+- `recommendedSolution`: the best file in this folder
+- `challengeRecommended`: path to the challenge's overall recommended solution (may be in another language folder)
+- `crossReferences`: the sibling proposals in other language folders (role, language, path, file)
+- Solution reasoning summary and completion status
 
 ## Standard Answer Format
 
@@ -238,10 +241,10 @@ This keeps explanations consistent across problems and makes review easier.
 
 ## Placement Rules
 
-Store each challenge in the platform directory:
+Store each language's proposals in its language folder under the platform:
 
 ```text
-platforms/{platform}/{challenge-folder}/
+platforms/{platform}/{ext}/{challenge-folder}/
 ```
 
 When a challenge is also useful as a domain or pattern reference, cross-reference it from:

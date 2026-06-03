@@ -107,16 +107,20 @@ The pattern catalog is intended to become the most valuable section of the repos
 
 ## Solution Structure
 
-Each challenge is stored as a self-contained unit.
+Each challenge is stored per language under its platform, as self-contained units that cross-reference each other.
 
 The full standard is documented in [`docs/challenge-format.md`](docs/challenge-format.md).
 Reusable starter files are available under [`templates/challenge/`](templates/challenge/).
 
 ```text
-0238-product-of-array-except-self/
-├── solution.{ext}            # recommended: fast + lean
-├── solution-runtime.{ext}    # extreme: asymptotic speed / early-exit
-├── solution-memory.{ext}     # extreme: minimum memory
+platforms/leetcode/cpp/0001-two-sum/        # C++ proposals
+├── solution.{ext}            # recommended (if in this language)
+├── solution-runtime.{ext}    # speed extreme (if in this language)
+├── notes.md
+├── complexity.md
+└── metadata.json
+platforms/leetcode/c/0001-two-sum/          # C proposal (e.g. memory champion)
+├── solution-memory.{ext}
 ├── notes.md
 ├── complexity.md
 └── metadata.json
@@ -131,7 +135,7 @@ Reusable starter files are available under [`templates/challenge/`](templates/ch
 | solution-memory.{ext}  | Memory extreme: minimum footprint                     |
 | notes.md               | Problem analysis, reasoning, and trade-offs           |
 | complexity.md          | Time and space complexity for each proposal           |
-| metadata.json          | Structured data (incl. variants[]) for automation     |
+| metadata.json          | Structured data (variants[] + crossReferences)        |
 
 ---
 

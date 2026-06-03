@@ -1,0 +1,52 @@
+{
+  "id": "217",
+  "title": "Contains Duplicate",
+  "slug": "contains-duplicate",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/0217-contains-duplicate",
+  "url": "https://leetcode.com/problems/contains-duplicate/",
+  "difficulty": "Easy",
+  "topics": ["Array", "Hash Table", "Sorting"],
+  "patterns": ["hashing", "sorting"],
+  "status": "solved",
+  "dateSolved": "2026-06-02",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/0217-contains-duplicate/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals for this challenge. The minimum-memory champion is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "std::sort is introsort with an inlined comparator: fast on any input, O(1) extra space, robust. Best practical balance.",
+      "approachJustification": "In-place std::sort + adjacent-equality scan.",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "A flat open-addressing hash set in contiguous arrays is far more cache-friendly than std::unordered_set; with early exit it wins wall-clock, especially on duplicate-heavy inputs.",
+      "approachJustification": "Open-addressing hash set, linear probing, Murmur3-style finalizer, returns on first collision.",
+      "timeComplexity": "O(n) average",
+      "spaceComplexity": "O(n)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/0217-contains-duplicate",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "reasoningSummary": "Wide value range rules out counting tricks. Sorting (recommended) is O(1) extra memory and ties hashing in practice at n <= 1e5; hashing (speed) wins on early duplicates or large n.",
+  "timeComplexity": "O(n log n) recommended / O(n) average (hash)",
+  "spaceComplexity": "O(1) extra recommended / O(n) (hash)"
+}

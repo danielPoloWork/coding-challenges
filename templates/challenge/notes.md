@@ -88,3 +88,8 @@ Consider:
 ## Alternatives
 
 Document alternative approaches and why they were not selected.
+
+## See Also
+
+Link the sibling language folders that hold the other proposals, e.g.
+`../../{otherExt}/{id}-{slug}/`.
