@@ -1,0 +1,35 @@
+{
+  "id": "3664",
+  "title": "Two-Letter Card Game",
+  "slug": "two-letter-card-game",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3664-two-letter-card-game",
+  "url": "https://leetcode.com/problems/two-letter-card-game/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Hash Table", "Greedy", "Counting", "Enumeration"],
+  "patterns": ["counting", "greedy", "enumeration"],
+  "status": "solved",
+  "dateSolved": "2026-06-04",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3664-two-letter-card-game/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "Dominant cost is reading n cards with a few char comparisons each; the rest is fixed-size int arithmetic over <=21 counters. Native, GC-free C++ ties C on speed at the O(1)-extra memory floor while staying readable (range-for, std::min/std::max). Top 1% on both axes.",
+      "approachJustification": "Only x-cards matter; classify them into wildcards ('xx'), x-first (cnt1[c]) and x-second (cnt2[c]). First- and second-position one-sided cards never pair, so the deck forms two clusters sharing the wildcard pool. Inside a cluster, max cross-group pairs = min(total/2, total-largestGroup); scan every wildcard split since floor division makes the score non-concave. Also serves as the speed and memory extreme.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Keep only cards containing x and bucket them by where x sits: 'xx' wildcards (pair with any one-sided card but not each other), 'xc' (cnt1) and 'cx' (cnt2). 'xc' vs 'dx' differ in both positions, so cnt1 and cnt2 are independent clusters that merely share the wildcard pool. Inside one cluster, maximum cross-group pairs = min(total/2, total - largestGroup) with largestGroup = max(max cnt[c], wildcards given). The combined score is non-concave in the split (floor in total/2), so scan all i = 0..both wildcard splits and take the best. O(n) time meets the read lower bound and O(1) fixed counters is the memory floor, so the single solution is Pareto-optimal.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) extra"
+}
