@@ -1,0 +1,35 @@
+{
+  "id": "3635",
+  "title": "Earliest Finish Time for Land and Water Rides II",
+  "slug": "earliest-finish-time-for-land-and-water-rides-ii",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3635-earliest-finish-time-for-land-and-water-rides-ii",
+  "url": "https://leetcode.com/problems/earliest-finish-time-for-land-and-water-rides-ii/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Binary Search", "Sorting", "Enumeration"],
+  "patterns": ["greedy", "enumeration"],
+  "status": "solved",
+  "dateSolved": "2026-06-04",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3635-earliest-finish-time-for-land-and-water-rides-ii/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "Native, GC-free int arithmetic over vector<int>; pure min/max/+ workload needs no containers, so C++ ties C on speed and sits at the O(1)-extra memory floor while staying readable. Top 1% on both axes.",
+      "approachJustification": "Monotonicity insight: for each order, the best first ride is the one with the minimum finish time, so two independent linear scans per order replace the O(n*m) pairing. Also serves as the speed and memory extreme.",
+      "timeComplexity": "O(n + m)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Rides are from different categories, so the first and second picks are independent. For a fixed order and fixed second ride, total finish max(firstFinish, secondStart)+secondDuration is non-decreasing in firstFinish, so only the minimum-finish first ride matters. Precompute bestLandFinish and bestWaterFinish, scan the opposite list once per order, take the min over both orders. Linear time and O(1) space dominate the hinted sort+binary-search approach, making this Pareto-optimal.",
+  "timeComplexity": "O(n + m)",
+  "spaceComplexity": "O(1) extra"
+}
