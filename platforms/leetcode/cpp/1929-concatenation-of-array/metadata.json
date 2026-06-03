@@ -1,0 +1,35 @@
+{
+  "id": "1929",
+  "title": "Concatenation of Array",
+  "slug": "concatenation-of-array",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/1929-concatenation-of-array",
+  "url": "https://leetcode.com/problems/concatenation-of-array/",
+  "difficulty": "Easy",
+  "topics": ["Array", "Simulation"],
+  "patterns": ["array-construction", "bulk-copy"],
+  "status": "solved",
+  "dateSolved": "2026-06-04",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/1929-concatenation-of-array/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file. A C malloc+memcpy version does identical machine work (output-dominated footprint), so it is not a distinct memory champion.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "Task is pure contiguous int copying. reserve(2n) gives one exact-size allocation (no reallocation), vector::insert from contiguous iterators lowers to memmove (one bulk copy per half), and vector<int> is the native return type (NRVO/move, no buffer copy). C ties on the memcpy hot path and is leaner only by a vector header, but the footprint is dominated by the mandatory 2n-int output, so the axes coincide and the readable native C++ proposal carries the single file. Top 1% on both axes.",
+      "approachJustification": "ans[i]==nums[i] and ans[i+n]==nums[i] is exactly nums concatenated with itself. Size the output once at 2n and bulk-copy nums twice, avoiding reallocation, zero-fill, and per-element push_back overhead. Also serves as the speed and memory extreme.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary (output is 2n ints)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Return nums concatenated with itself. The 2n-int output must be fully written (Omega(n) lower bound) and needs no auxiliary structure, so the problem is Pareto-optimal. reserve(2n) allocates the exact final size once and two bulk inserts (memmove for trivially copyable int) fill it, beating push_back loops (reallocations + per-element checks), copy-construct-then-append (extra reallocation), and vector(2n)-then-overwrite (redundant zero-fill). O(n) time and O(1) auxiliary space are both optimal, so a single file ships.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) auxiliary (output is 2n ints)"
+}
