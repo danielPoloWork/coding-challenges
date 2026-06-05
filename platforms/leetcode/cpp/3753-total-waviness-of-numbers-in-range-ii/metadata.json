@@ -1,0 +1,35 @@
+{
+  "id": "3753",
+  "title": "Total Waviness of Numbers in Range II",
+  "slug": "total-waviness-of-numbers-in-range-ii",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3753-total-waviness-of-numbers-in-range-ii",
+  "url": "https://leetcode.com/problems/total-waviness-of-numbers-in-range-ii/",
+  "difficulty": "Hard",
+  "topics": ["Math", "Dynamic Programming"],
+  "patterns": ["digit-dp", "prefix-sum", "state-compression"],
+  "status": "solved",
+  "dateSolved": "2026-06-05",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3753-total-waviness-of-numbers-in-range-ii/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The problem needs branch-heavy fixed-state digit DP over at most 16 decimal digits and 64-bit accumulation. Native C++ avoids interpreter and GC overhead, stores the memo table in compile-time arrays, and performs the two prefix computations with no heap allocation, making it the fastest practical and memory-conscious choice among the allowed languages.",
+      "approachJustification": "Compute f(n), the total waviness over numbers <= n, with digit DP. The state tracks position, meaningful digit count capped at two, previous digit, and last comparison sign. Each transition returns both suffix count and suffix waviness, so a newly detected sign flip contributes to every suffix completion at once. The range answer is f(num2) - f(num1 - 1). This also serves as the speed and memory extreme.",
+      "timeComplexity": "O(D), D <= 16",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Transform the interval into two prefix sums. While building numbers digit by digit, a peak or valley is created exactly when the adjacent comparison sign flips between +1 and -1. Leading zeroes stay outside the number, equal comparisons produce no wave, and the DP returns both total waves and number of suffix completions so each new wave is counted in bulk. The state is compressed from the hinted last-two-digits form to previous digit plus comparison sign.",
+  "timeComplexity": "O(D), D <= 16",
+  "spaceComplexity": "O(1) extra"
+}
