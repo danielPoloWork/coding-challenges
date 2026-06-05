@@ -1,0 +1,52 @@
+{
+  "id": "3743",
+  "title": "Maximize Cyclic Partition Score",
+  "slug": "maximize-cyclic-partition-score",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3743-maximize-cyclic-partition-score",
+  "url": "https://leetcode.com/problems/maximize-cyclic-partition-score/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Dynamic Programming"],
+  "patterns": ["cyclic-array", "state-compression", "signed-extremes", "partition-dp"],
+  "status": "solved",
+  "dateSolved": "2026-06-06",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3743-maximize-cyclic-partition-score/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals for this challenge. All three variants are in this folder because C++ is the best fit for the runtime and memory trade-offs of this compact DP.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ provides native 64-bit arithmetic, contiguous DP storage, no garbage-collector overhead, and direct LeetCode vector ergonomics. For n,k <= 1000, the O(nk) loop is dominated by tiny state transitions, which C++ handles with low branch and allocation overhead.",
+      "approachJustification": "Use a 9-state dynamic program over completed max/min pairs and cyclic start states. It counts completed non-zero segments instead of all 2k individual picks, updates in place with descending pair counts, and returns only states that end in their starting cyclic balance.",
+      "timeComplexity": "O(nk)",
+      "spaceComplexity": "O(k)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "The fixed-size stack table and manually unrolled transitions exploit the small known state space and LeetCode's C++ optimizer, minimizing heap/container overhead in the O(nk) hot loop.",
+      "approachJustification": "Same signed-extreme DP as the recommended solution, but stored as long long dp[1001][9] with unrolled transitions for the three cyclic starts.",
+      "timeComplexity": "O(nk)",
+      "spaceComplexity": "O(k)"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "Running one cyclic start at a time keeps the active table to 3 * (k + 1) long long values while retaining native C++ arithmetic and compact vector storage.",
+      "approachJustification": "Execute the same DP separately for start states 0, 1, and 2, keeping only current-state balance per completed-pair count and taking the best matching final state.",
+      "timeComplexity": "O(nk)",
+      "spaceComplexity": "O(k)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Represent each non-zero partition segment by one signed max/min pair. The scan needs only three balance states: no open extreme, open minimum, or open maximum. Cyclic wraparound is captured by starting in any of the three states and requiring the final state to match. Counting completed pairs directly limits the DP to k rather than 2k picks.",
+  "timeComplexity": "O(nk)",
+  "spaceComplexity": "O(k)"
+}
