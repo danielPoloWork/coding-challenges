@@ -1,0 +1,52 @@
+{
+  "id": "3518",
+  "title": "Smallest Palindromic Rearrangement II",
+  "slug": "smallest-palindromic-rearrangement-ii",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3518-smallest-palindromic-rearrangement-ii",
+  "url": "https://leetcode.com/problems/smallest-palindromic-rearrangement-ii/",
+  "difficulty": "Hard",
+  "topics": ["String", "Math", "Combinatorics", "Greedy"],
+  "patterns": ["kth-permutation", "multiset-permutation", "palindrome", "capped-combinatorics"],
+  "status": "solved",
+  "dateSolved": "2026-06-06",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3518-smallest-palindromic-rearrangement-ii/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals for this challenge. All variants are in this folder because native integer combinatorics and fixed arrays are the best fit for this k-th multiset permutation workload.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ provides low-overhead fixed arrays, inlined capped-combinatorics helpers, and cheap string construction; this keeps the greedy multiset-permutation solution fast while using only a compact binomial table.",
+      "approachJustification": "Build only the left half. Try letters lexicographically and count the remaining half permutations with capped multinomial products from a compact C(n,r) table.",
+      "timeComplexity": "O(A^2 * m + R * m), effectively O(n) for A=26 and R=32",
+      "spaceComplexity": "O(R * m + n)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "C++ 64-bit arithmetic and fixed alphabet loops make the multinomial block-ratio method branch-light and allocation-minimal, which is ideal for top runtime on n <= 1e4.",
+      "approachJustification": "Compute one exact-enough current multinomial count per position, then derive candidate block sizes by total * count[c] / remaining instead of recounting each tentative branch.",
+      "timeComplexity": "O(A * m + R * m), effectively O(n) for A=26 and R=32",
+      "spaceComplexity": "O(R * m + n)"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "C++ keeps the minimum-footprint variant in scalar arithmetic and a 26-slot count array; no VM, GC, hash table, or large combinatorics table is needed.",
+      "approachJustification": "Use the same deterministic block-ratio greedy as the runtime variant, but compute capped binomial values on demand with at most 32 multiplicative steps.",
+      "timeComplexity": "O(A * R * m + A * m), effectively O(n) for fixed A=26 and R=32",
+      "spaceComplexity": "O(n), with O(1) auxiliary state beyond returned strings"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Distinct palindromic rearrangements correspond exactly to distinct permutations of the half-count multiset. A lexicographic greedy kth-permutation construction chooses each left-half character by counting the size of the block it would create. Counts are saturated at k or k * remaining, avoiding overflow and big integers.",
+  "timeComplexity": "O(n) effective for all variants under fixed alphabet and capped binomial width",
+  "spaceComplexity": "O(R * m + n) recommended/runtime, O(n) memory"
+}
