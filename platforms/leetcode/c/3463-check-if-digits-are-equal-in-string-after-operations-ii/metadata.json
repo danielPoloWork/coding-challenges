@@ -1,0 +1,51 @@
+{
+  "id": "3463",
+  "title": "Check If Digits Are Equal in String After Operations II",
+  "slug": "check-if-digits-are-equal-in-string-after-operations-ii",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/3463-check-if-digits-are-equal-in-string-after-operations-ii",
+  "url": "https://leetcode.com/problems/check-if-digits-are-equal-in-string-after-operations-ii/",
+  "difficulty": "Hard",
+  "topics": ["Math", "String", "Combinatorics", "Number Theory"],
+  "patterns": ["binomial-transform", "lucas-theorem", "crt"],
+  "status": "solved",
+  "dateSolved": "2026-06-06",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3463-check-if-digits-are-equal-in-string-after-operations-ii/solution.cpp",
+  "recommendedSolution": "solution-memory.c",
+  "note": "C proposal for this challenge: the minimum-memory champion. Recommended and speed proposals are in C++ (see crossReferences).",
+  "variants": [
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "C has the smallest runtime/stdlib baseline among the allowed languages and works directly with char* input; Lucas/CRT avoids dynamic allocation entirely.",
+      "approachJustification": "Compute each binomial coefficient modulo 2 and 5 with Lucas theorem/bit parity, combine modulo 10 via CRT, and accumulate the weighted adjacent-difference sum.",
+      "timeComplexity": "O(n log_5 n)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3463-check-if-digits-are-equal-in-string-after-operations-ii",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3463-check-if-digits-are-equal-in-string-after-operations-ii",
+      "file": "solution-runtime.cpp",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)"
+    }
+  ],
+  "reasoningSummary": "The final two digits are Pascal-row weighted sums. The memory proposal computes each coefficient modulo 10 from Lucas residues modulo 2 and 5, avoiding all dynamic allocation.",
+  "timeComplexity": "O(n log_5 n)",
+  "spaceComplexity": "O(1) extra"
+}

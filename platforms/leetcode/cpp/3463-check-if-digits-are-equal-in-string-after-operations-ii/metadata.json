@@ -1,0 +1,52 @@
+{
+  "id": "3463",
+  "title": "Check If Digits Are Equal in String After Operations II",
+  "slug": "check-if-digits-are-equal-in-string-after-operations-ii",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3463-check-if-digits-are-equal-in-string-after-operations-ii",
+  "url": "https://leetcode.com/problems/check-if-digits-are-equal-in-string-after-operations-ii/",
+  "difficulty": "Hard",
+  "topics": ["Math", "String", "Combinatorics", "Number Theory"],
+  "patterns": ["binomial-transform", "modular-arithmetic", "factor-stripping"],
+  "status": "solved",
+  "dateSolved": "2026-06-06",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3463-check-if-digits-are-equal-in-string-after-operations-ii/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ performance proposals for this challenge. The minimum-footprint C Lucas/CRT variant is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ gives native scalar arithmetic, inlined helper functions, and no GC/interpreter overhead; the streamed coefficient recurrence is O(n), allocation-free, and ideal for n <= 1e5.",
+      "approachJustification": "Compute the final equality as one binomial weighted difference modulo 10, maintaining each coefficient with separate 2/5 factor counts and an invertible unit residue.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "C++ compact byte vectors and inlined loops make the factor precomputation cache-friendly; O(n) extra memory is acceptable for reducing repeated divisions in the coefficient loop.",
+      "approachJustification": "Precompute v2, v5, reduced unit residues, and inverse residues for all operands 1..n-2, then stream coefficients with array lookups.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/3463-check-if-digits-are-equal-in-string-after-operations-ii",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(n log_5 n)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "reasoningSummary": "The repeated adjacent-sum operation produces Pascal coefficients. Equality of the final digits is equivalent to one weighted adjacent-difference sum modulo 10. Because modulus 10 is composite, the C++ solutions stream coefficients by tracking powers of 2 and 5 separately from the invertible unit part.",
+  "timeComplexity": "O(n) recommended and runtime / O(n log_5 n) memory",
+  "spaceComplexity": "O(1) extra recommended / O(n) runtime / O(1) extra memory"
+}
