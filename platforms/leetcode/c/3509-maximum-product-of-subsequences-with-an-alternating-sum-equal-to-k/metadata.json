@@ -1,0 +1,43 @@
+{
+  "id": "3509",
+  "title": "Maximum Product of Subsequences With an Alternating Sum Equal to K",
+  "slug": "maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/3509-maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
+  "url": "https://leetcode.com/problems/maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Dynamic Programming", "Bit Manipulation"],
+  "patterns": ["subsequence-dp", "bitset-dp", "state-compression"],
+  "status": "solved",
+  "dateSolved": "2026-06-05",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3509-maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k/solution.cpp",
+  "recommendedSolution": "solution-memory.c",
+  "note": "C proposal for this challenge: the minimum-memory champion. The recommended and fastest-runtime proposal is in C++ (see crossReferences).",
+  "variants": [
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "C gives direct allocation of exact-width uint64_t bitsets and avoids C++ container/runtime overhead, minimizing the memory footprint for the product-row DP while preserving native execution.",
+      "approachJustification": "Use the same compressed product-indexed DP as the C++ champion, but size each alternating-sum bitset to exactly 2 * sum(nums) + 1 bits and implement shifts manually.",
+      "timeComplexity": "O(n * P * W), P <= 394",
+      "spaceComplexity": "O(P * W), exact-width dynamic bitsets"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced-and-fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3509-maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n * P * W)",
+      "spaceComplexity": "O(P * W)"
+    }
+  ],
+  "reasoningSummary": "The C variant keeps the same product/parity/sum DP but uses exact-width manual bitsets. It preserves the key compression facts: sum(nums) <= 1800 and products <= 5000 from factors 1..12 give at most 394 positive product rows.",
+  "timeComplexity": "O(n * P * W), P <= 394",
+  "spaceComplexity": "O(P * W), exact-width dynamic bitsets"
+}
