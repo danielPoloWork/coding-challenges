@@ -1,0 +1,35 @@
+{
+  "id": "3266",
+  "title": "Final Array State After K Multiplication Operations II",
+  "slug": "final-array-state-after-k-multiplication-operations-ii",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3266-final-array-state-after-k-multiplication-operations-ii",
+  "url": "https://leetcode.com/problems/final-array-state-after-k-multiplication-operations-ii/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Math", "Heap (Priority Queue)", "Simulation"],
+  "patterns": ["min-heap", "cycle-distribution", "modular-exponentiation", "tie-breaking"],
+  "status": "solved",
+  "dateSolved": "2026-06-05",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3266-final-array-state-after-k-multiplication-operations-ii/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single C++ solution is the recommended fast + lean proposal, the speed extreme, and the memory extreme. Separate solution-runtime or solution-memory files would be coincident, so they are intentionally omitted.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The workload is heap maintenance, sorting, and modular exponentiation over n <= 10000 with k up to 1e9. C++ gives native integer arithmetic, contiguous vector<uint64_t> storage, branch-light heap/sort operations, and no managed/interpreted overhead. Packing (value, index) into one key is valid because index < 2^14 and simulated values remain <= initialMax <= 1e9.",
+      "approachJustification": "Simulate the exact min-by-value-then-index operations only while min * multiplier <= initialMax. Once min * multiplier > initialMax, operations cycle through sorted (value, index) order; distribute remaining operations as full rounds plus leading extras and apply modular exponentiation.",
+      "timeComplexity": "O(n + s log n + n log n + log k), s <= n * ceil(log_multiplier(initialMax)) and <= about 30n for multiplier >= 2",
+      "spaceComplexity": "O(n) auxiliary packed heap"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The direct simulation prefix is short because every simulated update stays <= the initial maximum. When the minimum times multiplier exceeds that maximum, the multiplied item moves behind all unprocessed items, so the operation order becomes a repeated sorted (value, index) cycle. Remaining operations are distributed by quotient/remainder, and huge powers are handled modulo 1e9+7.",
+  "timeComplexity": "O(n + s log n + n log n + log k)",
+  "spaceComplexity": "O(n) auxiliary"
+}
