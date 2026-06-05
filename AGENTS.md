@@ -105,6 +105,31 @@ If a challenge already exists and is proposed again, solve it in a language not 
 
 Prefer clarity, traceability, and consistent naming over clever shortcuts.
 
+## Index maintenance
+
+Generated index files under `stats/` summarize the knowledge base and must stay in sync with the solutions:
+
+- `stats/index-overview.md` - global totals: challenges solved, source platforms, languages used, and catalogued patterns (counted as distinct topics across all platforms and languages).
+- `stats/index-{platform}.md` - per platform: total challenges solved, plus breakdowns per difficulty, per language, and per type (topic). One file per platform that has at least one solution.
+
+A challenge is one distinct `(platform, id)`; multi-language challenges count once everywhere except the per-language breakdown, where each language solution counts once.
+
+These files are produced by `scripts/gen_indexes.py`, which scans `platforms/**/metadata.json`. Never edit the generated index files by hand.
+
+After adding, re-solving, or changing any challenge (any platform, any language), regenerate the indexes before committing:
+
+```bash
+python scripts/gen_indexes.py
+```
+
+A versioned pre-commit hook runs this automatically and stages the result, so the indexes are always committed together with the solution. Enable it once per clone:
+
+```bash
+git config core.hooksPath scripts/hooks
+```
+
+The generator is deterministic: running it with no metadata changes leaves the files untouched.
+
 When replying about a solved challenge, use this response structure:
 
 1. Brief outcome.
