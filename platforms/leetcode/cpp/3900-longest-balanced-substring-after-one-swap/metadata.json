@@ -1,0 +1,52 @@
+{
+  "id": "3900",
+  "title": "Longest Balanced Substring After One Swap",
+  "slug": "longest-balanced-substring-after-one-swap",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3900-longest-balanced-substring-after-one-swap",
+  "url": "https://leetcode.com/problems/longest-balanced-substring-after-one-swap/",
+  "difficulty": "Medium",
+  "topics": ["String", "Hash Table", "Prefix Sum"],
+  "patterns": ["prefix-sum", "two-pointers", "balance-difference"],
+  "status": "solved",
+  "dateSolved": "2026-06-05",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3900-longest-balanced-substring-after-one-swap/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals for this challenge. All three variants are in this folder because C++ is the best fit for the runtime and memory trade-offs of this prefix-balance problem.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ provides contiguous arrays, low branch overhead, and no GC/runtime penalty; the prefix-bucket solution stays O(n) while keeping the code auditable and memory linear.",
+      "approachJustification": "Prefix-balance buckets over [-n, n], same-balance windows for no swap, and monotone per-bucket pointers for +2/-2 repairable windows under outside-character length caps.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "Flat integer arrays and inline helper functions minimize allocation and lookup overhead on LeetCode's C++ runner, which is ideal for a branch-light linear scan.",
+      "approachJustification": "Intrusive per-balance queues with lazy expiration; each prefix index is pushed and expired at most once per repair direction.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "A single vector of prefix pairs sorted in place keeps auxiliary memory compact while retaining C++'s inlined sort and low runtime overhead.",
+      "approachJustification": "Sort prefix (balance, index) pairs, process equal-balance groups for balanced windows, and process balance-difference-2 groups with two pointers for one-swap repair caps.",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(n)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "One useful swap changes a chosen window's #1-#0 balance by exactly 2, so only balances 0, +2, and -2 matter. Prefix balances find these windows; outside-character availability reduces to length caps of 2*total0 or 2*total1.",
+  "timeComplexity": "O(n) recommended and runtime / O(n log n) memory",
+  "spaceComplexity": "O(n)"
+}
