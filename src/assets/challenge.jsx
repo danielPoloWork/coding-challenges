@@ -94,6 +94,29 @@ function EmptyState({ icon = "file", kicker, title, message, compact }) {
   );
 }
 
+/* Catches render errors from a tab (e.g. malformed/missing metadata fields) and
+   shows a message instead of letting the exception blank the whole page. Keyed by
+   the active view so switching tabs always retries with a clean slate. */
+class ViewErrorBoundary extends React.Component {
+  constructor(props) { super(props); this.state = { error: null }; }
+  static getDerivedStateFromError(error) { return { error }; }
+  componentDidCatch(error, info) { console.error("Challenge view failed to render:", error, info); }
+  render() {
+    if (this.state.error) {
+      return (
+        <div className="cview-panel">
+          <EmptyState
+            kicker="couldn’t render"
+            title="This content couldn’t be displayed."
+            message={<>Some data for this challenge is missing or malformed in the repository, so it couldn’t be rendered. <span className="mono">{String(this.state.error && this.state.error.message || this.state.error)}</span></>}
+          />
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
 /* ---------- syntax highlighting (highlight.js, themed via .sol-code .hljs-* in CSS) ---------- */
 const HLJS_LANG = {
   "C++": "cpp", "C": "c", "C#": "csharp",
@@ -203,7 +226,11 @@ function ChallengePage() {
             <a className="btn btn-ghost" href="index.html" style={{ marginTop: 22 }}><Icon name="arrow" size={15} /> Back home</a>
           </div>
         )}
-        {!state.loading && state.meta && <ChallengeBody {...state} theme={theme} active={active} setActive={setActive} />}
+        {!state.loading && state.meta && (
+          <ViewErrorBoundary>
+            <ChallengeBody {...state} theme={theme} active={active} setActive={setActive} />
+          </ViewErrorBoundary>
+        )}
       </main>
     </React.Fragment>
   );
@@ -422,21 +449,76 @@ function ComplexityView({ complexity, variants }) {
   );
 }
 
+/* cross-references may be plain strings (legacy) or rich objects pointing at a
+   sibling solution: { role, language, path, file, timeComplexity, spaceComplexity } */
+function normXref(x) {
+  if (typeof x === "string") return { label: x };
+  if (x && typeof x === "object") {
+    return {
+      label: x.file || x.path || roleLabel(x.role) || "reference",
+      lang: x.language, role: x.role,
+      time: x.timeComplexity, space: x.spaceComplexity,
+      href: x.path ? `src/challenge.html?path=${x.path}` : null,
+    };
+  }
+  return { label: String(x) };
+}
+
 function ReasoningView({ meta }) {
-  const refs = meta.crossReferences && meta.crossReferences.length ? meta.crossReferences : (meta.patterns || []).map((p) => "patterns/" + p);
+  const xrefs = (meta.crossReferences || []).filter(Boolean);
+  const patterns = (meta.patterns || []).filter(Boolean);
+
+  if (isBlank(meta.reasoningSummary) && !xrefs.length && !patterns.length) {
+    return (
+      <div className="cview-panel">
+        <EmptyState
+          kicker="reasoning missing"
+          title="No reasoning recorded yet."
+          message={<>This challenge&rsquo;s <code className="mono">metadata.json</code> has no reasoning summary, cross-references, or patterns to show here.</>}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="cview-panel">
-      {meta.reasoningSummary && (
+      {!isBlank(meta.reasoningSummary) && (
         <div className="reason-hero">
           <div className="csection-label">reasoning summary</div>
           <p className="serif">{meta.reasoningSummary}</p>
         </div>
       )}
-      {!!refs.length && (
-        <div className="cblock" style={{ marginTop: meta.reasoningSummary ? 40 : 0 }}>
-          <div className="csection-label">patterns &amp; cross-references</div>
+      {!!xrefs.length && (
+        <div className="cblock" style={{ marginTop: isBlank(meta.reasoningSummary) ? 0 : 40 }}>
+          <div className="csection-label">cross-references</div>
+          <div className="xref-grid">
+            {xrefs.map((x, i) => {
+              const r = normXref(x);
+              const Tag = r.href ? "a" : "div";
+              return (
+                <Tag key={i} className="xref" {...(r.href ? { href: r.href } : {})}>
+                  <div className="xref-top">
+                    {r.lang && <span className="d" style={{ background: window.CCX.langColor(r.lang) }} />}
+                    <span className="xref-file mono">{r.label}</span>
+                    {r.role && <span className="xref-role">{roleLabel(r.role)}</span>}
+                  </div>
+                  {(r.time || r.space) && (
+                    <div className="xref-cx">
+                      {r.time && <span>Time <b>{r.time}</b></span>}
+                      {r.space && <span>Space <b>{r.space}</b></span>}
+                    </div>
+                  )}
+                </Tag>
+              );
+            })}
+          </div>
+        </div>
+      )}
+      {!!patterns.length && (
+        <div className="cblock" style={{ marginTop: (isBlank(meta.reasoningSummary) && !xrefs.length) ? 0 : 40 }}>
+          <div className="csection-label">patterns</div>
           <div className="pat-cloud">
-            {refs.map((x) => <span className="pat" key={x}>{x}</span>)}
+            {patterns.map((p) => <span className="pat" key={p}>{p}</span>)}
           </div>
         </div>
       )}
@@ -556,11 +638,13 @@ function ChallengeBody({ meta, notes, complexity, variants, active, setActive, t
 
       <ViewTabs views={views} view={view} setView={setView} />
 
-      {view === "solution" && <SolutionView meta={meta} variants={variants} active={active} setActive={setActive} />}
-      {view === "notes" && <NotesView notes={notes} />}
-      {view === "complexity" && <ComplexityView complexity={complexity} variants={variants} />}
-      {view === "reasoning" && hasReasoning && <ReasoningView meta={meta} />}
-      {view === "discuss" && <DiscussView meta={meta} theme={theme} />}
+      <ViewErrorBoundary key={view}>
+        {view === "solution" && <SolutionView meta={meta} variants={variants} active={active} setActive={setActive} />}
+        {view === "notes" && <NotesView notes={notes} />}
+        {view === "complexity" && <ComplexityView complexity={complexity} variants={variants} />}
+        {view === "reasoning" && hasReasoning && <ReasoningView meta={meta} />}
+        {view === "discuss" && <DiscussView meta={meta} theme={theme} />}
+      </ViewErrorBoundary>
     </React.Fragment>
   );
 }

@@ -1037,3 +1037,21 @@ section { position: relative; }
   letter-spacing: -0.015em; color: var(--ink); margin-top: 4px; text-wrap: pretty;
 }
 .reason-hero p::first-letter { color: var(--clay); }
+
+/* cross-reference cards — sibling solutions of the same problem */
+.xref-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(236px, 1fr)); gap: 12px; }
+.xref {
+  display: block; text-decoration: none; color: var(--ink);
+  padding: 14px 16px; border: 1px solid var(--hairline); border-radius: var(--r-md);
+  background: var(--surface); transition: border-color 0.25s, transform 0.3s var(--ease), box-shadow 0.3s;
+}
+a.xref:hover { border-color: var(--clay); transform: translateY(-2px); box-shadow: var(--shadow); }
+.xref-top { display: flex; align-items: center; gap: 9px; }
+.xref-top .d { width: 9px; height: 9px; border-radius: 2px; flex: none; }
+.xref-file { font-size: 13.5px; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.xref-role {
+  margin-left: auto; flex: none; font-family: var(--mono); font-size: 10px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3);
+}
+.xref-cx { display: flex; gap: 16px; margin-top: 11px; font-family: var(--mono); font-size: 12px; color: var(--ink-3); }
+.xref-cx b { color: var(--ink-2); font-weight: 600; }
