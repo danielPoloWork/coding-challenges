@@ -37,19 +37,22 @@ Solve each challenge with the explicit goal of reaching the top 1% of accepted s
 
 Supported platform directories (see `platforms/README.md` for the catalog):
 
-- `platforms/leetcode/`
-- `platforms/hackerrank/`
-- `platforms/codewars/`
-- `platforms/codesignal/`
 - `platforms/algocademy/`
-- `platforms/topcoder/`
-- `platforms/exercism/`
-- `platforms/pramp/`
-- `platforms/interview-cake/`
-- `platforms/codility/`
-- `platforms/stratascratch/`
+- `platforms/checkio/`
 - `platforms/codechef/`
+- `platforms/codesignal/`
+- `platforms/codewars/`
+- `platforms/codility/`
+- `platforms/coding-games/`
+- `platforms/exercism/`
+- `platforms/hackerrank/`
+- `platforms/interview-cake/`
+- `platforms/leetcode/`
+- `platforms/master-coding/`
+- `platforms/pramp/`
 - `platforms/project-euler/`
+- `platforms/stratascratch/`
+- `platforms/topcoder/`
 
 If a new platform is needed, create `platforms/{new-platform}/` first, then place the challenge inside it.
 
@@ -61,25 +64,24 @@ Never state or imply that this repository requires C#, Java, Python, or any othe
 
 Allowed languages:
 
-- C++
-- Java
-- Python3
-- Python
-- JavaScript
-- TypeScript
-- C#
 - C
+- C#
+- C++
+- Css
 - Go
-- Kotlin
-- Swift
-- Rust
-- Ruby
+- Html
+- Java
+- JavaScript
+- Json
 - PHP
-- Dart
-- Scala
-- Elixir
-- Erlang
-- Racket
+- Python
+- Python3
+- Rust
+- SQL
+- Shell
+- TypeScript
+- Unity
+- Yaml
 
 Language selection rule:
 

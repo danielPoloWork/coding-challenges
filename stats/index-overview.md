@@ -5,7 +5,7 @@
 | Metric | Value |
 | --- | ---: |
 | Total challenges solved | 12 |
-| Total source platforms | 1 (of 13 catalogued) |
+| Total source platforms | 1 (of 16 catalogued) |
 | Total languages used | 2 |
 | Total catalogued patterns | 18 |
 
