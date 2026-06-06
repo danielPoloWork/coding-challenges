@@ -104,3 +104,25 @@ main .gsc-loading-image {
 .gsc-comment:not(.gsc-reply-box) .gsc-replies {
   border-radius: unset;
 }
+
+/* Sign-in / comment action button → match the site's pill buttons
+   (.btn-primary on the index: pill shape, ink fill, paper text, clay on hover).
+   The GitHub icon already carries its own mr-2 spacing, so no gap is set. */
+.gsc-comment-box-buttons .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 12px 20px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.2;
+  background-color: #1a1916;
+  border-color: transparent;
+  color: #faf9f5;
+  box-shadow: none;
+}
+.gsc-comment-box-buttons .btn-primary:hover {
+  background-color: #c15f3c;
+  border-color: transparent;
+  color: #faf9f5;
+}
