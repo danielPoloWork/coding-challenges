@@ -1,0 +1,52 @@
+{
+  "id": "3348",
+  "title": "Smallest Divisible Digit Product II",
+  "slug": "smallest-divisible-digit-product-ii",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3348-smallest-divisible-digit-product-ii",
+  "url": "https://leetcode.com/problems/smallest-divisible-digit-product-ii/",
+  "difficulty": "Hard",
+  "topics": ["String", "Math", "Greedy", "Number Theory"],
+  "patterns": ["digit-dp", "rightmost-pivot-greedy", "prime-factor-deficits", "lexicographic-construction"],
+  "status": "solved",
+  "dateSolved": "2026-06-06",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3348-smallest-divisible-digit-product-ii/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals for this challenge. All variants are in this folder because the workload is a long string scan plus fixed-size integer deficit arithmetic, where native arrays and string construction have the best performance profile.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ gives contiguous strings, fixed integer arrays, and no runtime or GC overhead for the O(n) right-to-left pivot scan on num.length <= 2e5. A tiny 2D feasibility table keeps repeated checks branch-light without meaningful memory cost.",
+      "approachJustification": "Factor t into required exponents of 2, 3, 5, and 7; scan for the rightmost digit that can be increased; use exact minimum-suffix feasibility from a compact 2/3 table plus direct 5/7 counts.",
+      "timeComplexity": "O(n + E2 * E3 + L), effectively O(n)",
+      "spaceComplexity": "O(E2 * E3 + L)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "C++ can afford a compact precomputed residual-state graph in contiguous memory, turning every candidate digit in the scan into table lookups and minimizing inner-loop arithmetic.",
+      "approachJustification": "Precompute minimum lengths and digit transitions for every residual exponent state, then use the same rightmost-pivot greedy with state-index transitions.",
+      "timeComplexity": "O(n + S + L), effectively O(n)",
+      "spaceComplexity": "O(10 * S + L)"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "C++ scalar arithmetic and mutable strings allow the no-table variant to keep only four target exponents, four rolling prefix counts, and the output buffer.",
+      "approachJustification": "Use the same greedy search, but compute the exact minimum number of 2/3-covering digits on demand by trying only 0..5 copies of digit 6.",
+      "timeComplexity": "O(n + L), with a small constant from at most six arithmetic trials per feasibility check",
+      "spaceComplexity": "O(L), O(1) auxiliary beyond the returned string"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "A zero-free digit product can only contain prime factors 2, 3, 5, and 7. Once t is converted to exponent deficits, the smallest valid number is obtained by preserving the longest possible prefix, increasing one digit, and greedily building the smallest suffix whose digits cover the remaining deficits.",
+  "timeComplexity": "O(n) effective for all variants after bounded exponent preprocessing",
+  "spaceComplexity": "O(E2 * E3 + L) recommended, O(10 * S + L) runtime, O(L) memory"
+}
