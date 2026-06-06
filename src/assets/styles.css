@@ -868,9 +868,9 @@ section { position: relative; }
 /* segmented view switcher */
 .cviews {
   display: flex; gap: 4px; margin-top: 40px; padding: 5px;
-  border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface-2);
+  /*border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface-2);*/
   width: max-content; max-width: 100%; flex-wrap: wrap;
-  position: sticky; top: 72px; z-index: 5; box-shadow: var(--shadow);
+  position: top: 72px; z-index: 5; box-shadow: var(--shadow);
 }
 .cview-tab {
   display: inline-flex; align-items: center; gap: 9px; cursor: pointer;
