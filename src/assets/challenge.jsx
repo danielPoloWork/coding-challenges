@@ -78,6 +78,22 @@ const ROLE_LABEL = {
 };
 const roleLabel = (r) => ROLE_LABEL[r] || (r || "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
+/* a file/text is "missing" if it never loaded or holds nothing but whitespace */
+const isBlank = (s) => !s || !String(s).trim();
+
+/* Emphatic placeholder shown by any file-backed tab when its source is absent.
+   Keeps the tab clickable (and the workspace intact) instead of rendering blank. */
+function EmptyState({ icon = "file", kicker, title, message, compact }) {
+  return (
+    <div className={"cempty" + (compact ? " cempty-compact" : "")}>
+      <span className="cempty-mark"><Icon name={icon} size={compact ? 20 : 24} /></span>
+      {kicker && <div className="cempty-kick">{kicker}</div>}
+      <h3 className="cempty-title serif">{title}</h3>
+      {message && <p className="cempty-msg">{message}</p>}
+    </div>
+  );
+}
+
 /* ---------- syntax highlighting (highlight.js, themed via .sol-code .hljs-* in CSS) ---------- */
 const HLJS_LANG = {
   "C++": "cpp", "C": "c", "C#": "csharp",
@@ -156,7 +172,7 @@ function ChallengePage() {
           fetch(`${base}/complexity.md`).then((r) => (r.ok ? r.text() : "")),
         ]);
         const variants = await Promise.all((meta.variants || []).map(async (v) => {
-          const code = await fetch(`${base}/${v.file}`).then((r) => (r.ok ? r.text() : "// (file not found)"));
+          const code = await fetch(`${base}/${v.file}`).then((r) => (r.ok ? r.text() : null));
           return { ...v, code };
         }));
         if (alive) setState({ loading: false, meta, notes, complexity, variants, base });
@@ -234,6 +250,17 @@ function ViewTabs({ views, view, setView }) {
 }
 
 function SolutionView({ meta, variants, active, setActive }) {
+  if (!variants.length) {
+    return (
+      <div className="cview-panel">
+        <EmptyState
+          kicker="no solution files"
+          title="No solutions in the repository yet."
+          message={<>This challenge&rsquo;s <code className="mono">metadata.json</code> declares no proposals. Add the solution sources and regenerate the manifest — they&rsquo;ll appear here automatically.</>}
+        />
+      </div>
+    );
+  }
   const v = variants[active] || variants[0] || {};
   return (
     <div className="cview-panel">
@@ -250,7 +277,16 @@ function SolutionView({ meta, variants, active, setActive }) {
             </div>
           ))}
         </div>
-        <div className="sol-body"><CodeBlock code={v.code} language={v.language} /></div>
+        <div className="sol-body">
+          {isBlank(v.code)
+            ? <EmptyState
+                compact
+                kicker="file not found"
+                title={<>Couldn&rsquo;t load <span className="mono">{v.file}</span></>}
+                message={<>This proposal is listed in <code className="mono">metadata.json</code>, but its source file is missing from the challenge folder.</>}
+              />
+            : <CodeBlock code={v.code} language={v.language} />}
+        </div>
       </div>
 
       <div className="sol-rationale">
@@ -284,7 +320,15 @@ function NotesView({ notes }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [page, total]);
 
-  if (!total) return <div className="cview-panel"><div className="md">No notes.</div></div>;
+  if (!total) return (
+    <div className="cview-panel">
+      <EmptyState
+        kicker="notes.md missing"
+        title="No write-up for this challenge yet."
+        message={<>There&rsquo;s no <code className="mono">notes.md</code> (or it&rsquo;s empty) in this folder. Add one and it&rsquo;ll render here as a paginated reader.</>}
+      />
+    </div>
+  );
   const cur = sections[page];
 
   return (
@@ -335,26 +379,43 @@ function NotesView({ notes }) {
 }
 
 function ComplexityView({ complexity, variants }) {
+  if (isBlank(complexity) && !variants.length) {
+    return (
+      <div className="cview-panel">
+        <EmptyState
+          kicker="complexity.md missing"
+          title="No complexity analysis yet."
+          message={<>This challenge has no <code className="mono">complexity.md</code> and no proposals to compare. Add the file and regenerate the manifest to see the breakdown here.</>}
+        />
+      </div>
+    );
+  }
   return (
     <div className="cview-panel">
       <div className="cgrid2">
         <div>
           <div className="csection-label">comparison</div>
-          <div className="ctable">
-            <div className="ctable-row ctable-head"><div>Proposal</div><div>Time</div><div>Space</div><div>Goal</div></div>
-            {variants.map((pr) => (
-              <div className="ctable-row" key={pr.file}>
-                <div className="nm"><span className="d" style={{ background: window.CCX.langColor(pr.language) }} />{pr.file}</div>
-                <div className="cx">{pr.timeComplexity}</div>
-                <div className="cx">{pr.spaceComplexity}</div>
-                <div className="gl">{roleLabel(pr.role)}</div>
-              </div>
-            ))}
-          </div>
+          {variants.length ? (
+            <div className="ctable">
+              <div className="ctable-row ctable-head"><div>Proposal</div><div>Time</div><div>Space</div><div>Goal</div></div>
+              {variants.map((pr) => (
+                <div className="ctable-row" key={pr.file}>
+                  <div className="nm"><span className="d" style={{ background: window.CCX.langColor(pr.language) }} />{pr.file}</div>
+                  <div className="cx">{pr.timeComplexity}</div>
+                  <div className="cx">{pr.spaceComplexity}</div>
+                  <div className="gl">{roleLabel(pr.role)}</div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <EmptyState compact kicker="no proposals" title="Nothing to compare." message="No solution files are listed for this challenge." />
+          )}
         </div>
         <div>
           <div className="csection-label">complexity.md</div>
-          <div className="md md-compact" dangerouslySetInnerHTML={{ __html: parseMarkdown(complexity) }} />
+          {isBlank(complexity)
+            ? <EmptyState compact kicker="complexity.md missing" title="No write-up yet." message={<>Add a <code className="mono">complexity.md</code> to walk through the trade-offs here.</>} />
+            : <div className="md md-compact" dangerouslySetInnerHTML={{ __html: parseMarkdown(complexity) }} />}
         </div>
       </div>
     </div>
@@ -467,8 +528,8 @@ function ChallengeBody({ meta, notes, complexity, variants, active, setActive, t
   const views = [
     { id: "solution", label: "Solution", n: variants.length },
     { id: "notes", label: "Notes" },
+    { id: "complexity", label: "Complexity" },
   ];
-  if (complexity) views.push({ id: "complexity", label: "Complexity" });
   if (hasReasoning) views.push({ id: "reasoning", label: "Reasoning" });
   views.push({ id: "discuss", label: "Discuss" });
 
@@ -497,7 +558,7 @@ function ChallengeBody({ meta, notes, complexity, variants, active, setActive, t
 
       {view === "solution" && <SolutionView meta={meta} variants={variants} active={active} setActive={setActive} />}
       {view === "notes" && <NotesView notes={notes} />}
-      {view === "complexity" && complexity && <ComplexityView complexity={complexity} variants={variants} />}
+      {view === "complexity" && <ComplexityView complexity={complexity} variants={variants} />}
       {view === "reasoning" && hasReasoning && <ReasoningView meta={meta} />}
       {view === "discuss" && <DiscussView meta={meta} theme={theme} />}
     </React.Fragment>
