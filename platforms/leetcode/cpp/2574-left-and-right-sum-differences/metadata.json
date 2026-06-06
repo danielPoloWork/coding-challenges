@@ -1,0 +1,35 @@
+{
+  "id": "2574",
+  "title": "Left and Right Sum Differences",
+  "slug": "left-and-right-sum-differences",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/2574-left-and-right-sum-differences",
+  "url": "https://leetcode.com/problems/left-and-right-sum-differences/",
+  "difficulty": "Easy",
+  "topics": ["Array", "Prefix Sum"],
+  "patterns": ["prefix-sum", "running-sum"],
+  "status": "solved",
+  "dateSolved": "2026-06-06",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/2574-left-and-right-sum-differences/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The problem is a tiny arithmetic-only linear scan over contiguous arrays. Native C++ avoids interpreter and GC overhead, uses vector<int> directly in the LeetCode signature, and keeps the required output allocation compact.",
+      "approachJustification": "Compute the total sum once, then scan left to right. Subtract the current value from the remaining right sum, write abs(left - right), and add the current value to the left sum. This also serves as the speed and memory extreme.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary, O(n) output"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The total sum lets rightSum[i] be maintained as the remaining total after removing nums[i], while a running left sum tracks all prior elements. This avoids the hinted leftSum/rightSum arrays and reaches the linear output lower bound with constant auxiliary memory.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) auxiliary, O(n) output"
+}
