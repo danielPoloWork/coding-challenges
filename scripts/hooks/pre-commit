@@ -1,6 +1,9 @@
 #!/bin/sh
-# Regenerate the stats index files before every commit so they always reflect
-# the current set of solved challenges.
+# Regenerate the generated index/manifest files before every commit so they
+# always reflect the current set of solved challenges:
+#   - stats/index-*.md        (Python, scripts/gen_indexes.py)
+#   - platforms/manifest.json (Node,   src/scripts/build-manifest.mjs) — the
+#     index the website fetches at runtime.
 #
 # Enable once per clone with:
 #     git config core.hooksPath scripts/hooks
@@ -17,13 +20,23 @@ if command -v python >/dev/null 2>&1; then
 elif command -v py >/dev/null 2>&1; then
     PY=py
 else
+    PY=
     echo "pre-commit: no Python interpreter found; skipping index regeneration" >&2
-    exit 0
 fi
 
-"$PY" "$repo_root/scripts/gen_indexes.py"
+if [ -n "$PY" ]; then
+    "$PY" "$repo_root/scripts/gen_indexes.py"
+    # Stage any (re)generated index files so they ride along with this commit.
+    git add "$repo_root/stats/"index-*.md 2>/dev/null || true
+fi
 
-# Stage any (re)generated index files so they ride along with this commit.
-git add "$repo_root/stats/"index-*.md 2>/dev/null || true
+# Regenerate the website manifest (Node 18+). A missing Node interpreter is
+# non-fatal; a generator error blocks the commit so malformed metadata is seen.
+if command -v node >/dev/null 2>&1; then
+    node "$repo_root/src/scripts/build-manifest.mjs"
+    git add "$repo_root/platforms/manifest.json" 2>/dev/null || true
+else
+    echo "pre-commit: no Node interpreter found; skipping manifest regeneration" >&2
+fi
 
 exit 0

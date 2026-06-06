@@ -1,0 +1,575 @@
+{
+  "generated": "2026-06-06",
+  "version": 1,
+  "platforms": [
+    {
+      "id": "leetcode",
+      "name": "LeetCode",
+      "abbr": "LC",
+      "color": "#f0972a",
+      "desc": "Interview-grade problem sets across data structures and algorithms."
+    },
+    {
+      "id": "hackerrank",
+      "name": "HackerRank",
+      "abbr": "HR",
+      "color": "#36b37e",
+      "desc": "Skill tracks, domain challenges and certification prep."
+    },
+    {
+      "id": "codewars",
+      "name": "Codewars",
+      "abbr": "KW",
+      "color": "#b1361e",
+      "desc": "Kata-based ranked practice with community solutions."
+    },
+    {
+      "id": "codesignal",
+      "name": "CodeSignal",
+      "abbr": "CS",
+      "color": "#1c2f6e",
+      "desc": "Assessment-style problems and arcade progressions."
+    },
+    {
+      "id": "algocademy",
+      "name": "AlgoCademy",
+      "abbr": "AC",
+      "color": "#6b4ee6",
+      "desc": "Guided algorithmic learning paths and reinforcement."
+    },
+    {
+      "id": "topcoder",
+      "name": "TopCoder",
+      "abbr": "TC",
+      "color": "#1f7ae0",
+      "desc": "Single-round-match competitive algorithm problems."
+    },
+    {
+      "id": "exercism",
+      "name": "Exercism",
+      "abbr": "EX",
+      "color": "#2e6c78",
+      "desc": "Mentored exercises with a focus on idiomatic code."
+    },
+    {
+      "id": "pramp",
+      "name": "Pramp",
+      "abbr": "PR",
+      "color": "#c0392b",
+      "desc": "Mock interview style problems and pairing drills."
+    },
+    {
+      "id": "interview-cake",
+      "name": "Interview Cake",
+      "abbr": "IC",
+      "color": "#e0517f",
+      "desc": "Pattern-first interview question walkthroughs."
+    },
+    {
+      "id": "codility",
+      "name": "Codility",
+      "abbr": "CO",
+      "color": "#2db3a6",
+      "desc": "Lesson-driven correctness and performance scoring."
+    },
+    {
+      "id": "stratascratch",
+      "name": "StrataScratch",
+      "abbr": "SS",
+      "color": "#3b6fb0",
+      "desc": "Data & SQL challenges from real company datasets."
+    },
+    {
+      "id": "codechef",
+      "name": "CodeChef",
+      "abbr": "CC",
+      "color": "#7b5a3a",
+      "desc": "Competitive contests and structured practice ladders."
+    },
+    {
+      "id": "project-euler",
+      "name": "Project Euler",
+      "abbr": "PE",
+      "color": "#4a5b6b",
+      "desc": "Mathematical and computational reasoning problems."
+    }
+  ],
+  "challenges": [
+    {
+      "id": "217",
+      "title": "Contains Duplicate",
+      "slug": "contains-duplicate",
+      "platform": "leetcode",
+      "language": "C",
+      "languageExt": "c",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Sorting"
+      ],
+      "patterns": [
+        "sorting"
+      ],
+      "path": "platforms/leetcode/c/0217-contains-duplicate",
+      "recommendedSolution": "solution-memory.c",
+      "dateSolved": "2026-06-02",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "id": "217",
+      "title": "Contains Duplicate",
+      "slug": "contains-duplicate",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Sorting"
+      ],
+      "patterns": [
+        "hashing",
+        "sorting"
+      ],
+      "path": "platforms/leetcode/cpp/0217-contains-duplicate",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-02",
+      "timeComplexity": "O(n log n) recommended / O(n) average (hash)",
+      "spaceComplexity": "O(1) extra recommended / O(n) (hash)"
+    },
+    {
+      "id": "912",
+      "title": "Sort an Array",
+      "slug": "sort-an-array",
+      "platform": "leetcode",
+      "language": "C",
+      "languageExt": "c",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Sorting",
+        "Heap (Priority Queue)"
+      ],
+      "patterns": [
+        "sorting"
+      ],
+      "path": "platforms/leetcode/c/0912-sort-an-array",
+      "recommendedSolution": "solution-memory.c",
+      "dateSolved": "2026-06-02",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "id": "912",
+      "title": "Sort an Array",
+      "slug": "sort-an-array",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Sorting",
+        "Counting Sort",
+        "Divide and Conquer"
+      ],
+      "patterns": [
+        "sorting"
+      ],
+      "path": "platforms/leetcode/cpp/0912-sort-an-array",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-02",
+      "timeComplexity": "O(n log n) recommended / O(n + R) (counting)",
+      "spaceComplexity": "O(log n) recommended / O(R) (counting)"
+    },
+    {
+      "id": "1929",
+      "title": "Concatenation of Array",
+      "slug": "concatenation-of-array",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Simulation"
+      ],
+      "patterns": [
+        "array-construction",
+        "bulk-copy"
+      ],
+      "path": "platforms/leetcode/cpp/1929-concatenation-of-array",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-04",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary (output is 2n ints)"
+    },
+    {
+      "id": "2574",
+      "title": "Left and Right Sum Differences",
+      "slug": "left-and-right-sum-differences",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Prefix Sum"
+      ],
+      "patterns": [
+        "prefix-sum",
+        "running-sum"
+      ],
+      "path": "platforms/leetcode/cpp/2574-left-and-right-sum-differences",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-06",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary, O(n) output"
+    },
+    {
+      "id": "3266",
+      "title": "Final Array State After K Multiplication Operations II",
+      "slug": "final-array-state-after-k-multiplication-operations-ii",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Math",
+        "Heap (Priority Queue)",
+        "Simulation"
+      ],
+      "patterns": [
+        "min-heap",
+        "cycle-distribution",
+        "modular-exponentiation",
+        "tie-breaking"
+      ],
+      "path": "platforms/leetcode/cpp/3266-final-array-state-after-k-multiplication-operations-ii",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-05",
+      "timeComplexity": "O(n + s log n + n log n + log k)",
+      "spaceComplexity": "O(n) auxiliary"
+    },
+    {
+      "id": "3348",
+      "title": "Smallest Divisible Digit Product II",
+      "slug": "smallest-divisible-digit-product-ii",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "String",
+        "Math",
+        "Greedy",
+        "Number Theory"
+      ],
+      "patterns": [
+        "digit-dp",
+        "rightmost-pivot-greedy",
+        "prime-factor-deficits",
+        "lexicographic-construction"
+      ],
+      "path": "platforms/leetcode/cpp/3348-smallest-divisible-digit-product-ii",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-06",
+      "timeComplexity": "O(n) effective for all variants after bounded exponent preprocessing",
+      "spaceComplexity": "O(E2 * E3 + L) recommended, O(10 * S + L) runtime, O(L) memory"
+    },
+    {
+      "id": "3463",
+      "title": "Check If Digits Are Equal in String After Operations II",
+      "slug": "check-if-digits-are-equal-in-string-after-operations-ii",
+      "platform": "leetcode",
+      "language": "C",
+      "languageExt": "c",
+      "difficulty": "Hard",
+      "topics": [
+        "Math",
+        "String",
+        "Combinatorics",
+        "Number Theory"
+      ],
+      "patterns": [
+        "binomial-transform",
+        "lucas-theorem",
+        "crt"
+      ],
+      "path": "platforms/leetcode/c/3463-check-if-digits-are-equal-in-string-after-operations-ii",
+      "recommendedSolution": "solution-memory.c",
+      "dateSolved": "2026-06-06",
+      "timeComplexity": "O(n log_5 n)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "id": "3463",
+      "title": "Check If Digits Are Equal in String After Operations II",
+      "slug": "check-if-digits-are-equal-in-string-after-operations-ii",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Math",
+        "String",
+        "Combinatorics",
+        "Number Theory"
+      ],
+      "patterns": [
+        "binomial-transform",
+        "modular-arithmetic",
+        "factor-stripping"
+      ],
+      "path": "platforms/leetcode/cpp/3463-check-if-digits-are-equal-in-string-after-operations-ii",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-06",
+      "timeComplexity": "O(n) recommended and runtime / O(n log_5 n) memory",
+      "spaceComplexity": "O(1) extra recommended / O(n) runtime / O(1) extra memory"
+    },
+    {
+      "id": "3509",
+      "title": "Maximum Product of Subsequences With an Alternating Sum Equal to K",
+      "slug": "maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
+      "platform": "leetcode",
+      "language": "C",
+      "languageExt": "c",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Bit Manipulation"
+      ],
+      "patterns": [
+        "subsequence-dp",
+        "bitset-dp",
+        "state-compression"
+      ],
+      "path": "platforms/leetcode/c/3509-maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
+      "recommendedSolution": "solution-memory.c",
+      "dateSolved": "2026-06-05",
+      "timeComplexity": "O(n * P * W), P <= 394",
+      "spaceComplexity": "O(P * W), exact-width dynamic bitsets"
+    },
+    {
+      "id": "3509",
+      "title": "Maximum Product of Subsequences With an Alternating Sum Equal to K",
+      "slug": "maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Bit Manipulation"
+      ],
+      "patterns": [
+        "subsequence-dp",
+        "bitset-dp",
+        "state-compression"
+      ],
+      "path": "platforms/leetcode/cpp/3509-maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-05",
+      "timeComplexity": "O(n * P * W), P <= 394, W <= 57",
+      "spaceComplexity": "O(P * W)"
+    },
+    {
+      "id": "3518",
+      "title": "Smallest Palindromic Rearrangement II",
+      "slug": "smallest-palindromic-rearrangement-ii",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "String",
+        "Math",
+        "Combinatorics",
+        "Greedy"
+      ],
+      "patterns": [
+        "kth-permutation",
+        "multiset-permutation",
+        "palindrome",
+        "capped-combinatorics"
+      ],
+      "path": "platforms/leetcode/cpp/3518-smallest-palindromic-rearrangement-ii",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-06",
+      "timeComplexity": "O(n) effective for all variants under fixed alphabet and capped binomial width",
+      "spaceComplexity": "O(R * m + n) recommended/runtime, O(n) memory"
+    },
+    {
+      "id": "3609",
+      "title": "Minimum Moves to Reach Target in Grid",
+      "slug": "minimum-moves-to-reach-target-in-grid",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Math",
+        "Greedy"
+      ],
+      "patterns": [
+        "reverse-simulation",
+        "coordinate-reduction",
+        "greedy"
+      ],
+      "path": "platforms/leetcode/cpp/3609-minimum-moves-to-reach-target-in-grid",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-06",
+      "timeComplexity": "O(log max(tx, ty))",
+      "spaceComplexity": "O(1)"
+    },
+    {
+      "id": "3635",
+      "title": "Earliest Finish Time for Land and Water Rides II",
+      "slug": "earliest-finish-time-for-land-and-water-rides-ii",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Binary Search",
+        "Sorting",
+        "Enumeration"
+      ],
+      "patterns": [
+        "greedy",
+        "enumeration"
+      ],
+      "path": "platforms/leetcode/cpp/3635-earliest-finish-time-for-land-and-water-rides-ii",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-04",
+      "timeComplexity": "O(n + m)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "id": "3664",
+      "title": "Two-Letter Card Game",
+      "slug": "two-letter-card-game",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Greedy",
+        "Counting",
+        "Enumeration"
+      ],
+      "patterns": [
+        "counting",
+        "greedy",
+        "enumeration"
+      ],
+      "path": "platforms/leetcode/cpp/3664-two-letter-card-game",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-04",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "id": "3704",
+      "title": "Count No-Zero Pairs That Sum to N",
+      "slug": "count-no-zero-pairs-that-sum-to-n",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Math",
+        "Dynamic Programming"
+      ],
+      "patterns": [
+        "digit-dp",
+        "carry-dp",
+        "state-compression"
+      ],
+      "path": "platforms/leetcode/cpp/3704-count-no-zero-pairs-that-sum-to-n",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-06",
+      "timeComplexity": "O(D), D <= 16",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "id": "3743",
+      "title": "Maximize Cyclic Partition Score",
+      "slug": "maximize-cyclic-partition-score",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "patterns": [
+        "cyclic-array",
+        "state-compression",
+        "signed-extremes",
+        "partition-dp"
+      ],
+      "path": "platforms/leetcode/cpp/3743-maximize-cyclic-partition-score",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-06",
+      "timeComplexity": "O(nk)",
+      "spaceComplexity": "O(k)"
+    },
+    {
+      "id": "3753",
+      "title": "Total Waviness of Numbers in Range II",
+      "slug": "total-waviness-of-numbers-in-range-ii",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Math",
+        "Dynamic Programming"
+      ],
+      "patterns": [
+        "digit-dp",
+        "prefix-sum",
+        "state-compression"
+      ],
+      "path": "platforms/leetcode/cpp/3753-total-waviness-of-numbers-in-range-ii",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-05",
+      "timeComplexity": "O(D), D <= 16",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "id": "3900",
+      "title": "Longest Balanced Substring After One Swap",
+      "slug": "longest-balanced-substring-after-one-swap",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Medium",
+      "topics": [
+        "String",
+        "Hash Table",
+        "Prefix Sum"
+      ],
+      "patterns": [
+        "prefix-sum",
+        "two-pointers",
+        "balance-difference"
+      ],
+      "path": "platforms/leetcode/cpp/3900-longest-balanced-substring-after-one-swap",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-05",
+      "timeComplexity": "O(n) recommended and runtime / O(n log n) memory",
+      "spaceComplexity": "O(n)"
+    }
+  ]
+}
