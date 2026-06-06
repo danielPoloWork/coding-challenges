@@ -1,0 +1,34 @@
+{
+  "id": "3609",
+  "title": "Minimum Moves to Reach Target in Grid",
+  "slug": "minimum-moves-to-reach-target-in-grid",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3609-minimum-moves-to-reach-target-in-grid",
+  "url": "https://leetcode.com/problems/minimum-moves-to-reach-target-in-grid/",
+  "difficulty": "Hard",
+  "topics": ["Math", "Greedy"],
+  "patterns": ["reverse-simulation", "coordinate-reduction", "greedy"],
+  "status": "solved",
+  "dateSolved": "2026-06-06",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3609-minimum-moves-to-reach-target-in-grid/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposal for this challenge. The recommended, fastest-runtime, and least-memory objectives coincide, so no duplicate variant files are shipped.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "This problem reduces to a tiny deterministic integer loop; C++ gives native arithmetic, no heap allocation, no GC/VM/interpreter overhead, and constant-memory execution.",
+      "approachJustification": "Reverse greedy reduction: forced halving when the larger coordinate is at least twice the smaller one, subtraction otherwise, plus explicit handling for equal positive coordinates via zero-axis predecessors.",
+      "timeComplexity": "O(log max(tx, ty))",
+      "spaceComplexity": "O(1)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The inverse of every unequal state is unique: the larger coordinate was either doubled or formed by adding the smaller coordinate. Equal positive states can only come from one coordinate being zero. Walking backward gives the minimum move count or proves impossibility.",
+  "timeComplexity": "O(log max(tx, ty))",
+  "spaceComplexity": "O(1)"
+}

@@ -4,7 +4,7 @@
 
 | Metric | Value |
 | --- | ---: |
-| Total challenges solved | 15 |
+| Total challenges solved | 16 |
 | Total source platforms | 1 (of 16 catalogued) |
 | Total languages used | 2 |
 | Total catalogued patterns | 18 |
@@ -15,13 +15,13 @@ _"Catalogued patterns" counts distinct topics across all platforms and languages
 
 | Platform | Challenges solved |
 | --- | ---: |
-| [leetcode](index-leetcode.md) | 15 |
+| [leetcode](index-leetcode.md) | 16 |
 
 ## Languages used
 
 | Language | Solved |
 | --- | ---: |
-| C++ | 15 |
+| C++ | 16 |
 | C | 4 |
 
 ## Catalogued patterns (distinct topics)
