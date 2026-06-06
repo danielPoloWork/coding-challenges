@@ -1,0 +1,43 @@
+{
+  "id": "3670",
+  "title": "Maximum Product of Two Integers With No Common Bits",
+  "slug": "maximum-product-of-two-integers-with-no-common-bits",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3670-maximum-product-of-two-integers-with-no-common-bits",
+  "url": "https://leetcode.com/problems/maximum-product-of-two-integers-with-no-common-bits/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Bit Manipulation", "Dynamic Programming"],
+  "patterns": ["bitmask", "bounded-scan", "compressed-sos-dp", "product-pruning"],
+  "status": "solved",
+  "dateSolved": "2026-06-06",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3670-maximum-product-of-two-integers-with-no-common-bits/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals for this challenge. The runtime variants combine product-pruned scanning with compressed SOS-DP fallback, avoiding both quadratic blowups and unnecessary full-domain DP on easy cases.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The default solution uses C++ sorting, branch-light bit checks, and a vector-backed compressed SOS-DP fallback. This balances practical speed with compact allocation.",
+      "approachJustification": "Try high-product pairs first under a fixed scan cap. If that cap is reached, compress active bit positions and compute the maximum present submask for every compressed mask.",
+      "timeComplexity": "O(n log n + L + r * 2^r + k), r <= 20",
+      "spaceComplexity": "O(2^r + k)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "The runtime variant keeps the exact hybrid algorithm but uses static arrays sized to the constraints, reducing repeated allocation overhead in LeetCode's multi-testcase runner.",
+      "approachJustification": "Use bounded product scanning first, then a static-array compressed SOS-DP fallback initialized only over the active mask range.",
+      "timeComplexity": "O(n log n + L + r * 2^r + k), r <= 20",
+      "spaceComplexity": "O(2^20 + 1e5) reserved, O(2^r + k) active"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The final runtime strategy first exploits descending product pruning, then falls back to compressed SOS DP for exact complement-submask lookups. This avoids TLE from both unbounded pair scans and always-on full 2^20 DP.",
+  "timeComplexity": "O(n log n + L + r * 2^r + k), r <= 20",
+  "spaceComplexity": "O(2^r + k) recommended, O(2^20 + 1e5) reserved runtime"
+}

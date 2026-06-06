@@ -478,6 +478,31 @@
       "spaceComplexity": "O(1) extra"
     },
     {
+      "id": "3670",
+      "title": "Maximum Product of Two Integers With No Common Bits",
+      "slug": "maximum-product-of-two-integers-with-no-common-bits",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Bit Manipulation",
+        "Dynamic Programming"
+      ],
+      "patterns": [
+        "bitmask",
+        "bounded-scan",
+        "compressed-sos-dp",
+        "product-pruning"
+      ],
+      "path": "platforms/leetcode/cpp/3670-maximum-product-of-two-integers-with-no-common-bits",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-06",
+      "timeComplexity": "O(n log n + L + r * 2^r + k), r <= 20",
+      "spaceComplexity": "O(2^r + k) recommended, O(2^20 + 1e5) reserved runtime"
+    },
+    {
       "id": "3704",
       "title": "Count No-Zero Pairs That Sum to N",
       "slug": "count-no-zero-pairs-that-sum-to-n",
