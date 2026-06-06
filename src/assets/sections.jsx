@@ -79,23 +79,39 @@ function Nav({ theme, onToggle }) {
 
 /* ---------- HERO ---------- */
 function Hero({ totals }) {
+  const t = totals || {challenges: 0, platforms: 0, languages: 0, patterns: 0 };
+  const items = [
+    { n: t.challenges, label: "Challenges solved" },
+    { n: t.platforms, label: "Source platforms", sub: t.catalogued ? `of ${t.catalogued} catalogued` : null },
+    { n: t.languages, label: "Languages used" },
+    { n: t.patterns, label: "Catalogued patterns" },
+  ];
   return (
     <header className="hero" id="top">
       <div className="hero-grid-bg" />
       <div className="wrap hero-inner">
         <div className="hero-top">
-          <span className="eyebrow reveal">Engineering knowledge base · est. 2024</span>
-          <h1 className="hero-title reveal" style={{ transitionDelay: ".05s" }}>
-            Structured platforms.<br /><em>Smart solutions.</em>
+          <span className="hero-badge reveal"><span className="dot"></span>Engineering knowledge base · est. 2024</span>
+          <h1 className="hero-title reveal" style={{transitionDelay: ".05s"}}>
+            Structured platforms.<br/><em>Smart solutions.</em>
           </h1>
-          <p className="hero-sub reveal" style={{ transitionDelay: ".12s" }}>
+          <p className="lede reveal" style={{transitionDelay: ".12s"}}>
             A long-term reference system for algorithmic problem solving — every challenge
             documented with reasoning, complexity trade-offs and reusable patterns, organised
             across {totals.catalogued || totals.platforms} platforms and rendered to be read.
           </p>
-          <div className="hero-cta reveal" style={{ transitionDelay: ".18s" }}>
-            <a className="btn btn-primary" href="#platforms">Explore the work <Icon name="arrow" size={16} /></a>
+          <div className="hero-cta reveal" style={{transitionDelay: ".18s"}}>
+            <a className="btn btn-primary" href="#platforms">Explore the work <Icon name="arrow" size={16}/></a>
             <a className="btn btn-ghost" href="#solutions">See a solution</a>
+          </div>
+          <div className="stats reveal">
+            {items.map((s) => (
+                <div className="stat" key={s.label}>
+                  <CountUp end={s.n} plus={s.plus} />
+                  <div className="stat-label">{s.label}</div>
+                  {s.sub && <div className="stat-sub mono">{s.sub}</div>}
+                </div>
+            ))}
           </div>
         </div>
       </div>
@@ -104,27 +120,15 @@ function Hero({ totals }) {
 }
 
 /* ---------- STATS ---------- */
-function Stats({ totals }) {
-  const t = totals || { challenges: 0, platforms: 0, languages: 0, patterns: 0 };
+function Stats({totals}) {
+  const t = totals || {challenges: 0, platforms: 0, languages: 0, patterns: 0 };
   const items = [
     { n: t.challenges, label: "Challenges solved" },
     { n: t.platforms, label: "Source platforms", sub: t.catalogued ? `of ${t.catalogued} catalogued` : null },
     { n: t.languages, label: "Languages used" },
     { n: t.patterns, label: "Catalogued patterns" },
   ];
-  return (
-    <div className="wrap">
-      <div className="stats reveal">
-        {items.map((s) => (
-          <div className="stat" key={s.label}>
-            <CountUp end={s.n} plus={s.plus} />
-            <div className="stat-label">{s.label}</div>
-            {s.sub && <div className="stat-sub mono">{s.sub}</div>}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return ('');
 }
 
 /* ---------- PRINCIPLES ---------- */

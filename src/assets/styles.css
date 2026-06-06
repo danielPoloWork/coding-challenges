@@ -56,20 +56,25 @@
   /* Claude clay — the single brand temperature accent, used sparingly */
   --clay: #c15f3c;
   --clay-soft: #d2785a;
+  /* tint derived from --clay, so re-theming the accent (or [data-accent="off"]) cascades automatically */
+  --clay-tint: color-mix(in oklab, var(--clay) 10%, transparent);
 
   --r-sm: 8px;
   --r-md: 14px;
   --r-lg: 22px;
   --r-xl: 34px;
 
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --maxw: 1240px;
+  /* layout rhythm — fluid, so most breakpoints fall out of the clamps */
+  --maxw: 1180px;
+  --gutter: clamp(20px, 5vw, 64px);
+  --section-y: clamp(72px, 9vw, 140px);
+  --ease: cubic-bezier(.22, .61, .36, 1);
 }
 
 [data-theme="light"] {
   --paper: #faf9f5;
   --paper-2: #f3f0e7;
-  --surface: #ffffff;
+  --surface: #fbfaf5;
   --surface-2: #f7f5ee;
   --ink: #1a1916;
   --ink-2: #57544c;
@@ -79,13 +84,14 @@
   --shadow: 0 1px 2px rgba(40, 36, 28, 0.04), 0 18px 40px -24px rgba(40, 36, 28, 0.22);
   --shadow-lg: 0 2px 4px rgba(40, 36, 28, 0.05), 0 40px 80px -40px rgba(40, 36, 28, 0.30);
   --grid-line: rgba(26, 25, 22, 0.06);
-  --clay-tint: rgba(193, 95, 60, 0.08);
+  color-scheme: light;
 }
 
+/* Dark */
 [data-theme="dark"] {
   --paper: #1b1a17;
   --paper-2: #211f1b;
-  --surface: #25231f;
+  --surface: #25221a;
   --surface-2: #2c2a25;
   --ink: #f3efe6;
   --ink-2: #b1ac9f;
@@ -97,12 +103,13 @@
   --grid-line: rgba(243, 239, 230, 0.06);
   --clay: #d2785a;
   --clay-soft: #de8d72;
-  --clay-tint: rgba(210, 120, 90, 0.12);
+  color-scheme: dark;
 }
 
 /* ---------- Base ---------- */
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body {
   margin: 0;
   background: var(--paper);
@@ -119,8 +126,7 @@ a { color: inherit; text-decoration: none; }
 h1, h2, h3, h4 { margin: 0; font-weight: 500; letter-spacing: -0.02em; }
 p { margin: 0; }
 
-.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 40px; }
-@media (max-width: 720px) { .wrap { padding: 0 22px; } }
+.wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
 
 .eyebrow {
   font-family: var(--mono);
@@ -193,10 +199,10 @@ p { margin: 0; }
 }
 .nav.scrolled { border-color: var(--hairline); }
 .nav-inner {
-  max-width: var(--maxw); margin: 0 auto; padding: 14px 40px;
+  max-width: var(--maxw); margin-inline: auto;
+  padding-block: 14px; padding-inline: var(--gutter);
   display: flex; align-items: center; gap: 26px;
 }
-@media (max-width: 720px) { .nav-inner { padding: 12px 22px; } }
 .brand { display: flex; align-items: center; gap: 11px; font-weight: 500; }
 .brand-mark {
   width: 28px; height: 28px; color: var(--ink);
@@ -227,7 +233,16 @@ p { margin: 0; }
 /* ============================================================
    HERO
    ============================================================ */
-.hero { position: relative; padding: 86px 0 64px; overflow: hidden; }
+.hero { position: relative; padding: 86px 0 64px; overflow: hidden; max-width: 860px;}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 9px;
+  font-family: var(--mono); font-size: 12.5px; letter-spacing: .04em;
+  padding: 7px 14px 7px 11px; border-radius: 999px;
+  border: 1px solid var(--hairline); background: var(--surface);
+  color: var(--ink-2); box-shadow: var(--shadow);
+  max-width: max-content;
+}
+.hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--clay); box-shadow: 0 0 0 4px var(--clay-tint); }
 .hero-grid-bg {
   position: absolute; inset: 0; z-index: 0; pointer-events: none;
   background-image:
@@ -241,10 +256,10 @@ p { margin: 0; }
 .hero-top { display: flex; flex-direction: column; gap: 22px; max-width: 900px; }
 .hero-title {
   font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(46px, 7.4vw, 96px);
+  font-weight: 460;
+  font-size: clamp(42px, 7.2vw, 92px);
   line-height: 0.98;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   text-wrap: balance;
 }
 .hero-title em { font-style: italic; color: var(--clay); }
@@ -252,6 +267,7 @@ p { margin: 0; }
   font-size: clamp(17px, 2vw, 21px);
   color: var(--ink-2); max-width: 600px; line-height: 1.55;
 }
+.lede { font-size: clamp(18px, 2vw, 22px); color: var(--ink-2); line-height: 1.5; text-wrap: pretty; }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; }
 .hero-meta {
   margin-top: 16px; display: flex; gap: 22px; flex-wrap: wrap;
@@ -295,7 +311,7 @@ p { margin: 0; }
    SECTION scaffolding
    ============================================================ */
 section { position: relative; }
-.section { padding: 92px 0; transition: background 0.5s var(--ease); }
+.section { padding-block: var(--section-y); transition: background 0.5s var(--ease); }
 /* alternating section bands — every section gets a different ground tone */
 .band-tint { background: var(--paper-2); }
 .section-head { max-width: 760px; margin-bottom: 46px; }
