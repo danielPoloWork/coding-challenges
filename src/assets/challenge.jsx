@@ -390,10 +390,18 @@ const GISCUS = {
   category: "Comments",
   categoryId: "DIC_kwDOSuTg7c4C-oTd",
 };
-/* giscus has no warm-paper preset; the noborder_* built-ins drop GitHub's own
-   frame so the widget blends into our panel chrome. (A pixel-matched clay theme
-   would be a custom CSS URL — only loads on the deployed origin, not localhost.) */
-const giscusTheme = (t) => (t === "dark" ? "noborder_dark" : "noborder_light");
+/* On the deployed HTTPS origin, point giscus at our clay-tinted theme CSS
+   (src/assets/giscus-<mode>.css). giscus can't fetch a localhost URL, so local
+   preview falls back to the built-in noborder_* presets (same no-border look). */
+const giscusLocal =
+  ["localhost", "127.0.0.1", "0.0.0.0", "::1"].includes(location.hostname) ||
+  location.protocol === "file:";
+const giscusTheme = (t) => {
+  const mode = t === "dark" ? "dark" : "light";
+  return giscusLocal
+    ? `noborder_${mode}`
+    : new URL(`src/assets/giscus-${mode}.css`, document.baseURI).href;
+};
 
 function DiscussView({ meta, theme }) {
   const ref = useRef(null);
@@ -417,7 +425,7 @@ function DiscussView({ meta, theme }) {
       "data-mapping": "specific",
       "data-term": term,
       "data-strict": "0",
-      "data-reactions-enabled": "1",
+      "data-reactions-enabled": "0",
       "data-emit-metadata": "0",
       "data-input-position": "top",
       "data-theme": giscusTheme(theme),
