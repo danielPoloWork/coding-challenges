@@ -78,11 +78,60 @@ const ROLE_LABEL = {
 };
 const roleLabel = (r) => ROLE_LABEL[r] || (r || "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
-function CodeBlock({ code }) {
-  const lines = (code || "").replace(/\s+$/, "").split("\n");
+/* ---------- syntax highlighting (highlight.js, themed via .sol-code .hljs-* in CSS) ---------- */
+const HLJS_LANG = {
+  "C++": "cpp", "C": "c", "C#": "csharp",
+  "Python": "python", "Python3": "python",
+  "JavaScript": "javascript", "TypeScript": "typescript",
+  "Java": "java", "Go": "go", "Rust": "rust",
+  "Kotlin": "kotlin", "Swift": "swift", "Ruby": "ruby",
+  "PHP": "php", "Scala": "scala", "Dart": "dart",
+  "Elixir": "elixir", "Erlang": "erlang", "Racket": "scheme",
+};
+
+/* highlight.js emits a flat run of <span class="hljs-…">…</span> that may
+   straddle newlines (block comments, multiline strings). Split into one HTML
+   string per source line, re-opening any spans left open so each line stands
+   alone — that keeps the per-line .ln gutter intact. */
+function splitHighlightedLines(html) {
+  const out = [];
+  const open = [];
+  const tagRe = /<span[^>]*>|<\/span>/g;
+  for (const line of html.split("\n")) {
+    const prefix = open.join("");
+    let m; tagRe.lastIndex = 0;
+    while ((m = tagRe.exec(line))) {
+      if (m[0] === "</span>") open.pop(); else open.push(m[0]);
+    }
+    out.push(prefix + line + "</span>".repeat(open.length));
+  }
+  return out;
+}
+
+function highlightLines(code, language) {
+  const src = (code || "").replace(/\s+$/, "");
+  const hl = window.hljs;
+  let html;
+  if (hl) {
+    const id = HLJS_LANG[language];
+    try {
+      html = id && hl.getLanguage(id)
+        ? hl.highlight(src, { language: id, ignoreIllegals: true }).value
+        : hl.highlightAuto(src).value;
+    } catch (e) {
+      html = escapeHtml(src);
+    }
+  } else {
+    html = escapeHtml(src);
+  }
+  return splitHighlightedLines(html);
+}
+
+function CodeBlock({ code, language }) {
+  const lines = useMemo(() => highlightLines(code, language), [code, language]);
   return (
-    <pre className="sol-code"><code>{lines.map((ln, i) => (
-      <div key={i}><span className="ln">{i + 1}</span>{ln || " "}</div>
+    <pre className="sol-code"><code className="hljs">{lines.map((ln, i) => (
+      <div key={i}><span className="ln">{i + 1}</span><span dangerouslySetInnerHTML={{ __html: ln || " " }} /></div>
     ))}</code></pre>
   );
 }
@@ -201,7 +250,7 @@ function SolutionView({ meta, variants, active, setActive }) {
             </div>
           ))}
         </div>
-        <div className="sol-body"><CodeBlock code={v.code} /></div>
+        <div className="sol-body"><CodeBlock code={v.code} language={v.language} /></div>
       </div>
 
       <div className="sol-rationale">
