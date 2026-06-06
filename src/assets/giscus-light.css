@@ -70,8 +70,8 @@ main {
   --color-canvas-overlay: rgb(251 250 245);
   --color-canvas-inset: rgba(var(--bg-default), 0.85);
   --color-canvas-subtle: rgba(var(--bg-default), 1);
-  --color-border-default: rgba(var(--bg-default), 0.85);
-  --color-border-muted: rgb(175 184 193 / 20%);
+  --color-border-default: #e7e2d4;
+  --color-border-muted: rgb(231 226 212 / 55%);
   --color-neutral-muted: rgb(175 184 193 / 20%);
   --color-accent-fg: rgba(var(--primary-default), 0.85);
   --color-accent-emphasis: rgba(var(--primary-default), 0.95);
@@ -108,7 +108,9 @@ main .gsc-loading-image {
 /* Sign-in / comment action button → the site's clay pill CTA (like the hero's
    "Explore the work": clay fill, paper text, trailing arrow, lift on hover).
    The GitHub icon already carries its own mr-2 spacing, so no leading gap. */
-.gsc-comment-box-buttons .btn-primary {
+/* #__next raises specificity above the site's `#__next .rounded-md` rule so the
+   sign-in button keeps its full pill instead of the card radius. */
+#__next .gsc-comment-box-buttons .btn-primary {
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
@@ -135,4 +137,8 @@ main .gsc-loading-image {
 }
 .gsc-comment-box-buttons .btn-primary:hover::after {
   transform: translateX(3px);
+}
+
+#__next .rounded-md {
+  border-radius: 1.75rem;
 }
