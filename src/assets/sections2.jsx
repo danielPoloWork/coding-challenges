@@ -241,9 +241,8 @@ function Footer({ roadmap, totals }) {
             </div>
           </div>
           <div className="footer-bottom">
-            <span className="mono">© 2026 · Software Architect &amp; Engineering Enthusiast</span>
-            <span>Structured platforms. Smart Solutions.</span>
-            <span className="mono">Built for the long term</span>
+            <span className="mono">© 2026 · Daniel Polo</span>
+            <span className="mono">Structured platforms. Smart Solutions.</span>
           </div>
         </div>
       </footer>

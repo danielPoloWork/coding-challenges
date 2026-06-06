@@ -899,7 +899,7 @@ section { position: relative; }
 @keyframes viewfade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 /* discussion — giscus embedded in native panel chrome */
-.discuss { max-width: 860px; }
+.discuss { max-width: 1052px; }
 .discuss-mount { min-height: 220px; }
 .discuss-mount .giscus, .discuss-mount .giscus-frame { width: 100%; }
 .discuss-mount .giscus-frame { color-scheme: light dark; }
