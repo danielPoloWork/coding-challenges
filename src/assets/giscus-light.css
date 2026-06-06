@@ -105,9 +105,9 @@ main .gsc-loading-image {
   border-radius: unset;
 }
 
-/* Sign-in / comment action button → match the site's pill buttons
-   (.btn-primary on the index: pill shape, ink fill, paper text, clay on hover).
-   The GitHub icon already carries its own mr-2 spacing, so no gap is set. */
+/* Sign-in / comment action button → the site's clay pill CTA (like the hero's
+   "Explore the work": clay fill, paper text, trailing arrow, lift on hover).
+   The GitHub icon already carries its own mr-2 spacing, so no leading gap. */
 .gsc-comment-box-buttons .btn-primary {
   display: inline-flex;
   align-items: center;
@@ -116,13 +116,23 @@ main .gsc-loading-image {
   font-size: 15px;
   font-weight: 500;
   line-height: 1.2;
-  background-color: #1a1916;
-  border-color: transparent;
-  color: #faf9f5;
-  box-shadow: none;
-}
-.gsc-comment-box-buttons .btn-primary:hover {
   background-color: #c15f3c;
   border-color: transparent;
   color: #faf9f5;
+  box-shadow: none;
+  transition: background-color 0.25s cubic-bezier(.22, .61, .36, 1);
+}
+.gsc-comment-box-buttons .btn-primary::after {
+  content: "→";
+  margin-inline-start: 7px;
+  font-weight: 400;
+  transition: transform 0.3s cubic-bezier(.22, .61, .36, 1);
+}
+.gsc-comment-box-buttons .btn-primary:hover {
+  background-color: #d2785a;
+  border-color: transparent;
+  color: #faf9f5;
+}
+.gsc-comment-box-buttons .btn-primary:hover::after {
+  transform: translateX(3px);
 }
