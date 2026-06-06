@@ -1,0 +1,94 @@
+/* Coding Challenges — shared runtime core (manifest loader + helpers)
+   Plain script (no Babel). Exposes window.CCX. Works on GitHub Pages with
+   relative paths, so the whole site reads the real files under /platforms. */
+window.CCX = (function () {
+  const LANG_COLORS = {
+    "C++": "#6e8fd6", "C": "#8d96a8", "Rust": "#cd7f52", "Go": "#4fc3d9",
+    "Python3": "#5394d0", "Python": "#5394d0", "TypeScript": "#4a7bd0",
+    "JavaScript": "#d8b832", "Java": "#d0743a", "C#": "#6a4fb0", "Kotlin": "#9a6bd0",
+    "Swift": "#e06a4a", "Ruby": "#c0392b", "PHP": "#6d7fb8", "Dart": "#3aa6b9",
+    "Scala": "#cc4030", "Elixir": "#8c6bb0", "Erlang": "#aa3355", "Racket": "#9a3b8c",
+  };
+  const DIFF_COLORS = { Easy: "#3f9e6a", Medium: "#c98a2a", Hard: "#c0503a" };
+  const DIFF_RANK = { Easy: 0, Medium: 1, Hard: 2 };
+
+  const langColor = (l) => LANG_COLORS[l] || "#8a857a";
+  const diffColor = (d) => DIFF_COLORS[d] || "#8a857a";
+  const diffRank = (d) => (d in DIFF_RANK ? DIFF_RANK[d] : 99);
+
+  let _manifest = null;
+  async function loadManifest() {
+    if (_manifest) return _manifest;
+    const res = await fetch("platforms/manifest.json", { cache: "no-cache" });
+    if (!res.ok) throw new Error("manifest " + res.status);
+    _manifest = await res.json();
+    return _manifest;
+  }
+
+  function platformMeta(manifest, id) {
+    return (manifest.platforms || []).find((p) => p.id === id) || null;
+  }
+
+  // theme (shared across pages via localStorage)
+  function initTheme() {
+    const t = localStorage.getItem("cc-theme") || "light";
+    document.documentElement.setAttribute("data-theme", t);
+    return t;
+  }
+  function setTheme(t) {
+    document.documentElement.setAttribute("data-theme", t);
+    localStorage.setItem("cc-theme", t);
+  }
+
+  function qs(name) {
+    return new URLSearchParams(location.search).get(name);
+  }
+
+  // Derive everything the homepage needs from the manifest (fully dynamic).
+  function deriveHome(manifest) {
+    const chs = manifest.challenges || [];
+    const counts = {};
+    chs.forEach((c) => { counts[c.platform] = (counts[c.platform] || 0) + 1; });
+    const platforms = (manifest.platforms || [])
+      .map((p) => ({ ...p, count: counts[p.id] || 0 }))
+      .sort((a, b) => (a.name || a.id).localeCompare(b.name || b.id, "en", { sensitivity: "base" }));
+
+    const patMap = {};
+    chs.forEach((c) => (c.patterns || []).forEach((p) => { patMap[p] = (patMap[p] || 0) + 1; }));
+    const patterns = Object.entries(patMap).map(([name, n]) => ({ name, n }))
+      .sort((a, b) => b.n - a.n);
+
+    // languages: aggregate across each challenge's full language list (a
+    // single challenge may be solved in several languages)
+    const langMap = {};
+    chs.forEach((c) => (c.languages || [c.language]).forEach((l) => { langMap[l] = (langMap[l] || 0) + 1; }));
+    const languages = Object.entries(langMap).sort((a, b) => b[1] - a[1])
+      .map(([name, n]) => ({ name, n, c: langColor(name) }));
+
+    // distinct topics across everything = the "catalogued patterns" figure
+    const topicSet = new Set();
+    chs.forEach((c) => (c.topics || []).forEach((t) => topicSet.add(t)));
+
+    const totals = {
+      challenges: chs.length,
+      platforms: platforms.filter((p) => p.count > 0).length,
+      catalogued: (manifest.platforms || []).length,
+      languages: languages.length,
+      patterns: topicSet.size,
+    };
+
+    // featured: curated ids first, then fill
+    const wanted = ["3900", "3743", "0912", "3635", "3266", "0217"];
+    const byId = {};
+    chs.forEach((c) => { if (!(c.id in byId)) byId[c.id] = c; });
+    let featured = wanted.map((id) => byId[id]).filter(Boolean);
+    if (featured.length < 6) {
+      for (const c of chs) { if (!featured.includes(c)) featured.push(c); if (featured.length >= 6) break; }
+    }
+    featured = featured.slice(0, 6);
+
+    return { platforms, patterns, languages, totals, featured };
+  }
+
+  return { LANG_COLORS, langColor, diffColor, diffRank, loadManifest, platformMeta, deriveHome, initTheme, setTheme, qs };
+})();
