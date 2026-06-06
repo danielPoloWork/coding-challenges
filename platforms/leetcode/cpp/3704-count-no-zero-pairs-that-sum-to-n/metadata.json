@@ -1,0 +1,35 @@
+{
+  "id": "3704",
+  "title": "Count No-Zero Pairs That Sum to N",
+  "slug": "count-no-zero-pairs-that-sum-to-n",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3704-count-no-zero-pairs-that-sum-to-n",
+  "url": "https://leetcode.com/problems/count-no-zero-pairs-that-sum-to-n/",
+  "difficulty": "Hard",
+  "topics": ["Math", "Dynamic Programming"],
+  "patterns": ["digit-dp", "carry-dp", "state-compression"],
+  "status": "solved",
+  "dateSolved": "2026-06-06",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3704-count-no-zero-pairs-that-sum-to-n/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The problem is a tiny, branch-heavy digit DP over at most 16 decimal digits with 64-bit counts. C++ gives direct stack arrays, cheap integer arithmetic, and no interpreter or GC overhead, which is the best fit for both raw runtime and low memory among the allowed languages.",
+      "approachJustification": "Scan digits from least significant to most significant, keeping the addition carry and whether each addend is still alive in its decimal representation. Alive digits must be 1..9; choosing 0 at a non-lowest position ends that number and all higher digits are padding. An appended zero digit forces both numbers to end and rejects leftover carry.",
+      "timeComplexity": "O(D), D <= 16",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "A no-zero positive integer is a suffix of non-zero digits followed by leading padding zeroes when viewed from the least significant digit upward. The DP counts ordered digit pairs directly while propagating carry, with two alive flags to ensure zeroes appear only as padding and never inside either representation.",
+  "timeComplexity": "O(D), D <= 16",
+  "spaceComplexity": "O(1) extra"
+}
