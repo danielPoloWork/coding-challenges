@@ -187,7 +187,7 @@ function ChallengePage() {
             <a className="btn btn-ghost" href="index.html" style={{ marginTop: 22 }}><Icon name="arrow" size={15} /> Back home</a>
           </div>
         )}
-        {!state.loading && state.meta && <ChallengeBody {...state} active={active} setActive={setActive} />}
+        {!state.loading && state.meta && <ChallengeBody {...state} theme={theme} active={active} setActive={setActive} />}
       </main>
     </React.Fragment>
   );
@@ -383,7 +383,75 @@ function ReasoningView({ meta }) {
   );
 }
 
-function ChallengeBody({ meta, notes, complexity, variants, active, setActive }) {
+/* ---------- DISCUSS (giscus: one thread per challenge, themed to the site) ---------- */
+const GISCUS = {
+  repo: "danielPoloWork/coding-challenges",
+  repoId: "R_kgDOSuTg7Q",
+  category: "Comments",
+  categoryId: "DIC_kwDOSuTg7c4C-oTd",
+};
+/* giscus has no warm-paper preset; the noborder_* built-ins drop GitHub's own
+   frame so the widget blends into our panel chrome. (A pixel-matched clay theme
+   would be a custom CSS URL — only loads on the deployed origin, not localhost.) */
+const giscusTheme = (t) => (t === "dark" ? "noborder_dark" : "noborder_light");
+
+function DiscussView({ meta, theme }) {
+  const ref = useRef(null);
+  const term = `${meta.platform}/${meta.id}-${meta.slug}`;
+
+  /* giscus is a <script> that injects an iframe, so append it to our ref rather
+     than render it as JSX. Rebuild only when the challenge (term) changes. */
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    el.innerHTML = "";
+    const s = document.createElement("script");
+    s.src = "https://giscus.app/client.js";
+    s.async = true;
+    s.crossOrigin = "anonymous";
+    Object.entries({
+      "data-repo": GISCUS.repo,
+      "data-repo-id": GISCUS.repoId,
+      "data-category": GISCUS.category,
+      "data-category-id": GISCUS.categoryId,
+      "data-mapping": "specific",
+      "data-term": term,
+      "data-strict": "0",
+      "data-reactions-enabled": "1",
+      "data-emit-metadata": "0",
+      "data-input-position": "top",
+      "data-theme": giscusTheme(theme),
+      "data-lang": "en",
+    }).forEach(([k, v]) => s.setAttribute(k, v));
+    el.appendChild(s);
+    return () => { el.innerHTML = ""; };
+    // theme deliberately excluded — toggling is handled live below, without reload
+  }, [term]);
+
+  /* Live theme switch: message the loaded iframe instead of rebuilding it. */
+  useEffect(() => {
+    const frame = ref.current && ref.current.querySelector("iframe.giscus-frame");
+    if (!frame) return;
+    frame.contentWindow.postMessage(
+      { giscus: { setConfig: { theme: giscusTheme(theme) } } },
+      "https://giscus.app"
+    );
+  }, [theme]);
+
+  return (
+    <div className="cview-panel">
+      <div className="discuss">
+        <div className="csection-label">discussion</div>
+        <div className="discuss-mount" ref={ref} />
+        <p className="discuss-foot">
+          <Icon name="github" size={13} /> Sign in with GitHub to comment · powered by GitHub Discussions
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ChallengeBody({ meta, notes, complexity, variants, active, setActive, theme }) {
   const diff = meta.difficulty || "—";
   const [view, setView] = useState("solution");
 
@@ -394,6 +462,7 @@ function ChallengeBody({ meta, notes, complexity, variants, active, setActive })
   ];
   if (complexity) views.push({ id: "complexity", label: "Complexity" });
   if (hasReasoning) views.push({ id: "reasoning", label: "Reasoning" });
+  views.push({ id: "discuss", label: "Discuss" });
 
   return (
     <React.Fragment>
@@ -422,6 +491,7 @@ function ChallengeBody({ meta, notes, complexity, variants, active, setActive })
       {view === "notes" && <NotesView notes={notes} />}
       {view === "complexity" && complexity && <ComplexityView complexity={complexity} variants={variants} />}
       {view === "reasoning" && hasReasoning && <ReasoningView meta={meta} />}
+      {view === "discuss" && <DiscussView meta={meta} theme={theme} />}
     </React.Fragment>
   );
 }

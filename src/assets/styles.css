@@ -898,6 +898,18 @@ section { position: relative; }
 .cview-panel { margin-top: 30px; animation: viewfade 0.4s var(--ease) both; }
 @keyframes viewfade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
+/* discussion — giscus embedded in native panel chrome */
+.discuss { max-width: 860px; }
+.discuss-mount { min-height: 220px; }
+.discuss-mount .giscus, .discuss-mount .giscus-frame { width: 100%; }
+.discuss-mount .giscus-frame { color-scheme: light dark; }
+.discuss-foot {
+  margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--hairline);
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.02em; color: var(--ink-3);
+}
+.discuss-foot svg { color: var(--ink-2); }
+
 /* full-width code panel */
 .code-full { width: 100%; }
 .code-full .sol-body { grid-template-columns: 1fr; min-height: 0; }
