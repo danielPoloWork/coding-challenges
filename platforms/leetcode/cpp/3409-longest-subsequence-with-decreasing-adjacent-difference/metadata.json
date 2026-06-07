@@ -1,0 +1,61 @@
+{
+  "id": "3409",
+  "title": "Longest Subsequence With Decreasing Adjacent Difference",
+  "slug": "longest-subsequence-with-decreasing-adjacent-difference",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3409-longest-subsequence-with-decreasing-adjacent-difference",
+  "url": "https://leetcode.com/problems/longest-subsequence-with-decreasing-adjacent-difference/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Dynamic Programming"],
+  "patterns": ["dynamic-programming", "value-compressed-dp", "suffix-maximum"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3409-longest-subsequence-with-decreasing-adjacent-difference/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single C++ value-compressed threshold DP is the recommended solution, speed extreme, and memory extreme. Per the repo standard, no coincident solution-runtime.cpp or solution-memory.cpp is shipped.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The decisive constraint is nums[i] <= 300. C++ turns the value-compressed DP into tight native loops over a fixed 301 x 301 table, with no interpreter, JIT, GC, heap allocation, or hash-table overhead. The answer fits in 16 bits, so the implementation also keeps the state compact.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It gives native scalar loops, direct LeetCode vector<int>& ergonomics, contiguous stack storage, and compact 16-bit DP cells."
+        },
+        {
+          "language": "C",
+          "assessment": "Can express the same table, but LeetCode's C interface adds manual pointer plumbing without improving the algorithmic state or practical memory footprint enough to justify the added risk."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and memory-safe, but checked indexing and more verbose table mutation are less likely to beat this small C++ hot loop on LeetCode."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled, but slice bounds checks and runtime overhead are avoidable costs for a fixed-size scalar DP."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays can be competitive after JIT warmup, but managed-runtime startup, bounds checks, and larger runtime baselines are unnecessary for this compact table."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The O(n * 300) algorithm is theoretically fine, but 3 million scalar DP transitions plus suffix passes are still better served by native code for a top 1% runtime target."
+        }
+      ],
+      "approachJustification": "Maintain best[value][diff] as the longest processed subsequence ending at value whose last adjacent difference is at least diff. For each current x and each diff, only x - diff and x + diff can precede x, so the transition is O(1). A suffix maximum on row x restores threshold semantics after exact-difference updates.",
+      "timeComplexity": "O(n * 300)",
+      "spaceComplexity": "O(300 * 300)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The condition only needs the previous value and previous adjacent difference. Processing left to right preserves subsequence order, and the value bound lets the DP aggregate all prior indices by ending value. best[v][d] stores the best length ending at v with last difference at least d; appending x with new difference d only queries v = x - d and v = x + d. Suffix maxima over the current row make future threshold queries constant time.",
+  "timeComplexity": "O(n * 300)",
+  "spaceComplexity": "O(300 * 300)"
+}

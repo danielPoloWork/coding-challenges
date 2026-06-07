@@ -1,0 +1,61 @@
+{
+  "id": "175",
+  "title": "Combine Two Tables",
+  "slug": "combine-two-tables",
+  "platform": "leetcode",
+  "language": "SQL",
+  "languageExt": "sql",
+  "platformPath": "platforms/leetcode/sql/0175-combine-two-tables",
+  "url": "https://leetcode.com/problems/combine-two-tables/",
+  "difficulty": "Easy",
+  "topics": ["Database"],
+  "patterns": ["left-outer-join", "projection"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/sql/0175-combine-two-tables/solution.sql",
+  "recommendedSolution": "solution.sql",
+  "note": "Pareto-optimal database challenge: the single SQL LEFT JOIN solution is also the speed extreme and memory extreme. Per the repo standard (no coincident files), only solution.sql is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.sql",
+      "language": "SQL",
+      "languageReason": "The task is a relational projection with optional address rows. SQL executes the join inside the database engine, preserves native NULL semantics, and avoids client-side materialization; this is the fastest and leanest accepted interface for a LeetCode Database problem.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Not a LeetCode Database submission language for this schema; reimplementing the join client-side would require extracting and materializing both tables."
+        },
+        {
+          "language": "C",
+          "assessment": "Unsupported for this database prompt and lower-level row handling would add transfer and memory overhead."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Strong for native joins, but unsupported here and dominated by executing the relational operator where the data resides."
+        },
+        {
+          "language": "Go",
+          "assessment": "Unsupported for this SQL schema submission and would need application-side materialization."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Not the accepted query interface for the database track; managed-runtime joins would allocate more than the SQL projection."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Python/Pandas can express a left merge but materializes DataFrames; the other scripting languages are not the intended database submission path. SQL is leaner and optimizer-driven."
+        }
+      ],
+      "approachJustification": "Use Person as the preserved table and left-join Address on personId, projecting only firstName, lastName, city, and state.",
+      "timeComplexity": "O(P + A) logical join work with a hash/merge plan; O(P log A) with index lookups",
+      "spaceComplexity": "O(R) output; engine workspace depends on the physical join plan"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Every Person row must be preserved, while Address is optional. A LEFT JOIN on personId is the direct relational expression; SQL naturally returns NULL for missing right-side columns and ignores orphan Address rows.",
+  "timeComplexity": "O(P + A) logical join work with optimizer-dependent physical plan",
+  "spaceComplexity": "O(R) output plus optimizer-dependent join workspace"
+}

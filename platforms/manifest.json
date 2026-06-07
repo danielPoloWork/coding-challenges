@@ -96,6 +96,27 @@
   ],
   "challenges": [
     {
+      "id": "175",
+      "title": "Combine Two Tables",
+      "slug": "combine-two-tables",
+      "platform": "leetcode",
+      "language": "SQL",
+      "languageExt": "sql",
+      "difficulty": "Easy",
+      "topics": [
+        "Database"
+      ],
+      "patterns": [
+        "left-outer-join",
+        "projection"
+      ],
+      "path": "platforms/leetcode/sql/0175-combine-two-tables",
+      "recommendedSolution": "solution.sql",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(P + A) logical join work with optimizer-dependent physical plan",
+      "spaceComplexity": "O(R) output plus optimizer-dependent join workspace"
+    },
+    {
       "id": "217",
       "title": "Contains Duplicate",
       "slug": "contains-duplicate",
@@ -478,6 +499,29 @@
       "dateSolved": "2026-06-06",
       "timeComplexity": "O(n) effective for all variants after bounded exponent preprocessing",
       "spaceComplexity": "O(E2 * E3 + L) recommended, O(10 * S + L) runtime, O(L) memory"
+    },
+    {
+      "id": "3409",
+      "title": "Longest Subsequence With Decreasing Adjacent Difference",
+      "slug": "longest-subsequence-with-decreasing-adjacent-difference",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Dynamic Programming"
+      ],
+      "patterns": [
+        "dynamic-programming",
+        "value-compressed-dp",
+        "suffix-maximum"
+      ],
+      "path": "platforms/leetcode/cpp/3409-longest-subsequence-with-decreasing-adjacent-difference",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(n * 300)",
+      "spaceComplexity": "O(300 * 300)"
     },
     {
       "id": "3463",
