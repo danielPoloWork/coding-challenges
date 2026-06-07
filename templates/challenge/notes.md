@@ -36,6 +36,27 @@ Consider:
 Do not use or mention a default language. Each choice must come from performance analysis.
 Do not write that the repository requires a specific language. It does not.
 
+For every proposal, keep the candidate-language evaluation explicit:
+
+```text
+Candidate languages considered:
+- C++:
+- C:
+- Rust:
+- Go:
+- Java / C#:
+- Python / JavaScript / TypeScript:
+
+Chosen language:
+- Selected:
+- Why it wins for this proposal:
+- Why the main alternatives lose:
+```
+
+Adjust the candidate list to the platform's supported languages, but do not silently skip
+a practical candidate. If a language is unsupported or clearly dominated for this problem's
+constraints, say that briefly.
+
 ## Constraints
 
 - Add relevant input size limits.

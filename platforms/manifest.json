@@ -96,32 +96,6 @@
   ],
   "challenges": [
     {
-      "id": "n-puzzle",
-      "title": "N Puzzle",
-      "slug": "n-puzzle",
-      "platform": "hackerrank",
-      "language": "C++",
-      "languageExt": "cpp",
-      "difficulty": "Medium",
-      "topics": [
-        "Sliding Puzzle",
-        "Constructive Algorithm",
-        "Breadth-First Search",
-        "State Compression"
-      ],
-      "patterns": [
-        "row-column-locking",
-        "pair-placement",
-        "cantor-ranking",
-        "local-state-search"
-      ],
-      "path": "platforms/hackerrank/cpp/n-puzzle",
-      "recommendedSolution": "solution.cpp",
-      "dateSolved": "2026-06-06",
-      "timeComplexity": "O(k^8 + 9! * 9^2 + M)",
-      "spaceComplexity": "O(k^6 + 9! + M) for solution.cpp; O(k^6 + 9!) for solution-memory.cpp"
-    },
-    {
       "id": "217",
       "title": "Contains Duplicate",
       "slug": "contains-duplicate",

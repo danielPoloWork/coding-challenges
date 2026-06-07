@@ -183,6 +183,13 @@ Do not choose a language because it is familiar, concise, or generally convenien
 Record each proposal's language in `metadata.json` (the `variants[]` array).
 Explain the performance reason for each language choice in `notes.md`. The explanation must reference the problem constraints, runtime profile, memory profile, data structures, or platform execution characteristics. It must not cite a repository-wide language requirement.
 
+For each proposal, also document the candidate-language comparison explicitly. Start from the allowed language set and the platform's supported languages. At minimum, address the practical systems-language candidates (`C++`, `C`, `Rust`, `Go`), managed-runtime candidates (`Java`, `C#`) when relevant, and interpreted/VM candidates (`Python`, `JavaScript`, `TypeScript`) when constraints or platform behavior could make them competitive. The notes must state:
+
+- Candidate languages considered
+- Chosen language
+- Why the chosen language wins for that proposal's objective
+- Why the main alternatives lose
+
 ### notes.md
 
 Contains the reasoning process behind the solution.
@@ -226,7 +233,7 @@ Metadata in each language folder should identify:
 
 - Platform, difficulty, topics, patterns
 - `language` and `languageExt` for this folder
-- This folder's proposals as a `variants[]` array (role, file, language, language reason, approach justification, time/space complexity)
+- This folder's proposals as a `variants[]` array (role, file, language, language reason, language alternatives, approach justification, time/space complexity)
 - `recommendedSolution`: the best file in this folder
 - `challengeRecommended`: path to the challenge's overall recommended solution (may be in another language folder)
 - `crossReferences`: the sibling proposals in other language folders (role, language, path, file)

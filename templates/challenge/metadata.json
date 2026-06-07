@@ -22,6 +22,32 @@
       "file": "solution.{ext}",
       "language": "",
       "languageReason": "Why this language gives the best fast-and-lean default for this problem. Do not cite a repository-wide language requirement.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Considered for native runtime, contiguous storage, and platform ergonomics; explain whether it wins or why another language beats it."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for minimal runtime overhead and memory control; explain whether the lower-level API helps or is outweighed by platform/signature costs."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and memory safety; explain whether platform support and implementation overhead fit this problem."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled performance and simple data structures; explain whether GC/runtime overhead or platform support changes the trade-off."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered when managed runtimes are supported and competitive; explain whether JIT, GC, object layout, or library ergonomics help or hurt."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript",
+          "assessment": "Considered when constraints are small, built-ins dominate, or platform scoring favors them; explain why interpreter/VM overhead is acceptable or not."
+        }
+      ],
       "approachJustification": "",
       "timeComplexity": "",
       "spaceComplexity": ""
@@ -31,6 +57,32 @@
       "file": "solution-runtime.{ext}",
       "language": "",
       "languageReason": "Why this language wins raw/asymptotic runtime for this problem.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Considered for raw native speed, inlining, and optimized standard-library primitives."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for minimal abstraction overhead and manual memory layout."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native speed with strict memory guarantees; note platform and implementation-cost trade-offs."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops and straightforward implementation; note GC/runtime and bounds-check trade-offs."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered for strong JIT performance where platform startup and allocation patterns are acceptable."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript",
+          "assessment": "Considered only when built-ins, small constraints, or platform behavior can overcome VM/interpreter overhead."
+        }
+      ],
       "approachJustification": "",
       "timeComplexity": "",
       "spaceComplexity": ""
@@ -40,6 +92,32 @@
       "file": "solution-memory.{ext}",
       "language": "",
       "languageReason": "Why this language minimizes the memory footprint for this problem.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Considered for compact contiguous containers and stack storage; explain any unavoidable container/signature overhead."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for the smallest manual layouts and no container/runtime overhead."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native memory control with safety checks; explain whether platform support and code shape remain lean."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for simple slices and maps; explain whether runtime/GC overhead is too large for the memory objective."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered when managed allocation is still compact enough; explain object/header/GC trade-offs."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript",
+          "assessment": "Considered only when input sizes are tiny or built-in representations avoid custom auxiliary structures."
+        }
+      ],
       "approachJustification": "",
       "timeComplexity": "",
       "spaceComplexity": ""
