@@ -1,0 +1,130 @@
+{
+  "id": "3957",
+  "title": "Maximum Sum of M Non-Overlapping Subarrays II",
+  "slug": "maximum-sum-of-m-non-overlapping-subarrays-ii",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3957-maximum-sum-of-m-non-overlapping-subarrays-ii",
+  "url": "https://leetcode.com/problems/maximum-sum-of-m-non-overlapping-subarrays-ii/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Dynamic Programming", "Binary Search", "Queue", "Prefix Sum"],
+  "patterns": ["wqs-binary-search", "alien-trick", "monotonic-queue", "interval-dp", "prefix-sum"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3957-maximum-sum-of-m-non-overlapping-subarrays-ii/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals. All three variants use WQS binary search plus a deque-optimized fixed-penalty DP; the runtime and memory variants change implementation layout to optimize their respective axes.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The constraints reach n = 1e5 with 64-bit prefix sums and about 35 fixed-penalty scans. C++ keeps the DP and deque transitions native, contiguous where it matters, and free of VM, interpreter, or GC overhead while preserving auditability.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It has the best blend of native speed, 64-bit arithmetic, vector/deque ergonomics, and LeetCode runner maturity for WQS plus monotone queues."
+        },
+        {
+          "language": "C",
+          "assessment": "Competitive for raw loops, but the LeetCode signature and manual dynamic arrays make the implementation more error-prone without improving the asymptotic memory requirement for the balanced proposal."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and memory-safe, but borrow-checker friction around mutable DP arrays and deque state adds implementation overhead; LeetCode C++ tends to have lower constant overhead for this pattern."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled and simple, but bounds checks, runtime overhead, and less predictable allocation behavior make it less attractive for top-percentile scans over large arrays."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "JIT runtimes can be fast, but repeated scans plus queue arrays still pay managed-runtime and bounds-check costs; C++ keeps memory layout and integer arithmetic leaner."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The O(n log A) algorithm is still tens of millions of loop iterations in the worst case, so interpreter or VM overhead is too high for the top 1% target."
+        }
+      ],
+      "approachJustification": "Use WQS binary search on a penalty per selected subarray. For a fixed penalty, scan endpoints and keep the best previous split j in [i - r, i - l] by maximizing dp[j] - prefix[j] in a monotone deque. If the zero-penalty optimum already uses at most m subarrays, return it; otherwise recover the exact-m value at the WQS boundary.",
+      "timeComplexity": "O(n log A)",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "The runtime variant is dominated by tight linear scans. C++ lets the implementation reuse flat vectors as manual queues and DP arrays, avoiding block deque overhead and repeated allocation while keeping all arithmetic in native 64-bit integers.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Flat arrays, inline lambdas, and direct index queues give the lowest practical constants on LeetCode for this DP."
+        },
+        {
+          "language": "C",
+          "assessment": "Could match the loop shape, but LeetCode C support and manual memory plumbing reduce reliability; the C++ version compiles to similarly tight loops."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native performance is possible, but checked indexing and more verbose queue management make it less likely to beat the C++ flat-array implementation."
+        },
+        {
+          "language": "Go",
+          "assessment": "Slices are convenient, but bounds checks and runtime overhead are harder to eliminate in the repeated hot scans."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays can be competitive after JIT warmup, but C++ avoids GC/runtime startup and has more predictable top-percentile behavior."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Too many scalar loop iterations for interpreted or VM-heavy implementations under the maximum constraints."
+        }
+      ],
+      "approachJustification": "Same WQS transition as the recommended solution, but with preallocated prefix, DP, count, and queue arrays reused by every penalty evaluation.",
+      "timeComplexity": "O(n log A)",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "The memory variant needs circular buffers and compact queue records while preserving native-speed repeated scans. C++ provides explicit contiguous storage without managed-runtime overhead and avoids the larger object footprint of high-level deques or boxed values.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It supports compact ring buffers and queue records while still fitting LeetCode's vector-based signature cleanly."
+        },
+        {
+          "language": "C",
+          "assessment": "Can minimize runtime baseline, but implementing the LeetCode vector input and multiple reusable circular structures manually would increase risk without a meaningful asymptotic gain."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Memory control is strong, but circular mutable buffers and queue views are more cumbersome; C++ keeps the implementation smaller and lean."
+        },
+        {
+          "language": "Go",
+          "assessment": "Slices are compact enough, but the runtime and GC baseline are larger than C++ for the memory-score objective."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays avoid boxing, but managed-runtime baseline memory is higher than C++."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Object-heavy numeric storage is far too large for a memory-extreme solution."
+        }
+      ],
+      "approachJustification": "Stream each penalty evaluation with a running prefix, an l-step delay ring for states that are not eligible yet, and a circular monotone deque for eligible starts. This removes full prefix and DP arrays.",
+      "timeComplexity": "O(n log A)",
+      "spaceComplexity": "O(r)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "For a fixed penalty x per chosen subarray, the adjusted DP transition is dp[i] = max(dp[i - 1], prefix[i] - x + max(dp[j] - prefix[j])) over starts j whose distance from i is between l and r. A monotone deque makes this linear. The optimal selected count decreases as x grows, so binary search finds the penalty boundary needed for m subarrays when the unconstrained zero-penalty optimum exceeds m. Negative-only cases are handled by separately computing the best one valid subarray because at least one segment is required.",
+  "timeComplexity": "O(n log A)",
+  "spaceComplexity": "O(n) recommended/runtime, O(r) memory"
+}
