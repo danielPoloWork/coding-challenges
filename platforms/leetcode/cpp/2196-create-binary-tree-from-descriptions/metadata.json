@@ -1,0 +1,52 @@
+{
+  "id": "2196",
+  "title": "Create Binary Tree From Descriptions",
+  "slug": "create-binary-tree-from-descriptions",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/2196-create-binary-tree-from-descriptions",
+  "url": "https://leetcode.com/problems/create-binary-tree-from-descriptions/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Hash Table", "Tree", "Binary Tree"],
+  "patterns": ["tree construction", "direct addressing", "root detection", "coordinate compression"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/2196-create-binary-tree-from-descriptions/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "All three proposals are implemented in C++ because this problem is dominated by direct pointer-table operations and the native LeetCode return type is TreeNode*.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ direct-index vectors give O(1) value lookup without hashing or GC overhead, while sizing to the observed maximum value keeps the auxiliary tables more memory-conscious than a fixed full-range table.",
+      "approachJustification": "Scan for the maximum value, allocate compact direct-address node and child-marker arrays, build edges once, then return the parent value never marked as a child.",
+      "timeComplexity": "O(n + M)",
+      "spaceComplexity": "O(k) tree nodes + O(M) auxiliary"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "C++ fixed-size array and bitset over the known 100000 value bound avoid the preliminary max scan, hash computation, bucket indirection, and dynamic table sizing on the hot path.",
+      "approachJustification": "Use full-range direct-address tables, lazily allocate each node once, mark children in a bitset, and scan parent descriptions for the unmarked root.",
+      "timeComplexity": "O(n + V)",
+      "spaceComplexity": "O(k) tree nodes + O(V) auxiliary"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "C++ coordinate compression with sort/unique/lower_bound keeps lookup arrays proportional to distinct nodes while still using contiguous buffers and inlined comparisons.",
+      "approachJustification": "Compress all observed values to dense ids, build the tree through binary-searched ids, and mark child ids to find the root.",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(k) tree nodes + O(k) auxiliary"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The root is the only parent value never marked as a child. Bounded values make direct addressing faster than hashing; coordinate compression is the lower-memory alternative when sparse value ranges matter.",
+  "timeComplexity": "O(n + M) recommended / O(n + V) runtime / O(n log n) memory",
+  "spaceComplexity": "O(k + M) recommended / O(k + V) runtime / O(k) auxiliary memory"
+}

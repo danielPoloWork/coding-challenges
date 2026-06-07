@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-06",
+  "generated": "2026-06-07",
   "version": 1,
   "platforms": [
     {
@@ -231,6 +231,32 @@
       "dateSolved": "2026-06-04",
       "timeComplexity": "O(n)",
       "spaceComplexity": "O(1) auxiliary (output is 2n ints)"
+    },
+    {
+      "id": "2196",
+      "title": "Create Binary Tree From Descriptions",
+      "slug": "create-binary-tree-from-descriptions",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Hash Table",
+        "Tree",
+        "Binary Tree"
+      ],
+      "patterns": [
+        "tree construction",
+        "direct addressing",
+        "root detection",
+        "coordinate compression"
+      ],
+      "path": "platforms/leetcode/cpp/2196-create-binary-tree-from-descriptions",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(n + M) recommended / O(n + V) runtime / O(n log n) memory",
+      "spaceComplexity": "O(k + M) recommended / O(k + V) runtime / O(k) auxiliary memory"
     },
     {
       "id": "2574",
