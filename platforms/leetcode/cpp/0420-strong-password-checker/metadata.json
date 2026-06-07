@@ -1,0 +1,35 @@
+{
+  "id": "420",
+  "title": "Strong Password Checker",
+  "slug": "strong-password-checker",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/0420-strong-password-checker",
+  "url": "https://leetcode.com/problems/strong-password-checker/",
+  "difficulty": "Hard",
+  "topics": ["String", "Greedy"],
+  "patterns": ["greedy", "run-length-analysis", "case-analysis"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/0420-strong-password-checker/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The problem is a short, branch-heavy string scan with scalar counters. Native C++ avoids interpreter and GC overhead, uses direct ASCII comparisons, and needs no auxiliary containers, making it the fastest practical and memory-conscious choice among the allowed LeetCode languages for this workload.",
+      "approachJustification": "Count missing character classes and repeated-run replacement pressure. For overlength passwords, spend mandatory deletions in the optimal len % 3 priority order to reduce replacements, then combine remaining replacement pressure with missing type repairs. This same O(n), O(1) strategy is also the speed and memory extreme.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "A run of length L needs L / 3 replacements unless deletions shrink it. Under the mandatory n - 20 deletions for overlong passwords, deleting from runs with L % 3 == 0 saves a replacement after one deletion, L % 3 == 1 after two deletions, and all remaining saves cost three deletions. Short passwords are handled by max(missing types, length deficit), valid-length passwords by max(missing types, run replacements), and long passwords by deletions plus max(missing types, reduced replacements).",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) extra"
+}
