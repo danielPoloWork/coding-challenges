@@ -1,4 +1,11 @@
-# Notes - LeetCode 175: Combine Two Tables (SQL proposal)
+# Notes - LeetCode Quest Database SQL Basic Query Workstation Level 1: Combine Two Tables (SQL proposal)
+
+## Source Context
+
+This entry is stored under the quest-oriented folder
+`quest-database-sql-basic-query-workstation-level-1` because the exercise appears as Q1 in
+LeetCode's Database: SQL Basic Query Workstation quest. The canonical LeetCode problem identity
+is still problem `175`, `Combine Two Tables`.
 
 ## Problem Summary
 

@@ -1,0 +1,67 @@
+{
+  "id": "181",
+  "title": "Employees Earning More Than Their Managers",
+  "slug": "employees-earning-more-than-their-managers",
+  "platform": "leetcode",
+  "language": "SQL",
+  "languageExt": "sql",
+  "platformPath": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-2",
+  "url": "https://leetcode.com/problems/employees-earning-more-than-their-managers/",
+  "quest": {
+    "slug": "quest-database-sql-basic-query-workstation-level-2",
+    "title": "Database: SQL Basic Query Workstation",
+    "level": 2,
+    "question": 2
+  },
+  "difficulty": "Easy",
+  "topics": ["Database"],
+  "patterns": ["self-join", "inner-join", "filtering"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-2/solution.sql",
+  "recommendedSolution": "solution.sql",
+  "note": "Pareto-optimal database challenge: the single SQL self INNER JOIN is also the speed extreme and memory extreme. Per the repo standard (no coincident files), only solution.sql is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.sql",
+      "language": "SQL",
+      "languageReason": "The task is a relational self-comparison over one table. SQL executes the self join inside the database engine, uses the primary-key manager lookup, preserves native NULL behavior, and avoids client-side materialization; this is the fastest and leanest accepted interface for a LeetCode Database problem.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Not a LeetCode Database submission language for this schema; a client-side solution would need to extract rows and build an id-to-salary map before filtering."
+        },
+        {
+          "language": "C",
+          "assessment": "Unsupported for this database prompt, and manual row handling would add transfer and memory overhead compared with a pushed-down SQL join."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Strong for native in-memory joins, but unsupported here and dominated by executing the relational operation where the data resides."
+        },
+        {
+          "language": "Go",
+          "assessment": "Unsupported for this SQL schema submission; a map-based implementation would add application-side materialization and runtime overhead."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Not the accepted query interface for the database track; managed-runtime row objects and maps would allocate more than the SQL self join."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Python/Pandas can express the same merge but materializes DataFrames; the other scripting languages are not the intended database submission path. SQL is leaner and optimizer-driven."
+        }
+      ],
+      "approachJustification": "Alias Employee as employees and managers, inner-join on e.managerId = m.id, then project employee names whose salary is greater than the joined manager salary.",
+      "timeComplexity": "O(E) expected logical work with primary-key lookups or a hash/merge plan; O(E log E) with tree-index lookups",
+      "spaceComplexity": "O(R) output; engine workspace depends on the physical join plan"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "A manager is another row in Employee, so a self INNER JOIN directly pairs each employee with their manager. The strict salary predicate keeps only employees earning more than that joined manager row, while NULL manager ids naturally drop out.",
+  "timeComplexity": "O(E) expected logical work with optimizer-dependent physical plan",
+  "spaceComplexity": "O(R) output plus optimizer-dependent join workspace"
+}

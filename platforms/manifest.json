@@ -110,10 +110,32 @@
         "left-outer-join",
         "projection"
       ],
-      "path": "platforms/leetcode/sql/0175-combine-two-tables",
+      "path": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-1",
       "recommendedSolution": "solution.sql",
       "dateSolved": "2026-06-07",
       "timeComplexity": "O(P + A) logical join work with optimizer-dependent physical plan",
+      "spaceComplexity": "O(R) output plus optimizer-dependent join workspace"
+    },
+    {
+      "id": "181",
+      "title": "Employees Earning More Than Their Managers",
+      "slug": "employees-earning-more-than-their-managers",
+      "platform": "leetcode",
+      "language": "SQL",
+      "languageExt": "sql",
+      "difficulty": "Easy",
+      "topics": [
+        "Database"
+      ],
+      "patterns": [
+        "self-join",
+        "inner-join",
+        "filtering"
+      ],
+      "path": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-2",
+      "recommendedSolution": "solution.sql",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(E) expected logical work with optimizer-dependent physical plan",
       "spaceComplexity": "O(R) output plus optimizer-dependent join workspace"
     },
     {

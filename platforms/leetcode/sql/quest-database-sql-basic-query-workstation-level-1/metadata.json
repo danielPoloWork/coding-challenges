@@ -5,8 +5,14 @@
   "platform": "leetcode",
   "language": "SQL",
   "languageExt": "sql",
-  "platformPath": "platforms/leetcode/sql/0175-combine-two-tables",
+  "platformPath": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-1",
   "url": "https://leetcode.com/problems/combine-two-tables/",
+  "quest": {
+    "slug": "quest-database-sql-basic-query-workstation-level-1",
+    "title": "Database: SQL Basic Query Workstation",
+    "level": 1,
+    "question": 1
+  },
   "difficulty": "Easy",
   "topics": ["Database"],
   "patterns": ["left-outer-join", "projection"],
@@ -14,7 +20,7 @@
   "dateSolved": "2026-06-07",
   "performanceTarget": "top 1% execution time and overall performance",
   "paretoOptimal": true,
-  "challengeRecommended": "platforms/leetcode/sql/0175-combine-two-tables/solution.sql",
+  "challengeRecommended": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-1/solution.sql",
   "recommendedSolution": "solution.sql",
   "note": "Pareto-optimal database challenge: the single SQL LEFT JOIN solution is also the speed extreme and memory extreme. Per the repo standard (no coincident files), only solution.sql is shipped; there is no separate solution-runtime or solution-memory file.",
   "variants": [
