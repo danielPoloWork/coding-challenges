@@ -330,6 +330,34 @@
       "spaceComplexity": "O(n) auxiliary"
     },
     {
+      "id": "3276",
+      "title": "Select Cells in Grid With Maximum Score",
+      "slug": "select-cells-in-grid-with-maximum-score",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Bit Manipulation",
+        "Matrix",
+        "Greedy",
+        "Bipartite Matching"
+      ],
+      "patterns": [
+        "transversal-matroid",
+        "weighted-matroid-greedy",
+        "bipartite-matching",
+        "augmenting-path"
+      ],
+      "path": "platforms/leetcode/cpp/3276-select-cells-in-grid-with-maximum-score",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(R * C + V * R), with R <= 10, C <= 10, V = 100",
+      "spaceComplexity": "O(V + R)"
+    },
+    {
       "id": "3303",
       "title": "Find the Occurrence of First Almost Equal Substring",
       "slug": "find-the-occurrence-of-first-almost-equal-substring",

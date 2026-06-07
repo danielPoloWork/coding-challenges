@@ -1,0 +1,61 @@
+{
+  "id": "3276",
+  "title": "Select Cells in Grid With Maximum Score",
+  "slug": "select-cells-in-grid-with-maximum-score",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3276-select-cells-in-grid-with-maximum-score",
+  "url": "https://leetcode.com/problems/select-cells-in-grid-with-maximum-score/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Dynamic Programming", "Bit Manipulation", "Matrix", "Greedy", "Bipartite Matching"],
+  "patterns": ["transversal-matroid", "weighted-matroid-greedy", "bipartite-matching", "augmenting-path"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3276-select-cells-in-grid-with-maximum-score/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single C++ matching-greedy solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The workload is fixed-domain integer matching over at most 100 values and 10 rows. C++ gives native branch-heavy performance, compact fixed arrays, direct bit intrinsics, and the standard LeetCode vector matrix signature without GC or interpreter overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected for native speed, fixed arrays, direct bit operations, and ergonomic LeetCode integration."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for the smallest runtime baseline; it does not improve the algorithmic memory profile and would mainly trade readability and platform ergonomics for tiny baseline constants."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and memory safety; nested Vec access and borrow-management overhead add ceremony without improving the tiny fixed-state workload."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops and simple slices; runtime, bounds checks, and GC baseline are less attractive than C++ fixed arrays here."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered for strong JIT performance; object-array layout and managed runtime overhead are unnecessary for 101 masks and 10 row assignments."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered because the constraints are small; interpreter/VM overhead loses to native code for top-percentile runtime."
+        }
+      ],
+      "approachJustification": "Model distinct values as weighted elements that can be matched to rows where they appear. Matchable value sets are a transversal matroid, so descending-value greedy is optimal; each keep/reject decision is tested by one augmenting path in the current row matching.",
+      "timeComplexity": "O(R * C + V * R), with R <= 10, C <= 10, V = 100",
+      "spaceComplexity": "O(V + R)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Collapse duplicate cells into value-to-row bitmasks. The chosen values must be matchable injectively to rows, which is the independent-set family of a transversal matroid. Greedy by descending value, backed by augmenting paths to maintain a matching, returns the maximum-weight feasible value set.",
+  "timeComplexity": "O(R * C + V * R), with R <= 10, C <= 10, V = 100",
+  "spaceComplexity": "O(V + R)"
+}
