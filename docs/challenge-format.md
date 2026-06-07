@@ -183,7 +183,7 @@ Do not choose a language because it is familiar, concise, or generally convenien
 Record each proposal's language in `metadata.json` (the `variants[]` array).
 Explain the performance reason for each language choice in `notes.md`. The explanation must reference the problem constraints, runtime profile, memory profile, data structures, or platform execution characteristics. It must not cite a repository-wide language requirement.
 
-For each proposal, also document the candidate-language comparison explicitly. Start from the allowed language set and the platform's supported languages. At minimum, address the practical systems-language candidates (`C++`, `C`, `Rust`, `Go`), managed-runtime candidates (`Java`, `C#`) when relevant, and interpreted/VM candidates (`Python`, `JavaScript`, `TypeScript`) when constraints or platform behavior could make them competitive. The notes must state:
+For each proposal, also document the candidate-language comparison explicitly. Start from the allowed language set and the platform's supported languages. At minimum, address the practical systems-language candidates (`C++`, `C`, `Rust`, `Go`), managed-runtime candidates (`Java`, `C#`) when relevant, and interpreted/VM candidates (`Python`, `JavaScript`, `TypeScript`, `PHP`) when constraints or platform behavior could make them competitive. The notes must state:
 
 - Candidate languages considered
 - Chosen language

@@ -44,7 +44,7 @@
           "assessment": "Considered when managed runtimes are supported and competitive; explain whether JIT, GC, object layout, or library ergonomics help or hurt."
         },
         {
-          "language": "Python/JavaScript/TypeScript",
+          "language": "Python/JavaScript/TypeScript/PHP",
           "assessment": "Considered when constraints are small, built-ins dominate, or platform scoring favors them; explain why interpreter/VM overhead is acceptable or not."
         }
       ],
@@ -79,7 +79,7 @@
           "assessment": "Considered for strong JIT performance where platform startup and allocation patterns are acceptable."
         },
         {
-          "language": "Python/JavaScript/TypeScript",
+          "language": "Python/JavaScript/TypeScript/PHP",
           "assessment": "Considered only when built-ins, small constraints, or platform behavior can overcome VM/interpreter overhead."
         }
       ],
@@ -114,7 +114,7 @@
           "assessment": "Considered when managed allocation is still compact enough; explain object/header/GC trade-offs."
         },
         {
-          "language": "Python/JavaScript/TypeScript",
+          "language": "Python/JavaScript/TypeScript/PHP",
           "assessment": "Considered only when input sizes are tiny or built-in representations avoid custom auxiliary structures."
         }
       ],

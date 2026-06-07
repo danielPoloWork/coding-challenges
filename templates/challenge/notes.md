@@ -45,7 +45,7 @@ Candidate languages considered:
 - Rust:
 - Go:
 - Java / C#:
-- Python / JavaScript / TypeScript:
+- Python / JavaScript / TypeScript / PHP:
 
 Chosen language:
 - Selected:
