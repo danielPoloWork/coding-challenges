@@ -118,13 +118,20 @@ A challenge is one distinct `(platform, id)`; multi-language challenges count on
 
 These files are produced by `scripts/gen_indexes.py`, which scans `platforms/**/metadata.json`. Never edit the generated index files by hand.
 
+Mandatory commit rule for every agent:
+
+- Every agent or tool that creates a commit in this repository must ensure `stats/*.md` is current before the commit is finalized.
+- Keep `git config core.hooksPath scripts/hooks` enabled in this clone. The versioned `scripts/hooks/pre-commit` hook is the canonical enforcement point: it regenerates `stats/*.md` and stages `stats/` automatically on every `git commit`.
+- Do not bypass the hook with `--no-verify` unless the user explicitly asks for it. If hook configuration is uncertain, run `python scripts/gen_indexes.py` manually and stage `stats/` before committing.
+- A failure to regenerate the stats indexes is a commit blocker, not a warning to ignore.
+
 After adding, re-solving, or changing any challenge (any platform, any language), regenerate the indexes before committing:
 
 ```bash
 python scripts/gen_indexes.py
 ```
 
-A versioned pre-commit hook runs this automatically and stages the result, so the indexes are always committed together with the solution. Enable it once per clone:
+A versioned pre-commit hook runs this automatically and stages the result, so the indexes are always committed together with the solution. Enable or verify it once per clone:
 
 ```bash
 git config core.hooksPath scripts/hooks

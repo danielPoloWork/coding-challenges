@@ -1,40 +1,40 @@
 #!/bin/sh
-# Regenerate the generated index/manifest files before every commit so they
+# Regenerate generated index/manifest files before every commit so they
 # always reflect the current set of solved challenges:
 #   - stats/index-*.md        (Python, scripts/gen_indexes.py)
-#   - platforms/manifest.json (Node,   src/scripts/build-manifest.mjs) — the
+#   - platforms/manifest.json (Node,   src/scripts/build-manifest.mjs) - the
 #     index the website fetches at runtime.
 #
 # Enable once per clone with:
 #     git config core.hooksPath scripts/hooks
 #
-# A missing Python interpreter is treated as non-fatal (the commit proceeds and
-# the indexes are simply left untouched); a generator error blocks the commit so
-# malformed metadata is noticed.
+# Stats are mandatory: if Python is missing or the generator fails, block the
+# commit rather than allowing stale stats/*.md files into history.
 set -e
 
 repo_root=$(git rev-parse --show-toplevel)
+cd "$repo_root"
 
 if command -v python >/dev/null 2>&1; then
     PY=python
+elif command -v python3 >/dev/null 2>&1; then
+    PY=python3
 elif command -v py >/dev/null 2>&1; then
     PY=py
 else
-    PY=
-    echo "pre-commit: no Python interpreter found; skipping index regeneration" >&2
+    echo "pre-commit: Python is required to regenerate stats/*.md; aborting commit" >&2
+    exit 1
 fi
 
-if [ -n "$PY" ]; then
-    "$PY" "$repo_root/scripts/gen_indexes.py"
-    # Stage any (re)generated index files so they ride along with this commit.
-    git add "$repo_root/stats/"index-*.md 2>/dev/null || true
-fi
+"$PY" scripts/gen_indexes.py
+# Stage all generated stats changes, including stale index deletions.
+git add -- stats
 
 # Regenerate the website manifest (Node 18+). A missing Node interpreter is
 # non-fatal; a generator error blocks the commit so malformed metadata is seen.
 if command -v node >/dev/null 2>&1; then
-    node "$repo_root/src/scripts/build-manifest.mjs"
-    git add "$repo_root/platforms/manifest.json" 2>/dev/null || true
+    node src/scripts/build-manifest.mjs
+    git add -- platforms/manifest.json
 else
     echo "pre-commit: no Node interpreter found; skipping manifest regeneration" >&2
 fi
