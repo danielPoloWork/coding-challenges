@@ -1,0 +1,67 @@
+{
+  "id": "620",
+  "title": "Not Boring Movies",
+  "slug": "not-boring-movies",
+  "platform": "leetcode",
+  "language": "SQL",
+  "languageExt": "sql",
+  "platformPath": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-3",
+  "url": "https://leetcode.com/problems/not-boring-movies/",
+  "quest": {
+    "slug": "quest-database-sql-basic-query-workstation-level-3",
+    "title": "Database: SQL Basic Query Workstation",
+    "level": 3,
+    "question": 3
+  },
+  "difficulty": "Easy",
+  "topics": ["Database"],
+  "patterns": ["filtering", "modulo", "ordering"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-3/solution.sql",
+  "recommendedSolution": "solution.sql",
+  "note": "Pareto-optimal database challenge: the single SQL filter plus ORDER BY solution is also the speed extreme and memory extreme. Per the repo standard (no coincident files), only solution.sql is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.sql",
+      "language": "SQL",
+      "languageReason": "The task is a relational selection with a required order over one table. SQL executes the predicates and ordering inside the database engine, avoids client-side materialization, and is the fastest and leanest accepted interface for a LeetCode Database problem.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Not a LeetCode Database submission language for this schema; a client-side solution would need to extract rows before filtering and sorting."
+        },
+        {
+          "language": "C",
+          "assessment": "Unsupported for this database prompt, and manual row handling would add transfer and memory overhead compared with pushed-down SQL predicates."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Strong for native in-memory filtering and sorting, but unsupported here and dominated by executing the relational query where the data resides."
+        },
+        {
+          "language": "Go",
+          "assessment": "Unsupported for this SQL schema submission; application-side slices would allocate more than the database engine's native query path."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Not the accepted query interface for the database track; managed row objects and client-side sorting would be heavier than the SQL plan."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Python/Pandas can express the same filter and sort, but it materializes DataFrame data; the other scripting languages are not the intended database submission path. SQL is leaner and optimizer-driven."
+        }
+      ],
+      "approachJustification": "Filter Cinema rows with id % 2 = 1 and description <> 'boring', project the required columns, then order the qualifying rows by rating descending.",
+      "timeComplexity": "O(C + Q log Q) logical work without a rating index",
+      "spaceComplexity": "O(Q) output plus optimizer-dependent sort workspace"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The problem is a direct selection over Cinema plus the required descending rating order. Filtering on odd ids and non-boring descriptions before sorting minimizes the rows fed into the only expensive operator.",
+  "timeComplexity": "O(C + Q log Q) logical work without a rating index",
+  "spaceComplexity": "O(Q) output plus optimizer-dependent sort workspace"
+}

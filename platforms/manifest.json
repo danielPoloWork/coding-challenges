@@ -206,6 +206,28 @@
       "spaceComplexity": "O(1) extra"
     },
     {
+      "id": "620",
+      "title": "Not Boring Movies",
+      "slug": "not-boring-movies",
+      "platform": "leetcode",
+      "language": "SQL",
+      "languageExt": "sql",
+      "difficulty": "Easy",
+      "topics": [
+        "Database"
+      ],
+      "patterns": [
+        "filtering",
+        "modulo",
+        "ordering"
+      ],
+      "path": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-3",
+      "recommendedSolution": "solution.sql",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(C + Q log Q) logical work without a rating index",
+      "spaceComplexity": "O(Q) output plus optimizer-dependent sort workspace"
+    },
+    {
       "id": "912",
       "title": "Sort an Array",
       "slug": "sort-an-array",
