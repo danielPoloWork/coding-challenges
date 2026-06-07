@@ -206,6 +206,28 @@
       "spaceComplexity": "O(1) extra"
     },
     {
+      "id": "584",
+      "title": "Find Customer Referee",
+      "slug": "find-customer-referee",
+      "platform": "leetcode",
+      "language": "SQL",
+      "languageExt": "sql",
+      "difficulty": "Easy",
+      "topics": [
+        "Database"
+      ],
+      "patterns": [
+        "filtering",
+        "null-semantics",
+        "projection"
+      ],
+      "path": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-4",
+      "recommendedSolution": "solution.sql",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(C) logical scan work without a referee_id index",
+      "spaceComplexity": "O(R) output"
+    },
+    {
       "id": "620",
       "title": "Not Boring Movies",
       "slug": "not-boring-movies",

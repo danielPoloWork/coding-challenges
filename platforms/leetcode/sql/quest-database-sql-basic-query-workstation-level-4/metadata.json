@@ -1,0 +1,67 @@
+{
+  "id": "584",
+  "title": "Find Customer Referee",
+  "slug": "find-customer-referee",
+  "platform": "leetcode",
+  "language": "SQL",
+  "languageExt": "sql",
+  "platformPath": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-4",
+  "url": "https://leetcode.com/problems/find-customer-referee/",
+  "quest": {
+    "slug": "quest-database-sql-basic-query-workstation-level-4",
+    "title": "Database: SQL Basic Query Workstation",
+    "level": 4,
+    "question": 4
+  },
+  "difficulty": "Easy",
+  "topics": ["Database"],
+  "patterns": ["filtering", "null-semantics", "projection"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/sql/quest-database-sql-basic-query-workstation-level-4/solution.sql",
+  "recommendedSolution": "solution.sql",
+  "note": "Pareto-optimal database challenge: the single SQL filter is also the speed extreme and memory extreme. Per the repo standard (no coincident files), only solution.sql is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.sql",
+      "language": "SQL",
+      "languageReason": "The task is a relational projection with a null-aware filter over one table. SQL evaluates the predicate inside the database engine, preserves native NULL semantics, and avoids client-side materialization; this is the fastest and leanest accepted interface for a LeetCode Database problem.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Not a LeetCode Database submission language for this schema; a client-side implementation would need to extract rows before applying a predicate the database can evaluate directly."
+        },
+        {
+          "language": "C",
+          "assessment": "Unsupported for this database prompt, and manual row handling would add transfer and memory overhead compared with a pushed-down SQL filter."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Strong for native in-memory filtering, but unsupported here and dominated by executing the relational selection where the data resides."
+        },
+        {
+          "language": "Go",
+          "assessment": "Unsupported for this SQL schema submission; application-side slices or structs would materialize rows outside the database engine."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Not the accepted query interface for the database track; managed row objects and client-side filtering would be heavier than the SQL plan."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Python/Pandas can express the same filter with isna() plus inequality, but it materializes DataFrame rows; the other scripting languages are not the intended database submission path. SQL is leaner and optimizer-driven."
+        }
+      ],
+      "approachJustification": "Filter Customer rows with referee_id <> 2 or referee_id IS NULL, then project only name. The explicit NULL branch is required because SQL inequality does not match NULL values.",
+      "timeComplexity": "O(C) logical scan work without a referee_id index",
+      "spaceComplexity": "O(R) output"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The problem asks for every customer except those referred by id 2. A single null-aware WHERE predicate captures both allowed cases and avoids unnecessary joins, sorting, grouping, or computed expressions.",
+  "timeComplexity": "O(C) logical scan work without a referee_id index",
+  "spaceComplexity": "O(R) output"
+}
