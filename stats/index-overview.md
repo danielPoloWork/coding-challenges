@@ -4,10 +4,10 @@
 
 | Metric | Value |
 | --- | ---: |
-| Total challenges solved | 21 |
+| Total challenges solved | 22 |
 | Total source platforms | 2 (of 16 catalogued) |
 | Total languages used | 2 |
-| Total catalogued patterns | 26 |
+| Total catalogued patterns | 27 |
 
 _"Catalogued patterns" counts distinct topics across all platforms and languages._
 
@@ -15,16 +15,16 @@ _"Catalogued patterns" counts distinct topics across all platforms and languages
 
 | Platform | Challenges solved |
 | --- | ---: |
-| [leetcode](index-leetcode.md) | 20 |
+| [leetcode](index-leetcode.md) | 21 |
 | [hackerrank](index-hackerrank.md) | 1 |
 
 ## Languages used
 
 | Language | Solved |
 | --- | ---: |
-| C++ | 21 |
+| C++ | 22 |
 | C | 5 |
 
 ## Catalogued patterns (distinct topics)
 
-Array, Binary Search, Binary Tree, Bit Manipulation, Breadth-First Search, Combinatorics, Constructive Algorithm, Counting, Counting Sort, Divide and Conquer, Dynamic Programming, Enumeration, Greedy, Hash Table, Heap (Priority Queue), Math, Number Theory, Prefix Sum, Simulation, Sliding Puzzle, Sorting, State Compression, String, String Matching, Tree, Z-Algorithm
+Array, Binary Search, Binary Tree, Bit Manipulation, Breadth-First Search, Combinatorics, Constructive Algorithm, Counting, Counting Sort, Divide and Conquer, Dynamic Programming, Enumeration, Greedy, Hash Table, Heap (Priority Queue), Math, Number Theory, Prefix Sum, Segment Tree, Simulation, Sliding Puzzle, Sorting, State Compression, String, String Matching, Tree, Z-Algorithm

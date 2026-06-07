@@ -1,0 +1,35 @@
+{
+  "id": "3165",
+  "title": "Maximum Sum of Subsequence With Non-adjacent Elements",
+  "slug": "maximum-sum-of-subsequence-with-non-adjacent-elements",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3165-maximum-sum-of-subsequence-with-non-adjacent-elements",
+  "url": "https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Dynamic Programming", "Segment Tree"],
+  "patterns": ["segment-tree", "max-plus-dp", "house-robber", "point-update", "monoid"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3165-maximum-sum-of-subsequence-with-non-adjacent-elements/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single C++ solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The workload is up to 5e4 online point updates over a fixed-state DP. C++ keeps the segment-tree merge as inlined arithmetic over contiguous memory, avoids VM/interpreter/GC overhead, and uses 64-bit integers for exact intermediate sums up to about 5e9.",
+      "approachJustification": "Represent each value as a max-plus 2x2 matrix for the house-robber transition. Segment concatenation is associative matrix composition, so an iterative segment tree updates one leaf and recomposes O(log n) ancestors. This same implementation is the fastest practical and memory-conscious accepted approach.",
+      "timeComplexity": "O(n + q log n)",
+      "spaceComplexity": "O(n)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The static no-adjacent-subsequence maximum is the house-robber DP. Each array element is a max-plus transition from previous-selected/not-selected states, and adjacent intervals compose associatively. A segment tree over those four values supports arbitrary point updates and reads the whole-array answer from the root after each query.",
+  "timeComplexity": "O(n + q log n)",
+  "spaceComplexity": "O(n)"
+}

@@ -304,6 +304,32 @@
       "spaceComplexity": "O(1) auxiliary, O(n) output"
     },
     {
+      "id": "3165",
+      "title": "Maximum Sum of Subsequence With Non-adjacent Elements",
+      "slug": "maximum-sum-of-subsequence-with-non-adjacent-elements",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Dynamic Programming",
+        "Segment Tree"
+      ],
+      "patterns": [
+        "segment-tree",
+        "max-plus-dp",
+        "house-robber",
+        "point-update",
+        "monoid"
+      ],
+      "path": "platforms/leetcode/cpp/3165-maximum-sum-of-subsequence-with-non-adjacent-elements",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(n + q log n)",
+      "spaceComplexity": "O(n)"
+    },
+    {
       "id": "3266",
       "title": "Final Array State After K Multiplication Operations II",
       "slug": "final-array-state-after-k-multiplication-operations-ii",
