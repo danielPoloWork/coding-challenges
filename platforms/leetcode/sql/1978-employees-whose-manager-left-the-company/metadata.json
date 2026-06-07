@@ -1,0 +1,67 @@
+{
+  "id": "1978",
+  "title": "Employees Whose Manager Left the Company",
+  "slug": "employees-whose-manager-left-the-company",
+  "platform": "leetcode",
+  "language": "SQL",
+  "languageExt": "sql",
+  "platformPath": "platforms/leetcode/sql/1978-employees-whose-manager-left-the-company",
+  "url": "https://leetcode.com/problems/employees-whose-manager-left-the-company/",
+  "quest": {
+    "slug": "quest-database-sql-basic-query-workstation-quiz",
+    "title": "Database: SQL Basic Query Workstation",
+    "level": "quiz",
+    "question": "quiz"
+  },
+  "difficulty": "Easy",
+  "topics": ["Database"],
+  "patterns": ["anti-join", "self-reference", "filtering", "ordering", "null-semantics"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/sql/1978-employees-whose-manager-left-the-company/solution.sql",
+  "recommendedSolution": "solution.sql",
+  "note": "Pareto-optimal database challenge: the single SQL NOT EXISTS anti-lookup is also the speed extreme and memory extreme. Per the repo standard (no coincident files), only solution.sql is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.sql",
+      "language": "SQL",
+      "languageReason": "The task is a relational self anti-lookup with a simple salary filter and required primary-key ordering. SQL executes the filter and manager existence test inside the database engine, uses the primary key on employee_id, preserves native NULL semantics, and avoids client-side materialization; this is the fastest and leanest accepted interface for a LeetCode Database problem.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Not a LeetCode Database submission language for this schema; a client-side implementation would need to extract rows and build an id set before filtering."
+        },
+        {
+          "language": "C",
+          "assessment": "Unsupported for this database prompt, and manual row handling would add transfer and memory overhead compared with a pushed-down SQL anti-lookup."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Strong for native in-memory membership checks, but unsupported here and dominated by executing the relational anti-join where the data resides."
+        },
+        {
+          "language": "Go",
+          "assessment": "Unsupported for this SQL schema submission; a map-based implementation would add application-side materialization and runtime/GC overhead."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Not the accepted query interface for the database track; managed row objects and maps would allocate more than the SQL plan."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Python/Pandas can express the same anti-lookup with an anti-merge or isin, but it materializes DataFrames; the other scripting languages are not the intended database submission path. SQL is leaner and optimizer-driven."
+        }
+      ],
+      "approachJustification": "Filter low-salary employees with a non-null manager_id, then keep only rows for which no manager row exists with employee_id equal to that manager_id; finally order by employee_id.",
+      "timeComplexity": "O(n) logical scan plus primary-key manager existence checks; O(r log r) sort only if the engine cannot satisfy ORDER BY from employee_id order",
+      "spaceComplexity": "O(r) output plus optimizer-dependent workspace"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "A manager who remains at the company is another row in Employees. A low-salary employee qualifies only when manager_id is non-null and no row exists for that manager id. NOT EXISTS states that anti-lookup directly and avoids unnecessary joins, grouping, or client-side state.",
+  "timeComplexity": "O(n) logical scan plus primary-key manager existence checks; O(r log r) sort only if needed",
+  "spaceComplexity": "O(r) output plus optimizer-dependent workspace"
+}

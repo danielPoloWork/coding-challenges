@@ -317,6 +317,30 @@
       "spaceComplexity": "O(1) auxiliary (output is 2n ints)"
     },
     {
+      "id": "1978",
+      "title": "Employees Whose Manager Left the Company",
+      "slug": "employees-whose-manager-left-the-company",
+      "platform": "leetcode",
+      "language": "SQL",
+      "languageExt": "sql",
+      "difficulty": "Easy",
+      "topics": [
+        "Database"
+      ],
+      "patterns": [
+        "anti-join",
+        "self-reference",
+        "filtering",
+        "ordering",
+        "null-semantics"
+      ],
+      "path": "platforms/leetcode/sql/1978-employees-whose-manager-left-the-company",
+      "recommendedSolution": "solution.sql",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(n) logical scan plus primary-key manager existence checks; O(r log r) sort only if needed",
+      "spaceComplexity": "O(r) output plus optimizer-dependent workspace"
+    },
+    {
       "id": "2196",
       "title": "Create Binary Tree From Descriptions",
       "slug": "create-binary-tree-from-descriptions",
