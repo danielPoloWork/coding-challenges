@@ -1,0 +1,52 @@
+{
+  "id": "3303",
+  "title": "Find the Occurrence of First Almost Equal Substring",
+  "slug": "find-the-occurrence-of-first-almost-equal-substring",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3303-find-the-occurrence-of-first-almost-equal-substring",
+  "url": "https://leetcode.com/problems/find-the-occurrence-of-first-almost-equal-substring/",
+  "difficulty": "Hard",
+  "topics": ["String", "String Matching", "Z-Algorithm"],
+  "patterns": ["z-algorithm", "extended-kmp", "lcp-lcs-window"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3303-find-the-occurrence-of-first-almost-equal-substring/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ performance proposals for this challenge. The minimum-footprint C virtual-Z variant is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The workload is two linear string scans over n + m <= 200001 characters. C++ gives native char access, contiguous vector<int> storage, no GC/interpreter overhead, and simple ownership for the Z buffers.",
+      "approachJustification": "Run Z on pattern + delimiter + s for prefix LCPs, run it again on reversed inputs for suffix LCPs, and return the first window where left + right >= m - 1.",
+      "timeComplexity": "O(n + m)",
+      "spaceComplexity": "O(n + m)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "Extended KMP keeps the same linear bound but avoids building concatenated strings, so the hottest loops compare the original string buffers directly with compact vector<int> LCP arrays.",
+      "approachJustification": "Compute direct LCP arrays from s to pattern and from reversed s to reversed pattern using the pattern Z array, then scan windows once.",
+      "timeComplexity": "O(n + m)",
+      "spaceComplexity": "O(n + m)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/3303-find-the-occurrence-of-first-almost-equal-substring",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(n + m)",
+      "spaceComplexity": "O(n + m)"
+    }
+  ],
+  "reasoningSummary": "A window of length m is almost equal to pattern iff the longest exact prefix match plus the longest exact suffix match covers at least m - 1 positions. Prefix and suffix match lengths for every candidate window are computed in linear time with Z/Extended KMP.",
+  "timeComplexity": "O(n + m)",
+  "spaceComplexity": "O(n + m)"
+}
