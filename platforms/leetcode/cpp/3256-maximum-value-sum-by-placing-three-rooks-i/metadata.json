@@ -1,0 +1,104 @@
+{
+  "id": "3256",
+  "title": "Maximum Value Sum by Placing Three Rooks I",
+  "slug": "maximum-value-sum-by-placing-three-rooks-i",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3256-maximum-value-sum-by-placing-three-rooks-i",
+  "url": "https://leetcode.com/problems/maximum-value-sum-by-placing-three-rooks-i/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Matrix", "Dynamic Programming", "Enumeration"],
+  "patterns": ["top-k pruning", "prefix-suffix maxima", "combinatorics"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3256-maximum-value-sum-by-placing-three-rooks-i/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ folder with the recommended and fastest-runtime proposals. The minimum-memory champion is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ gives native-speed fixed-size candidate loops with the standard LeetCode vector signature. The prefix/suffix top-3 algorithm is exact, linear in the board size up to a small constant, and keeps memory low.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected: native loops, compact fixed-size candidate storage, and direct LeetCode ergonomics make it the best fast-and-lean default."
+        },
+        {
+          "language": "C",
+          "assessment": "Native and lean, but the int** signature adds manual plumbing without improving this balanced variant's practical memory enough."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native performance is strong, but bounds-check management and LeetCode wrapper friction add overhead for small fixed candidate loops."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled loops are adequate, but slice bounds checks and runtime overhead are weaker than C++ for the hot nested checks."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "JITs are competitive after warmup, but managed array layout and runtime overhead are unnecessary for a 100 x 100 board."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Can pass due to small constraints, but interpreter or VM overhead is dominated by the native C++ loop implementation."
+        }
+      ],
+      "approachJustification": "Orient to the smaller dimension, precompute suffix top-three opposite coordinates, maintain prefix top-three coordinates, and combine each middle cell with 3 x 3 side candidates.",
+      "timeComplexity": "O(p*q), p=min(m,n), q=max(m,n)",
+      "spaceComplexity": "O(p + q)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "C++ best supports the runtime-oriented version with a fixed oriented board copy and stack arrays, removing vector indirection and orientation branches from the hot loops.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected: fastest practical option for fixed arrays, branch-light inner loops, and low-overhead arithmetic on LeetCode."
+        },
+        {
+          "language": "C",
+          "assessment": "Could match the array layout manually, but LeetCode's C signature is more cumbersome and does not clearly beat C++ for q <= 100."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native speed is possible, but bounds-check handling and platform ergonomics are heavier for the same fixed-state scan."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled but less suitable for the hot loops because of bounds checks and runtime overhead."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "JIT performance is good, but startup, managed arrays, and GC metadata do not help on small dense state."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Loop-dense candidate checking is not competitive in interpreted or VM languages for a top-runtime target."
+        }
+      ],
+      "approachJustification": "Copy the board into primary-line orientation, build suffix and rolling prefix top-three arrays, then combine each middle cell with the 3 x 3 side candidates.",
+      "timeComplexity": "O(p*q), p=min(m,n), q=max(m,n)",
+      "spaceComplexity": "O(p*q + p + q)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/3256-maximum-value-sum-by-placing-three-rooks-i",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(C(p,3) * q)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "reasoningSummary": "Order the three selected primary lines and process each possible middle line. A prefix-side or suffix-side rook has at most two forbidden opposite coordinates, so the best usable side cell is among that side's top three coordinates. The runtime version keeps the same proof but uses an oriented stack matrix; the C variant recomputes candidates per triple for minimum auxiliary memory.",
+  "timeComplexity": "O(p*q) recommended and fastest, p=min(m,n), q=max(m,n)",
+  "spaceComplexity": "O(p + q) recommended / O(p*q + p + q) fastest"
+}

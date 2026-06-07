@@ -1,0 +1,77 @@
+{
+  "id": "3256",
+  "title": "Maximum Value Sum by Placing Three Rooks I",
+  "slug": "maximum-value-sum-by-placing-three-rooks-i",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/3256-maximum-value-sum-by-placing-three-rooks-i",
+  "url": "https://leetcode.com/problems/maximum-value-sum-by-placing-three-rooks-i/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Matrix", "Enumeration"],
+  "patterns": ["top-k pruning", "combinatorics"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3256-maximum-value-sum-by-placing-three-rooks-i/solution.cpp",
+  "recommendedSolution": "solution-memory.c",
+  "note": "C folder with the minimum-memory champion. Recommended and fastest-runtime proposals are implemented in C++; see crossReferences.",
+  "variants": [
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "C has the smallest practical LeetCode runtime baseline among the allowed languages and the algorithm uses only scalar top-three buffers with direct int** board access.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Can implement the same constant-auxiliary algorithm, but vector wrapper and C++ runtime baseline are slightly larger than C for a memory-only objective."
+        },
+        {
+          "language": "C",
+          "assessment": "Selected: direct pointer access, no heap allocation, no object metadata, and minimal runtime baseline."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and safe, but wrapper overhead and bounds-check ergonomics are heavier for this tiny scalar state."
+        },
+        {
+          "language": "Go",
+          "assessment": "Runtime, GC, and slice metadata make it less memory-lean than C."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed runtime and object metadata dominate the auxiliary memory saved by the algorithm."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "VM and object representation overhead are not competitive for a minimum-memory target."
+        }
+      ],
+      "approachJustification": "For each triple on the smaller dimension, rescan the opposite dimension and keep only local top-three candidate buffers before checking 27 placements.",
+      "timeComplexity": "O(C(p,3) * q), p=min(m,n), q=max(m,n)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3256-maximum-value-sum-by-placing-three-rooks-i",
+      "file": "solution.cpp",
+      "timeComplexity": "O(p*q)",
+      "spaceComplexity": "O(p + q)"
+    },
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3256-maximum-value-sum-by-placing-three-rooks-i",
+      "file": "solution-runtime.cpp",
+      "timeComplexity": "O(p*q)",
+      "spaceComplexity": "O(p*q + p + q)"
+    }
+  ],
+  "reasoningSummary": "The memory variant relies on the same top-three correctness observation but recomputes candidates for each line triple to avoid retaining any table.",
+  "timeComplexity": "O(C(p,3) * q)",
+  "spaceComplexity": "O(1) extra"
+}

@@ -304,6 +304,54 @@
       "spaceComplexity": "O(n)"
     },
     {
+      "id": "3256",
+      "title": "Maximum Value Sum by Placing Three Rooks I",
+      "slug": "maximum-value-sum-by-placing-three-rooks-i",
+      "platform": "leetcode",
+      "language": "C",
+      "languageExt": "c",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Matrix",
+        "Enumeration"
+      ],
+      "patterns": [
+        "top-k pruning",
+        "combinatorics"
+      ],
+      "path": "platforms/leetcode/c/3256-maximum-value-sum-by-placing-three-rooks-i",
+      "recommendedSolution": "solution-memory.c",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(C(p,3) * q)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "id": "3256",
+      "title": "Maximum Value Sum by Placing Three Rooks I",
+      "slug": "maximum-value-sum-by-placing-three-rooks-i",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Matrix",
+        "Dynamic Programming",
+        "Enumeration"
+      ],
+      "patterns": [
+        "top-k pruning",
+        "prefix-suffix maxima",
+        "combinatorics"
+      ],
+      "path": "platforms/leetcode/cpp/3256-maximum-value-sum-by-placing-three-rooks-i",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(p*q) recommended and fastest, p=min(m,n), q=max(m,n)",
+      "spaceComplexity": "O(p + q) recommended / O(p*q + p + q) fastest"
+    },
+    {
       "id": "3266",
       "title": "Final Array State After K Multiplication Operations II",
       "slug": "final-array-state-after-k-multiplication-operations-ii",
