@@ -5,7 +5,8 @@
  * platforms/manifest.json — the index the website reads at runtime.
  *
  * Usage:   node src/scripts/build-manifest.mjs
- * CI:      run on every push (GitHub Actions) before deploying Pages.
+ * Auto:    re-run by the pre-commit hook (scripts/hooks/pre-commit); GitHub
+ *          Pages deploys from the master root, so no separate CI is needed today.
  *
  * No dependencies. Node 18+.
  */
