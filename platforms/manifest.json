@@ -949,6 +949,32 @@
       "spaceComplexity": "O(1) extra"
     },
     {
+      "id": "3854",
+      "title": "Minimum Operations to Make Array Parity Alternating",
+      "slug": "minimum-operations-to-make-array-parity-alternating",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Greedy"
+      ],
+      "patterns": [
+        "parity-patterns",
+        "endpoint-greedy",
+        "range-minimization"
+      ],
+      "path": "platforms/leetcode/cpp/3854-minimum-operations-to-make-array-parity-alternating",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-08",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    },
+    {
       "id": "3900",
       "title": "Longest Balanced Substring After One Swap",
       "slug": "longest-balanced-substring-after-one-swap",

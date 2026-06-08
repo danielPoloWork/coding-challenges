@@ -93,7 +93,10 @@ function Hero({ totals }) {
         <div className="hero-top">
           <span className="hero-badge reveal"><span className="dot"></span>Engineering knowledge base · est. 2024</span>
           <h1 className="hero-title reveal" style={{transitionDelay: ".05s"}}>
-            Structured platforms.<br/><em>Smart solutions.</em>
+            Structured<br/>platforms.
+          </h1>
+          <h1 className="hero-title reveal" style={{transitionDelay: ".05s"}}>
+            <em>Smart solutions.</em>
           </h1>
           <p className="lede reveal" style={{transitionDelay: ".12s"}}>
             A long-term reference system for algorithmic problem solving — every challenge
