@@ -19,34 +19,6 @@ function naturalCmp(a, b) {
 const labelsOf = (c) => c[LENS.attr] || [];
 const langsOf = (c) => c.languages || [c.language];
 
-/* The manifest holds one entry per (challenge, language); gen_indexes counts a
-   challenge once (distinct platform+id) and unions its topics/patterns across
-   languages. Collapse the same way so the web matches stats/index-*.md instead
-   of double-counting multi-language challenges. */
-function dedupeChallenges(list) {
-  const byKey = new Map();
-  for (const c of list) {
-    const key = c.platform + "#" + c.id;
-    let g = byKey.get(key);
-    if (!g) {
-      g = { ...c, languages: [], _topics: new Set(), _patterns: new Set() };
-      byKey.set(key, g);
-    }
-    if (!g.languages.includes(c.language)) g.languages.push(c.language);
-    (c.topics || []).forEach((t) => g._topics.add(t));
-    (c.patterns || []).forEach((p) => g._patterns.add(p));
-    // prefer the recommended "solution.<ext>" variant as the row's primary link
-    if (/(^|\/)solution\.[^./]+$/.test(c.recommendedSolution || "")) g.path = c.path;
-  }
-  return [...byKey.values()].map((g) => {
-    g.languages.sort();
-    g.topics = [...g._topics];
-    g.patterns = [...g._patterns];
-    delete g._topics; delete g._patterns;
-    return g;
-  });
-}
-
 const SORTS = {
   id:         { cmp: (a, b) => naturalCmp(a.id, b.id) },
   title:      { cmp: (a, b) => a.title.localeCompare(b.title) },
@@ -69,7 +41,7 @@ function LensPage() {
   }, []);
 
   const challenges = useMemo(
-    () => (data.manifest ? dedupeChallenges(data.manifest.challenges) : []),
+    () => (data.manifest ? data.manifest.challenges : []),
     [data.manifest]
   );
 

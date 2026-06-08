@@ -102,6 +102,9 @@
       "platform": "leetcode",
       "language": "SQL",
       "languageExt": "sql",
+      "languages": [
+        "SQL"
+      ],
       "difficulty": "Easy",
       "topics": [
         "Database"
@@ -123,6 +126,9 @@
       "platform": "leetcode",
       "language": "SQL",
       "languageExt": "sql",
+      "languages": [
+        "SQL"
+      ],
       "difficulty": "Easy",
       "topics": [
         "Database"
@@ -143,38 +149,21 @@
       "title": "Contains Duplicate",
       "slug": "contains-duplicate",
       "platform": "leetcode",
-      "language": "C",
-      "languageExt": "c",
-      "difficulty": "Easy",
-      "topics": [
-        "Array",
-        "Sorting"
-      ],
-      "patterns": [
-        "sorting"
-      ],
-      "path": "platforms/leetcode/c/0217-contains-duplicate",
-      "recommendedSolution": "solution-memory.c",
-      "dateSolved": "2026-06-02",
-      "timeComplexity": "O(n log n)",
-      "spaceComplexity": "O(1) extra"
-    },
-    {
-      "id": "217",
-      "title": "Contains Duplicate",
-      "slug": "contains-duplicate",
-      "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
       "difficulty": "Easy",
       "topics": [
         "Array",
-        "Hash Table",
-        "Sorting"
+        "Sorting",
+        "Hash Table"
       ],
       "patterns": [
-        "hashing",
-        "sorting"
+        "sorting",
+        "hashing"
       ],
       "path": "platforms/leetcode/cpp/0217-contains-duplicate",
       "recommendedSolution": "solution.cpp",
@@ -189,6 +178,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "String",
@@ -212,6 +204,9 @@
       "platform": "leetcode",
       "language": "SQL",
       "languageExt": "sql",
+      "languages": [
+        "SQL"
+      ],
       "difficulty": "Easy",
       "topics": [
         "Database"
@@ -234,6 +229,9 @@
       "platform": "leetcode",
       "language": "SQL",
       "languageExt": "sql",
+      "languages": [
+        "SQL"
+      ],
       "difficulty": "Easy",
       "topics": [
         "Database"
@@ -254,34 +252,17 @@
       "title": "Sort an Array",
       "slug": "sort-an-array",
       "platform": "leetcode",
-      "language": "C",
-      "languageExt": "c",
-      "difficulty": "Medium",
-      "topics": [
-        "Array",
-        "Sorting",
-        "Heap (Priority Queue)"
-      ],
-      "patterns": [
-        "sorting"
-      ],
-      "path": "platforms/leetcode/c/0912-sort-an-array",
-      "recommendedSolution": "solution-memory.c",
-      "dateSolved": "2026-06-02",
-      "timeComplexity": "O(n log n)",
-      "spaceComplexity": "O(1) extra"
-    },
-    {
-      "id": "912",
-      "title": "Sort an Array",
-      "slug": "sort-an-array",
-      "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
       "difficulty": "Medium",
       "topics": [
         "Array",
         "Sorting",
+        "Heap (Priority Queue)",
         "Counting Sort",
         "Divide and Conquer"
       ],
@@ -301,6 +282,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Easy",
       "topics": [
         "Array",
@@ -323,6 +307,9 @@
       "platform": "leetcode",
       "language": "SQL",
       "languageExt": "sql",
+      "languages": [
+        "SQL"
+      ],
       "difficulty": "Easy",
       "topics": [
         "Database"
@@ -347,6 +334,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Medium",
       "topics": [
         "Array",
@@ -373,6 +363,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Medium",
       "topics": [
         "Array",
@@ -399,6 +392,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Easy",
       "topics": [
         "Array",
@@ -421,6 +417,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Array",
@@ -448,6 +447,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Array",
@@ -472,42 +474,23 @@
       "title": "Maximum Value Sum by Placing Three Rooks I",
       "slug": "maximum-value-sum-by-placing-three-rooks-i",
       "platform": "leetcode",
-      "language": "C",
-      "languageExt": "c",
-      "difficulty": "Hard",
-      "topics": [
-        "Array",
-        "Matrix",
-        "Enumeration"
-      ],
-      "patterns": [
-        "top-k pruning",
-        "combinatorics"
-      ],
-      "path": "platforms/leetcode/c/3256-maximum-value-sum-by-placing-three-rooks-i",
-      "recommendedSolution": "solution-memory.c",
-      "dateSolved": "2026-06-07",
-      "timeComplexity": "O(C(p,3) * q)",
-      "spaceComplexity": "O(1) extra"
-    },
-    {
-      "id": "3256",
-      "title": "Maximum Value Sum by Placing Three Rooks I",
-      "slug": "maximum-value-sum-by-placing-three-rooks-i",
-      "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Array",
         "Matrix",
-        "Dynamic Programming",
-        "Enumeration"
+        "Enumeration",
+        "Dynamic Programming"
       ],
       "patterns": [
         "top-k pruning",
-        "prefix-suffix maxima",
-        "combinatorics"
+        "combinatorics",
+        "prefix-suffix maxima"
       ],
       "path": "platforms/leetcode/cpp/3256-maximum-value-sum-by-placing-three-rooks-i",
       "recommendedSolution": "solution.cpp",
@@ -522,6 +505,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Array",
@@ -548,6 +534,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Array",
@@ -574,8 +563,12 @@
       "title": "Find the Occurrence of First Almost Equal Substring",
       "slug": "find-the-occurrence-of-first-almost-equal-substring",
       "platform": "leetcode",
-      "language": "C",
-      "languageExt": "c",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "String",
@@ -585,31 +578,8 @@
       "patterns": [
         "z-algorithm",
         "virtual-string",
-        "lcp-lcs-window"
-      ],
-      "path": "platforms/leetcode/c/3303-find-the-occurrence-of-first-almost-equal-substring",
-      "recommendedSolution": "solution-memory.c",
-      "dateSolved": "2026-06-07",
-      "timeComplexity": "O(n + m)",
-      "spaceComplexity": "O(n + m)"
-    },
-    {
-      "id": "3303",
-      "title": "Find the Occurrence of First Almost Equal Substring",
-      "slug": "find-the-occurrence-of-first-almost-equal-substring",
-      "platform": "leetcode",
-      "language": "C++",
-      "languageExt": "cpp",
-      "difficulty": "Hard",
-      "topics": [
-        "String",
-        "String Matching",
-        "Z-Algorithm"
-      ],
-      "patterns": [
-        "z-algorithm",
-        "extended-kmp",
-        "lcp-lcs-window"
+        "lcp-lcs-window",
+        "extended-kmp"
       ],
       "path": "platforms/leetcode/cpp/3303-find-the-occurrence-of-first-almost-equal-substring",
       "recommendedSolution": "solution.cpp",
@@ -624,6 +594,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "String",
@@ -650,6 +623,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Medium",
       "topics": [
         "Array",
@@ -671,8 +647,12 @@
       "title": "Check If Digits Are Equal in String After Operations II",
       "slug": "check-if-digits-are-equal-in-string-after-operations-ii",
       "platform": "leetcode",
-      "language": "C",
-      "languageExt": "c",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Math",
@@ -683,30 +663,7 @@
       "patterns": [
         "binomial-transform",
         "lucas-theorem",
-        "crt"
-      ],
-      "path": "platforms/leetcode/c/3463-check-if-digits-are-equal-in-string-after-operations-ii",
-      "recommendedSolution": "solution-memory.c",
-      "dateSolved": "2026-06-06",
-      "timeComplexity": "O(n log_5 n)",
-      "spaceComplexity": "O(1) extra"
-    },
-    {
-      "id": "3463",
-      "title": "Check If Digits Are Equal in String After Operations II",
-      "slug": "check-if-digits-are-equal-in-string-after-operations-ii",
-      "platform": "leetcode",
-      "language": "C++",
-      "languageExt": "cpp",
-      "difficulty": "Hard",
-      "topics": [
-        "Math",
-        "String",
-        "Combinatorics",
-        "Number Theory"
-      ],
-      "patterns": [
-        "binomial-transform",
+        "crt",
         "modular-arithmetic",
         "factor-stripping"
       ],
@@ -721,32 +678,12 @@
       "title": "Maximum Product of Subsequences With an Alternating Sum Equal to K",
       "slug": "maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
       "platform": "leetcode",
-      "language": "C",
-      "languageExt": "c",
-      "difficulty": "Hard",
-      "topics": [
-        "Array",
-        "Dynamic Programming",
-        "Bit Manipulation"
-      ],
-      "patterns": [
-        "subsequence-dp",
-        "bitset-dp",
-        "state-compression"
-      ],
-      "path": "platforms/leetcode/c/3509-maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
-      "recommendedSolution": "solution-memory.c",
-      "dateSolved": "2026-06-05",
-      "timeComplexity": "O(n * P * W), P <= 394",
-      "spaceComplexity": "O(P * W), exact-width dynamic bitsets"
-    },
-    {
-      "id": "3509",
-      "title": "Maximum Product of Subsequences With an Alternating Sum Equal to K",
-      "slug": "maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
-      "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Array",
@@ -771,6 +708,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "String",
@@ -797,6 +737,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Math",
@@ -820,6 +763,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Medium",
       "topics": [
         "Array",
@@ -844,6 +790,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Medium",
       "topics": [
         "Array",
@@ -870,6 +819,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Medium",
       "topics": [
         "Array",
@@ -895,6 +847,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Math",
@@ -918,6 +873,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Array",
@@ -942,6 +900,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Math",
@@ -965,6 +926,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Medium",
       "topics": [
         "String",
@@ -989,6 +953,9 @@
       "platform": "leetcode",
       "language": "C++",
       "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
       "difficulty": "Hard",
       "topics": [
         "Array",
