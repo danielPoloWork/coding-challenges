@@ -1,0 +1,61 @@
+{
+  "id": "3614",
+  "title": "Process String with Special Operations II",
+  "slug": "process-string-with-special-operations-ii",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3614-process-string-with-special-operations-ii",
+  "url": "https://leetcode.com/problems/process-string-with-special-operations-ii/",
+  "difficulty": "Hard",
+  "topics": ["String", "Simulation"],
+  "patterns": ["reverse-simulation", "length-tracking", "index-remapping", "lazy-evaluation"],
+  "status": "solved",
+  "dateSolved": "2026-06-08",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3614-process-string-with-special-operations-ii/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The problem is a two-pass scan over an ASCII operation string with 64-bit length/index arithmetic and no required dynamic storage. C++ gives native loops, direct LeetCode signature support, cheap string indexing, and no interpreter or GC overhead, making it the strongest practical fit for both raw runtime and low auxiliary memory.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Native byte scans, direct string::size support, 64-bit arithmetic, and a single char return keep both runtime and auxiliary memory minimal for the LeetCode signature."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for raw pointer loops and low runtime baseline, but public LeetCode references for this problem focus on C++/Java/Python/Go style signatures rather than C. Even with C support, the same O(1) auxiliary algorithm would not provide a meaningful memory-axis improvement over C++ here."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native speed and memory safety, but checked indexing and platform wrapper overhead do not improve this small byte-program scan."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops and simple strings, but bounds checks and runtime metadata are less attractive than C++ for top-percentile constants."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered because managed runtimes can scan strings quickly, but UTF-16/object overhead and JIT/runtime startup are unnecessary for ASCII input and O(1) state."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered for concise implementation, but VM/interpreter overhead in two full scans is weaker for n <= 100000 and a top 1% performance target."
+        }
+      ],
+      "approachJustification": "Compute the final virtual length, reject invalid k, then walk s backward. Undo # by halving length and taking k modulo the original half, undo % by mirroring k, undo a letter by checking whether it created the current last slot, and undo * by increasing the previous virtual length along the valid-index path.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The final string is a virtual object. Once final length is known, the target index can be traced backward through the operation program: duplication folds k into the first half, reversal mirrors it, a letter answers only when it is the appended last position, and a relevant delete is undone by increasing the previous length. This avoids both final-string construction and an O(n) prefix-length array.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) auxiliary"
+}

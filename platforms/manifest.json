@@ -786,6 +786,33 @@
       "spaceComplexity": "O(1)"
     },
     {
+      "id": "3614",
+      "title": "Process String with Special Operations II",
+      "slug": "process-string-with-special-operations-ii",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Hard",
+      "topics": [
+        "String",
+        "Simulation"
+      ],
+      "patterns": [
+        "reverse-simulation",
+        "length-tracking",
+        "index-remapping",
+        "lazy-evaluation"
+      ],
+      "path": "platforms/leetcode/cpp/3614-process-string-with-special-operations-ii",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-08",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    },
+    {
       "id": "3635",
       "title": "Earliest Finish Time for Land and Water Rides II",
       "slug": "earliest-finish-time-for-land-and-water-rides-ii",
