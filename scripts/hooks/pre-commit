@@ -2,6 +2,8 @@
 # Regenerate generated index/manifest files before every commit so they
 # always reflect the current set of solved challenges:
 #   - stats/index-*.md        (Python, scripts/gen_indexes.py)
+#   - README.md STATS block   (Python, scripts/gen_indexes.py) - live totals
+#     banner kept in sync between the <!--STATS:BEGIN/END--> markers.
 #   - platforms/manifest.json (Node,   src/scripts/build-manifest.mjs) - the
 #     index the website fetches at runtime.
 #
@@ -27,8 +29,9 @@ else
 fi
 
 "$PY" scripts/gen_indexes.py
-# Stage all generated stats changes, including stale index deletions.
-git add -- stats
+# Stage generated stats (including stale index deletions) and the README banner
+# block that gen_indexes.py refreshes in place between the STATS markers.
+git add -- stats README.md
 
 # Regenerate the website manifest (Node 18+). A missing Node interpreter is
 # non-fatal; a generator error blocks the commit so malformed metadata is seen.
