@@ -87,6 +87,7 @@ def load_challenges() -> dict:
                 "title": "",
                 "difficulty": "Unknown",
                 "topics": set(),
+                "patterns": set(),
                 "url": "",
                 "langs": {},  # language -> platformPath (posix, repo-relative)
             },
@@ -99,6 +100,8 @@ def load_challenges() -> dict:
             info["url"] = data["url"]
         for topic in data.get("topics", []):
             info["topics"].add(topic)
+        for pattern in data.get("patterns", []):
+            info["patterns"].add(pattern)
 
         lang = data.get("language") or data.get("languageExt") or "Unknown"
         ppath = data.get("platformPath") or meta.parent.relative_to(REPO).as_posix()
@@ -248,6 +251,46 @@ def build_platform(platform: str, items: list[dict]) -> str:
 
 
 # --------------------------------------------------------------------------- #
+# Cross-cutting lens indices (by pattern / by topic)
+# --------------------------------------------------------------------------- #
+def build_lens_index(challenges: dict, attr: str, label: str) -> str:
+    """Group challenges by a per-challenge label set (``attr`` is ``"topics"``
+    or ``"patterns"``) and render one row per label listing its challenges.
+
+    Rows are sorted by frequency (desc) then name, so reusable labels surface
+    first and the long tail of one-offs sinks to the bottom — the markdown
+    counterpart of the "sort by count" the html view will offer. Deterministic
+    (no timestamp), so an unchanged catalogue produces no diff.
+    """
+    groups: dict[str, list[dict]] = {}
+    for c in challenges.values():
+        for value in c[attr]:
+            groups.setdefault(value, []).append(c)
+
+    out: list[str] = [
+        f"# Index — {label}s",
+        "",
+        GEN_NOTE,
+        "",
+        f"**Distinct {label.lower()}s:** {len(groups)} across "
+        f"{len(challenges)} challenges.",
+        "",
+        f"| {label} | Solved | Challenges |",
+        "| --- | ---: | --- |",
+    ]
+    for name, items in sorted(
+        groups.items(), key=lambda kv: count_key((kv[0], len(kv[1])))
+    ):
+        refs = []
+        for c in sorted(items, key=lambda x: id_key(x["id"])):
+            cid = c["id"].zfill(4) if c["id"].isdigit() else c["id"]
+            refs.append(f"[{cid}]({c['url']})" if c["url"] else cid)
+        out.append(f"| {name} | {len(items)} | {' · '.join(refs)} |")
+    out.append("")
+    return "\n".join(out)
+
+
+# --------------------------------------------------------------------------- #
 # README live-stats banner
 # --------------------------------------------------------------------------- #
 def readme_stats_lines(m: dict) -> list[str]:
@@ -312,6 +355,16 @@ def main() -> None:
         name = f"index-{platform}.md"
         expected.add(name)
         (STATS / name).write_text(build_platform(platform, items), encoding="utf-8")
+
+    # Cross-cutting lenses: one row per pattern / topic with its challenges.
+    for name, attr, label in (
+        ("index-patterns.md", "patterns", "Pattern"),
+        ("index-topics.md", "topics", "Topic"),
+    ):
+        expected.add(name)
+        (STATS / name).write_text(
+            build_lens_index(challenges, attr, label), encoding="utf-8"
+        )
 
     # Drop stale index files for platforms that no longer have solutions.
     for path in STATS.glob("index-*.md"):
