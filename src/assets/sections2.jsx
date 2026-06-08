@@ -236,7 +236,7 @@ function Footer({ roadmap, totals }) {
               <p>An engineering portfolio built to be explored — {totals.challenges} challenges, fully documented and traceable.</p>
               <div className="hero-cta">
                 <a className="btn btn-primary" href="#platforms">Browse the work <Icon name="arrow" size={16} /></a>
-                <a className="btn btn-ghost" href="#"><Icon name="github" size={16} /> View source</a>
+                <a className="btn btn-ghost" href="https://github.com/danielPoloWork/coding-challenges" target="_blank" rel="noopener noreferrer"><Icon name="github" size={16} /> View source</a>
               </div>
             </div>
           </div>

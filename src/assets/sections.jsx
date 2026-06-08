@@ -70,7 +70,7 @@ function Nav({ theme, onToggle }) {
           <button className="theme-toggle" onClick={onToggle} aria-label="Toggle theme">
             <Icon name={theme === "dark" ? "sun" : "moon"} />
           </button>
-          <a className="btn btn-ghost" href="#" style={{ gap: 8 }}><Icon name="github" size={16} /> GitHub</a>
+          <a className="btn btn-ghost" href="https://github.com/danielPoloWork/coding-challenges" target="_blank" rel="noopener noreferrer" style={{ gap: 8 }}><Icon name="github" size={16} /> GitHub</a>
         </div>
       </div>
     </nav>
