@@ -1,0 +1,61 @@
+{
+  "id": "3260",
+  "title": "Find the Largest Palindrome Divisible by K",
+  "slug": "find-the-largest-palindrome-divisible-by-k",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3260-find-the-largest-palindrome-divisible-by-k",
+  "url": "https://leetcode.com/problems/find-the-largest-palindrome-divisible-by-k/",
+  "difficulty": "Hard",
+  "topics": ["String", "Math", "Greedy", "Number Theory"],
+  "patterns": ["palindrome-construction", "divisibility-rules", "modular-periodicity", "lexicographic-greedy"],
+  "status": "solved",
+  "dateSolved": "2026-06-08",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3260-find-the-largest-palindrome-divisible-by-k/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single closed-form C++ construction is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ gives native-speed construction of one string with length up to 100000 and direct in-place edits for the few digits forced by divisibility. It avoids interpreter, VM, and GC overhead while using only O(1) auxiliary state beyond the returned string.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected for direct std::string allocation, native loops, and a clean LeetCode class signature."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for manual memory control, but it still must allocate the same output buffer and adds platform-boundary risk without improving the asymptotic footprint."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and safety, but string conversion ergonomics add implementation overhead with no performance gain for this fixed-rule construction."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled byte-slice construction, but runtime and GC overhead are less attractive than C++ for an output-bound top-runtime target."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered because managed runtimes can build O(n) strings, but string-builder allocation and JIT/GC behavior add avoidable overhead."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered for concise string repetition, but VM/interpreter overhead is unnecessary at n up to 100000 when C++ can emit the result directly."
+        }
+      ],
+      "approachJustification": "Use divisor-specific closed forms for k <= 9. Keep all dominant digits as 9, lower only the forced edge or central digits, and handle k = 7 with a central block table derived from 10^6 == 1 (mod 7).",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n) output, O(1) auxiliary"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "For fixed length, the largest palindrome is obtained by keeping the earliest digits as high as possible. Small k allows direct divisibility rules: endpoints for 2/4/5/8, digit-sum correction for 6, all 9s for 1/3/9, and a tiny central-block table for 7 based on the period of powers of ten modulo 7.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(n) output, O(1) auxiliary"
+}
