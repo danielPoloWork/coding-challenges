@@ -1,0 +1,61 @@
+{
+  "id": "3854",
+  "title": "Minimum Operations to Make Array Parity Alternating",
+  "slug": "minimum-operations-to-make-array-parity-alternating",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3854-minimum-operations-to-make-array-parity-alternating",
+  "url": "https://leetcode.com/problems/minimum-operations-to-make-array-parity-alternating/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Greedy"],
+  "patterns": ["parity-patterns", "endpoint-greedy", "range-minimization"],
+  "status": "solved",
+  "dateSolved": "2026-06-08",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3854-minimum-operations-to-make-array-parity-alternating/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The solution is a branch-light linear scan over contiguous integers with constant auxiliary memory. C++ matches LeetCode's vector<int> signature, avoids interpreter and GC overhead, and returns the required two-integer answer directly.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Native scalar loops, direct vector<int> input, cheap stack state, and compact answer construction make it the strongest runtime and memory fit for this parity/range scan."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for native execution and manual memory control, but LeetCode's C API adds return-size and allocation boilerplate while offering no meaningful asymptotic memory improvement over the C++ vector signature."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and safety, but bounds checks and platform wrapper overhead do not improve this tiny scalar-loop workload."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for simple compiled loops, but slice bounds checks and runtime/GC metadata are less attractive than C++ for top-percentile constant factors."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered because managed runtimes can scan arrays quickly, but object/runtime overhead and startup costs are unnecessary for an O(n), constant-state computation with n <= 100000."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered for clarity, but VM/interpreter overhead in per-element parity checks and branches makes them weaker choices for the stated top 1% performance target."
+        }
+      ],
+      "approachJustification": "Count mismatches for each of the two alternating parity patterns. For the range tie-breaker, move mismatched global minima upward, mismatched global maxima downward, and treat other mismatches as interior proxies because one of their +/-1 choices can stay inside any nonzero proxy interval.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Minimum operations equal the smaller mismatch count across the two alternating parity patterns. Among minimum-operation patterns, the final range is minimized by pulling only mismatched original endpoints inward; internal mismatches can always choose a +/-1 value inside the same nonzero proxy interval, with range 1 as the minimum possible for n > 1.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) auxiliary"
+}
