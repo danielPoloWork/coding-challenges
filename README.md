@@ -7,7 +7,7 @@
 
 | Metric | Value |
 | --- | ---: |
-| Challenges solved | 35 |
+| Challenges solved | 36 |
 | Source platforms | 1 active (of 16 catalogued) |
 | Languages used | 3 |
 | Catalogued patterns | 31 |

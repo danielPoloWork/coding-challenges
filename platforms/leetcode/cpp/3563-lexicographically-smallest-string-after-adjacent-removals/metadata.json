@@ -1,0 +1,104 @@
+{
+  "id": "3563",
+  "title": "Lexicographically Smallest String After Adjacent Removals",
+  "slug": "lexicographically-smallest-string-after-adjacent-removals",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3563-lexicographically-smallest-string-after-adjacent-removals",
+  "url": "https://leetcode.com/problems/lexicographically-smallest-string-after-adjacent-removals/",
+  "difficulty": "Hard",
+  "topics": ["String", "Dynamic Programming"],
+  "patterns": ["interval-dp", "lexicographic-dp", "bitset-dp", "noncrossing-matching"],
+  "status": "solved",
+  "dateSolved": "2026-06-09",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3563-lexicographically-smallest-string-after-adjacent-removals/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals for the recommended and fastest-runtime variants. The minimum-footprint C variant is implemented in a sibling C folder.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The constraint n <= 250 favors dense interval DP and compact lexicographic suffix state. C++ provides native bitsets, efficient string comparison, and the exact LeetCode class signature without VM, interpreter, or GC overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It gives the best balance of low-level bit operations, readable suffix DP, and mature LeetCode support."
+        },
+        {
+          "language": "C",
+          "assessment": "Excellent for the memory objective, but manual result allocation and linked-state comparison make it less suitable for the readable default proposal."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and safe, but dense mutable interval tables and linked comparison state are more verbose and unlikely to improve LeetCode constants here."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled, but slice bounds checks and runtime overhead add no benefit for this small dense DP."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Possible with arrays and strings, but managed-runtime overhead and object layout are less attractive than C++ for top-percentile memory and runtime."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Likely acceptable at n <= 250 with careful DP, but interpreter or VM overhead is avoidable and weaker for a top 1% performance target."
+        }
+      ],
+      "approachJustification": "Build a bitset interval table of fully removable substrings using endpoint enclosure and split concatenation. Then compute best[i] as the lexicographically smallest string obtainable from suffix i by choosing a kept character j after a removable prefix.",
+      "timeComplexity": "O(n^3)",
+      "spaceComplexity": "O(n^2)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "The runtime variant is dominated by fixed-size mask intersections and dense table lookups. C++ enables 64-bit row masks, byte comparison tables, and direct character indexing with minimal overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Fixed arrays and inline helpers give tight native loops while preserving the LeetCode string-returning class interface."
+        },
+        {
+          "language": "C",
+          "assessment": "Could match bitmask loops, but manual allocation and bookkeeping are better reserved for the memory variant; C++ is just as fast for the runtime table layout."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native speed is possible, but bounds checks and ownership around dense mutable tables make it less likely to beat the C++ implementation."
+        },
+        {
+          "language": "Go",
+          "assessment": "Bounds checks and runtime baseline work against the O(n^2) hot path of table filling."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays can be competitive after JIT warmup, but C++ avoids VM startup, GC metadata, and range-check overhead."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The low-level bitmask and byte-table strategy is dominated by native compiled code for raw runtime."
+        }
+      ],
+      "approachJustification": "Use fixed 64-bit masks for removable intervals, then represent each answer as a linked choice. Maintain less[a][b] so candidate suffixes can be compared in O(1), avoiding intermediate strings.",
+      "timeComplexity": "O(n^2 * ceil(n / 64))",
+      "spaceComplexity": "O(n^2)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/3563-lexicographically-smallest-string-after-adjacent-removals",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(n^3)",
+      "spaceComplexity": "O(n^2 / 64 + n)"
+    }
+  ],
+  "reasoningSummary": "A substring can be fully removed iff it is either enclosed by a consecutive endpoint pair around a removable inside, or split into two adjacent removable substrings. After this interval DP, the lexicographically smallest suffix answer chooses the next kept character s[j] only when the prefix before it is removable; the empty answer wins whenever the whole suffix is removable.",
+  "timeComplexity": "O(n^3) recommended, O(n^2 * ceil(n / 64)) runtime",
+  "spaceComplexity": "O(n^2)"
+}

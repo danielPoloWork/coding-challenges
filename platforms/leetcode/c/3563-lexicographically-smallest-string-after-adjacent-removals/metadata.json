@@ -1,0 +1,77 @@
+{
+  "id": "3563",
+  "title": "Lexicographically Smallest String After Adjacent Removals",
+  "slug": "lexicographically-smallest-string-after-adjacent-removals",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/3563-lexicographically-smallest-string-after-adjacent-removals",
+  "url": "https://leetcode.com/problems/lexicographically-smallest-string-after-adjacent-removals/",
+  "difficulty": "Hard",
+  "topics": ["String", "Dynamic Programming"],
+  "patterns": ["interval-dp", "lexicographic-dp", "bitset-dp", "noncrossing-matching"],
+  "status": "solved",
+  "dateSolved": "2026-06-09",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3563-lexicographically-smallest-string-after-adjacent-removals/solution.cpp",
+  "recommendedSolution": "solution-memory.c",
+  "note": "C proposal for this challenge: the minimum-footprint champion. Recommended and speed proposals are in C++.",
+  "variants": [
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "The memory objective favors C because the LeetCode input is a char* and all state can be represented as fixed primitive arrays plus one allocated result buffer, avoiding standard-library container and managed-runtime overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Best for the recommended and runtime variants, but strings, array wrappers, and optional comparison tables raise the memory constant compared with direct C arrays."
+        },
+        {
+          "language": "C",
+          "assessment": "Selected. It gives the smallest runtime/container baseline and direct control over the output allocation."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Can be memory-efficient, but ownership and string return plumbing add implementation overhead without improving asymptotic memory."
+        },
+        {
+          "language": "Go",
+          "assessment": "Slices are compact enough for acceptance, but the runtime and GC baseline exceed C for a memory champion."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays avoid boxing, but managed-runtime baseline and object metadata are higher than C."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Object-heavy strings and arrays are dominated for minimum memory."
+        }
+      ],
+      "approachJustification": "Use fixed 64-bit interval masks for removability and store suffix answers as linked choices. Equal-leading candidates are compared by walking those links, avoiding intermediate strings and the O(n^2) comparison table.",
+      "timeComplexity": "O(n^3)",
+      "spaceComplexity": "O(n^2 / 64 + n)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3563-lexicographically-smallest-string-after-adjacent-removals",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n^3)",
+      "spaceComplexity": "O(n^2)"
+    },
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3563-lexicographically-smallest-string-after-adjacent-removals",
+      "file": "solution-runtime.cpp",
+      "timeComplexity": "O(n^2 * ceil(n / 64))",
+      "spaceComplexity": "O(n^2)"
+    }
+  ],
+  "reasoningSummary": "The C memory variant uses the same interval-DP proof as the C++ versions, but stores only fixed bit masks and linked suffix choices. It trades slower linked comparisons for lower allocation and container overhead.",
+  "timeComplexity": "O(n^3)",
+  "spaceComplexity": "O(n^2 / 64 + n)"
+}

@@ -760,6 +760,34 @@
       "spaceComplexity": "O(R * m + n) recommended/runtime, O(n) memory"
     },
     {
+      "id": "3563",
+      "title": "Lexicographically Smallest String After Adjacent Removals",
+      "slug": "lexicographically-smallest-string-after-adjacent-removals",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
+      "difficulty": "Hard",
+      "topics": [
+        "String",
+        "Dynamic Programming"
+      ],
+      "patterns": [
+        "interval-dp",
+        "lexicographic-dp",
+        "bitset-dp",
+        "noncrossing-matching"
+      ],
+      "path": "platforms/leetcode/cpp/3563-lexicographically-smallest-string-after-adjacent-removals",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-09",
+      "timeComplexity": "O(n^3) recommended, O(n^2 * ceil(n / 64)) runtime",
+      "spaceComplexity": "O(n^2)"
+    },
+    {
       "id": "3609",
       "title": "Minimum Moves to Reach Target in Grid",
       "slug": "minimum-moves-to-reach-target-in-grid",
