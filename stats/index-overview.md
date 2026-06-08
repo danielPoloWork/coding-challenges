@@ -4,10 +4,10 @@
 
 | Metric | Value |
 | --- | ---: |
-| Total challenges solved | 30 |
+| Total challenges solved | 32 |
 | Total source platforms | 1 (of 16 catalogued) |
 | Total languages used | 3 |
-| Total catalogued patterns | 27 |
+| Total catalogued patterns | 31 |
 
 _"Catalogued patterns" counts distinct topics across all platforms and languages._
 
@@ -15,16 +15,16 @@ _"Catalogued patterns" counts distinct topics across all platforms and languages
 
 | Platform | Challenges solved |
 | --- | ---: |
-| [leetcode](index-leetcode.md) | 30 |
+| [leetcode](index-leetcode.md) | 32 |
 
 ## Languages used
 
 | Language | Solved |
 | --- | ---: |
-| C++ | 25 |
+| C++ | 27 |
 | C | 6 |
 | SQL | 5 |
 
 ## Catalogued patterns (distinct topics)
 
-Array, Binary Search, Binary Tree, Bipartite Matching, Bit Manipulation, Combinatorics, Counting, Counting Sort, Database, Divide and Conquer, Dynamic Programming, Enumeration, Greedy, Hash Table, Heap (Priority Queue), Math, Matrix, Number Theory, Prefix Sum, Queue, Segment Tree, Simulation, Sorting, String, String Matching, Tree, Z-Algorithm
+Array, Binary Search, Binary Tree, Bipartite Matching, Bit Manipulation, Breadth-First Search, Combinatorics, Counting, Counting Sort, Database, Divide and Conquer, Dynamic Programming, Enumeration, Greedy, Hash Table, Heap (Priority Queue), Math, Matrix, Number Theory, Ordered Set, Prefix Sum, Queue, Segment Tree, Simulation, Sorting, String, String Matching, Tree, Two Pointers, Union Find, Z-Algorithm

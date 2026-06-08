@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-07",
+  "generated": "2026-06-08",
   "version": 1,
   "platforms": [
     {
@@ -341,6 +341,32 @@
       "spaceComplexity": "O(r) output plus optimizer-dependent workspace"
     },
     {
+      "id": "2161",
+      "title": "Partition Array According to Given Pivot",
+      "slug": "partition-array-according-to-given-pivot",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Two Pointers",
+        "Simulation"
+      ],
+      "patterns": [
+        "stable-partition",
+        "three-way-partition",
+        "output-buffer",
+        "divide-and-conquer",
+        "rotation"
+      ],
+      "path": "platforms/leetcode/cpp/2161-partition-array-according-to-given-pivot",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-08",
+      "timeComplexity": "O(n) recommended/runtime, O(n log n) memory",
+      "spaceComplexity": "O(n) recommended/runtime, O(log n) auxiliary memory"
+    },
+    {
       "id": "2196",
       "title": "Create Binary Tree From Descriptions",
       "slug": "create-binary-tree-from-descriptions",
@@ -387,6 +413,33 @@
       "dateSolved": "2026-06-06",
       "timeComplexity": "O(n)",
       "spaceComplexity": "O(1) auxiliary, O(n) output"
+    },
+    {
+      "id": "2612",
+      "title": "Minimum Reverse Operations",
+      "slug": "minimum-reverse-operations",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Breadth-First Search",
+        "Ordered Set",
+        "Union Find"
+      ],
+      "patterns": [
+        "bfs",
+        "successor-dsu",
+        "parity-splitting",
+        "interval-generation",
+        "bitset"
+      ],
+      "path": "platforms/leetcode/cpp/2612-minimum-reverse-operations",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-07",
+      "timeComplexity": "O(n alpha(n)) recommended/runtime, O(n + (n / 64) alpha(n / 64)) memory",
+      "spaceComplexity": "O(n)"
     },
     {
       "id": "3165",

@@ -1,0 +1,130 @@
+{
+  "id": "2612",
+  "title": "Minimum Reverse Operations",
+  "slug": "minimum-reverse-operations",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/2612-minimum-reverse-operations",
+  "url": "https://leetcode.com/problems/minimum-reverse-operations/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Breadth-First Search", "Ordered Set", "Union Find"],
+  "patterns": ["bfs", "successor-dsu", "parity-splitting", "interval-generation", "bitset"],
+  "status": "solved",
+  "dateSolved": "2026-06-07",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/2612-minimum-reverse-operations/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals. The speed extreme coincides with the recommended parity-compressed successor-DSU BFS, so no duplicate solution-runtime.cpp is shipped. solution-memory.cpp is a genuine lower-successor-memory bitset variant.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The graph has up to 1e5 indices and the hot path is BFS plus successor deletions by parity. C++ gives native loops, compact contiguous vectors, direct LeetCode support, and no managed-runtime or interpreter overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It gives the best blend of raw speed, compact vectors, path-compressed DSU, and readable LeetCode integration."
+        },
+        {
+          "language": "C",
+          "assessment": "Raw arrays are competitive, but the C return signature and manual allocation add risk without improving the balanced proposal's asymptotic memory."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and safe, but the mutable DSU and queue plumbing are more verbose and less likely to beat C++ constants on LeetCode."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled, but bounds checks and runtime overhead are less attractive for dense BFS loops over 1e5 positions."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays can be fast after JIT warmup, but C++ avoids managed-runtime startup, GC interaction, and larger runtime baseline."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Too much per-iteration overhead for top-percentile performance at the maximum constraints."
+        }
+      ],
+      "approachJustification": "Run BFS from p. For each index, derive the parity-fixed target interval [low, high]. A successor DSU over compressed parity positions enumerates only still-unvisited allowed indices, then deletes each discovered index immediately.",
+      "timeComplexity": "O(n alpha(n))",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The recommended parity-compressed successor-DSU BFS is already the speed extreme: no explicit edge generation, no ordered tree, no hash table, and no repeated scan over visited indices.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. The tight loop is native array indexing, path compression, and a manual vector queue."
+        },
+        {
+          "language": "C",
+          "assessment": "Could mirror the arrays, but platform plumbing does not provide a practical speed win over optimized C++."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native speed is possible, but checked indexing and borrow management make the hot path harder to keep minimal."
+        },
+        {
+          "language": "Go",
+          "assessment": "Slice bounds checks and runtime costs work against the raw-runtime objective."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "JIT runtimes can be competitive, but C++ keeps startup and memory layout more predictable for percentile scoring."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Interpreter or VM overhead dominates the linear-ish algorithm at n = 1e5."
+        }
+      ],
+      "approachJustification": "Same file as the recommended proposal; a separate solution-runtime.cpp would be coincident and is intentionally omitted.",
+      "timeComplexity": "O(n alpha(n))",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "The memory variant needs compact bit operations, count-trailing-zero extraction, and a word-level DSU while preserving the LeetCode C++ vector return type. C++ provides this with minimal container overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. 64-bit bitsets, __builtin_ctzll, compact vectors, and direct platform support make the memory-focused implementation practical."
+        },
+        {
+          "language": "C",
+          "assessment": "Can use the same bit operations, but manual return ownership and allocation plumbing add risk for little measured-memory benefit."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Strong memory control, but mutable bitsets plus word-level DSU are more verbose and do not reduce the mandatory answer or queue."
+        },
+        {
+          "language": "Go",
+          "assessment": "Bit operations are available, but slices plus runtime and GC baseline are larger."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays avoid boxing, but managed-runtime baseline memory is higher than C++."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Object-heavy numeric storage is unsuitable for a memory-extreme solution."
+        }
+      ],
+      "approachJustification": "Run the same BFS, but store unvisited positions as parity-compressed bitsets and skip empty words with a word-level successor DSU. This shrinks the removable-state representation while preserving correctness.",
+      "timeComplexity": "O(n + (n / 64) alpha(n / 64))",
+      "spaceComplexity": "O(n), with O(n / 64) DSU words plus O(n) mandatory answer and queue"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Reversing a length-k subarray containing index i maps the 1 to j = 2L + k - 1 - i. Valid starts L form an interval, so valid targets form [max(i-k+1,k-1-i), min(i+k-1,2n-k-1-i)] with step 2. BFS gives minimum operation counts; parity-separated successor structures enumerate each unvisited allowed target once without O(k) scans or O(log n) tree operations.",
+  "timeComplexity": "O(n alpha(n)) recommended/runtime, O(n + (n / 64) alpha(n / 64)) memory",
+  "spaceComplexity": "O(n)"
+}

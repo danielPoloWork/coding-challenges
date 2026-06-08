@@ -1,0 +1,130 @@
+{
+  "id": "2161",
+  "title": "Partition Array According to Given Pivot",
+  "slug": "partition-array-according-to-given-pivot",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/2161-partition-array-according-to-given-pivot",
+  "url": "https://leetcode.com/problems/partition-array-according-to-given-pivot/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Two Pointers", "Simulation"],
+  "patterns": ["stable-partition", "three-way-partition", "output-buffer", "divide-and-conquer", "rotation"],
+  "status": "solved",
+  "dateSolved": "2026-06-08",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/2161-partition-array-according-to-given-pivot/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals. The speed extreme coincides with the recommended exact-output-buffer solution, so no duplicate solution-runtime.cpp is shipped. solution-memory.cpp is a genuine lower-auxiliary-memory stable-rotation variant.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The task is dominated by contiguous reads and writes into the returned vector. C++ matches LeetCode's vector<int> interface, provides one exact-size allocation, and avoids GC, boxing, interpreter overhead, or manual C return ownership.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Exact-size vector output and native contiguous loops give the best fast-and-lean balance for n <= 1e5."
+        },
+        {
+          "language": "C",
+          "assessment": "Raw loops are competitive, but the C API requires manual returned-array allocation and does not improve the balanced proposal's work or memory."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and safe, but platform plumbing and bounds-check management do not beat the simple C++ vector hot path."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled slices are adequate, but bounds checks, GC/runtime baseline, and LeetCode overhead are less attractive for percentile runtime."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays can be fast after JIT warmup, but managed runtime startup and GC metadata add overhead without algorithmic benefit."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Interpreter or VM overhead and object-heavy arrays are dominated for top-percentile performance at n = 1e5."
+        }
+      ],
+      "approachJustification": "Allocate ans[n], stream values below pivot into the prefix, stream values above pivot into the suffix while scanning backwards to preserve order, then fill the middle with pivot.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The recommended output-buffer method already reaches the required O(n) read/write lower bound with one allocation and tight contiguous stores, so a separate runtime file would be coincident.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Two scans plus a fill over contiguous vector storage is the lowest-overhead practical LeetCode implementation."
+        },
+        {
+          "language": "C",
+          "assessment": "Can match raw loops, but manual allocation/signature handling does not produce a practical speed win over C++ vectors."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native performance is possible, but it does not reduce the number of scans or writes and has less favorable platform ergonomics."
+        },
+        {
+          "language": "Go",
+          "assessment": "Extra runtime and bounds-check costs work against the raw-runtime objective."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "JIT can optimize the loops, but startup and managed memory overhead are less predictable than C++ for percentile scoring."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Linear algorithms still pay too much per-element VM or interpreter cost for the runtime extreme."
+        }
+      ],
+      "approachJustification": "Same file as the recommended proposal; no solution-runtime.cpp is shipped because it would duplicate the exact-output-buffer solution.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "C++ can perform recursive stable partitions with std::rotate on the input vector and move-return the resulting buffer, keeping auxiliary memory to O(log n) stack while preserving the LeetCode vector interface.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It combines compact vector storage, std::rotate, predicate lambdas, and move return with low runtime overhead."
+        },
+        {
+          "language": "C",
+          "assessment": "Manual rotations are possible, but the C judge API's returned-array ownership usually forces an allocation that weakens the memory objective."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Can implement the same algorithm safely, but borrow/slice plumbing adds complexity without reducing the auxiliary footprint."
+        },
+        {
+          "language": "Go",
+          "assessment": "Slices can rotate in place, but the runtime/GC baseline is larger and there is no memory win over C++."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive-array rotations are possible, but managed runtime overhead and return-array handling are less suitable for the memory champion."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Object-heavy arrays and high recursion/loop overhead are poor fits for a minimum-memory variant."
+        }
+      ],
+      "approachJustification": "Run recursive stable partition by rotations for x < pivot, then on the suffix for x == pivot; move-return the mutated vector.",
+      "timeComplexity": "O(n log n)",
+      "spaceComplexity": "O(log n) auxiliary"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Stable three-way partitioning is achieved fastest by writing a pre-sized output vector: smaller elements forward, greater elements backward into the suffix, and pivots in the middle. The speed extreme coincides with this O(n) method. The memory variant removes the output buffer by using recursive stable partitions with rotations, trading time for O(log n) auxiliary space.",
+  "timeComplexity": "O(n) recommended/runtime, O(n log n) memory",
+  "spaceComplexity": "O(n) recommended/runtime, O(log n) auxiliary memory"
+}
