@@ -223,35 +223,35 @@ _Status mirrors the live site ([`src/assets/data.js`](src/assets/data.js)): Phas
 
 ### Phase 1 — Knowledge Repository · shipped
 
-* Centralized challenge collection
-* Pattern catalog
-* Complexity analysis
+* [x] Centralized challenge collection
+* [x] Pattern catalog
+* [x] Complexity analysis
 
 ### Phase 2 — Automation · shipped
 
-* Metadata generation
-* Statistics dashboards
-* Automated README updates
+* [x] Metadata generation
+* [x] Statistics dashboards
+* [x] Automated README updates
 
 ### Phase 3 — Documentation Portal · shipped
 
-* Static website generation
-* Searchable challenge index
-* Pattern explorer
+* [x] Static website generation
+* [x] Searchable challenge index
+* [x] Pattern explorer
 
 ### Phase 4 — Engineering Portfolio · planned
 
-* Public technical showcase
-* Learning timeline
-* Technical articles
-* Interview preparation resources
+* [x] Public technical showcase
+* [ ] Learning timeline
+* [ ] Technical articles
+* [ ] Interview preparation resources
 
 ### Phase 5 — Agentic Learning System · planned
 
-* Automated solution classification
-* Pattern extraction
-* Skill gap analysis
-* Personalized learning recommendations
+* [x] Automated solution classification
+* [x] Pattern extraction
+* [ ] Skill gap analysis
+* [ ] Personalized learning recommendations
 
 ---
 

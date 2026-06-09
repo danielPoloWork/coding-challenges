@@ -565,6 +565,13 @@ section { position: relative; }
 .phase h4 { font-size: 16px; margin-top: 10px; font-weight: 550; }
 .phase ul { margin: 12px 0 0; padding: 0; list-style: none; }
 .phase li { font-size: 13px; color: var(--ink-2); padding: 3px 0; }
+.phase-item { display: flex; align-items: center; gap: 8px; }
+.phase-tick { display: inline-flex; width: 13px; height: 13px; flex: none; color: var(--clay); }
+.phase-item.is-done { color: var(--ink); }
+.phase-item:not(.is-done) .phase-tick::before {
+  content: ""; width: 7px; height: 7px; margin: auto; border-radius: 50%;
+  border: 1.5px solid var(--hairline-2);
+}
 
 /* dark "fat footer" — a Claude near-black band that closes the page (both themes) */
 .footer {

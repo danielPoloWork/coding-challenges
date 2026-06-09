@@ -252,7 +252,11 @@ function Footer({ roadmap, totals }) {
               <div className={"phase reveal" + (ph.done ? "" : " future")} key={ph.n}>
                 <div className="phase-n">{ph.n}{ph.done ? " · shipped" : " · planned"}</div>
                 <h4>{ph.title}</h4>
-                <ul>{ph.items.map((it) => <li key={it}>{it}</li>)}</ul>
+                <ul>{ph.items.map((it) => (
+                  <li key={it.label} className={"phase-item" + (it.done ? " is-done" : "")}>
+                    <span className="phase-tick">{it.done ? <Icon name="check" size={12} /> : null}</span>{it.label}
+                  </li>
+                ))}</ul>
               </div>
             ))}
           </div>

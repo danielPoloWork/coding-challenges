@@ -66,12 +66,19 @@ window.CC = (function () {
     { name: "Erlang", c: "#aa3355" }, { name: "Go", c: "#4fc3d9" }, { name: "JavaScript", c: "#d8b832" },
   ];
 
+  // Per-item `done` powers the per-item checkmarks; phase `done` (= all items
+  // done) still drives the "shipped / planned" label. Keep both in sync.
   const roadmap = [
-    { n: "Phase 1", title: "Knowledge Repository", done: true,  items: ["Centralised collection", "Pattern catalog", "Complexity analysis"] },
-    { n: "Phase 2", title: "Automation",            done: true,  items: ["Metadata generation", "Statistics dashboards", "Automated READMEs"] },
-    { n: "Phase 3", title: "Documentation Portal",  done: true,  items: ["Static site generation", "Searchable index", "Pattern explorer"] },
-    { n: "Phase 4", title: "Engineering Portfolio", done: false, items: ["Public showcase", "Learning timeline", "Technical articles"] },
-    { n: "Phase 5", title: "Agentic Learning",      done: false, items: ["Solution classification", "Pattern extraction", "Skill-gap analysis"] },
+    { n: "Phase 1", title: "Knowledge Repository", done: true,  items: [
+      { label: "Centralised collection", done: true }, { label: "Pattern catalog", done: true }, { label: "Complexity analysis", done: true } ] },
+    { n: "Phase 2", title: "Automation",            done: true,  items: [
+      { label: "Metadata generation", done: true }, { label: "Statistics dashboards", done: true }, { label: "Automated READMEs", done: true } ] },
+    { n: "Phase 3", title: "Documentation Portal",  done: true,  items: [
+      { label: "Static site generation", done: true }, { label: "Searchable index", done: true }, { label: "Pattern explorer", done: true } ] },
+    { n: "Phase 4", title: "Engineering Portfolio", done: false, items: [
+      { label: "Public showcase", done: true }, { label: "Learning timeline", done: false }, { label: "Technical articles", done: false } ] },
+    { n: "Phase 5", title: "Agentic Learning",      done: false, items: [
+      { label: "Solution classification", done: true }, { label: "Pattern extraction", done: true }, { label: "Skill-gap analysis", done: false } ] },
   ];
 
   // sample solution proposals for the live preview (Two Sum)

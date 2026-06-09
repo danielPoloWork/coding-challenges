@@ -12,6 +12,7 @@ function Icon({ name, size = 17 }) {
     search: <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4-4"/></g>,
     x: <path fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" d="M6 6l12 12M18 6 6 18"/>,
     caret: <path fill="currentColor" d="M12 15.5 6.5 10h11z"/>,
+    check: <path fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 12.5l4.2 4.2L19 6.5"/>,
     chevron: <path fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" d="m9 6 6 6-6 6"/>,
     file: <g fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"><path d="M6 3h7l5 5v13H6z"/><path d="M13 3v5h5"/></g>,
     external: <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M14 5h5v5"/><path d="M19 5l-7 7"/><path d="M18 13v6H5V6h6"/></g>,
