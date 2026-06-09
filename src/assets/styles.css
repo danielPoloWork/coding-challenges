@@ -284,17 +284,20 @@ p { margin: 0; }
    STATS STRIP
    ============================================================ */
 .stats {
-  display: grid; grid-template-columns: repeat(4, 1fr);
+  display: grid; grid-template-columns: repeat(5, 1fr);
   border: 1px solid var(--hairline); border-radius: var(--r-lg);
   background: var(--surface); overflow: hidden; margin-top: 54px;
   box-shadow: var(--shadow);
 }
+@media (max-width: 980px) { .stats { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
 .stat { padding: 26px 28px; border-right: 1px solid var(--hairline); }
 .stat:last-child { border-right: none; }
+@media (max-width: 980px) {
+  .stat { border-bottom: 1px solid var(--hairline); }
+}
 @media (max-width: 720px) {
   .stat:nth-child(2n) { border-right: none; }
-  .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--hairline); }
 }
 .stat-num {
   font-family: var(--serif); font-size: 46px; line-height: 1;

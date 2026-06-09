@@ -79,12 +79,13 @@ function Nav({ theme, onToggle }) {
 
 /* ---------- HERO ---------- */
 function Hero({ totals }) {
-  const t = totals || {challenges: 0, platforms: 0, languages: 0, patterns: 0 };
+  const t = totals || {challenges: 0, platforms: 0, languages: 0, patterns: 0, topics: 0 };
   const items = [
     { n: t.challenges, label: "Challenges solved" },
     { n: t.platforms, label: "Source platforms", sub: t.catalogued ? `of ${t.catalogued} catalogued` : null },
     { n: t.languages, label: "Languages used" },
     { n: t.patterns, label: "Catalogued patterns" },
+    { n: t.topics || 0, label: "Catalogued topics" },
   ];
   return (
     <header className="hero" id="top">
@@ -124,12 +125,13 @@ function Hero({ totals }) {
 
 /* ---------- STATS ---------- */
 function Stats({totals}) {
-  const t = totals || {challenges: 0, platforms: 0, languages: 0, patterns: 0 };
+  const t = totals || {challenges: 0, platforms: 0, languages: 0, patterns: 0, topics: 0 };
   const items = [
     { n: t.challenges, label: "Challenges solved" },
     { n: t.platforms, label: "Source platforms", sub: t.catalogued ? `of ${t.catalogued} catalogued` : null },
     { n: t.languages, label: "Languages used" },
     { n: t.patterns, label: "Catalogued patterns" },
+    { n: t.topics || 0, label: "Catalogued topics" },
   ];
   return ('');
 }

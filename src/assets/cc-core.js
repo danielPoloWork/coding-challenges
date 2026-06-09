@@ -77,7 +77,8 @@ window.CCX = (function () {
       platforms: platforms.filter((p) => p.count > 0).length,
       catalogued: manifest.catalogued != null ? manifest.catalogued : (manifest.platforms || []).length,
       languages: languages.length,
-      patterns: topics.length,
+      patterns: patterns.length,
+      topics: topics.length,
     };
 
     // featured: curated ids first, then fill
