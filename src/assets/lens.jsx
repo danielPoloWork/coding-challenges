@@ -70,11 +70,31 @@ function LensIndex({ challenges }) {
   const [q, setQ] = useState("");
   const [sortKey, setSortKey] = useState("count");
   const [dir, setDir] = useState(-1);   // most-used first
-  const [minTwo, setMinTwo] = useState(false);
+  const [diffFilter, setDiff] = useState("All");
+  const [langFilter, setLang] = useState("All");
+  const [crossFilter, setCross] = useState("All");
 
+  // filter option lists (over every challenge, independent of active filters)
+  const langOptions = useMemo(() => [...new Set(challenges.flatMap(langsOf))].sort(), [challenges]);
+  const crossOptions = useMemo(
+    () => [...new Set(challenges.flatMap((c) => c[OTHER_ATTR] || []))].sort((a, b) => a.localeCompare(b)),
+    [challenges]
+  );
+  const totalDistinct = useMemo(() => {
+    const s = new Set();
+    challenges.forEach((c) => labelsOf(c).forEach((v) => s.add(v)));
+    return s.size;
+  }, [challenges]);
+
+  // narrow the challenge set by the filters, then aggregate per label so the
+  // counts / difficulty / language cells reflect the filtered selection
   const labels = useMemo(() => {
+    let r = challenges;
+    if (diffFilter !== "All") r = r.filter((c) => c.difficulty === diffFilter);
+    if (langFilter !== "All") r = r.filter((c) => langsOf(c).includes(langFilter));
+    if (crossFilter !== "All") r = r.filter((c) => (c[OTHER_ATTR] || []).includes(crossFilter));
     const map = {};
-    challenges.forEach((c) => labelsOf(c).forEach((v) => { (map[v] || (map[v] = [])).push(c); }));
+    r.forEach((c) => labelsOf(c).forEach((v) => { (map[v] || (map[v] = [])).push(c); }));
     return Object.entries(map).map(([name, items]) => {
       const diff = { Easy: 0, Medium: 0, Hard: 0 };
       const langSet = new Set(), otherMap = {};
@@ -89,22 +109,25 @@ function LensIndex({ challenges }) {
         others: Object.entries(otherMap).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map((e) => e[0]),
       };
     });
-  }, [challenges]);
+  }, [challenges, diffFilter, langFilter, crossFilter]);
 
+  const diffScore = (d) => d.Hard * 1e6 + d.Medium * 1e3 + d.Easy;
   const LSORTS = {
-    name:  (a, b) => a.name.localeCompare(b.name),
-    count: (a, b) => a.count - b.count || a.name.localeCompare(b.name),
+    count:      (a, b) => a.count - b.count || a.name.localeCompare(b.name),
+    name:       (a, b) => a.name.localeCompare(b.name),
+    difficulty: (a, b) => diffScore(a.diff) - diffScore(b.diff) || a.count - b.count,
+    languages:  (a, b) => a.languages.length - b.languages.length || a.name.localeCompare(b.name),
+    others:     (a, b) => a.others.length - b.others.length || a.name.localeCompare(b.name),
   };
   const rows = useMemo(() => {
     let r = labels;
-    if (minTwo) r = r.filter((x) => x.count >= 2);
     if (q.trim()) { const n = q.trim().toLowerCase(); r = r.filter((x) => x.name.toLowerCase().includes(n)); }
     return [...r].sort((a, b) => LSORTS[sortKey](a, b) * dir);
-  }, [labels, q, sortKey, dir, minTwo]);
+  }, [labels, q, sortKey, dir]);
 
   const clickSort = (k) => {
     if (k === sortKey) setDir((d) => -d);
-    else { setSortKey(k); setDir(k === "count" ? -1 : 1); }
+    else { setSortKey(k); setDir(k === "name" ? 1 : -1); }
   };
   const Th = ({ k, children, cls }) => (
     <button className={"th " + (cls || "") + (sortKey === k ? " active" : "")} onClick={() => clickSort(k)}>
@@ -115,6 +138,8 @@ function LensIndex({ challenges }) {
     </button>
   );
 
+  const filtered = q || diffFilter !== "All" || langFilter !== "All" || crossFilter !== "All";
+
   return (
     <React.Fragment>
       <div className="crumb"><a href="index.html">home</a><span className="sep">/</span><b>{LENS.noun}s</b></div>
@@ -124,7 +149,7 @@ function LensIndex({ challenges }) {
           <h1 className="serif">{LENS.label} explorer</h1>
           <p>Every {LENS.noun} across all platforms, sortable and filterable — pick one to see its challenges.</p>
         </div>
-        <div className="phead-count"><div className="serif n">{labels.length}</div><div className="l mono">distinct</div></div>
+        <div className="phead-count"><div className="serif n">{totalDistinct}</div><div className="l mono">distinct</div></div>
       </div>
 
       <div className="pcontrols">
@@ -135,21 +160,37 @@ function LensIndex({ challenges }) {
         </div>
         <div className="pfilters">
           <div className="seg">
-            <button className={"seg-b" + (!minTwo ? " on" : "")} onClick={() => setMinTwo(false)}>All</button>
-            <button className={"seg-b" + (minTwo ? " on" : "")} onClick={() => setMinTwo(true)}>Used ≥2</button>
+            {["All", "Easy", "Medium", "Hard"].map((d) => (
+              <button key={d} className={"seg-b" + (diffFilter === d ? " on" : "")} onClick={() => setDiff(d)}
+                style={diffFilter === d && d !== "All" ? { color: window.CCX.diffColor(d) } : null}>{d}</button>
+            ))}
+          </div>
+          <div className="psel">
+            <select value={langFilter} onChange={(e) => setLang(e.target.value)}>
+              <option value="All">All languages</option>
+              {langOptions.map((l) => <option key={l} value={l}>{l}</option>)}
+            </select>
+            <Icon name="chevron" size={14} />
+          </div>
+          <div className="psel">
+            <select value={crossFilter} onChange={(e) => setCross(e.target.value)}>
+              <option value="All">All {OTHER_NOUN}s</option>
+              {crossOptions.map((o) => <option key={o} value={o}>{o}</option>)}
+            </select>
+            <Icon name="chevron" size={14} />
           </div>
         </div>
       </div>
 
-      <div className="pcount mono">{rows.length} of {labels.length}{(q || minTwo) ? " (filtered)" : ""}</div>
+      <div className="pcount mono">{rows.length} of {totalDistinct}{filtered ? " (filtered)" : ""}</div>
 
       <div className="ptable">
         <div className="ptable-head">
           <Th k="count" cls="c-id">#</Th>
           <Th k="name" cls="c-title">{LENS.label}</Th>
-          <div className="th c-diff">Difficulty</div>
-          <div className="th c-lang">Languages</div>
-          <div className="th c-type">{OTHER_NOUN === "topic" ? "Topics" : "Patterns"}</div>
+          <Th k="difficulty" cls="c-diff">Difficulty</Th>
+          <Th k="languages" cls="c-lang">Languages</Th>
+          <Th k="others" cls="c-type">{OTHER_NOUN === "topic" ? "Topics" : "Patterns"}</Th>
           <div className="th c-go" />
         </div>
         {rows.map((x) => (
