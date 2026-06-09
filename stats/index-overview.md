@@ -7,9 +7,10 @@
 | Total challenges solved | 37 |
 | Total source platforms | 1 (of 16 catalogued) |
 | Total languages used | 3 |
-| Total catalogued patterns | 31 |
+| Total catalogued topics | 31 |
+| Total catalogued patterns | 106 |
 
-_"Catalogued patterns" counts distinct topics across all platforms and languages._
+_Topics are the broad algorithmic domains; patterns are the finer reusable techniques. Both counted distinct across all platforms and languages._
 
 ## Platforms
 
@@ -25,6 +26,10 @@ _"Catalogued patterns" counts distinct topics across all platforms and languages
 | C | 7 |
 | SQL | 5 |
 
-## Catalogued patterns (distinct topics)
+## Catalogued topics
 
 Array, Binary Search, Binary Tree, Bipartite Matching, Bit Manipulation, Breadth-First Search, Combinatorics, Counting, Counting Sort, Database, Divide and Conquer, Dynamic Programming, Enumeration, Greedy, Hash Table, Heap (Priority Queue), Math, Matrix, Number Theory, Ordered Set, Prefix Sum, Queue, Segment Tree, Simulation, Sorting, String, String Matching, Tree, Two Pointers, Union Find, Z-Algorithm
+
+## Catalogued patterns
+
+106 distinct patterns — full list in [index-patterns.md](index-patterns.md).

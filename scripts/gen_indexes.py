@@ -139,19 +139,23 @@ def overview_metrics(challenges: dict) -> dict:
     by_platform: Counter = Counter(c["platform"] for c in challenges.values())
     languages: Counter = Counter()
     topics: set[str] = set()
+    patterns: set[str] = set()
     for c in challenges.values():
         for lang in c["langs"]:
             languages[lang] += 1
         topics |= c["topics"]
+        patterns |= c["patterns"]
     return {
         "by_platform": by_platform,
         "languages": languages,
         "topics": topics,
+        "patterns": patterns,
         "total_challenges": len(challenges),
         "active_platforms": len(by_platform),
         "catalogued": catalogued_platforms(),
         "total_languages": len(languages),
-        "total_patterns": len(topics),
+        "total_topics": len(topics),
+        "total_patterns": len(patterns),
     }
 
 
@@ -164,7 +168,9 @@ def build_overview(challenges: dict) -> str:
     active_platforms = m["active_platforms"]
     catalogued = m["catalogued"]
     total_languages = m["total_languages"]
-    total_patterns = m["total_patterns"]  # distinct topics, per owner's definition
+    total_topics = m["total_topics"]
+    total_patterns = m["total_patterns"]
+    patterns = m["patterns"]
 
     out: list[str] = [
         "# Index — Overview",
@@ -176,10 +182,11 @@ def build_overview(challenges: dict) -> str:
         f"| Total challenges solved | {total_challenges} |",
         f"| Total source platforms | {active_platforms} (of {catalogued} catalogued) |",
         f"| Total languages used | {total_languages} |",
+        f"| Total catalogued topics | {total_topics} |",
         f"| Total catalogued patterns | {total_patterns} |",
         "",
-        "_\"Catalogued patterns\" counts distinct topics across all platforms and "
-        "languages._",
+        "_Topics are the broad algorithmic domains; patterns are the finer reusable "
+        "techniques. Both counted distinct across all platforms and languages._",
         "",
         "## Platforms",
         "",
@@ -195,8 +202,13 @@ def build_overview(challenges: dict) -> str:
         out += render_count_table("Language", languages)
     else:
         out.append("_None yet._")
-    out += ["", "## Catalogued patterns (distinct topics)", ""]
+    out += ["", "## Catalogued topics", ""]
     out.append(", ".join(sorted(topics)) if topics else "_None yet._")
+    out += ["", "## Catalogued patterns", ""]
+    out.append(
+        f"{total_patterns} distinct patterns — full list in "
+        "[index-patterns.md](index-patterns.md)." if patterns else "_None yet._"
+    )
     out.append("")
     return "\n".join(out)
 
@@ -306,6 +318,7 @@ def readme_stats_lines(m: dict) -> list[str]:
         f"| Source platforms | {m['active_platforms']} active "
         f"(of {m['catalogued']} catalogued) |",
         f"| Languages used | {m['total_languages']} |",
+        f"| Catalogued topics | {m['total_topics']} |",
         f"| Catalogued patterns | {m['total_patterns']} |",
     ]
 
