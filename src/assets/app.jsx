@@ -75,6 +75,7 @@ function App() {
         <Featured featured={home ? home.featured : null} />
         <SolutionPreview proposals={CC.proposals} />
         <Patterns patterns={home ? home.patterns : CC.patterns} />
+        <Topics topics={home ? home.topics : []} />
         <Languages languages={home ? home.languages : CC.languages} />
         <Footer roadmap={CC.roadmap} totals={totals} />
       </main>

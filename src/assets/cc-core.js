@@ -65,16 +65,19 @@ window.CCX = (function () {
     const languages = Object.entries(langMap).sort((a, b) => b[1] - a[1])
       .map(([name, n]) => ({ name, n, c: langColor(name) }));
 
-    // distinct topics across everything = the "catalogued patterns" figure
-    const topicSet = new Set();
-    chs.forEach((c) => (c.topics || []).forEach((t) => topicSet.add(t)));
+    // topics: per-topic counts power the home "Topic explorer" teaser and the
+    // "catalogued patterns" figure (distinct topics across everything).
+    const topicMap = {};
+    chs.forEach((c) => (c.topics || []).forEach((t) => { topicMap[t] = (topicMap[t] || 0) + 1; }));
+    const topics = Object.entries(topicMap).map(([name, n]) => ({ name, n }))
+      .sort((a, b) => b.n - a.n || a.name.localeCompare(b.name));
 
     const totals = {
       challenges: chs.length,
       platforms: platforms.filter((p) => p.count > 0).length,
-      catalogued: (manifest.platforms || []).length,
+      catalogued: manifest.catalogued != null ? manifest.catalogued : (manifest.platforms || []).length,
       languages: languages.length,
-      patterns: topicSet.size,
+      patterns: topics.length,
     };
 
     // featured: curated ids first, then fill
@@ -87,7 +90,7 @@ window.CCX = (function () {
     }
     featured = featured.slice(0, 6);
 
-    return { platforms, patterns, languages, totals, featured };
+    return { platforms, patterns, topics, languages, totals, featured };
   }
 
   return { LANG_COLORS, langColor, diffColor, diffRank, loadManifest, platformMeta, deriveHome, initTheme, setTheme, qs };

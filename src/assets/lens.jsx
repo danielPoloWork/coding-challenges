@@ -1,14 +1,16 @@
-/* Coding Challenges — pattern / topic lens page (cross-platform).
-   Driven by window.CC_LENS = { attr:"patterns"|"topics", param, label, noun }.
-     • no ?<param>      → index of every label, sorted by frequency, clickable.
-     • ?<param>=<value> → challenges carrying that label: searchable, filterable,
-                          sortable, across every platform.
-   Mirrors platform.jsx (same controls, same table columns / CSS grid). */
+/* Coding Challenges — pattern / topic lens (cross-platform), shared by the
+   plural index pages (patterns.html / topics.html) and the singular detail
+   pages (pattern.html / topic.html). Driven by
+     window.CC_LENS = { attr:"patterns"|"topics", param, label, noun, mode }.
+   mode "index"  → sortable/filterable table of every label; row → detail page.
+   mode "detail" → ?<param>=<value> lists that label's challenges (searchable,
+                   filterable, sortable). Reuses platform.jsx's table CSS grid. */
 
 const LENS = window.CC_LENS;
-const LENS_HREF = LENS.attr === "topics" ? "src/topic.html" : "src/pattern.html";
-const OTHER_ATTR = LENS.attr === "topics" ? "patterns" : "topics";
-const OTHER_NOUN = LENS.attr === "topics" ? "pattern" : "topic";
+const INDEX_HREF  = LENS.attr === "topics" ? "src/topics.html" : "src/patterns.html";
+const DETAIL_HREF = LENS.attr === "topics" ? "src/topic.html"  : "src/pattern.html";
+const OTHER_ATTR  = LENS.attr === "topics" ? "patterns" : "topics";
+const OTHER_NOUN  = LENS.attr === "topics" ? "pattern" : "topic";
 
 function naturalCmp(a, b) {
   const an = /^\d+$/.test(a), bn = /^\d+$/.test(b);
@@ -30,9 +32,12 @@ const SORTS = {
 function LensPage() {
   const [theme, toggleTheme] = usePageTheme();
   const value = window.CCX.qs(LENS.param);
+  const isDetail = LENS.mode === "detail";
   const [data, setData] = useState({ loading: true });
 
   useEffect(() => {
+    // a detail page reached without a value has nothing to show → go to the list
+    if (isDetail && !value) { window.location.replace(INDEX_HREF); return; }
     let alive = true;
     window.CCX.loadManifest()
       .then((m) => { if (alive) setData({ loading: false, manifest: m }); })
@@ -48,28 +53,67 @@ function LensPage() {
   return (
     <React.Fragment>
       <InnerNav theme={theme} onToggleTheme={toggleTheme}
-        backHref={value ? LENS_HREF : "index.html"}
-        backLabel={value ? `All ${LENS.noun}s` : "Home"} />
+        backHref={isDetail ? INDEX_HREF : "index.html"}
+        backLabel={isDetail ? `All ${LENS.noun}s` : "Home"} />
       <main className="wrap cpage">
         {data.loading && <div className="cloading"><span className="spin" /> Loading index…</div>}
         {data.error && <div className="cerror"><h2 className="serif">Couldn’t load the index.</h2><p className="mono">{data.error}</p></div>}
-        {data.manifest && !value && <LensIndex challenges={challenges} />}
-        {data.manifest && value && <LensDetail challenges={challenges} value={value} />}
+        {data.manifest && !isDetail && <LensIndex challenges={challenges} />}
+        {data.manifest && isDetail && value && <LensDetail challenges={challenges} value={value} />}
       </main>
     </React.Fragment>
   );
 }
 
-/* ---- index: every label, sorted by frequency, clickable ---- */
+/* ---- index: sortable / filterable table of every label; row → detail page ---- */
 function LensIndex({ challenges }) {
   const [q, setQ] = useState("");
+  const [sortKey, setSortKey] = useState("count");
+  const [dir, setDir] = useState(-1);   // most-used first
+  const [minTwo, setMinTwo] = useState(false);
+
   const labels = useMemo(() => {
     const map = {};
-    challenges.forEach((c) => labelsOf(c).forEach((v) => { map[v] = (map[v] || 0) + 1; }));
-    return Object.entries(map).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    challenges.forEach((c) => labelsOf(c).forEach((v) => { (map[v] || (map[v] = [])).push(c); }));
+    return Object.entries(map).map(([name, items]) => {
+      const diff = { Easy: 0, Medium: 0, Hard: 0 };
+      const langSet = new Set(), otherMap = {};
+      items.forEach((c) => {
+        if (c.difficulty in diff) diff[c.difficulty]++;
+        langsOf(c).forEach((l) => langSet.add(l));
+        (c[OTHER_ATTR] || []).forEach((o) => { otherMap[o] = (otherMap[o] || 0) + 1; });
+      });
+      return {
+        name, count: items.length, diff,
+        languages: [...langSet].sort(),
+        others: Object.entries(otherMap).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map((e) => e[0]),
+      };
+    });
   }, [challenges]);
-  const needle = q.trim().toLowerCase();
-  const shown = needle ? labels.filter(([n]) => n.toLowerCase().includes(needle)) : labels;
+
+  const LSORTS = {
+    name:  (a, b) => a.name.localeCompare(b.name),
+    count: (a, b) => a.count - b.count || a.name.localeCompare(b.name),
+  };
+  const rows = useMemo(() => {
+    let r = labels;
+    if (minTwo) r = r.filter((x) => x.count >= 2);
+    if (q.trim()) { const n = q.trim().toLowerCase(); r = r.filter((x) => x.name.toLowerCase().includes(n)); }
+    return [...r].sort((a, b) => LSORTS[sortKey](a, b) * dir);
+  }, [labels, q, sortKey, dir, minTwo]);
+
+  const clickSort = (k) => {
+    if (k === sortKey) setDir((d) => -d);
+    else { setSortKey(k); setDir(k === "count" ? -1 : 1); }
+  };
+  const Th = ({ k, children, cls }) => (
+    <button className={"th " + (cls || "") + (sortKey === k ? " active" : "")} onClick={() => clickSort(k)}>
+      {children}
+      <span className="th-caret" style={{ opacity: sortKey === k ? 1 : 0.25, transform: sortKey === k && dir < 0 ? "rotate(180deg)" : "none" }}>
+        <Icon name="caret" size={14} />
+      </span>
+    </button>
+  );
 
   return (
     <React.Fragment>
@@ -78,25 +122,58 @@ function LensIndex({ challenges }) {
         <span className="pcard-icon phead-icon" style={{ background: "var(--clay)" }}>{LENS.label[0]}</span>
         <div>
           <h1 className="serif">{LENS.label} explorer</h1>
-          <p>Every {LENS.noun} across all platforms — pick one to see the challenges that exercise it.</p>
+          <p>Every {LENS.noun} across all platforms, sortable and filterable — pick one to see its challenges.</p>
         </div>
         <div className="phead-count"><div className="serif n">{labels.length}</div><div className="l mono">distinct</div></div>
       </div>
+
       <div className="pcontrols">
         <div className="psearch">
           <Icon name="search" size={16} />
           <input value={q} onChange={(e) => setQ(e.target.value)} placeholder={`Filter ${LENS.noun}s…`} />
           {q && <button className="psearch-x" onClick={() => setQ("")} aria-label="Clear"><Icon name="x" size={14} /></button>}
         </div>
+        <div className="pfilters">
+          <div className="seg">
+            <button className={"seg-b" + (!minTwo ? " on" : "")} onClick={() => setMinTwo(false)}>All</button>
+            <button className={"seg-b" + (minTwo ? " on" : "")} onClick={() => setMinTwo(true)}>Used ≥2</button>
+          </div>
+        </div>
       </div>
-      <div className="pcount mono">{shown.length} of {labels.length}{needle ? " (filtered)" : ""}</div>
-      <div className="pat-cloud" style={{ marginTop: 4 }}>
-        {shown.map(([name, n]) => (
-          <a className="pat" key={name} href={`${LENS_HREF}?${LENS.param}=${encodeURIComponent(name)}`}>
-            {name}<span className="c">{n}</span>
+
+      <div className="pcount mono">{rows.length} of {labels.length}{(q || minTwo) ? " (filtered)" : ""}</div>
+
+      <div className="ptable">
+        <div className="ptable-head">
+          <Th k="count" cls="c-id">#</Th>
+          <Th k="name" cls="c-title">{LENS.label}</Th>
+          <div className="th c-diff">Difficulty</div>
+          <div className="th c-lang">Languages</div>
+          <div className="th c-type">{OTHER_NOUN === "topic" ? "Topics" : "Patterns"}</div>
+          <div className="th c-go" />
+        </div>
+        {rows.map((x) => (
+          <a className="prow" key={x.name} href={`${DETAIL_HREF}?${LENS.param}=${encodeURIComponent(x.name)}`}>
+            <div className="c-id mono">{x.count}</div>
+            <div className="c-title"><span className="prow-title">{x.name}</span></div>
+            <div className="c-diff" style={{ gap: 12 }}>
+              {["Easy", "Medium", "Hard"].map((d) => (x.diff[d] ? (
+                <span key={d} style={{ display: "inline-flex", alignItems: "center", gap: 5 }}>
+                  <span className="ddot" style={{ background: window.CCX.diffColor(d) }} />
+                  <span className="mono" style={{ fontSize: 12 }}>{x.diff[d]}</span>
+                </span>
+              ) : null))}
+            </div>
+            <div className="c-lang mono">
+              {x.languages.map((l) => (
+                <span className="lchip" key={l}><span className="ldot" style={{ background: window.CCX.langColor(l) }} />{l}</span>
+              ))}
+            </div>
+            <div className="c-type">{x.others.slice(0, 3).map((o) => <span className="node" key={o}>{o}</span>)}</div>
+            <div className="c-go"><Icon name="arrow" size={16} /></div>
           </a>
         ))}
-        {shown.length === 0 && <div className="pempty mono">No {LENS.noun}s match.</div>}
+        {rows.length === 0 && <div className="pempty mono">No {LENS.noun}s match.</div>}
       </div>
     </React.Fragment>
   );
@@ -167,7 +244,7 @@ function LensDetail({ challenges, value }) {
     <React.Fragment>
       <div className="crumb">
         <a href="index.html">home</a><span className="sep">/</span>
-        <a href={LENS_HREF}>{LENS.noun}s</a><span className="sep">/</span><b>{value}</b>
+        <a href={INDEX_HREF}>{LENS.noun}s</a><span className="sep">/</span><b>{value}</b>
       </div>
 
       <div className="phead">

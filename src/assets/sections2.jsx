@@ -133,6 +133,7 @@ function SolutionPreview({ proposals }) {
 
 /* ---------- PATTERNS ---------- */
 function Patterns({ patterns }) {
+  const top = (patterns || []).slice(0, 24);
   return (
     <section className="section" id="patterns">
       <div className="wrap">
@@ -146,9 +147,41 @@ function Patterns({ patterns }) {
           </div>
         </div>
         <div className="pat-cloud reveal">
-          {patterns.map((p) => (
-            <span className="pat" key={p.name}>{p.name}<span className="c">{p.n}</span></span>
+          {top.map((p) => (
+            <a className="pat" key={p.name} href={`src/pattern.html?p=${encodeURIComponent(p.name)}`}>{p.name}<span className="c">{p.n}</span></a>
           ))}
+        </div>
+        <div className="reveal" style={{ marginTop: 26 }}>
+          <a className="btn btn-primary" href="src/patterns.html">Browse all patterns <Icon name="arrow" size={16} /></a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- TOPICS ---------- */
+function Topics({ topics }) {
+  const top = (topics || []).slice(0, 24);
+  if (!top.length) return null;
+  return (
+    <section className="section" id="topics">
+      <div className="wrap">
+        <div className="section-head">
+          <span className="sec-no">07</span>
+          <div>
+            <span className="eyebrow">Topic explorer</span>
+            <h2>The domains the work spans.</h2>
+            <p>Every challenge is tagged by topic — the broad algorithmic domains. Pick one to see
+              every solution that touches it, across all platforms.</p>
+          </div>
+        </div>
+        <div className="pat-cloud reveal">
+          {top.map((tp) => (
+            <a className="pat" key={tp.name} href={`src/topic.html?t=${encodeURIComponent(tp.name)}`}>{tp.name}<span className="c">{tp.n}</span></a>
+          ))}
+        </div>
+        <div className="reveal" style={{ marginTop: 26 }}>
+          <a className="btn btn-primary" href="src/topics.html">Browse all topics <Icon name="arrow" size={16} /></a>
         </div>
       </div>
     </section>
