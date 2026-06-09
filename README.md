@@ -60,8 +60,6 @@ coding-challenges/
 │
 ├── docs/
 ├── platforms/
-├── algorithms/
-├── patterns/
 ├── templates/
 ├── stats/
 └── website/
@@ -92,46 +90,19 @@ This structure enables traceability back to the original challenge.
 
 ---
 
-### Algorithm Layer
+### Algorithm & Pattern Views
 
-Contains challenges grouped by technical domain.
+Domains (topics) and reusable patterns are **not physical folders** — they are
+derived from each challenge's `metadata.json` and surfaced as data-driven views,
+so a single source of truth (the metadata) is never duplicated across folders:
 
-```text
-algorithms/
-├── arrays/
-├── strings/
-├── linked-lists/
-├── trees/
-├── graphs/
-├── heaps/
-├── dynamic-programming/
-├── backtracking/
-├── greedy/
-└── sorting/
-```
+- **On the site** — the Topic and Pattern explorers (`src/topics.html`,
+  `src/patterns.html`): sortable, filterable tables that link every challenge
+  exercising a given topic or pattern, across all platforms.
+- **On GitHub** — [`stats/index-topics.md`](stats/index-topics.md) and
+  [`stats/index-patterns.md`](stats/index-patterns.md), regenerated on every commit.
 
-This view helps identify strengths, weaknesses, and learning gaps.
-
----
-
-### Pattern Layer
-
-Contains reusable problem-solving patterns.
-
-```text
-patterns/
-├── sliding-window/
-├── two-pointers/
-├── binary-search/
-├── prefix-sum/
-├── bfs/
-├── dfs/
-├── union-find/
-├── memoization/
-└── monotonic-stack/
-```
-
-The pattern catalog is intended to become the most valuable section of the repository as challenge volume grows.
+This is the view that helps identify strengths, weaknesses, and learning gaps.
 
 ---
 

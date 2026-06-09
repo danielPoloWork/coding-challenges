@@ -69,7 +69,7 @@ window.CC = (function () {
   const roadmap = [
     { n: "Phase 1", title: "Knowledge Repository", done: true,  items: ["Centralised collection", "Pattern catalog", "Complexity analysis"] },
     { n: "Phase 2", title: "Automation",            done: true,  items: ["Metadata generation", "Statistics dashboards", "Automated READMEs"] },
-    { n: "Phase 3", title: "Documentation Portal",  done: false, items: ["Static site generation", "Searchable index", "Pattern explorer"] },
+    { n: "Phase 3", title: "Documentation Portal",  done: true,  items: ["Static site generation", "Searchable index", "Pattern explorer"] },
     { n: "Phase 4", title: "Engineering Portfolio", done: false, items: ["Public showcase", "Learning timeline", "Technical articles"] },
     { n: "Phase 5", title: "Agentic Learning",      done: false, items: ["Solution classification", "Pattern extraction", "Skill-gap analysis"] },
   ];
