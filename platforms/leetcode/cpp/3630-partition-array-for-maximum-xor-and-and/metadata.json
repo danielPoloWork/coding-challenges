@@ -1,0 +1,130 @@
+{
+  "id": "3630",
+  "title": "Partition Array for Maximum XOR and AND",
+  "slug": "partition-array-for-maximum-xor-and-and",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3630-partition-array-for-maximum-xor-and-and",
+  "url": "https://leetcode.com/problems/partition-array-for-maximum-xor-and-and/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Math", "Greedy", "Bit Manipulation", "Enumeration"],
+  "patterns": ["bitmask-enumeration", "xor-linear-basis", "subset-dp", "greedy-basis-maximization"],
+  "status": "solved",
+  "dateSolved": "2026-06-09",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3630-partition-array-for-maximum-xor-and-and/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals for LeetCode 3630. The core reduction enumerates B, then maximizes the A/C split with a masked XOR linear basis.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ gives native integer loops, compact subset tables, fixed stack basis storage, and direct access to bit intrinsics for the O(2^n * n * w) hot path.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It best balances fast subset enumeration, compact vectors, fixed arrays, and LeetCode's C++ method signature."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for raw arrays, but the judge signature is C++ and C-style code would not reduce the algorithmic work."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and safe, but checked indexing and LeetCode boilerplate add overhead without improving this dense bitmask loop."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled and clear, but bounds checks and runtime overhead are less favorable for repeated basis rebuilds."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays can work, but VM and bounds-check overhead make them weaker for top native runtime."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The constraints are small but still require hundreds of thousands of basis rebuilds, so interpreter/VM overhead is not ideal."
+        }
+      ],
+      "approachJustification": "Precompute subset XOR and AND values, enumerate every B mask, and solve the remaining A/C split through a masked XOR basis.",
+      "timeComplexity": "O(2^n * n * w), w <= 30",
+      "spaceComplexity": "O(2^n + w)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "C++ static buffers, local sorting, upper-bound pruning, and direct bit intrinsics reduce allocation and per-mask basis work for the runtime-focused version.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Static arrays, sorted local values, exact mask upper bounds, early full-rank detection, and intrinsic bit operations target the best wall-clock constants."
+        },
+        {
+          "language": "C",
+          "assessment": "Could implement similar buffers, but it does not match the platform's class method interface as naturally."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Can be optimized, but safe indexing and more verbose static-buffer management are unlikely to beat tuned C++ here."
+        },
+        {
+          "language": "Go",
+          "assessment": "Bounds checks and less direct static storage make it less compelling for the speed extreme."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed static primitive arrays are possible, but VM overhead and checks are not ideal for this tight loop."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Not competitive for the runtime objective because the hot path is millions of small integer reductions."
+        }
+      ],
+      "approachJustification": "Use the same exact basis reduction, but skip masks whose upper bound cannot improve the answer and stop basis construction when all free bits are spanned.",
+      "timeComplexity": "O(2^n * n * w), w <= 30",
+      "spaceComplexity": "O(2^n + w) static auxiliary storage"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "C++ minimizes auxiliary storage to scalar state and a fixed 30-entry stack basis while preserving native bit operations.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It keeps the memory footprint to a tiny fixed basis under the required C++ LeetCode signature."
+        },
+        {
+          "language": "C",
+          "assessment": "Could be similarly lean, but the LeetCode interface is already C++ and no memory is saved by dropping C++ syntax."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Memory-safe and compact, but the C++ stack-array implementation is simpler and equally lean."
+        },
+        {
+          "language": "Go",
+          "assessment": "Runtime and slice overhead are larger than a fixed C++ stack array for this objective."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Heap-backed primitive arrays and VM overhead are not as memory-frugal as C++ stack state."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Object-heavy integer storage is unsuitable for the least-memory target."
+        }
+      ],
+      "approachJustification": "Recompute AND(B) and remaining XOR for each mask, avoiding subset tables while reusing the same masked basis formula.",
+      "timeComplexity": "O(2^n * n * w), w <= 30",
+      "spaceComplexity": "O(w)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Enumerating the AND subset B reduces the rest of the partition to maximizing x + (s xor x). The identity x + (s xor x) = s + 2 * (x & ~s) turns that into a maximum subset XOR over masked remaining values, solved by a greedy linear basis.",
+  "timeComplexity": "O(2^n * n * w), w <= 30",
+  "spaceComplexity": "O(2^n + w) recommended/runtime, O(w) memory"
+}

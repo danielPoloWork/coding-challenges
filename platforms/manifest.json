@@ -1,6 +1,7 @@
 {
-  "generated": "2026-06-08",
+  "generated": "2026-06-09",
   "version": 1,
+  "catalogued": 16,
   "platforms": [
     {
       "id": "leetcode",
@@ -839,6 +840,36 @@
       "dateSolved": "2026-06-08",
       "timeComplexity": "O(n)",
       "spaceComplexity": "O(1) auxiliary"
+    },
+    {
+      "id": "3630",
+      "title": "Partition Array for Maximum XOR and AND",
+      "slug": "partition-array-for-maximum-xor-and-and",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Math",
+        "Greedy",
+        "Bit Manipulation",
+        "Enumeration"
+      ],
+      "patterns": [
+        "bitmask-enumeration",
+        "xor-linear-basis",
+        "subset-dp",
+        "greedy-basis-maximization"
+      ],
+      "path": "platforms/leetcode/cpp/3630-partition-array-for-maximum-xor-and-and",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-09",
+      "timeComplexity": "O(2^n * n * w), w <= 30",
+      "spaceComplexity": "O(2^n + w) recommended/runtime, O(w) memory"
     },
     {
       "id": "3635",
