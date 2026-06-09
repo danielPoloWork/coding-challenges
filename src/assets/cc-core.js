@@ -44,6 +44,47 @@ window.CCX = (function () {
     return new URLSearchParams(location.search).get(name);
   }
 
+  // Learning timeline: bucket challenges by their dateSolved so the home can
+  // show solving cadence. Granularity adapts to the span (daily for a few
+  // weeks, monthly once it stretches past a quarter) so the band stays
+  // readable as the catalogue grows. Gaps are filled with 0 for an honest axis.
+  const DAY_MS = 86400000;
+  function deriveTimeline(chs) {
+    const dated = chs.map((c) => c.dateSolved).filter(Boolean).sort();
+    if (!dated.length) return null;
+    const first = dated[0], last = dated[dated.length - 1];
+    const start = new Date(first + "T00:00:00Z");
+    const end = new Date(last + "T00:00:00Z");
+    const span = Math.round((end - start) / DAY_MS) + 1;
+    const unit = span <= 92 ? "day" : "month";
+
+    const counts = {};
+    dated.forEach((d) => {
+      const key = unit === "day" ? d : d.slice(0, 7);
+      counts[key] = (counts[key] || 0) + 1;
+    });
+
+    const buckets = [];
+    if (unit === "day") {
+      for (let t = start.getTime(); t <= end.getTime(); t += DAY_MS) {
+        const d = new Date(t), key = d.toISOString().slice(0, 10);
+        buckets.push({ key, count: counts[key] || 0,
+          label: d.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "UTC" }) });
+      }
+    } else {
+      const cur = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), 1));
+      while (cur <= end) {
+        const key = cur.toISOString().slice(0, 7);
+        buckets.push({ key, count: counts[key] || 0,
+          label: cur.toLocaleDateString("en", { month: "short", year: "2-digit", timeZone: "UTC" }) });
+        cur.setUTCMonth(cur.getUTCMonth() + 1);
+      }
+    }
+
+    const peak = buckets.reduce((a, b) => (b.count > a.count ? b : a), buckets[0]);
+    return { unit, buckets, total: dated.length, activeDays: new Set(dated).size, first, last, peak };
+  }
+
   // Derive everything the homepage needs from the manifest (fully dynamic).
   function deriveHome(manifest) {
     const chs = manifest.challenges || [];
@@ -91,7 +132,7 @@ window.CCX = (function () {
     }
     featured = featured.slice(0, 6);
 
-    return { platforms, patterns, topics, languages, totals, featured, challenges: chs };
+    return { platforms, patterns, topics, languages, totals, featured, challenges: chs, timeline: deriveTimeline(chs) };
   }
 
   return { LANG_COLORS, langColor, diffColor, diffRank, loadManifest, platformMeta, deriveHome, initTheme, setTheme, qs };

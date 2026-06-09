@@ -573,6 +573,29 @@ section { position: relative; }
   border: 1.5px solid var(--hairline-2);
 }
 
+/* ---------- Learning timeline ---------- */
+.tl { border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface); padding: 26px 26px 22px; box-shadow: var(--shadow); }
+.tl-stats { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 26px 44px; padding-bottom: 22px; margin-bottom: 26px; border-bottom: 1px solid var(--hairline); }
+.tl-n { font-family: var(--serif); font-size: 32px; line-height: 1; letter-spacing: -0.02em; color: var(--ink); }
+.tl-span { font-family: var(--serif); font-size: 19px; line-height: 1.1; letter-spacing: -0.01em; color: var(--ink); }
+.tl-l { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-top: 7px; }
+.tl-range { margin-left: auto; text-align: right; }
+.tl-chart { display: flex; align-items: flex-end; gap: 6px; height: 184px; }
+.tl-col { flex: 1 1 0; min-width: 0; height: 100%; display: flex; flex-direction: column; align-items: center; }
+.tl-bar-wrap { flex: 1; width: 100%; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; gap: 6px; }
+.tl-count { font-size: 11px; color: var(--ink-3); }
+.tl-bar { width: 100%; max-width: 44px; min-height: 3px; background: var(--clay); border-radius: 5px 5px 0 0; }
+.tl-bar.empty { background: var(--hairline-2); min-height: 2px; }
+.tl-bar.peak { background: var(--ink); }
+.tl-x { font-size: 10.5px; color: var(--ink-3); margin-top: 9px; white-space: nowrap; }
+.tl-axis { display: flex; justify-content: space-between; margin-top: 12px; font-size: 11px; color: var(--ink-3); }
+@media (max-width: 640px) {
+  .tl { padding: 20px 18px 18px; }
+  .tl-chart { height: 140px; gap: 3px; }
+  .tl-x { font-size: 9px; margin-top: 6px; }
+  .tl-range { margin-left: 0; text-align: left; }
+}
+
 /* dark "fat footer" — a Claude near-black band that closes the page (both themes) */
 .footer {
   background: #1a1712; color: var(--paper);

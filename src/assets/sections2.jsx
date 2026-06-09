@@ -188,6 +188,56 @@ function Topics({ topics }) {
   );
 }
 
+/* ---------- LEARNING TIMELINE ---------- */
+function Timeline({ timeline }) {
+  if (!timeline || !timeline.buckets.length) return null;
+  const { buckets, total, activeDays, first, last, peak, unit } = timeline;
+  const max = peak.count || 1;
+  const fmt = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString("en",
+    { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+  const labelEvery = buckets.length <= 16;
+  return (
+    <section className="section" id="timeline">
+      <div className="wrap">
+        <div className="section-head">
+          <span className="sec-no">08</span>
+          <div>
+            <span className="eyebrow">Learning timeline</span>
+            <h2>The work, in order.</h2>
+            <p>Every solution records the date it was solved — here is the solving
+              cadence across {unit === "day" ? "the active days" : "each month"}.</p>
+          </div>
+        </div>
+        <div className="tl reveal">
+          <div className="tl-stats">
+            <div className="tl-stat"><div className="tl-n serif">{total}</div><div className="tl-l mono">solved</div></div>
+            <div className="tl-stat"><div className="tl-n serif">{activeDays}</div><div className="tl-l mono">active days</div></div>
+            <div className="tl-stat"><div className="tl-n serif">{peak.count}</div><div className="tl-l mono">busiest {unit}</div></div>
+            <div className="tl-stat tl-range"><div className="tl-span serif">{fmt(first)} → {fmt(last)}</div><div className="tl-l mono">span</div></div>
+          </div>
+          <div className="tl-chart">
+            {buckets.map((b) => (
+              <div className="tl-col" key={b.key} title={`${b.label} · ${b.count}`}>
+                <div className="tl-bar-wrap">
+                  <span className="tl-count mono">{b.count || ""}</span>
+                  <div className={"tl-bar" + (b.count === 0 ? " empty" : "") + (b.key === peak.key ? " peak" : "")}
+                    style={{ height: (b.count / max * 100) + "%" }} />
+                </div>
+                {labelEvery && <div className="tl-x mono">{b.label}</div>}
+              </div>
+            ))}
+          </div>
+          {!labelEvery && (
+            <div className="tl-axis mono">
+              <span>{buckets[0].label}</span><span>{peak.label} · peak</span><span>{buckets[buckets.length - 1].label}</span>
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- LANGUAGES marquee ---------- */
 const LANG_LIST = [
   { name: "C", c: "#8d96a8" },
@@ -241,7 +291,7 @@ function Footer({ roadmap, totals }) {
       <section className="section">
         <div className="wrap">
           <div className="section-head">
-            <span className="sec-no">08</span>
+            <span className="sec-no">09</span>
             <div>
               <span className="eyebrow">Roadmap</span>
               <h2>From repository to learning system.</h2>
@@ -287,4 +337,4 @@ function Footer({ roadmap, totals }) {
   );
 }
 
-Object.assign(window, { Platforms, Featured, SolutionPreview, Patterns, Languages, Footer });
+Object.assign(window, { Platforms, Featured, SolutionPreview, Patterns, Topics, Timeline, Languages, Footer });

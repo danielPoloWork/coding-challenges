@@ -78,6 +78,7 @@ function App() {
         <Patterns patterns={home ? home.patterns : CC.patterns} />
         <Topics topics={home ? home.topics : []} />
         <Languages languages={home ? home.languages : CC.languages} />
+        <Timeline timeline={home ? home.timeline : null} />
         <Footer roadmap={CC.roadmap} totals={totals} />
       </main>
 
