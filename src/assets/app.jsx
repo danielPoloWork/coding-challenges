@@ -68,6 +68,7 @@ function App() {
       <main key={t.variant}>
         <Hero totals={totals} />
         {t.heroGrid ? null : <style>{`.hero-grid-bg{display:none}`}</style>}
+        <GlobalSearch challenges={home ? home.challenges : null} />
         <Stats totals={home ? home.totals : null} key={home ? "real" : "load"} />
         <Principles principles={CC.principles} />
         <Architecture layers={CC.layers} />

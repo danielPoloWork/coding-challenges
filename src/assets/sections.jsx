@@ -44,7 +44,7 @@ function Nav({ theme, onToggle }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  const links = [["Overview", "#overview"], ["Architecture", "#architecture"], ["Platforms", "#platforms"], ["Solutions", "#solutions"], ["Patterns", "#patterns"], ["Topics", "#topics"]];
+  const links = [["Search", "#search"], ["Overview", "#overview"], ["Architecture", "#architecture"], ["Platforms", "#platforms"], ["Solutions", "#solutions"], ["Patterns", "#patterns"], ["Topics", "#topics"]];
   return (
     <nav className={"nav" + (scrolled ? " scrolled" : "")}>
       <div className="nav-inner">
@@ -136,6 +136,85 @@ function Stats({totals}) {
   return ('');
 }
 
+/* ---------- GLOBAL SEARCH (every challenge, every platform) ---------- */
+function GlobalSearch({ challenges }) {
+  const [q, setQ] = useState("");
+  const langsOf = (c) => c.languages || [c.language];
+  const idCmp = (a, b) => {
+    const an = /^\d+$/.test(a.id), bn = /^\d+$/.test(b.id);
+    if (an && bn) return parseInt(a.id, 10) - parseInt(b.id, 10);
+    return String(a.id).localeCompare(String(b.id));
+  };
+
+  // every query token must match somewhere in the challenge ("dp hard" works)
+  const rows = useMemo(() => {
+    const tokens = q.trim().toLowerCase().split(/\s+/).filter(Boolean);
+    if (!tokens.length || !challenges) return [];
+    return challenges.filter((c) => {
+      const hay = [c.id, c.title, c.platform, c.difficulty,
+        ...langsOf(c), ...(c.topics || []), ...(c.patterns || [])].join(" ").toLowerCase();
+      return tokens.every((t) => hay.includes(t));
+    }).sort(idCmp);
+  }, [challenges, q]);
+
+  const shown = rows.slice(0, 12);
+  const href = (c) => `src/challenge.html?path=${encodeURIComponent(c.path)}`;
+  const onKey = (e) => {
+    if (e.key === "Escape") setQ("");
+    if (e.key === "Enter" && rows.length) window.location.href = href(rows[0]);
+  };
+
+  return (
+    <section className="section" id="search">
+      <div className="wrap">
+        <div className="gsearch-head reveal">
+          <span className="eyebrow" style={{ justifyContent: "center" }}>Global search</span>
+          <h2>Every challenge, one box.</h2>
+          <p>Search across all platforms at once — by title, id, topic, pattern, language or difficulty.</p>
+        </div>
+        <div className="psearch gsearch-box reveal">
+          <Icon name="search" size={17} />
+          <input value={q} onChange={(e) => setQ(e.target.value)} onKeyDown={onKey}
+            placeholder={challenges ? "Try “matrix”, “dp hard”, “rust”…" : "Loading index…"}
+            disabled={!challenges} aria-label="Search all challenges" />
+          {q && <button className="psearch-x" onClick={() => setQ("")} aria-label="Clear"><Icon name="x" size={14} /></button>}
+        </div>
+        {q.trim() && challenges && (
+          <div className="gsearch-results">
+            <div className="pcount mono">{rows.length} of {challenges.length} challenges match{rows.length ? " — Enter opens the first" : ""}</div>
+            <div className="ptable">
+              {shown.map((c) => (
+                <a className="prow" key={c.platform + c.id} href={href(c)}>
+                  <div className="c-id mono">{c.id}</div>
+                  <div className="c-title">
+                    <span className="prow-title">{c.title}</span>
+                    <span className="prow-pats mono">{[c.platform, ...(c.patterns || []).slice(0, 2)].join(" · ")}</span>
+                  </div>
+                  <div className="c-diff">
+                    <span className="ddot" style={{ background: window.CCX.diffColor(c.difficulty) }} />
+                    <span style={{ color: window.CCX.diffColor(c.difficulty) }}>{c.difficulty}</span>
+                  </div>
+                  <div className="c-lang mono">
+                    {langsOf(c).map((l) => (
+                      <span className="lchip" key={l}><span className="ldot" style={{ background: window.CCX.langColor(l) }} />{l}</span>
+                    ))}
+                  </div>
+                  <div className="c-type">{(c.topics || []).slice(0, 2).map((tp) => <span className="node" key={tp}>{tp}</span>)}</div>
+                  <div className="c-go"><Icon name="arrow" size={16} /></div>
+                </a>
+              ))}
+              {rows.length === 0 && <div className="pempty mono">No challenges match.</div>}
+            </div>
+            {rows.length > shown.length && (
+              <div className="pcount mono">+{rows.length - shown.length} more — refine your search</div>
+            )}
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 /* ---------- PRINCIPLES ---------- */
 function Principles({ principles }) {
   return (
@@ -214,4 +293,4 @@ function Architecture({ layers }) {
   );
 }
 
-Object.assign(window, { Icon, CountUp, Nav, Hero, Stats, Principles, Architecture });
+Object.assign(window, { Icon, CountUp, Nav, Hero, Stats, GlobalSearch, Principles, Architecture });

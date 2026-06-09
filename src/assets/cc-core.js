@@ -91,7 +91,7 @@ window.CCX = (function () {
     }
     featured = featured.slice(0, 6);
 
-    return { platforms, patterns, topics, languages, totals, featured };
+    return { platforms, patterns, topics, languages, totals, featured, challenges: chs };
   }
 
   return { LANG_COLORS, langColor, diffColor, diffRank, loadManifest, platformMeta, deriveHome, initTheme, setTheme, qs };
