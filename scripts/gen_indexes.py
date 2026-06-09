@@ -29,6 +29,7 @@ hook (``core.hooksPath = scripts/hooks``) run it on every commit.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from collections import Counter
@@ -349,6 +350,46 @@ def update_readme(m: dict) -> bool:
 
 
 # --------------------------------------------------------------------------- #
+# HTML asset cache-busting
+# --------------------------------------------------------------------------- #
+HTML_FILES = [REPO / "index.html", *sorted((REPO / "src").glob("*.html"))]
+ASSET_REF = re.compile(
+    r'(?P<attr>src|href)="(?P<path>src/[^"?]+\.(?:jsx?|css))(?:\?v=[^"]*)?"'
+)
+
+
+def _asset_hash(rel_path: str):
+    f = REPO / rel_path
+    if not f.is_file():
+        return None
+    return hashlib.sha1(f.read_bytes()).hexdigest()[:10]
+
+
+def update_html_cache_busts() -> list[str]:
+    """Append ``?v=<content-hash>`` to every local asset reference in the HTML
+    files so browsers re-fetch a file only when its contents change — an
+    unchanged file keeps its hash and stays cached. Deterministic; EOLs are
+    preserved. Returns the names of the HTML files that changed."""
+    changed: list[str] = []
+    for html in HTML_FILES:
+        if not html.is_file():
+            continue
+        with html.open("r", encoding="utf-8", newline="") as fh:
+            text = fh.read()
+
+        def repl(m):
+            h = _asset_hash(m.group("path"))
+            return m.group(0) if h is None else f'{m.group("attr")}="{m.group("path")}?v={h}"'
+
+        new_text = ASSET_REF.sub(repl, text)
+        if new_text != text:
+            with html.open("w", encoding="utf-8", newline="") as fh:
+                fh.write(new_text)
+            changed.append(html.name)
+    return changed
+
+
+# --------------------------------------------------------------------------- #
 # Main
 # --------------------------------------------------------------------------- #
 def main() -> None:
@@ -385,11 +426,16 @@ def main() -> None:
             path.unlink()
 
     readme_changed = update_readme(overview_metrics(challenges))
+    html_changed = update_html_cache_busts()
 
+    extra = ""
+    if readme_changed:
+        extra += "; refreshed README banner"
+    if html_changed:
+        extra += f"; cache-busted {len(html_changed)} HTML file(s)"
     print(
         f"Generated {len(expected)} index file(s) for "
-        f"{len(challenges)} challenge(s) across {len(by_platform)} platform(s)"
-        f"{'; refreshed README banner' if readme_changed else ''}."
+        f"{len(challenges)} challenge(s) across {len(by_platform)} platform(s){extra}."
     )
 
 

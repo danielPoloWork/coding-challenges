@@ -29,9 +29,10 @@ else
 fi
 
 "$PY" scripts/gen_indexes.py
-# Stage generated stats (including stale index deletions) and the README banner
-# block that gen_indexes.py refreshes in place between the STATS markers.
-git add -- stats README.md
+# Stage generated stats (including stale index deletions), the README banner
+# block, and the per-asset ?v=<hash> cache-busts gen_indexes.py refreshes in the
+# HTML so browsers always fetch fresh JS/CSS after a deploy.
+git add -- stats README.md index.html src/*.html
 
 # Regenerate the website manifest (Node 18+). A missing Node interpreter is
 # non-fatal; a generator error blocks the commit so malformed metadata is seen.
