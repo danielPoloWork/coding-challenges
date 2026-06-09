@@ -175,69 +175,88 @@ function CodeBlock({ code, language }) {
   );
 }
 
+/* Load one language folder into a render bundle: metadata + notes + complexity
+   + each variant's source. Returns { error } on failure instead of throwing. */
+async function loadBundle(base) {
+  try {
+    const meta = await fetch(`${base}/metadata.json`, { cache: "no-cache" }).then((r) => {
+      if (!r.ok) throw new Error("metadata " + r.status); return r.json();
+    });
+    const [notes, complexity] = await Promise.all([
+      fetch(`${base}/notes.md`).then((r) => (r.ok ? r.text() : "")),
+      fetch(`${base}/complexity.md`).then((r) => (r.ok ? r.text() : "")),
+    ]);
+    const variants = await Promise.all((meta.variants || []).map(async (v) => {
+      const code = await fetch(`${base}/${v.file}`).then((r) => (r.ok ? r.text() : null));
+      return { ...v, code };
+    }));
+    return { meta, notes, complexity, variants, base };
+  } catch (e) {
+    return { error: e.message };
+  }
+}
+
+/* The languages a challenge is solved in: the entry folder + every sibling
+   language declared in its crossReferences, each with its own folder path. */
+function languagesFromMeta(meta, base) {
+  const list = [{ language: meta.language, path: base }];
+  (meta.crossReferences || []).forEach((x) => {
+    if (x && typeof x === "object" && x.path && x.language &&
+        !list.some((l) => l.language === x.language)) {
+      list.push({ language: x.language, path: String(x.path).replace(/\/$/, "") });
+    }
+  });
+  return list;
+}
+
 function ChallengePage() {
   const [theme, toggleTheme] = usePageTheme();
   const path = window.CCX.qs("path");
-  const [state, setState] = useState({ loading: true });
+  const [langs, setLangs] = useState(null);    // [{ language, path }]
+  const [sel, setSel] = useState(null);         // selected folder path
+  const [bundles, setBundles] = useState({});   // path -> bundle | { error }
+  const [error, setError] = useState(null);
   const [active, setActive] = useState(0);
 
+  // discover the challenge's languages from the entry folder, then prefetch the
+  // siblings so switching language is instant
   useEffect(() => {
     let alive = true;
-    async function load() {
-      if (!path) { setState({ loading: false, error: "No challenge path provided." }); return; }
-      try {
-        const base = path.replace(/\/$/, "");
-        const meta = await fetch(`${base}/metadata.json`, { cache: "no-cache" }).then((r) => {
-          if (!r.ok) throw new Error("metadata " + r.status); return r.json();
+    if (!path) { setError("No challenge path provided."); return; }
+    const base = path.replace(/\/$/, "");
+    loadBundle(base).then((b) => {
+      if (!alive) return;
+      if (b.error) { setError(b.error); return; }
+      const list = languagesFromMeta(b.meta, base);
+      setLangs(list);
+      setBundles({ [base]: b });
+      setSel(base);
+      list.filter((l) => l.path !== base).forEach((l) => {
+        loadBundle(l.path).then((sb) => {
+          if (alive) setBundles((prev) => (prev[l.path] ? prev : { ...prev, [l.path]: sb }));
         });
-        const [notes, complexity] = await Promise.all([
-          fetch(`${base}/notes.md`).then((r) => (r.ok ? r.text() : "")),
-          fetch(`${base}/complexity.md`).then((r) => (r.ok ? r.text() : "")),
-        ]);
-        const variants = await Promise.all((meta.variants || []).map(async (v) => {
-          const code = await fetch(`${base}/${v.file}`).then((r) => (r.ok ? r.text() : null));
-          return { ...v, code };
-        }));
-        // Inline the sibling-language proposals from crossReferences so every
-        // language's solution shows on one page. The deduped manifest links only
-        // to the recommended language's folder, so the others would be hidden.
-        const crossVariants = await Promise.all((meta.crossReferences || []).map(async (x) => {
-          if (!x || typeof x !== "object" || !x.path || !x.file) return null;
-          const xbase = String(x.path).replace(/\/$/, "");
-          const [code, xmeta] = await Promise.all([
-            fetch(`${xbase}/${x.file}`).then((r) => (r.ok ? r.text() : null)),
-            fetch(`${xbase}/metadata.json`, { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
-          ]);
-          if (code == null) return null;
-          const sv = (xmeta && (xmeta.variants || []).find((vv) => vv.file === x.file)) || {};
-          return {
-            file: x.file,
-            role: x.role || sv.role,
-            language: x.language || sv.language,
-            code,
-            timeComplexity: x.timeComplexity || sv.timeComplexity,
-            spaceComplexity: x.spaceComplexity || sv.spaceComplexity,
-            languageReason: sv.languageReason,
-            approachJustification: sv.approachJustification,
-            crossRef: true,
-          };
-        }));
-        const variantsAll = [...variants, ...crossVariants.filter(Boolean)];
-        if (alive) setState({ loading: false, meta, notes, complexity, variants: variantsAll, base });
-      } catch (e) {
-        if (alive) setState({ loading: false, error: e.message });
-      }
-    }
-    load();
+      });
+    });
     return () => { alive = false; };
   }, [path]);
+
+  // safety net: load a language on demand if it wasn't prefetched
+  useEffect(() => {
+    if (!sel || bundles[sel]) return;
+    let alive = true;
+    loadBundle(sel).then((b) => { if (alive) setBundles((prev) => ({ ...prev, [sel]: b })); });
+    return () => { alive = false; };
+  }, [sel]);
+
+  const selectLang = (p) => { if (p !== sel) { setActive(0); setSel(p); } };
+  const bundle = sel ? bundles[sel] : null;
 
   return (
     <React.Fragment>
       <InnerNav theme={theme} onToggleTheme={toggleTheme} backHref="index.html" backLabel="Home" />
       <main className="wrap cpage">
-        {state.loading && <div className="cloading"><span className="spin" /> Loading solution files…</div>}
-        {!state.loading && state.error && (
+        {!error && !bundle && <div className="cloading"><span className="spin" /> Loading solution files…</div>}
+        {error && (
           <div className="cerror">
             <div className="csection-label">could not load</div>
             <h2 className="serif" style={{ fontSize: 30, marginBottom: 10 }}>This challenge isn’t in the repository yet.</h2>
@@ -247,13 +266,21 @@ function ChallengePage() {
               <code className="mono"> complexity.md</code> and the solution sources) and regenerate
               <code className="mono"> manifest.json</code> — it will render automatically.
             </p>
-            <p className="mono" style={{ color: "var(--ink-3)", fontSize: 12.5, marginTop: 14 }}>error: {state.error}</p>
+            <p className="mono" style={{ color: "var(--ink-3)", fontSize: 12.5, marginTop: 14 }}>error: {error}</p>
             <a className="btn btn-ghost" href="index.html" style={{ marginTop: 22 }}><Icon name="arrow" size={15} /> Back home</a>
           </div>
         )}
-        {!state.loading && state.meta && (
-          <ViewErrorBoundary>
-            <ChallengeBody {...state} theme={theme} active={active} setActive={setActive} />
+        {bundle && bundle.error && (
+          <div className="cerror">
+            <div className="csection-label">could not load</div>
+            <h2 className="serif" style={{ fontSize: 26 }}>Couldn’t load this language.</h2>
+            <p className="mono" style={{ color: "var(--ink-3)", fontSize: 12.5, marginTop: 12 }}>error: {bundle.error}</p>
+          </div>
+        )}
+        {bundle && !bundle.error && (
+          <ViewErrorBoundary key={sel}>
+            <ChallengeBody {...bundle} theme={theme} active={active} setActive={setActive}
+              langs={langs} sel={sel} onSelectLang={selectLang} />
           </ViewErrorBoundary>
         )}
       </main>
@@ -573,7 +600,8 @@ const giscusTheme = (t) => {
 
 function DiscussView({ meta, theme }) {
   const ref = useRef(null);
-  const term = `${meta.platform}/${meta.id}-${meta.slug}`;
+  // one thread per challenge AND language (each language has its own write-up)
+  const term = `${meta.platform}/${meta.id}-${meta.slug}/${meta.languageExt || meta.language}`;
 
   /* giscus is a <script> that injects an iframe, so append it to our ref rather
      than render it as JSX. Rebuild only when the challenge (term) changes. */
@@ -627,7 +655,7 @@ function DiscussView({ meta, theme }) {
   );
 }
 
-function ChallengeBody({ meta, notes, complexity, variants, active, setActive, theme }) {
+function ChallengeBody({ meta, notes, complexity, variants, active, setActive, theme, langs, sel, onSelectLang }) {
   const diff = meta.difficulty || "—";
   const [view, setView] = useState("solution");
 
@@ -660,6 +688,19 @@ function ChallengeBody({ meta, notes, complexity, variants, active, setActive, t
         </div>
         {meta.note && <p className="cnote">{meta.note}</p>}
       </div>
+
+      {langs && langs.length > 1 && (
+        <div className="clang-bar">
+          <span className="clang-label mono">Language</span>
+          <div className="clang-tabs">
+            {langs.map((l) => (
+              <button key={l.path} className={"clang-tab" + (l.path === sel ? " active" : "")} onClick={() => onSelectLang(l.path)}>
+                <span className="d" style={{ background: window.CCX.langColor(l.language) }} />{l.language}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <ViewTabs views={views} view={view} setView={setView} />
 
