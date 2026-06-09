@@ -16,7 +16,7 @@ platforms/{platform}/{ext}/{problem-id}-{kebab-case-title}/
 
 `{ext}` is the language extension (`cpp`, `c`, `py`, `rs`, `go`, ...). Use one folder per language; each holds only its language's proposals and cross-references the siblings.
 
-Never create challenge folders at the repository root, directly under `algorithms/`, or directly under `patterns/`.
+Never create challenge folders at the repository root or in a domain/pattern folder — a challenge's only home is `platforms/{platform}/{ext}/{id}-{slug}/`. There are deliberately no `algorithms/` or `patterns/` directories: the domain (topic) and pattern views are data-driven, derived from each `metadata.json` and surfaced by the stats indices and the web explorer (see *Pattern vocabulary* and *Index maintenance*).
 
 Use the templates in `templates/challenge/` as the starting point.
 

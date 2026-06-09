@@ -45,7 +45,7 @@ balanced-brackets
 sum-of-intervals
 ```
 
-Do not create challenge folders at the repository root, directly under `algorithms/`, or directly under `patterns/`.
+Do not create challenge folders at the repository root or in a domain/pattern folder — there are deliberately no `algorithms/` or `patterns/` directories (see *Placement Rules* below).
 
 ## Platform Placement
 
@@ -274,11 +274,4 @@ Store each language's proposals in its language folder under the platform:
 platforms/{platform}/{ext}/{challenge-folder}/
 ```
 
-When a challenge is also useful as a domain or pattern reference, cross-reference it from:
-
-```text
-algorithms/{domain}/
-patterns/{pattern}/
-```
-
-Prefer cross-references or index files over duplicating the full solution in multiple places.
+A challenge surfaces as a domain or pattern reference through its `metadata.json` `topics` and `patterns` — there are no physical `algorithms/` or `patterns/` folders. Those classifications are aggregated by `scripts/gen_indexes.py` into the stats indices (`stats/index-topics.md`, `stats/index-patterns.md`) and by `src/scripts/build-manifest.mjs` into the web explorer (`topics.html`, `patterns.html`). Each challenge is filed once under its platform and reachable three ways — by platform, by domain, and by pattern — without duplicating the solution.
