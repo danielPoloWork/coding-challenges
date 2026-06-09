@@ -133,7 +133,7 @@ function SolutionPreview({ proposals }) {
 
 /* ---------- PATTERNS ---------- */
 function Patterns({ patterns }) {
-  const top = (patterns || []).slice(0, 24);
+  const top = (patterns || []).slice(0, 20);
   return (
     <section className="section" id="patterns">
       <div className="wrap">
@@ -161,7 +161,7 @@ function Patterns({ patterns }) {
 
 /* ---------- TOPICS ---------- */
 function Topics({ topics }) {
-  const top = (topics || []).slice(0, 24);
+  const top = (topics || []).slice(0, 20);
   if (!top.length) return null;
   return (
     <section className="section" id="topics">
