@@ -109,6 +109,36 @@ If a challenge already exists and is proposed again, solve it in a language not 
 
 Prefer clarity, traceability, and consistent naming over clever shortcuts.
 
+## Pattern vocabulary (open registry)
+
+`metadata.json` carries two classification axes: `topics` (broad algorithmic
+domains — Array, Dynamic Programming, Math …) and `patterns` (the finer reusable
+techniques). The pattern set is an **open, growing vocabulary**, not a fixed
+taxonomy: solving new problems legitimately introduces new techniques. The goal
+is consistency, not closure — the *same* technique must always get the *same*
+label so that, as volume grows, recurring techniques accumulate into a real
+lens instead of fragmenting into synonyms.
+
+Rules when assigning `patterns`:
+
+- **Naming convention:** lowercase `kebab-case`, hyphens not spaces
+  (`coordinate-compression`, not `Coordinate Compression`). The generators
+  normalize whitespace and case mechanically, but write labels in this form so
+  the source metadata reads consistently.
+- **Check before coining:** before inventing a new pattern label, scan the
+  existing ones in `stats/index-patterns.md`. If your technique is the same as
+  an existing label, reuse that label verbatim. Coin a new label only for a
+  genuinely new technique.
+- **Record true synonyms, don't merge distinct techniques:** when two labels
+  turn out to name the same technique, add `synonym -> canonical` to
+  `scripts/pattern-aliases.json` (the open registry). Do **not** collapse
+  genuinely different fine-grained techniques (e.g. the various `*-dp` or
+  `*-greedy` variants) into one super-label — distinct techniques stay distinct
+  and roll up under their shared `topic`.
+- Both `scripts/gen_indexes.py` and `src/scripts/build-manifest.mjs` read the
+  registry and apply the same normalization, so the stats indices and the
+  website always agree on the canonical label.
+
 ## Index maintenance
 
 Generated index files under `stats/` summarize the knowledge base and must stay in sync with the solutions:

@@ -1,0 +1,6 @@
+{
+  "_comment": "Open pattern registry. The pattern vocabulary is NOT a fixed taxonomy — it grows as new techniques are solved. Two normalization steps keep it consistent without freezing it: (1) every pattern label is first normalized MECHANICALLY (trimmed, lowercased, internal whitespace collapsed to '-'), so 'coordinate compression' -> 'coordinate-compression'; (2) then any entry in 'aliases' below maps a synonym (in already-normalized form) to its canonical label. Add an alias ONLY when two labels denote the SAME technique. Genuinely distinct rare techniques must stay separate — they roll up under their topic, not under a forced super-label. Both generators (scripts/gen_indexes.py and src/scripts/build-manifest.mjs) read this file so stats and the website stay in lockstep. See AGENTS.md > Pattern vocabulary.",
+  "aliases": {
+    "coordinate-reduction": "coordinate-compression"
+  }
+}

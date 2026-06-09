@@ -11,7 +11,7 @@
 | Source platforms | 1 active (of 16 catalogued) |
 | Languages used | 3 |
 | Catalogued topics | 31 |
-| Catalogued patterns | 106 |
+| Catalogued patterns | 105 |
 <!--STATS:END-->
 
 ---

@@ -375,10 +375,10 @@
         "Binary Tree"
       ],
       "patterns": [
-        "tree construction",
-        "direct addressing",
-        "root detection",
-        "coordinate compression"
+        "tree-construction",
+        "direct-addressing",
+        "root-detection",
+        "coordinate-compression"
       ],
       "path": "platforms/leetcode/cpp/2196-create-binary-tree-from-descriptions",
       "recommendedSolution": "solution.cpp",
@@ -489,9 +489,9 @@
         "Dynamic Programming"
       ],
       "patterns": [
-        "top-k pruning",
+        "top-k-pruning",
         "combinatorics",
-        "prefix-suffix maxima"
+        "prefix-suffix-maxima"
       ],
       "path": "platforms/leetcode/cpp/3256-maximum-value-sum-by-placing-three-rooks-i",
       "recommendedSolution": "solution.cpp",
@@ -805,7 +805,7 @@
       ],
       "patterns": [
         "reverse-simulation",
-        "coordinate-reduction",
+        "coordinate-compression",
         "greedy"
       ],
       "path": "platforms/leetcode/cpp/3609-minimum-moves-to-reach-target-in-grid",
