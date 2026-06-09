@@ -139,7 +139,7 @@ function Stats({totals}) {
 /* ---------- PRINCIPLES ---------- */
 function Principles({ principles }) {
   return (
-    <section className="section band-tint" id="overview">
+    <section className="section" id="overview">
       <div className="wrap">
         <div className="section-head">
           <span className="sec-no">01</span>

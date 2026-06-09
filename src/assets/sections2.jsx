@@ -3,7 +3,7 @@
 /* ---------- PLATFORMS grid ---------- */
 function Platforms({ platforms }) {
   return (
-    <section className="section band-tint" id="platforms">
+    <section className="section" id="platforms">
       <div className="wrap">
         <div className="section-head">
           <span className="sec-no">03</span>
@@ -83,7 +83,7 @@ function SolutionPreview({ proposals }) {
   const p = proposals[active];
   const lines = p.code.split("\n");
   return (
-    <section className="section band-tint" id="solutions">
+    <section className="section" id="solutions">
       <div className="wrap">
         <div className="section-head">
           <span className="sec-no">05</span>
@@ -213,7 +213,7 @@ const LANG_LIST = [
 function Languages() {
   const row = [...LANG_LIST, ...LANG_LIST];
   return (
-    <section className="section band-tint">
+    <section className="section">
       <div className="wrap">
         <div className="section-head" style={{ marginBottom: 28 }}>
           <span className="sec-no">07</span>
@@ -259,7 +259,7 @@ function Footer({ roadmap, totals }) {
         </div>
       </section>
 
-      <footer className="footer band-tint">
+      <footer className="footer">
         <div className="wrap">
           <div className="footer-cta reveal">
             <div className="hero-grid-bg" style={{ opacity: 0.5 }} />

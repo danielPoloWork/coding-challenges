@@ -315,7 +315,9 @@ p { margin: 0; }
    ============================================================ */
 section { position: relative; }
 .section { padding-block: var(--section-y); transition: background 0.5s var(--ease); }
-/* alternating section bands — every section gets a different ground tone */
+/* alternating section bands — odd sections take the tinted ground tone, so the
+   page stays striped automatically no matter how sections are added/reordered */
+.section:nth-of-type(odd) { background: var(--paper-2); }
 .band-tint { background: var(--paper-2); }
 .section-head { max-width: 760px; margin-bottom: 46px; }
 .section-head h2 {
@@ -549,17 +551,29 @@ section { position: relative; }
 .phase ul { margin: 12px 0 0; padding: 0; list-style: none; }
 .phase li { font-size: 13px; color: var(--ink-2); padding: 3px 0; }
 
-.footer { border-top: 1px solid var(--hairline); padding: 64px 0 40px; margin-top: 0; }
-.footer-cta {
-  border: 1px solid var(--hairline); border-radius: var(--r-xl); background: var(--surface);
-  padding: 52px 44px; text-align: center; box-shadow: var(--shadow); position: relative; overflow: hidden;
+/* dark "fat footer" — a Claude near-black band that closes the page (both themes) */
+.footer {
+  background: #1a1712; color: var(--paper);
+  padding: 80px 0 44px; margin-top: 0;
+  --grid-line: rgba(243, 239, 230, 0.05);
 }
-.footer-cta h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 5vw, 54px); letter-spacing: -0.03em; }
-.footer-cta p { margin: 16px auto 0; color: var(--ink-2); max-width: 480px; }
+.footer-cta {
+  border: 1px solid rgba(243, 239, 230, 0.12); border-radius: var(--r-xl);
+  background: rgba(243, 239, 230, 0.04);
+  padding: 52px 44px; text-align: center; position: relative; overflow: hidden;
+}
+.footer-cta h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 5vw, 54px); letter-spacing: -0.03em; color: var(--paper); }
+.footer-cta p { margin: 16px auto 0; color: rgba(243, 239, 230, 0.66); max-width: 480px; }
 .footer-cta .hero-cta { justify-content: center; margin-top: 26px; }
+.footer .eyebrow { color: rgba(243, 239, 230, 0.62); }
+.footer .btn-primary { background: var(--paper); color: #1a1712; }
+.footer .btn-primary:hover { background: var(--clay); color: #fff; }
+.footer .btn-ghost { color: var(--paper); border-color: rgba(243, 239, 230, 0.25); }
+.footer .btn-ghost:hover { border-color: var(--paper); background: rgba(243, 239, 230, 0.08); }
 .footer-bottom {
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
-  margin-top: 48px; flex-wrap: wrap; font-size: 13.5px; color: var(--ink-3);
+  margin-top: 48px; padding-top: 26px; border-top: 1px solid rgba(243, 239, 230, 0.1);
+  flex-wrap: wrap; font-size: 13.5px; color: rgba(243, 239, 230, 0.5);
 }
 .footer-bottom .mono { font-family: var(--mono); font-size: 12px; }
 
