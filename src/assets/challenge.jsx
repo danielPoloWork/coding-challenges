@@ -198,7 +198,32 @@ function ChallengePage() {
           const code = await fetch(`${base}/${v.file}`).then((r) => (r.ok ? r.text() : null));
           return { ...v, code };
         }));
-        if (alive) setState({ loading: false, meta, notes, complexity, variants, base });
+        // Inline the sibling-language proposals from crossReferences so every
+        // language's solution shows on one page. The deduped manifest links only
+        // to the recommended language's folder, so the others would be hidden.
+        const crossVariants = await Promise.all((meta.crossReferences || []).map(async (x) => {
+          if (!x || typeof x !== "object" || !x.path || !x.file) return null;
+          const xbase = String(x.path).replace(/\/$/, "");
+          const [code, xmeta] = await Promise.all([
+            fetch(`${xbase}/${x.file}`).then((r) => (r.ok ? r.text() : null)),
+            fetch(`${xbase}/metadata.json`, { cache: "no-cache" }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+          ]);
+          if (code == null) return null;
+          const sv = (xmeta && (xmeta.variants || []).find((vv) => vv.file === x.file)) || {};
+          return {
+            file: x.file,
+            role: x.role || sv.role,
+            language: x.language || sv.language,
+            code,
+            timeComplexity: x.timeComplexity || sv.timeComplexity,
+            spaceComplexity: x.spaceComplexity || sv.spaceComplexity,
+            languageReason: sv.languageReason,
+            approachJustification: sv.approachJustification,
+            crossRef: true,
+          };
+        }));
+        const variantsAll = [...variants, ...crossVariants.filter(Boolean)];
+        if (alive) setState({ loading: false, meta, notes, complexity, variants: variantsAll, base });
       } catch (e) {
         if (alive) setState({ loading: false, error: e.message });
       }
