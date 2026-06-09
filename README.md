@@ -217,34 +217,36 @@ A versioned pre-commit hook regenerates them on every commit (enable once with `
 
 ---
 
-## Future Roadmap
+## Roadmap
 
-### Phase 1 — Knowledge Repository
+_Status mirrors the live site ([`src/assets/data.js`](src/assets/data.js)): Phases 1–3 are shipped, Phases 4–5 are planned._
+
+### Phase 1 — Knowledge Repository · shipped
 
 * Centralized challenge collection
 * Pattern catalog
 * Complexity analysis
 
-### Phase 2 — Automation
+### Phase 2 — Automation · shipped
 
 * Metadata generation
 * Statistics dashboards
 * Automated README updates
 
-### Phase 3 — Documentation Portal
+### Phase 3 — Documentation Portal · shipped
 
 * Static website generation
 * Searchable challenge index
 * Pattern explorer
 
-### Phase 4 — Engineering Portfolio
+### Phase 4 — Engineering Portfolio · planned
 
 * Public technical showcase
 * Learning timeline
 * Technical articles
 * Interview preparation resources
 
-### Phase 5 — Agentic Learning System
+### Phase 5 — Agentic Learning System · planned
 
 * Automated solution classification
 * Pattern extraction
