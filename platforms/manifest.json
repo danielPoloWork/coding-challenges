@@ -1142,6 +1142,18 @@
   ],
   "articles": [
     {
+      "slug": "correct-without-benchmarks",
+      "title": "Chasing top-1% runtime without running a single benchmark",
+      "date": "2026-06-10",
+      "summary": "This repository targets the top 1% of accepted solutions for execution time — and deliberately ships no benchmark tooling. What gets verified locally is correctness, with a throwaway Python mirror; speed is argued, not measured.",
+      "tags": [
+        "methodology",
+        "verification",
+        "testing"
+      ],
+      "readMin": 3
+    },
+    {
       "slug": "governing-an-open-pattern-vocabulary",
       "title": "Governing an open pattern vocabulary without freezing it",
       "date": "2026-06-10",
@@ -1150,6 +1162,30 @@
         "taxonomy",
         "agentic workflow",
         "metadata"
+      ],
+      "readMin": 3
+    },
+    {
+      "slug": "three-proposals-one-problem",
+      "title": "Three proposals, one problem — and the right language for each",
+      "date": "2026-06-10",
+      "summary": "Every challenge here ships up to three solutions — a recommended balance, a speed extreme, a memory extreme — each in whatever language wins for that goal. Why one accepted answer is never enough, and why a missing file is information.",
+      "tags": [
+        "methodology",
+        "performance",
+        "language selection"
+      ],
+      "readMin": 3
+    },
+    {
+      "slug": "why-there-are-no-pattern-folders",
+      "title": "Why there are no pattern folders",
+      "date": "2026-06-10",
+      "summary": "The original architecture promised physical algorithms/ and patterns/ directories. They were deleted on purpose. An ADR on classification as data, views as derivations, and staleness as a build failure.",
+      "tags": [
+        "architecture",
+        "decision record",
+        "automation"
       ],
       "readMin": 3
     },

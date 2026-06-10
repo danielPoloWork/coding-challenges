@@ -146,10 +146,12 @@ write-ups) live in `articles/<slug>.md` — one file per article, written in
 English, with a flat frontmatter block (`title`, `date` as YYYY-MM-DD,
 `summary`, `tags` comma-separated). `src/scripts/build-manifest.mjs` indexes
 the frontmatter into `platforms/manifest.json` (`articles[]`), which powers the
-home "Writing" section; the body is fetched at runtime by
+home "Writing" section (latest three + a link to the full index at
+`src/articles.html`); the body is fetched at runtime by
 `src/article.html?a=<slug>` and rendered with the shared markdown parser.
 Adding or editing a file is enough — the pre-commit hook reindexes it. Articles
-are hand-written content, never generated.
+are hand-written content, never generated, and exist only when they document a
+real decision, postmortem or methodology of this repository — never as filler.
 
 ## Index maintenance
 

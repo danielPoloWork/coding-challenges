@@ -372,7 +372,7 @@ function Articles({ articles }) {
           </div>
         </div>
         <div className="grid-cards">
-          {articles.map((a, i) => (
+          {articles.slice(0, 3).map((a, i) => (
             <a className="pcard reveal" key={a.slug} href={`src/article.html?a=${encodeURIComponent(a.slug)}`}
               style={{ transitionDelay: (i % 3 * 0.05) + "s" }}>
               <div className="pcard-top">
@@ -388,6 +388,11 @@ function Articles({ articles }) {
             </a>
           ))}
         </div>
+        {articles.length > 3 && (
+          <div className="reveal" style={{ marginTop: 26 }}>
+            <a className="btn btn-primary" href="src/articles.html">Browse all writing <Icon name="arrow" size={16} /></a>
+          </div>
+        )}
       </div>
     </section>
   );
