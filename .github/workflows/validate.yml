@@ -1,0 +1,56 @@
+# Anti-drift guard (validation only — GitHub Pages deploys from the master
+# root on its own, so there is deliberately NO deploy step here).
+#
+# The pre-commit hook (scripts/hooks/pre-commit) regenerates stats/*.md, the
+# README STATS banner, the per-asset ?v= cache-busts and platforms/manifest.json
+# on every commit. This workflow is the safety net for the cases the hook
+# can't cover: clones without core.hooksPath configured, --no-verify commits,
+# and edits made through the GitHub web UI. It regenerates everything and
+# fails if the committed files differ from what the generators produce.
+name: validate
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  anti-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Regenerate stats indexes, README banner, cache-busts
+        run: python scripts/gen_indexes.py
+
+      - name: Regenerate website manifest
+        run: node src/scripts/build-manifest.mjs
+
+      - name: Fail if committed files drifted from the generators
+        run: |
+          # The manifest's "generated" field is a run-date stamp, not drift:
+          # ignore that line, then restore the file so the global check below
+          # doesn't trip on the date alone.
+          if ! git diff --exit-code -I'"generated": ' -- platforms/manifest.json; then
+            echo "::error::platforms/manifest.json is stale — run: node src/scripts/build-manifest.mjs"
+            exit 1
+          fi
+          git checkout -- platforms/manifest.json
+
+          # Everything else (stats/, README STATS block, HTML ?v= hashes) must
+          # be byte-identical. `git add -A` also surfaces missing new files,
+          # e.g. the index of a platform that just got its first solution.
+          git add -A
+          if ! git diff --cached --exit-code; then
+            echo "::error::Generated indexes are stale — run: python scripts/gen_indexes.py"
+            exit 1
+          fi
