@@ -641,7 +641,7 @@ section { position: relative; }
 .hm-cell { display: block; aspect-ratio: 1; border-radius: 3px; background: var(--clay); }
 .hm-cell.zero { background: var(--hairline-2); }
 .hm-cell.peak { background: var(--ink); }
-.hm-cell.pad { visibility: hidden; }
+.hm-cell.pad { background: var(--hairline-2); opacity: 0.55; }
 @media (max-width: 640px) {
   .tl { padding: 20px 18px 18px; }
   .tl-chart { height: 140px; gap: 3px; }

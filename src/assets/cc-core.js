@@ -188,12 +188,27 @@ window.CCX = (function () {
         }
         weeks.push(week);
       }
+      // left-pad with empty out-of-window weeks so the grid always spans the
+      // full band and the current week sits at the right edge
+      const FILL_WEEKS = 53;
+      while (weeks.length < FILL_WEEKS) {
+        const firstMonday = new Date(weeks[0][0].key + "T00:00:00Z");
+        const w = [];
+        for (let i = 7; i >= 1; i--) {
+          const d = new Date(firstMonday.getTime() - i * DAY_MS);
+          w.push({ key: dayKey(d), count: 0, pad: true, label: fmtShort(d) });
+        }
+        weeks.unshift(w);
+      }
+      // month labels only over weeks that carry window days (not the padding)
       const months = [];
       let prevMonth = null;
       weeks.forEach((w, i) => {
-        const m = w[0].key.slice(0, 7);
+        const anchor = w.find((c) => !c.pad);
+        if (!anchor) return;
+        const m = anchor.key.slice(0, 7);
         if (m !== prevMonth) {
-          months.push({ at: i, label: new Date(w[0].key + "T00:00:00Z").toLocaleDateString("en", { month: "short", timeZone: "UTC" }) });
+          months.push({ at: i, label: new Date(anchor.key + "T00:00:00Z").toLocaleDateString("en", { month: "short", timeZone: "UTC" }) });
           prevMonth = m;
         }
       });
