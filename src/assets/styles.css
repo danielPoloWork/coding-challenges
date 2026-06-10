@@ -219,9 +219,28 @@ p { margin: 0; }
 @media (max-width: 1150px) { .nav-links { display: none; } }
 .nav-link {
   font-size: 14.5px; color: var(--ink-2); padding: 8px 13px; border-radius: 8px;
-  transition: color 0.2s, background 0.2s;
+  transition: color 0.2s;
+  position: relative;
 }
-.nav-link:hover { color: var(--ink); background: var(--surface-2); }
+.nav-link:hover { color: var(--ink); }
+/* hover = a loading-style ring: a clay arc spinning over a hairline track,
+   drawn by a masked conic gradient so only the 1.5px border is painted */
+@property --nl-angle { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
+.nav-link::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  padding: 1.5px;
+  background: conic-gradient(from var(--nl-angle),
+    var(--clay) 0 90deg, var(--hairline) 90deg 360deg);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0; transition: opacity 0.2s;
+  pointer-events: none;
+}
+.nav-link:hover::after { opacity: 1; animation: nl-spin 1.1s linear infinite; }
+@keyframes nl-spin { to { --nl-angle: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .nav-link:hover::after { animation: none; } }
 .nav-spacer { flex: 1; }
 .nav-actions { display: flex; align-items: center; gap: 10px; }
 
