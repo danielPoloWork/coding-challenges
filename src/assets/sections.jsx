@@ -87,28 +87,31 @@ function Hero({ totals }) {
     { n: t.patterns, label: "Catalogued patterns" },
     { n: t.topics || 0, label: "Catalogued topics" },
   ];
+  // gsap entrance (fx.js) — layout effect so the initial state lands before
+  // first paint; without gsap the hero simply renders static
+  React.useLayoutEffect(() => { window.CCFX && window.CCFX.heroIntro(); }, []);
   return (
     <header className="hero" id="top">
       <div className="hero-grid-bg" />
       <div className="wrap hero-inner">
         <div className="hero-top">
-          <span className="hero-badge reveal"><span className="dot"></span>Engineering knowledge base · est. 2024</span>
-          <h1 className="hero-title reveal" style={{transitionDelay: ".05s"}}>
+          <span className="hero-badge" data-fx><span className="dot"></span>Engineering knowledge base · est. 2024</span>
+          <h1 className="hero-title" data-fx>
             Structured<br/>platforms.
           </h1>
-          <h1 className="hero-title reveal" style={{transitionDelay: ".05s"}}>
+          <h1 className="hero-title" data-fx>
             <em>Smart solutions.</em>
           </h1>
-          <p className="lede reveal" style={{transitionDelay: ".12s"}}>
+          <p className="lede" data-fx>
             A long-term reference system for algorithmic problem solving — every challenge
             documented with reasoning, complexity trade-offs and reusable patterns, organised
             across {totals.catalogued || totals.platforms} platforms and rendered to be read.
           </p>
-          <div className="hero-cta reveal" style={{transitionDelay: ".18s"}}>
+          <div className="hero-cta" data-fx>
             <a className="btn btn-primary" href="#platforms">Explore the work <Icon name="arrow" size={16}/></a>
             <a className="btn btn-ghost" href="#solutions">See a solution</a>
           </div>
-          <div className="stats reveal">
+          <div className="stats" data-fx>
             {items.map((s) => (
                 <div className="stat" key={s.label}>
                   <CountUp end={s.n} plus={s.plus} />

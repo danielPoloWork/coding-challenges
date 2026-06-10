@@ -251,9 +251,12 @@ function TimelineHeatmap({ tl }) {
 
 function Timeline({ challenges }) {
   const [range, setRange] = useState("all");
+  const cardRef = useRef(null);
   const tl = useMemo(
     () => (challenges && challenges.length ? window.CCX.deriveTimeline(challenges, range) : null),
     [challenges, range]);
+  // grow bars / ripple heatmap cells whenever the chart (re)renders
+  useEffect(() => { if (tl && window.CCFX) window.CCFX.chartIn(cardRef.current); }, [tl]);
   if (!tl) return null;
   const caption = tl.mode === "heat" ? "Daily activity · weekly grid" : "Solves per day";
   return (
@@ -268,7 +271,7 @@ function Timeline({ challenges }) {
               the solving cadence.</p>
           </div>
         </div>
-        <div className="tl reveal">
+        <div className="tl reveal" ref={cardRef}>
           <div className="tl-head">
             <span className="tl-cap mono">{caption}</span>
             <span className="psel">
@@ -294,9 +297,12 @@ function Timeline({ challenges }) {
 
 /* ---------- SKILL-GAP ANALYSIS ---------- */
 function SkillGaps({ home }) {
+  const cardRef = useRef(null);
   const gaps = useMemo(
     () => (home && home.challenges ? window.CCX.deriveSkillGaps(home.challenges) : null),
     [home]);
+  // fill the difficulty bars from the left once the card scrolls into view
+  useEffect(() => { if (gaps && window.CCFX) window.CCFX.growBars(cardRef.current); }, [gaps]);
   if (!gaps) return null;
   const platTotal = (home.platforms || []).length || 16;
   const maxD = Math.max(...gaps.difficulty.map((d) => d.count), 1);
@@ -312,7 +318,7 @@ function SkillGaps({ home }) {
               catalogue does <i>not</i> cover yet, derived live from the manifest.</p>
           </div>
         </div>
-        <div className="gap reveal">
+        <div className="gap reveal" ref={cardRef}>
           <div className="gap-grid">
             <div className="gap-block">
               <h5 className="gap-t mono">Difficulty mix</h5>
