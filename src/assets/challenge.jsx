@@ -2,71 +2,8 @@
    Reads ?path=platforms/<platform>/<ext>/<id>-<slug> and fetches the REAL files
    in that folder (metadata.json, notes.md, complexity.md, solution*.<ext>). */
 
-/* ---------- minimal markdown -> html ---------- */
-function escapeHtml(s) {
-  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-}
-function mdInline(s) {
-  return s
-    .replace(/`([^`]+)`/g, (_, c) => `<code>${c}</code>`)
-    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
-    .replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>")
-    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-}
-function parseMarkdown(md) {
-  const lines = md.replace(/\r/g, "").split("\n");
-  let html = "", i = 0;
-  const list = (buf, ordered) => {
-    const tag = ordered ? "ol" : "ul";
-    return `<${tag}>` + buf.map((b) => `<li>${mdInline(escapeHtml(b))}</li>`).join("") + `</${tag}>`;
-  };
-  while (i < lines.length) {
-    const line = lines[i];
-    if (/^```/.test(line)) {
-      const buf = []; i++;
-      while (i < lines.length && !/^```/.test(lines[i])) { buf.push(lines[i]); i++; }
-      i++;
-      html += `<pre class="block"><code>${escapeHtml(buf.join("\n"))}</code></pre>`;
-      continue;
-    }
-    if (/^\s*$/.test(line)) { i++; continue; }
-    if (/^---\s*$/.test(line)) { html += "<hr/>"; i++; continue; }
-    if (/^####\s+/.test(line)) { html += `<h4 class="mdh4">${mdInline(escapeHtml(line.replace(/^####\s+/, "")))}</h4>`; i++; continue; }
-    if (/^###\s+/.test(line)) { html += `<h3>${mdInline(escapeHtml(line.replace(/^###\s+/, "")))}</h3>`; i++; continue; }
-    if (/^##\s+/.test(line)) { html += `<h2>${mdInline(escapeHtml(line.replace(/^##\s+/, "")))}</h2>`; i++; continue; }
-    if (/^#\s+/.test(line)) { html += `<h1 class="mdh1">${mdInline(escapeHtml(line.replace(/^#\s+/, "")))}</h1>`; i++; continue; }
-    if (/^>\s?/.test(line)) {
-      const buf = [];
-      while (i < lines.length && /^>\s?/.test(lines[i])) { buf.push(lines[i].replace(/^>\s?/, "")); i++; }
-      html += `<blockquote><p>${mdInline(escapeHtml(buf.join(" ")))}</p></blockquote>`; continue;
-    }
-    if (/^\s*[-*]\s+/.test(line)) {
-      const buf = [];
-      while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
-        let item = lines[i].replace(/^\s*[-*]\s+/, ""); i++;
-        // gather wrapped continuation lines (indented)
-        while (i < lines.length && /^\s{2,}\S/.test(lines[i]) && !/^\s*[-*]\s+/.test(lines[i])) { item += " " + lines[i].trim(); i++; }
-        buf.push(item);
-      }
-      html += list(buf, false); continue;
-    }
-    if (/^\s*\d+\.\s+/.test(line)) {
-      const buf = [];
-      while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
-        let item = lines[i].replace(/^\s*\d+\.\s+/, ""); i++;
-        while (i < lines.length && /^\s{2,}\S/.test(lines[i]) && !/^\s*\d+\.\s+/.test(lines[i])) { item += " " + lines[i].trim(); i++; }
-        buf.push(item);
-      }
-      html += list(buf, true); continue;
-    }
-    const buf = [];
-    while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^(#{1,4}\s|>\s?|\s*[-*]\s|\s*\d+\.\s|```|---\s*$)/.test(lines[i])) {
-      buf.push(lines[i]); i++;
-    }
-    html += `<p>${mdInline(escapeHtml(buf.join(" ")))}</p>`;
-  }
-  return html;
-}
+/* markdown -> html lives in cc-core.js (shared with the article page) */
+const { parseMarkdown, escapeHtml } = window.CCX;
 
 const ROLE_LABEL = {
   "recommended-balanced": "Recommended",

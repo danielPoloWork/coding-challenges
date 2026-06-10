@@ -58,11 +58,13 @@ See [`platforms/README.md`](platforms/README.md) for the full catalog (strengths
 ```text
 coding-challenges/
 │
+├── articles/      # technical articles (markdown + frontmatter)
 ├── docs/
-├── platforms/
-├── templates/
-├── stats/
-└── website/
+├── platforms/     # one folder per (platform, language, challenge) + manifest.json
+├── scripts/       # generators (stats indexes) + versioned git hooks
+├── src/           # the website (GitHub Pages serves from the master root)
+├── stats/         # auto-generated indexes — never edit by hand
+└── templates/
 ```
 
 ### Platform Layer
@@ -219,7 +221,7 @@ A versioned pre-commit hook regenerates them on every commit (enable once with `
 
 ## Roadmap
 
-_Status mirrors the live site ([`src/assets/data.js`](src/assets/data.js)): Phases 1–3 are shipped, Phases 4–5 are planned._
+_Status mirrors the live site ([`src/assets/data.js`](src/assets/data.js)): Phases 1–4 are shipped; Phase 5 is planned (recommendations deliberately deferred)._
 
 ### Phase 1 — Knowledge Repository · shipped
 
@@ -239,19 +241,19 @@ _Status mirrors the live site ([`src/assets/data.js`](src/assets/data.js)): Phas
 * [x] Searchable challenge index
 * [x] Pattern explorer
 
-### Phase 4 — Engineering Portfolio · planned
+### Phase 4 — Engineering Portfolio · shipped
 
 * [x] Public technical showcase
-* [ ] Learning timeline
-* [ ] Technical articles
-* [ ] Interview preparation resources
+* [x] Learning timeline — home band with selectable window (all time / year / month / week), GitHub-style heatmap for the year view
+* [x] Technical articles — `articles/*.md`, indexed by the manifest, rendered by the site ("Writing" section)
+* [x] Interview preparation resources — covered by the pattern/topic explorer: study-by-pattern and study-by-domain over every solved challenge
 
 ### Phase 5 — Agentic Learning System · planned
 
 * [x] Automated solution classification
 * [x] Pattern extraction
-* [ ] Skill gap analysis
-* [ ] Personalized learning recommendations
+* [x] Skill gap analysis — home section derived live from the manifest: difficulty mix, untouched core domains, single-solve domains
+* [ ] Personalized learning recommendations — deferred: needs a catalogue of *unsolved* problems; the agent answers "what next?" on demand instead
 
 ---
 

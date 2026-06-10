@@ -189,13 +189,79 @@ function Topics({ topics }) {
 }
 
 /* ---------- LEARNING TIMELINE ---------- */
-function Timeline({ timeline }) {
-  if (!timeline || !timeline.buckets.length) return null;
-  const { buckets, total, activeDays, first, last, peak, unit } = timeline;
-  const max = peak.count || 1;
+const TL_RANGES = [
+  ["all", "All time"], ["year", "Last year"], ["month", "Last month"], ["week", "Last week"],
+];
+
+/* Bar chart — short windows (week/month) and the adaptive all-time view,
+   where each bucket's exact count is readable. */
+function TimelineBars({ tl }) {
+  const labelEvery = tl.buckets.length <= 16;
+  return (
+    <React.Fragment>
+      <div className="tl-chart">
+        {tl.buckets.map((b) => (
+          <div className="tl-col" key={b.key} title={`${b.label} · ${b.count}`}>
+            <div className="tl-bar-wrap">
+              <span className="tl-count mono">{b.count || ""}</span>
+              <div className={"tl-bar" + (b.count === 0 ? " empty" : "") + (b.key === tl.peak.key && b.count > 0 ? " peak" : "")}
+                style={{ height: (b.count / tl.max * 100) + "%" }} />
+            </div>
+            {labelEvery && <div className="tl-x mono">{b.label}</div>}
+          </div>
+        ))}
+      </div>
+      {!labelEvery && (
+        <div className="tl-axis mono">
+          <span>{tl.buckets[0].label}</span>
+          <span>{tl.peak.count ? tl.peak.label + " · peak" : ""}</span>
+          <span>{tl.buckets[tl.buckets.length - 1].label}</span>
+        </div>
+      )}
+    </React.Fragment>
+  );
+}
+
+/* GitHub-style weekly heatmap — the year window, where 365 daily bars would
+   be unreadable but density/streaks read at a glance. */
+function TimelineHeatmap({ tl }) {
+  return (
+    <div className="hm">
+      <div className="hm-days mono"><span style={{ gridRow: 1 }}>Mon</span><span style={{ gridRow: 4 }}>Thu</span><span style={{ gridRow: 7 }}>Sun</span></div>
+      <div className="hm-scroll">
+        <div className="hm-months mono" style={{ gridTemplateColumns: `repeat(${tl.weeks.length}, 1fr)` }}>
+          {tl.months.map((m) => <span key={m.at} style={{ gridColumnStart: m.at + 1 }}>{m.label}</span>)}
+        </div>
+        <div className="hm-grid" style={{ gridTemplateColumns: `repeat(${tl.weeks.length}, 1fr)` }}>
+          {tl.weeks.map((w, wi) => (
+            <div className="hm-week" key={wi}>
+              {w.map((c) => c.pad
+                ? <i className="hm-cell pad" key={c.key} />
+                : <i key={c.key}
+                    className={"hm-cell" + (c.count === 0 ? " zero" : "") + (c.key === tl.peak.key && c.count > 0 ? " peak" : "")}
+                    title={`${c.label} · ${c.count} solved`}
+                    style={c.count > 0 && c.key !== tl.peak.key ? { opacity: 0.3 + 0.7 * (c.count / tl.max) } : null} />)}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Timeline({ challenges }) {
+  const [range, setRange] = useState("all");
+  const tl = useMemo(
+    () => (challenges && challenges.length ? window.CCX.deriveTimeline(challenges, range) : null),
+    [challenges, range]);
+  if (!tl) return null;
   const fmt = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString("en",
     { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
-  const labelEvery = buckets.length <= 16;
+  // fixed windows show the window itself; all-time shows first→last solve
+  const spanFrom = tl.range === "all" ? tl.first : tl.winStart;
+  const spanTo = tl.range === "all" ? tl.last : tl.winEnd;
+  const caption = tl.mode === "heat" ? "Daily activity · weekly grid"
+    : tl.unit === "month" ? "Solves per month" : "Solves per day";
   return (
     <section className="section" id="timeline">
       <div className="wrap">
@@ -204,34 +270,129 @@ function Timeline({ timeline }) {
           <div>
             <span className="eyebrow">Learning timeline</span>
             <h2>The work, in order.</h2>
-            <p>Every solution records the date it was solved — here is the solving
-              cadence across {unit === "day" ? "the active days" : "each month"}.</p>
+            <p>Every solution records the date it was solved — pick a window to see
+              the solving cadence.</p>
           </div>
         </div>
         <div className="tl reveal">
+          <div className="tl-head">
+            <span className="tl-cap mono">{caption}</span>
+            <span className="psel">
+              <select value={range} onChange={(e) => setRange(e.target.value)} aria-label="Timeline window">
+                {TL_RANGES.map(([v, l]) => <option key={v} value={v}>{l}</option>)}
+              </select>
+              <Icon name="arrow" size={14} />
+            </span>
+          </div>
           <div className="tl-stats">
-            <div className="tl-stat"><div className="tl-n serif">{total}</div><div className="tl-l mono">solved</div></div>
-            <div className="tl-stat"><div className="tl-n serif">{activeDays}</div><div className="tl-l mono">active days</div></div>
-            <div className="tl-stat"><div className="tl-n serif">{peak.count}</div><div className="tl-l mono">busiest {unit}</div></div>
-            <div className="tl-stat tl-range"><div className="tl-span serif">{fmt(first)} → {fmt(last)}</div><div className="tl-l mono">span</div></div>
+            <div className="tl-stat"><div className="tl-n serif">{tl.total}</div><div className="tl-l mono">solved</div></div>
+            <div className="tl-stat"><div className="tl-n serif">{tl.activeDays}</div><div className="tl-l mono">active days</div></div>
+            <div className="tl-stat"><div className="tl-n serif">{tl.peak.count}</div><div className="tl-l mono">busiest {tl.unit}</div></div>
+            <div className="tl-stat tl-range"><div className="tl-span serif">{fmt(spanFrom)} → {fmt(spanTo)}</div><div className="tl-l mono">{tl.range === "all" ? "span" : "window"}</div></div>
           </div>
-          <div className="tl-chart">
-            {buckets.map((b) => (
-              <div className="tl-col" key={b.key} title={`${b.label} · ${b.count}`}>
-                <div className="tl-bar-wrap">
-                  <span className="tl-count mono">{b.count || ""}</span>
-                  <div className={"tl-bar" + (b.count === 0 ? " empty" : "") + (b.key === peak.key ? " peak" : "")}
-                    style={{ height: (b.count / max * 100) + "%" }} />
+          {tl.mode === "heat" ? <TimelineHeatmap tl={tl} /> : <TimelineBars tl={tl} />}
+          {tl.total === 0 && <div className="tl-empty mono">No solutions in this window yet.</div>}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- SKILL-GAP ANALYSIS ---------- */
+function SkillGaps({ home }) {
+  const gaps = useMemo(
+    () => (home && home.challenges ? window.CCX.deriveSkillGaps(home.challenges) : null),
+    [home]);
+  if (!gaps) return null;
+  const platTotal = (home.platforms || []).length || 16;
+  const maxD = Math.max(...gaps.difficulty.map((d) => d.count), 1);
+  return (
+    <section className="section" id="gaps">
+      <div className="wrap">
+        <div className="section-head">
+          <span className="sec-no">09</span>
+          <div>
+            <span className="eyebrow">Skill-gap analysis</span>
+            <h2>Where the practice is thin.</h2>
+            <p>The same metadata that powers the explorer, read in reverse — what the
+              catalogue does <i>not</i> cover yet, derived live from the manifest.</p>
+          </div>
+        </div>
+        <div className="gap reveal">
+          <div className="gap-grid">
+            <div className="gap-block">
+              <h5 className="gap-t mono">Difficulty mix</h5>
+              {gaps.difficulty.map((d) => (
+                <div className="gap-row" key={d.name} title={`${d.count} ${d.name} · ${d.share}%`}>
+                  <span className="gap-dl">{d.name}</span>
+                  <div className="gap-track">
+                    <div className="gap-fill" style={{ width: (d.count / maxD * 100) + "%", background: window.CCX.diffColor(d.name) }} />
+                  </div>
+                  <span className="gap-dn mono">{d.count} · {d.share}%</span>
                 </div>
-                {labelEvery && <div className="tl-x mono">{b.label}</div>}
-              </div>
-            ))}
-          </div>
-          {!labelEvery && (
-            <div className="tl-axis mono">
-              <span>{buckets[0].label}</span><span>{peak.label} · peak</span><span>{buckets[buckets.length - 1].label}</span>
+              ))}
             </div>
-          )}
+            <div className="gap-block">
+              <h5 className="gap-t mono">Untouched core domains · {gaps.untouched.length} of {gaps.coreTotal}</h5>
+              <div className="gap-chips">
+                {gaps.untouched.map((t) => <span className="node gap-miss" key={t}>{t}</span>)}
+                {gaps.untouched.length === 0 && <span className="gap-none mono">Every core domain has at least one solve.</span>}
+              </div>
+            </div>
+            <div className="gap-block">
+              <h5 className="gap-t mono">Practiced once · {gaps.thin.length} domains</h5>
+              <div className="gap-chips">
+                {gaps.thin.map((t) => (
+                  <a className="node" key={t} href={`src/topic.html?t=${encodeURIComponent(t)}`}>{t}</a>
+                ))}
+                {gaps.thin.length === 0 && <span className="gap-none mono">No single-solve domains.</span>}
+              </div>
+            </div>
+          </div>
+          <div className="gap-foot mono">
+            <span>{gaps.patSingle} of {gaps.patTotal} patterns practiced only once</span>
+            <span>{gaps.platformsUsed} of {platTotal} platforms covered</span>
+            <span>{gaps.topicsTouched} domains touched overall</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- TECHNICAL ARTICLES ---------- */
+function Articles({ articles }) {
+  if (!articles || !articles.length) return null;
+  const fmt = (iso) => iso ? new Date(iso + "T00:00:00Z").toLocaleDateString("en",
+    { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }) : "";
+  return (
+    <section className="section" id="writing">
+      <div className="wrap">
+        <div className="section-head">
+          <span className="sec-no">10</span>
+          <div>
+            <span className="eyebrow">Writing</span>
+            <h2>Engineering notes from building this.</h2>
+            <p>Technical articles grown out of the repository itself — postmortems,
+              design decisions and the trade-offs behind them.</p>
+          </div>
+        </div>
+        <div className="grid-cards">
+          {articles.map((a, i) => (
+            <a className="pcard reveal" key={a.slug} href={`src/article.html?a=${encodeURIComponent(a.slug)}`}
+              style={{ transitionDelay: (i % 3 * 0.05) + "s" }}>
+              <div className="pcard-top">
+                <span className="mono" style={{ fontSize: 12, color: "var(--ink-3)" }}>{fmt(a.date)}</span>
+                <span className="pcard-count">{a.readMin} min read</span>
+              </div>
+              <h3 style={{ marginTop: 14 }}>{a.title}</h3>
+              <p>{a.summary}</p>
+              <div className="pcard-foot" style={{ marginTop: "auto", paddingTop: 16 }}>
+                <span>{(a.tags || []).slice(0, 2).join(" · ") || "article"}</span>
+                <span className="pcard-go"><Icon name="arrow" size={15} /></span>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>
@@ -291,7 +452,7 @@ function Footer({ roadmap, totals }) {
       <section className="section">
         <div className="wrap">
           <div className="section-head">
-            <span className="sec-no">09</span>
+            <span className="sec-no">11</span>
             <div>
               <span className="eyebrow">Roadmap</span>
               <h2>From repository to learning system.</h2>
@@ -337,4 +498,4 @@ function Footer({ roadmap, totals }) {
   );
 }
 
-Object.assign(window, { Platforms, Featured, SolutionPreview, Patterns, Topics, Timeline, Languages, Footer });
+Object.assign(window, { Platforms, Featured, SolutionPreview, Patterns, Topics, Timeline, SkillGaps, Articles, Languages, Footer });

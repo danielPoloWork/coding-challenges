@@ -75,10 +75,11 @@ window.CC = (function () {
       { label: "Metadata generation", done: true }, { label: "Statistics dashboards", done: true }, { label: "Automated READMEs", done: true } ] },
     { n: "Phase 3", title: "Documentation Portal",  done: true,  items: [
       { label: "Static site generation", done: true }, { label: "Searchable index", done: true }, { label: "Pattern explorer", done: true } ] },
-    { n: "Phase 4", title: "Engineering Portfolio", done: false, items: [
-      { label: "Public showcase", done: true }, { label: "Learning timeline", done: false }, { label: "Technical articles", done: false } ] },
+    { n: "Phase 4", title: "Engineering Portfolio", done: true,  items: [
+      { label: "Public showcase", done: true }, { label: "Learning timeline", done: true }, { label: "Technical articles", done: true } ] },
     { n: "Phase 5", title: "Agentic Learning",      done: false, items: [
-      { label: "Solution classification", done: true }, { label: "Pattern extraction", done: true }, { label: "Skill-gap analysis", done: false } ] },
+      { label: "Solution classification", done: true }, { label: "Pattern extraction", done: true },
+      { label: "Skill-gap analysis", done: true }, { label: "Recommendations", done: false } ] },
   ];
 
   // sample solution proposals for the live preview (Two Sum)

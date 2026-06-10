@@ -139,6 +139,18 @@ Rules when assigning `patterns`:
   registry and apply the same normalization, so the stats indices and the
   website always agree on the canonical label.
 
+## Technical articles
+
+Editorial engineering notes (postmortems, design decisions, trade-off
+write-ups) live in `articles/<slug>.md` — one file per article, written in
+English, with a flat frontmatter block (`title`, `date` as YYYY-MM-DD,
+`summary`, `tags` comma-separated). `src/scripts/build-manifest.mjs` indexes
+the frontmatter into `platforms/manifest.json` (`articles[]`), which powers the
+home "Writing" section; the body is fetched at runtime by
+`src/article.html?a=<slug>` and rendered with the shared markdown parser.
+Adding or editing a file is enough — the pre-commit hook reindexes it. Articles
+are hand-written content, never generated.
+
 ## Index maintenance
 
 Generated index files under `stats/` summarize the knowledge base and must stay in sync with the solutions:

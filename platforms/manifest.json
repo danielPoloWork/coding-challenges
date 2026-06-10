@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-09",
+  "generated": "2026-06-10",
   "version": 1,
   "catalogued": 16,
   "platforms": [
@@ -93,6 +93,27 @@
       "abbr": "PE",
       "color": "#4a5b6b",
       "desc": "Mathematical and computational reasoning problems."
+    },
+    {
+      "id": "checkio",
+      "name": "CheckiO",
+      "abbr": "CK",
+      "color": "#3f8f4f",
+      "desc": "Game-based Python and JavaScript practice challenges."
+    },
+    {
+      "id": "coding-games",
+      "name": "CodinGame",
+      "abbr": "CG",
+      "color": "#2a8fa0",
+      "desc": "Game-driven challenges and bot-programming puzzles."
+    },
+    {
+      "id": "master-coding",
+      "name": "Master Coding",
+      "abbr": "MC",
+      "color": "#5a6acf",
+      "desc": "Structured mastery tracks across core coding fundamentals."
     }
   ],
   "challenges": [
@@ -1117,6 +1138,32 @@
       "dateSolved": "2026-06-07",
       "timeComplexity": "O(n log A)",
       "spaceComplexity": "O(n) recommended/runtime, O(r) memory"
+    }
+  ],
+  "articles": [
+    {
+      "slug": "governing-an-open-pattern-vocabulary",
+      "title": "Governing an open pattern vocabulary without freezing it",
+      "date": "2026-06-10",
+      "summary": "When an agent labels every solution with the techniques it used, the labels proliferate — 106 patterns, 81% used exactly once. The fix was not a canonical taxonomy. It was naming governance.",
+      "tags": [
+        "taxonomy",
+        "agentic workflow",
+        "metadata"
+      ],
+      "readMin": 3
+    },
+    {
+      "slug": "one-entry-per-challenge",
+      "title": "One entry per challenge — deduplicating a multi-language manifest",
+      "date": "2026-06-09",
+      "summary": "A counting bug postmortem. The site said 38 solved when the truth was 32, because the manifest's unit of count silently changed the day one challenge was solved in two languages.",
+      "tags": [
+        "postmortem",
+        "build pipeline",
+        "data modeling"
+      ],
+      "readMin": 2
     }
   ]
 }

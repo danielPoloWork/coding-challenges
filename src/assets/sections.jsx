@@ -44,7 +44,7 @@ function Nav({ theme, onToggle }) {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-  const links = [["Search", "#search"], ["Overview", "#overview"], ["Architecture", "#architecture"], ["Platforms", "#platforms"], ["Solutions", "#solutions"], ["Patterns", "#patterns"], ["Topics", "#topics"]];
+  const links = [["Search", "#search"], ["Overview", "#overview"], ["Architecture", "#architecture"], ["Platforms", "#platforms"], ["Solutions", "#solutions"], ["Patterns", "#patterns"], ["Topics", "#topics"], ["Writing", "#writing"]];
   return (
     <nav className={"nav" + (scrolled ? " scrolled" : "")}>
       <div className="nav-inner">

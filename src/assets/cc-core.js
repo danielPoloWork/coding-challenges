@@ -44,45 +44,203 @@ window.CCX = (function () {
     return new URLSearchParams(location.search).get(name);
   }
 
+  // ---------- minimal markdown -> html (shared by challenge + article pages) ----------
+  function escapeHtml(s) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function mdInline(s) {
+    return s
+      .replace(/`([^`]+)`/g, (_, c) => `<code>${c}</code>`)
+      .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+      .replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>")
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  }
+  function parseMarkdown(md) {
+    const lines = md.replace(/\r/g, "").split("\n");
+    let html = "", i = 0;
+    const list = (buf, ordered) => {
+      const tag = ordered ? "ol" : "ul";
+      return `<${tag}>` + buf.map((b) => `<li>${mdInline(escapeHtml(b))}</li>`).join("") + `</${tag}>`;
+    };
+    while (i < lines.length) {
+      const line = lines[i];
+      if (/^```/.test(line)) {
+        const buf = []; i++;
+        while (i < lines.length && !/^```/.test(lines[i])) { buf.push(lines[i]); i++; }
+        i++;
+        html += `<pre class="block"><code>${escapeHtml(buf.join("\n"))}</code></pre>`;
+        continue;
+      }
+      if (/^\s*$/.test(line)) { i++; continue; }
+      if (/^---\s*$/.test(line)) { html += "<hr/>"; i++; continue; }
+      if (/^####\s+/.test(line)) { html += `<h4 class="mdh4">${mdInline(escapeHtml(line.replace(/^####\s+/, "")))}</h4>`; i++; continue; }
+      if (/^###\s+/.test(line)) { html += `<h3>${mdInline(escapeHtml(line.replace(/^###\s+/, "")))}</h3>`; i++; continue; }
+      if (/^##\s+/.test(line)) { html += `<h2>${mdInline(escapeHtml(line.replace(/^##\s+/, "")))}</h2>`; i++; continue; }
+      if (/^#\s+/.test(line)) { html += `<h1 class="mdh1">${mdInline(escapeHtml(line.replace(/^#\s+/, "")))}</h1>`; i++; continue; }
+      if (/^>\s?/.test(line)) {
+        const buf = [];
+        while (i < lines.length && /^>\s?/.test(lines[i])) { buf.push(lines[i].replace(/^>\s?/, "")); i++; }
+        html += `<blockquote><p>${mdInline(escapeHtml(buf.join(" ")))}</p></blockquote>`; continue;
+      }
+      if (/^\s*[-*]\s+/.test(line)) {
+        const buf = [];
+        while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
+          let item = lines[i].replace(/^\s*[-*]\s+/, ""); i++;
+          // gather wrapped continuation lines (indented)
+          while (i < lines.length && /^\s{2,}\S/.test(lines[i]) && !/^\s*[-*]\s+/.test(lines[i])) { item += " " + lines[i].trim(); i++; }
+          buf.push(item);
+        }
+        html += list(buf, false); continue;
+      }
+      if (/^\s*\d+\.\s+/.test(line)) {
+        const buf = [];
+        while (i < lines.length && /^\s*\d+\.\s+/.test(lines[i])) {
+          let item = lines[i].replace(/^\s*\d+\.\s+/, ""); i++;
+          while (i < lines.length && /^\s{2,}\S/.test(lines[i]) && !/^\s*\d+\.\s+/.test(lines[i])) { item += " " + lines[i].trim(); i++; }
+          buf.push(item);
+        }
+        html += list(buf, true); continue;
+      }
+      const buf = [];
+      while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^(#{1,4}\s|>\s?|\s*[-*]\s|\s*\d+\.\s|```|---\s*$)/.test(lines[i])) {
+        buf.push(lines[i]); i++;
+      }
+      html += `<p>${mdInline(escapeHtml(buf.join(" ")))}</p>`;
+    }
+    return html;
+  }
+
   // Learning timeline: bucket challenges by their dateSolved so the home can
-  // show solving cadence. Granularity adapts to the span (daily for a few
-  // weeks, monthly once it stretches past a quarter) so the band stays
-  // readable as the catalogue grows. Gaps are filled with 0 for an honest axis.
+  // show solving cadence over a selectable window. The visualization adapts to
+  // the window's density: short fixed windows (week/month) use daily bars where
+  // exact counts are readable; "year" uses a GitHub-style weekly heatmap (365
+  // points would drown a bar chart); "all" keeps adaptive bars (daily up to a
+  // quarter, monthly beyond — a multi-year heatmap would not fit the page).
+  // Gaps are filled with 0 for an honest axis.
   const DAY_MS = 86400000;
-  function deriveTimeline(chs) {
+  const TL_WINDOWS = { week: 7, month: 30, year: 365 };
+  const dayKey = (d) => d.toISOString().slice(0, 10);
+
+  function deriveTimeline(chs, range) {
+    range = range || "all";
     const dated = chs.map((c) => c.dateSolved).filter(Boolean).sort();
     if (!dated.length) return null;
-    const first = dated[0], last = dated[dated.length - 1];
-    const start = new Date(first + "T00:00:00Z");
-    const end = new Date(last + "T00:00:00Z");
-    const span = Math.round((end - start) / DAY_MS) + 1;
-    const unit = span <= 92 ? "day" : "month";
 
     const counts = {};
-    dated.forEach((d) => {
-      const key = unit === "day" ? d : d.slice(0, 7);
-      counts[key] = (counts[key] || 0) + 1;
-    });
+    dated.forEach((d) => { counts[d] = (counts[d] || 0) + 1; });
 
+    // window bounds: fixed ranges end today; "all" spans first→last solve
+    const today = new Date(dayKey(new Date()) + "T00:00:00Z");
+    let start, end;
+    if (range === "all") {
+      start = new Date(dated[0] + "T00:00:00Z");
+      end = new Date(dated[dated.length - 1] + "T00:00:00Z");
+    } else {
+      end = today;
+      start = new Date(today.getTime() - (TL_WINDOWS[range] - 1) * DAY_MS);
+    }
+    const winStart = dayKey(start), winEnd = dayKey(end);
+
+    const inWin = dated.filter((d) => d >= winStart && d <= winEnd);
+    const total = inWin.length;
+    const activeDays = new Set(inWin).size;
+    const first = inWin[0] || null, last = inWin[inWin.length - 1] || null;
+    const base = { range, total, activeDays, first, last, winStart, winEnd };
+
+    if (range === "year") {
+      // GitHub-style heatmap: columns = weeks (Monday-start), rows = weekdays
+      const startDow = (start.getUTCDay() + 6) % 7; // Mon = 0
+      const gridStart = new Date(start.getTime() - startDow * DAY_MS);
+      const weeks = [];
+      let peak = { key: null, count: 0, label: "" };
+      let cur = gridStart;
+      while (cur <= end) {
+        const week = [];
+        for (let i = 0; i < 7; i++) {
+          const key = dayKey(cur);
+          const pad = cur < start || cur > end;
+          const count = pad ? 0 : (counts[key] || 0);
+          const label = cur.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "UTC" });
+          if (count > peak.count) peak = { key, count, label };
+          week.push({ key, count, pad, label });
+          cur = new Date(cur.getTime() + DAY_MS);
+        }
+        weeks.push(week);
+      }
+      const months = [];
+      let prevMonth = null;
+      weeks.forEach((w, i) => {
+        const m = w[0].key.slice(0, 7);
+        if (m !== prevMonth) {
+          months.push({ at: i, label: new Date(w[0].key + "T00:00:00Z").toLocaleDateString("en", { month: "short", timeZone: "UTC" }) });
+          prevMonth = m;
+        }
+      });
+      return { ...base, mode: "heat", unit: "day", weeks, months, peak, max: peak.count || 1 };
+    }
+
+    // bar modes — daily for the fixed short windows; "all" adapts to its span
+    const span = Math.round((end - start) / DAY_MS) + 1;
+    const unit = range === "all" && span > 92 ? "month" : "day";
     const buckets = [];
     if (unit === "day") {
       for (let t = start.getTime(); t <= end.getTime(); t += DAY_MS) {
-        const d = new Date(t), key = d.toISOString().slice(0, 10);
+        const d = new Date(t), key = dayKey(d);
         buckets.push({ key, count: counts[key] || 0,
           label: d.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "UTC" }) });
       }
     } else {
+      const mcounts = {};
+      inWin.forEach((d) => { const k = d.slice(0, 7); mcounts[k] = (mcounts[k] || 0) + 1; });
       const cur = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), 1));
       while (cur <= end) {
         const key = cur.toISOString().slice(0, 7);
-        buckets.push({ key, count: counts[key] || 0,
+        buckets.push({ key, count: mcounts[key] || 0,
           label: cur.toLocaleDateString("en", { month: "short", year: "2-digit", timeZone: "UTC" }) });
         cur.setUTCMonth(cur.getUTCMonth() + 1);
       }
     }
-
     const peak = buckets.reduce((a, b) => (b.count > a.count ? b : a), buckets[0]);
-    return { unit, buckets, total: dated.length, activeDays: new Set(dated).size, first, last, peak };
+    return { ...base, mode: "bars", unit, buckets, peak, max: peak.count || 1 };
+  }
+
+  // Skill-gap analysis: coverage and imbalance, derived from the manifest.
+  // CORE_TOPICS is the reference set of interview-grade domains (LeetCode's
+  // canonical topic names, which metadata.json already follows) — it lets the
+  // analysis say "untouched" about domains with zero solves, which raw counts
+  // alone can never reveal.
+  const CORE_TOPICS = [
+    "Array", "String", "Hash Table", "Linked List", "Stack", "Queue",
+    "Tree", "Graph", "Heap (Priority Queue)", "Trie", "Matrix",
+    "Dynamic Programming", "Greedy", "Backtracking", "Divide and Conquer",
+    "Binary Search", "Sorting", "Two Pointers", "Sliding Window",
+    "Depth-First Search", "Breadth-First Search", "Union Find",
+    "Math", "Bit Manipulation", "Prefix Sum", "Monotonic Stack",
+  ];
+
+  function deriveSkillGaps(chs) {
+    if (!chs || !chs.length) return null;
+
+    const difficulty = ["Easy", "Medium", "Hard"].map((name) => ({
+      name, count: chs.filter((c) => c.difficulty === name).length,
+    }));
+    difficulty.forEach((d) => { d.share = Math.round(d.count / chs.length * 100); });
+
+    const topicMap = {};
+    chs.forEach((c) => (c.topics || []).forEach((t) => { topicMap[t] = (topicMap[t] || 0) + 1; }));
+    const untouched = CORE_TOPICS.filter((t) => !topicMap[t]);
+    const thin = Object.entries(topicMap).filter(([, n]) => n === 1)
+      .map(([name]) => name).sort((a, b) => a.localeCompare(b));
+
+    const patMap = {};
+    chs.forEach((c) => (c.patterns || []).forEach((p) => { patMap[p] = (patMap[p] || 0) + 1; }));
+    const patTotal = Object.keys(patMap).length;
+    const patSingle = Object.values(patMap).filter((n) => n === 1).length;
+
+    const platformsUsed = new Set(chs.map((c) => c.platform)).size;
+
+    return { difficulty, untouched, thin, coreTotal: CORE_TOPICS.length,
+      topicsTouched: Object.keys(topicMap).length, patTotal, patSingle, platformsUsed };
   }
 
   // Derive everything the homepage needs from the manifest (fully dynamic).
@@ -132,8 +290,9 @@ window.CCX = (function () {
     }
     featured = featured.slice(0, 6);
 
-    return { platforms, patterns, topics, languages, totals, featured, challenges: chs, timeline: deriveTimeline(chs) };
+    return { platforms, patterns, topics, languages, totals, featured, challenges: chs,
+      articles: manifest.articles || [] };
   }
 
-  return { LANG_COLORS, langColor, diffColor, diffRank, loadManifest, platformMeta, deriveHome, initTheme, setTheme, qs };
+  return { LANG_COLORS, langColor, diffColor, diffRank, loadManifest, platformMeta, deriveHome, deriveTimeline, deriveSkillGaps, initTheme, setTheme, qs, escapeHtml, parseMarkdown };
 })();
