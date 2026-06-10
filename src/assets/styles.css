@@ -198,10 +198,13 @@ p { margin: 0; }
   transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
 }
 .nav.scrolled { border-color: var(--hairline); }
+/* full-bleed bar: brand pinned to the page's left edge, actions to the right;
+   the centered wrap only applies to the page content below */
 .nav-inner {
-  max-width: var(--maxw); margin-inline: auto;
-  padding-block: 14px; padding-inline: var(--gutter);
+  width: 100%;
+  padding-block: 14px; padding-inline: clamp(16px, 2.5vw, 32px);
   display: flex; align-items: center; gap: 26px;
+  position: relative;
 }
 .brand { display: flex; align-items: center; gap: 11px; font-weight: 500; }
 .brand-mark {
@@ -211,8 +214,9 @@ p { margin: 0; }
 .brand-mark svg { display: block; }
 .brand-name { font-size: 15.5px; letter-spacing: -0.01em; }
 .brand-name b { font-weight: 600; }
-.nav-links { display: flex; gap: 4px; margin-left: 8px; }
-@media (max-width: 940px) { .nav-links { display: none; } }
+/* centered on the page itself (absolute), not between brand and actions */
+.nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 4px; }
+@media (max-width: 1150px) { .nav-links { display: none; } }
 .nav-link {
   font-size: 14.5px; color: var(--ink-2); padding: 8px 13px; border-radius: 8px;
   transition: color 0.2s, background 0.2s;
