@@ -190,7 +190,7 @@ function Topics({ topics }) {
 
 /* ---------- LEARNING TIMELINE ---------- */
 const TL_RANGES = [
-  ["all", "All time"], ["year", "Last year"], ["month", "Last month"], ["week", "Last week"],
+  ["all", "All"], ["year", "This year"], ["month", "This month"], ["week", "This week"], ["today", "Today"],
 ];
 
 /* Bar chart — short windows (week/month) and the adaptive all-time view,
@@ -201,13 +201,13 @@ function TimelineBars({ tl }) {
     <React.Fragment>
       <div className="tl-chart">
         {tl.buckets.map((b) => (
-          <div className="tl-col" key={b.key} title={`${b.label} · ${b.count}`}>
+          <div className="tl-col" key={b.key} title={b.future ? `${b.label} · upcoming` : `${b.label} · ${b.count}`}>
             <div className="tl-bar-wrap">
               <span className="tl-count mono">{b.count || ""}</span>
-              <div className={"tl-bar" + (b.count === 0 ? " empty" : "") + (b.key === tl.peak.key && b.count > 0 ? " peak" : "")}
+              <div className={"tl-bar" + (b.count === 0 ? " empty" : "") + (b.future ? " future" : "") + (b.key === tl.peak.key && b.count > 0 ? " peak" : "")}
                 style={{ height: (b.count / tl.max * 100) + "%" }} />
             </div>
-            {labelEvery && <div className="tl-x mono">{b.label}</div>}
+            {labelEvery && <div className={"tl-x mono" + (b.future ? " future" : "")}>{b.label}</div>}
           </div>
         ))}
       </div>
@@ -255,11 +255,6 @@ function Timeline({ challenges }) {
     () => (challenges && challenges.length ? window.CCX.deriveTimeline(challenges, range) : null),
     [challenges, range]);
   if (!tl) return null;
-  const fmt = (iso) => new Date(iso + "T00:00:00Z").toLocaleDateString("en",
-    { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
-  // fixed windows show the window itself; all-time shows first→last solve
-  const spanFrom = tl.range === "all" ? tl.first : tl.winStart;
-  const spanTo = tl.range === "all" ? tl.last : tl.winEnd;
   const caption = tl.mode === "heat" ? "Daily activity · weekly grid"
     : tl.unit === "month" ? "Solves per month" : "Solves per day";
   return (
@@ -288,7 +283,7 @@ function Timeline({ challenges }) {
             <div className="tl-stat"><div className="tl-n serif">{tl.total}</div><div className="tl-l mono">solved</div></div>
             <div className="tl-stat"><div className="tl-n serif">{tl.activeDays}</div><div className="tl-l mono">active days</div></div>
             <div className="tl-stat"><div className="tl-n serif">{tl.peak.count}</div><div className="tl-l mono">busiest {tl.unit}</div></div>
-            <div className="tl-stat tl-range"><div className="tl-span serif">{fmt(spanFrom)} → {fmt(spanTo)}</div><div className="tl-l mono">{tl.range === "all" ? "span" : "window"}</div></div>
+            <div className="tl-stat tl-range"><div className="tl-span serif">{tl.windowText}</div><div className="tl-l mono">{tl.windowTag}</div></div>
           </div>
           {tl.mode === "heat" ? <TimelineHeatmap tl={tl} /> : <TimelineBars tl={tl} />}
           {tl.total === 0 && <div className="tl-empty mono">No solutions in this window yet.</div>}

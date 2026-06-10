@@ -118,7 +118,6 @@ window.CCX = (function () {
   // quarter, monthly beyond — a multi-year heatmap would not fit the page).
   // Gaps are filled with 0 for an honest axis.
   const DAY_MS = 86400000;
-  const TL_WINDOWS = { week: 7, month: 30, year: 365 };
   const dayKey = (d) => d.toISOString().slice(0, 10);
 
   function deriveTimeline(chs, range) {
@@ -129,38 +128,60 @@ window.CCX = (function () {
     const counts = {};
     dated.forEach((d) => { counts[d] = (counts[d] || 0) + 1; });
 
-    // window bounds: fixed ranges end today; "all" spans first→last solve
+    const fmtLong = (d) => d.toLocaleDateString("en", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" });
+    const fmtShort = (d) => d.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "UTC" });
+
+    // calendar-anchored windows: "this year/month/week/today"; "all" spans
+    // first→last solve. Periods may extend past today (a week in progress) —
+    // days after today are flagged `future` so the axis shows the full period
+    // without pretending those days were inactive.
     const today = new Date(dayKey(new Date()) + "T00:00:00Z");
-    let start, end;
-    if (range === "all") {
+    const todayKey = dayKey(today);
+    const y = today.getUTCFullYear(), mo = today.getUTCMonth();
+    const monday = new Date(today.getTime() - ((today.getUTCDay() + 6) % 7) * DAY_MS);
+    let start, end, windowText, windowTag;
+    if (range === "year") {
+      start = new Date(Date.UTC(y, 0, 1)); end = new Date(Date.UTC(y, 11, 31));
+      windowText = String(y); windowTag = "this year";
+    } else if (range === "month") {
+      start = new Date(Date.UTC(y, mo, 1)); end = new Date(Date.UTC(y, mo + 1, 0));
+      windowText = today.toLocaleDateString("en", { month: "long", year: "numeric", timeZone: "UTC" });
+      windowTag = "this month";
+    } else if (range === "week") {
+      start = monday; end = new Date(monday.getTime() + 6 * DAY_MS);
+      windowText = `${fmtShort(start)} → ${fmtShort(end)}, ${y}`; windowTag = "this week";
+    } else if (range === "today") {
+      start = today; end = today;
+      windowText = fmtLong(today); windowTag = "today";
+    } else {
       start = new Date(dated[0] + "T00:00:00Z");
       end = new Date(dated[dated.length - 1] + "T00:00:00Z");
-    } else {
-      end = today;
-      start = new Date(today.getTime() - (TL_WINDOWS[range] - 1) * DAY_MS);
+      windowText = `${fmtShort(start)}, ${start.getUTCFullYear()} → ${fmtShort(end)}, ${end.getUTCFullYear()}`;
+      windowTag = "span";
     }
     const winStart = dayKey(start), winEnd = dayKey(end);
 
     const inWin = dated.filter((d) => d >= winStart && d <= winEnd);
     const total = inWin.length;
     const activeDays = new Set(inWin).size;
-    const first = inWin[0] || null, last = inWin[inWin.length - 1] || null;
-    const base = { range, total, activeDays, first, last, winStart, winEnd };
+    const base = { range, total, activeDays, windowText, windowTag, winStart, winEnd };
 
     if (range === "year") {
-      // GitHub-style heatmap: columns = weeks (Monday-start), rows = weekdays
+      // GitHub-style heatmap: columns = weeks (Monday-start), rows = weekdays.
+      // The grid runs Jan 1 → today (no blank trailing columns for the months
+      // that haven't happened yet).
       const startDow = (start.getUTCDay() + 6) % 7; // Mon = 0
       const gridStart = new Date(start.getTime() - startDow * DAY_MS);
       const weeks = [];
       let peak = { key: null, count: 0, label: "" };
       let cur = gridStart;
-      while (cur <= end) {
+      while (cur <= today) {
         const week = [];
         for (let i = 0; i < 7; i++) {
           const key = dayKey(cur);
-          const pad = cur < start || cur > end;
+          const pad = cur < start || cur > today;
           const count = pad ? 0 : (counts[key] || 0);
-          const label = cur.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "UTC" });
+          const label = fmtShort(cur);
           if (count > peak.count) peak = { key, count, label };
           week.push({ key, count, pad, label });
           cur = new Date(cur.getTime() + DAY_MS);
@@ -179,14 +200,15 @@ window.CCX = (function () {
       return { ...base, mode: "heat", unit: "day", weeks, months, peak, max: peak.count || 1 };
     }
 
-    // bar modes — daily for the fixed short windows; "all" adapts to its span
+    // bar modes — daily buckets over the calendar period; "all" adapts to its
+    // span (daily up to a quarter, monthly beyond)
     const span = Math.round((end - start) / DAY_MS) + 1;
     const unit = range === "all" && span > 92 ? "month" : "day";
     const buckets = [];
     if (unit === "day") {
       for (let t = start.getTime(); t <= end.getTime(); t += DAY_MS) {
         const d = new Date(t), key = dayKey(d);
-        buckets.push({ key, count: counts[key] || 0,
+        buckets.push({ key, count: counts[key] || 0, future: key > todayKey,
           label: d.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "UTC" }) });
       }
     } else {
@@ -195,7 +217,7 @@ window.CCX = (function () {
       const cur = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), 1));
       while (cur <= end) {
         const key = cur.toISOString().slice(0, 7);
-        buckets.push({ key, count: mcounts[key] || 0,
+        buckets.push({ key, count: mcounts[key] || 0, future: key > todayKey.slice(0, 7),
           label: cur.toLocaleDateString("en", { month: "short", year: "2-digit", timeZone: "UTC" }) });
         cur.setUTCMonth(cur.getUTCMonth() + 1);
       }
