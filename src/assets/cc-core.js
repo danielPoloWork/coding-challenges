@@ -166,10 +166,10 @@ window.CCX = (function () {
     const activeDays = new Set(inWin).size;
     const base = { range, total, activeDays, windowText, windowTag, winStart, winEnd };
 
-    if (range === "year") {
+    if (range === "all" || range === "year") {
       // GitHub-style heatmap: columns = weeks (Monday-start), rows = weekdays.
-      // The grid runs Jan 1 → today (no blank trailing columns for the months
-      // that haven't happened yet).
+      // "year" starts at Jan 1, "all" at the first solve; both run to today
+      // (no blank trailing columns for days that haven't happened yet).
       const startDow = (start.getUTCDay() + 6) % 7; // Mon = 0
       const gridStart = new Date(start.getTime() - startDow * DAY_MS);
       const weeks = [];
@@ -200,30 +200,16 @@ window.CCX = (function () {
       return { ...base, mode: "heat", unit: "day", weeks, months, peak, max: peak.count || 1 };
     }
 
-    // bar modes — daily buckets over the calendar period; "all" adapts to its
-    // span (daily up to a quarter, monthly beyond)
-    const span = Math.round((end - start) / DAY_MS) + 1;
-    const unit = range === "all" && span > 92 ? "month" : "day";
+    // daily bars for the short calendar windows (month / week / today), where
+    // each day's exact count is readable and worth reading
     const buckets = [];
-    if (unit === "day") {
-      for (let t = start.getTime(); t <= end.getTime(); t += DAY_MS) {
-        const d = new Date(t), key = dayKey(d);
-        buckets.push({ key, count: counts[key] || 0, future: key > todayKey,
-          label: d.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "UTC" }) });
-      }
-    } else {
-      const mcounts = {};
-      inWin.forEach((d) => { const k = d.slice(0, 7); mcounts[k] = (mcounts[k] || 0) + 1; });
-      const cur = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), 1));
-      while (cur <= end) {
-        const key = cur.toISOString().slice(0, 7);
-        buckets.push({ key, count: mcounts[key] || 0, future: key > todayKey.slice(0, 7),
-          label: cur.toLocaleDateString("en", { month: "short", year: "2-digit", timeZone: "UTC" }) });
-        cur.setUTCMonth(cur.getUTCMonth() + 1);
-      }
+    for (let t = start.getTime(); t <= end.getTime(); t += DAY_MS) {
+      const d = new Date(t), key = dayKey(d);
+      buckets.push({ key, count: counts[key] || 0, future: key > todayKey,
+        label: d.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "UTC" }) });
     }
     const peak = buckets.reduce((a, b) => (b.count > a.count ? b : a), buckets[0]);
-    return { ...base, mode: "bars", unit, buckets, peak, max: peak.count || 1 };
+    return { ...base, mode: "bars", unit: "day", buckets, peak, max: peak.count || 1 };
   }
 
   // Skill-gap analysis: coverage and imbalance, derived from the manifest.

@@ -229,10 +229,10 @@ function TimelineHeatmap({ tl }) {
     <div className="hm">
       <div className="hm-days mono"><span style={{ gridRow: 1 }}>Mon</span><span style={{ gridRow: 4 }}>Thu</span><span style={{ gridRow: 7 }}>Sun</span></div>
       <div className="hm-scroll">
-        <div className="hm-months mono" style={{ gridTemplateColumns: `repeat(${tl.weeks.length}, 1fr)` }}>
+        <div className="hm-months mono" style={{ gridTemplateColumns: `repeat(${tl.weeks.length}, minmax(11px, 20px))` }}>
           {tl.months.map((m) => <span key={m.at} style={{ gridColumnStart: m.at + 1 }}>{m.label}</span>)}
         </div>
-        <div className="hm-grid" style={{ gridTemplateColumns: `repeat(${tl.weeks.length}, 1fr)` }}>
+        <div className="hm-grid" style={{ gridTemplateColumns: `repeat(${tl.weeks.length}, minmax(11px, 20px))` }}>
           {tl.weeks.map((w, wi) => (
             <div className="hm-week" key={wi}>
               {w.map((c) => c.pad
@@ -255,8 +255,7 @@ function Timeline({ challenges }) {
     () => (challenges && challenges.length ? window.CCX.deriveTimeline(challenges, range) : null),
     [challenges, range]);
   if (!tl) return null;
-  const caption = tl.mode === "heat" ? "Daily activity · weekly grid"
-    : tl.unit === "month" ? "Solves per month" : "Solves per day";
+  const caption = tl.mode === "heat" ? "Daily activity · weekly grid" : "Solves per day";
   return (
     <section className="section" id="timeline">
       <div className="wrap">

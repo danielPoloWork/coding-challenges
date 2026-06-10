@@ -634,9 +634,9 @@ section { position: relative; }
 .hm-days { display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px; padding-top: 18px; font-size: 9.5px; color: var(--ink-3); }
 .hm-days span { display: flex; align-items: center; }
 .hm-scroll { flex: 1; min-width: 0; overflow-x: auto; }
-.hm-months { display: grid; gap: 3px; height: 15px; margin-bottom: 3px; font-size: 10px; color: var(--ink-3); min-width: 640px; }
+.hm-months { display: grid; gap: 3px; height: 15px; margin-bottom: 3px; font-size: 10px; color: var(--ink-3); }
 .hm-months span { white-space: nowrap; overflow: visible; }
-.hm-grid { display: grid; gap: 3px; min-width: 640px; }
+.hm-grid { display: grid; gap: 3px; }
 .hm-week { display: grid; grid-template-rows: repeat(7, 1fr); gap: 3px; }
 .hm-cell { display: block; aspect-ratio: 1; border-radius: 3px; background: var(--clay); }
 .hm-cell.zero { background: var(--hairline-2); }
@@ -674,6 +674,22 @@ section { position: relative; }
   flex-wrap: wrap; font-size: 13.5px; color: rgba(243, 239, 230, 0.5);
 }
 .footer-bottom .mono { font-family: var(--mono); font-size: 12px; }
+
+/* On the dark theme the closing band inverts to a light palette card —
+   var(--ink)/var(--paper) swap roles, so the cream/near-black pairing of the
+   light theme is mirrored instead of stacking dark on dark. */
+[data-theme="dark"] .footer {
+  background: var(--ink); color: var(--paper);
+  --grid-line: rgba(27, 26, 23, 0.07);
+}
+[data-theme="dark"] .footer-cta { border-color: rgba(27, 26, 23, 0.14); background: rgba(27, 26, 23, 0.05); }
+[data-theme="dark"] .footer-cta p { color: rgba(27, 26, 23, 0.68); }
+[data-theme="dark"] .footer .eyebrow { color: rgba(27, 26, 23, 0.62); }
+[data-theme="dark"] .footer .btn-primary { background: var(--paper); color: var(--ink); }
+[data-theme="dark"] .footer .btn-primary:hover { background: var(--clay); color: #fff; }
+[data-theme="dark"] .footer .btn-ghost { color: var(--paper); border-color: rgba(27, 26, 23, 0.3); }
+[data-theme="dark"] .footer .btn-ghost:hover { border-color: var(--paper); background: rgba(27, 26, 23, 0.06); }
+[data-theme="dark"] .footer-bottom { border-top-color: rgba(27, 26, 23, 0.14); color: rgba(27, 26, 23, 0.55); }
 
 /* ============================================================
    Variant: Terminal  (data-variant="terminal")
