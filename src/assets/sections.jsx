@@ -39,6 +39,7 @@ function CountUp({ end, dur = 1500, plus }) {
 /* ---------- NAV ---------- */
 function Nav({ theme, onToggle }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menu, setMenu] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -46,7 +47,7 @@ function Nav({ theme, onToggle }) {
   }, []);
   const links = [["Search", "#search"], ["Overview", "#overview"], ["Architecture", "#architecture"], ["Platforms", "#platforms"], ["Solutions", "#solutions"], ["Patterns", "#patterns"], ["Topics", "#topics"], ["Writing", "#writing"]];
   return (
-    <nav className={"nav" + (scrolled ? " scrolled" : "")}>
+    <nav className={"nav" + ((scrolled || menu) ? " scrolled" : "")}>
       <div className="nav-inner">
         <a className="brand" href="#top">
           <span className="brand-mark">
@@ -70,9 +71,20 @@ function Nav({ theme, onToggle }) {
           <button className="theme-toggle" onClick={onToggle} aria-label="Toggle theme">
             <Icon name={theme === "dark" ? "sun" : "moon"} />
           </button>
-          <a className="btn btn-ghost" href="https://github.com/danielPoloWork/coding-challenges" target="_blank" rel="noopener noreferrer" style={{ gap: 8 }}><Icon name="github" size={16} /> GitHub</a>
+          <a className="btn btn-ghost nav-gh" href="https://github.com/danielPoloWork/coding-challenges" target="_blank" rel="noopener noreferrer" style={{ gap: 8 }}><Icon name="github" size={16} /><span className="nav-gh-label">GitHub</span></a>
+          <button className="theme-toggle nav-menu-btn" onClick={() => setMenu((m) => !m)}
+            aria-label="Menu" aria-expanded={menu}>
+            <Icon name={menu ? "x" : "menu"} />
+          </button>
         </div>
       </div>
+      {menu && (
+        <div className="nav-sheet">
+          {links.map(([t, h]) => (
+            <a key={h} className="nav-sheet-link" href={h} onClick={() => setMenu(false)}>{t}</a>
+          ))}
+        </div>
+      )}
     </nav>
   );
 }

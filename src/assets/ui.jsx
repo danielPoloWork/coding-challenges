@@ -17,6 +17,7 @@ function Icon({ name, size = 17 }) {
     file: <g fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"><path d="M6 3h7l5 5v13H6z"/><path d="M13 3v5h5"/></g>,
     external: <g fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M14 5h5v5"/><path d="M19 5l-7 7"/><path d="M18 13v6H5V6h6"/></g>,
     sortable: <g fill="currentColor"><path d="M12 4l4 5H8z"/><path d="M12 20l-4-5h8z" opacity="0.4"/></g>,
+    menu: <g fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></g>,
   }[name];
   return <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">{p}</svg>;
 }

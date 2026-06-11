@@ -225,10 +225,14 @@ function TimelineBars({ tl }) {
 /* GitHub-style weekly heatmap — the year window, where 365 daily bars would
    be unreadable but density/streaks read at a glance. */
 function TimelineHeatmap({ tl }) {
+  // on narrow screens the grid overflows horizontally — land scrolled to the
+  // right so the current week (the data) is what shows, not the empty padding
+  const scrollRef = useRef(null);
+  useEffect(() => { const el = scrollRef.current; if (el) el.scrollLeft = el.scrollWidth; }, [tl]);
   return (
     <div className="hm">
       <div className="hm-days mono"><span style={{ gridRow: 1 }}>Mon</span><span style={{ gridRow: 4 }}>Thu</span><span style={{ gridRow: 7 }}>Sun</span></div>
-      <div className="hm-scroll">
+      <div className="hm-scroll" ref={scrollRef}>
         <div className="hm-months mono" style={{ gridTemplateColumns: `repeat(${tl.weeks.length}, minmax(8px, 1fr))` }}>
           {tl.months.map((m) => <span key={m.at} style={{ gridColumnStart: m.at + 1 }}>{m.label}</span>)}
         </div>

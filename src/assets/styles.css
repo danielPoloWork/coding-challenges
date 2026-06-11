@@ -244,6 +244,34 @@ p { margin: 0; }
 .nav-spacer { flex: 1; }
 .nav-actions { display: flex; align-items: center; gap: 10px; }
 
+/* mobile menu — the hamburger replaces the centered links below 1150px
+   (scoped selector: it must outrank .theme-toggle's display, declared later) */
+.nav-actions .nav-menu-btn { display: none; }
+@media (max-width: 1150px) { .nav-actions .nav-menu-btn { display: inline-grid; } }
+.nav-sheet {
+  display: flex; flex-direction: column;
+  padding: 8px clamp(16px, 2.5vw, 32px) 14px;
+  border-top: 1px solid var(--hairline);
+}
+.nav-sheet-link {
+  padding: 13px 4px; font-size: 15.5px; color: var(--ink-2);
+  border-bottom: 1px solid var(--hairline-2); transition: color 0.2s;
+}
+.nav-sheet-link:last-child { border-bottom: none; }
+.nav-sheet-link:hover { color: var(--ink); }
+
+/* compact bar on small screens: tighter gutters, icon-only GitHub, then
+   logo-only brand — keeps every nav (home + inner pages) inside 375px */
+@media (max-width: 640px) {
+  .nav-inner { gap: 12px; padding-inline: 14px; }
+  .nav-gh { padding-left: 12px; padding-right: 12px; }
+  .nav-gh .nav-gh-label { display: none; }
+  .cback { padding-left: 12px; padding-right: 12px; }
+}
+@media (max-width: 480px) {
+  .brand-name { display: none; }
+}
+
 .theme-toggle {
   width: 38px; height: 38px; border-radius: 999px;
   border: 1px solid var(--hairline); background: var(--surface);
@@ -1030,6 +1058,13 @@ section { position: relative; }
   .ptable-head { grid-template-columns: 60px 1fr 110px 40px; }
   .prow { grid-template-columns: 60px 1fr 110px 40px; }
   .c-lang, .th.c-lang, .c-type, .th.c-type { display: none; }
+}
+@media (max-width: 480px) {
+  .ptable-head { grid-template-columns: 48px 1fr 90px 32px; }
+  .prow { grid-template-columns: 48px 1fr 90px 32px; }
+  .prow > div, .th { padding: 12px 9px; min-width: 0; }
+  .prow-title { font-size: 14.5px; overflow-wrap: anywhere; }
+  .c-diff { font-size: 12.5px; gap: 6px; }
 }
 
 /* ---------- challenge language selector ---------- */
