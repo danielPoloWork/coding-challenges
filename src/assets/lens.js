@@ -78,6 +78,7 @@ function LensPage() {
     backHref: isDetail ? INDEX_HREF : "index.html",
     backLabel: isDetail ? `All ${LENS.noun}s` : "Home"
   }), /*#__PURE__*/React.createElement("main", {
+    id: "main",
     className: "wrap cpage"
   }, data.loading && /*#__PURE__*/React.createElement("div", {
     className: "cloading"

@@ -93,6 +93,7 @@ function App() {
       color: "var(--ink)"
     }
   }, "Browse the repository"), " for the real thing."), /*#__PURE__*/React.createElement("main", {
+    id: "main",
     key: t.variant
   }, /*#__PURE__*/React.createElement(Hero, {
     totals: totals,

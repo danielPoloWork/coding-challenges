@@ -69,6 +69,7 @@ function ArticlePage() {
     backHref: "src/articles.html",
     backLabel: "All writing"
   }), /*#__PURE__*/React.createElement("main", {
+    id: "main",
     className: "wrap cpage"
   }, data.loading && /*#__PURE__*/React.createElement("div", {
     className: "cloading"

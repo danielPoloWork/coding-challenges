@@ -76,7 +76,7 @@ function App() {
           <a href="https://github.com/danielPoloWork/coding-challenges" style={{ color: "var(--ink)" }}>Browse the repository</a> for the real thing.
         </div>
       )}
-      <main key={t.variant}>
+      <main id="main" key={t.variant}>
         <Hero totals={totals} live={!!home} />
         {t.heroGrid ? null : <style>{`.hero-grid-bg{display:none}`}</style>}
         <GlobalSearch challenges={home ? home.challenges : null} />

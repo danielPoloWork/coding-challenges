@@ -45,7 +45,7 @@ function ArticlePage() {
   return (
     <React.Fragment>
       <InnerNav theme={theme} onToggleTheme={toggleTheme} backHref="src/articles.html" backLabel="All writing" />
-      <main className="wrap cpage">
+      <main id="main" className="wrap cpage">
         {data.loading && <div className="cloading"><span className="spin" /> Loading article…</div>}
         {data.error && <div className="cerror"><h2 className="serif">Couldn’t load the article.</h2><p className="mono">{data.error}</p></div>}
         {data.notFound && (

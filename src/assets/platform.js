@@ -138,6 +138,7 @@ function PlatformPage() {
     backHref: "index.html#platforms",
     backLabel: "All platforms"
   }), /*#__PURE__*/React.createElement("main", {
+    id: "main",
     className: "wrap cpage"
   }, data.loading && /*#__PURE__*/React.createElement("div", {
     className: "cloading"

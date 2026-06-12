@@ -60,7 +60,7 @@ function LensPage() {
       <InnerNav theme={theme} onToggleTheme={toggleTheme}
         backHref={isDetail ? INDEX_HREF : "index.html"}
         backLabel={isDetail ? `All ${LENS.noun}s` : "Home"} />
-      <main className="wrap cpage">
+      <main id="main" className="wrap cpage">
         {data.loading && <div className="cloading"><span className="spin" /> Loading index…</div>}
         {data.error && <div className="cerror"><h2 className="serif">Couldn’t load the index.</h2><p className="mono">{data.error}</p></div>}
         {data.manifest && !isDetail && <LensIndex challenges={challenges} />}

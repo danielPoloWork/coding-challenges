@@ -22,7 +22,7 @@ function ArticlesPage() {
   return (
     <React.Fragment>
       <InnerNav theme={theme} onToggleTheme={toggleTheme} backHref="index.html#writing" backLabel="Home" />
-      <main className="wrap cpage">
+      <main id="main" className="wrap cpage">
         {data.loading && <div className="cloading"><span className="spin" /> Loading articles…</div>}
         {data.error && <div className="cerror"><h2 className="serif">Couldn’t load the index.</h2><p className="mono">{data.error}</p></div>}
         {data.articles && (

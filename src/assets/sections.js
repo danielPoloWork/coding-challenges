@@ -21,6 +21,10 @@ function CountUp({
     const run = () => {
       if (done.current) return;
       done.current = true;
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setV(end);
+        return;
+      }
       const t0 = performance.now();
       const tick = t => {
         const p = Math.min(1, (t - t0) / dur);

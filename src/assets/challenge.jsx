@@ -196,7 +196,7 @@ function ChallengePage() {
   return (
     <React.Fragment>
       <InnerNav theme={theme} onToggleTheme={toggleTheme} backHref="index.html" backLabel="Home" />
-      <main className="wrap cpage">
+      <main id="main" className="wrap cpage">
         {!error && !bundle && <div className="cloading"><span className="spin" /> Loading solution files…</div>}
         {error && (
           <div className="cerror">

@@ -287,6 +287,7 @@ function ChallengePage() {
     backHref: "index.html",
     backLabel: "Home"
   }), /*#__PURE__*/React.createElement("main", {
+    id: "main",
     className: "wrap cpage"
   }, !error && !bundle && /*#__PURE__*/React.createElement("div", {
     className: "cloading"

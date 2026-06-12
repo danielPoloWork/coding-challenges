@@ -95,7 +95,7 @@ function PlatformPage() {
   return (
     <React.Fragment>
       <InnerNav theme={theme} onToggleTheme={toggleTheme} backHref="index.html#platforms" backLabel="All platforms" />
-      <main className="wrap cpage">
+      <main id="main" className="wrap cpage">
         {data.loading && <div className="cloading"><span className="spin" /> Loading index…</div>}
         {!data.loading && !meta && <div className="cerror"><h2 className="serif">Unknown platform “{pid}”.</h2><a className="btn btn-ghost" href="index.html#platforms" style={{ marginTop: 18 }}><Icon name="arrow" size={15} /> Browse platforms</a></div>}
         {!data.loading && meta && (
