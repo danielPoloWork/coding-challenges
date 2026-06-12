@@ -276,6 +276,11 @@ function ChallengePage() {
     }
   };
   const bundle = sel ? bundles[sel] : null;
+
+  // keep the tab/bookmark/history title in sync with the loaded challenge
+  useEffect(() => {
+    if (bundle && bundle.meta && bundle.meta.title) document.title = `${bundle.meta.title} · Coding Challenges`;
+  }, [bundle]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(InnerNav, {
     theme: theme,
     onToggleTheme: toggleTheme,

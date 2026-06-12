@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Entry pages only: the inner pages (challenge/pattern/topic/article) are
+     client-rendered from query strings, so listing them here would not make
+     them indexable. If SEO for those ever matters, the answer is a
+     pre-rendering step in the build, not more sitemap entries. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://danielpolowork.github.io/coding-challenges/</loc></url>
+  <url><loc>https://danielpolowork.github.io/coding-challenges/src/articles.html</loc></url>
+  <url><loc>https://danielpolowork.github.io/coding-challenges/src/patterns.html</loc></url>
+  <url><loc>https://danielpolowork.github.io/coding-challenges/src/topics.html</loc></url>
+</urlset>

@@ -64,6 +64,11 @@ function PlatformPage() {
     };
   }, []);
   const meta = data.manifest ? window.CCX.platformMeta(data.manifest, pid) : null;
+
+  // keep the tab/bookmark/history title in sync with the loaded platform
+  useEffect(() => {
+    if (meta) document.title = `${meta.name} · Coding Challenges`;
+  }, [meta]);
   const all = useMemo(() => data.manifest ? data.manifest.challenges.filter(c => c.platform === pid) : [], [data, pid]);
   const langsOf = c => c.languages || [c.language];
   const langs = useMemo(() => [...new Set(all.flatMap(langsOf))].sort(), [all]);

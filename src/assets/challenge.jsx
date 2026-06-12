@@ -188,6 +188,11 @@ function ChallengePage() {
   const selectLang = (p) => { if (p !== sel) { setActive(0); setSel(p); } };
   const bundle = sel ? bundles[sel] : null;
 
+  // keep the tab/bookmark/history title in sync with the loaded challenge
+  useEffect(() => {
+    if (bundle && bundle.meta && bundle.meta.title) document.title = `${bundle.meta.title} · Coding Challenges`;
+  }, [bundle]);
+
   return (
     <React.Fragment>
       <InnerNav theme={theme} onToggleTheme={toggleTheme} backHref="index.html" backLabel="Home" />

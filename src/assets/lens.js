@@ -67,6 +67,11 @@ function LensPage() {
     };
   }, []);
   const challenges = useMemo(() => data.manifest ? data.manifest.challenges : [], [data.manifest]);
+
+  // detail pages: keep the tab/bookmark/history title in sync with the label
+  useEffect(() => {
+    if (isDetail && value) document.title = `${value} · Coding Challenges`;
+  }, [value]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(InnerNav, {
     theme: theme,
     onToggleTheme: toggleTheme,

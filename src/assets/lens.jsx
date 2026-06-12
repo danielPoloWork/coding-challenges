@@ -50,6 +50,11 @@ function LensPage() {
     [data.manifest]
   );
 
+  // detail pages: keep the tab/bookmark/history title in sync with the label
+  useEffect(() => {
+    if (isDetail && value) document.title = `${value} · Coding Challenges`;
+  }, [value]);
+
   return (
     <React.Fragment>
       <InnerNav theme={theme} onToggleTheme={toggleTheme}

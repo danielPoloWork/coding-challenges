@@ -13,13 +13,14 @@ function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const CC = window.CC;
   const [home, setHome] = useState(null);
+  const [manifestFailed, setManifestFailed] = useState(false);
 
   // load the manifest once — homepage stats/grid/featured are all derived from it
   useEffect(() => {
     let alive = true;
     window.CCX.loadManifest()
       .then((m) => { if (alive) setHome(window.CCX.deriveHome(m)); })
-      .catch((e) => console.warn("manifest load failed", e));
+      .catch((e) => { console.warn("manifest load failed", e); if (alive) setManifestFailed(true); });
     return () => { alive = false; };
   }, []);
 
@@ -65,6 +66,16 @@ function App() {
   return (
     <React.Fragment>
       <Nav theme={t.dark ? "dark" : "light"} onToggle={toggleTheme} />
+      {manifestFailed && (
+        <div role="alert" className="mono" style={{
+          padding: "10px 20px", textAlign: "center", fontSize: 12.5,
+          background: "var(--clay-tint)", color: "var(--ink-2)",
+          borderBottom: "1px solid var(--hairline)",
+        }}>
+          Live data unavailable — the numbers below are sample placeholders.{" "}
+          <a href="https://github.com/danielPoloWork/coding-challenges" style={{ color: "var(--ink)" }}>Browse the repository</a> for the real thing.
+        </div>
+      )}
       <main key={t.variant}>
         <Hero totals={totals} live={!!home} />
         {t.heroGrid ? null : <style>{`.hero-grid-bg{display:none}`}</style>}

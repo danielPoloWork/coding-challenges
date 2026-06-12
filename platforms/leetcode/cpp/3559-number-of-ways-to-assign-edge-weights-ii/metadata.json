@@ -1,0 +1,61 @@
+{
+  "id": "3559",
+  "title": "Number of Ways to Assign Edge Weights II",
+  "slug": "number-of-ways-to-assign-edge-weights-ii",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3559-number-of-ways-to-assign-edge-weights-ii",
+  "url": "https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii/",
+  "difficulty": "Hard",
+  "topics": ["Tree", "Depth-First Search", "Union Find", "Graph", "Math"],
+  "patterns": ["tarjan-offline-lca", "offline-query-processing", "parity-counting", "modular-power-precomputation"],
+  "status": "solved",
+  "dateSolved": "2026-06-12",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3559-number-of-ways-to-assign-edge-weights-ii/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single Tarjan offline LCA solution is also the speed extreme and the memory extreme. Per the repo standard, no coincident solution-runtime.cpp or solution-memory.cpp is shipped.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The task is dominated by high-throughput tree/query adjacency scans, DSU path compression, iterative DFS, and modular integer writes at n,q <= 1e5. C++ gives compact contiguous storage, direct vector<vector<int>> LeetCode integration, and native branch-light loops without managed-runtime or interpreter overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It best combines Tarjan offline LCA performance, compact forward-star arrays, fast DSU operations, direct method signature support, and predictable memory usage."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for manual arrays and a low runtime baseline, but LeetCode's C nested-array and return-buffer plumbing adds complexity without reducing the O(n + q) auxiliary footprint below the C++ version."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native speed and memory safety, but the mutable iterative DFS, DSU, and adjacency indexing add wrapper and bounds-check costs without improving the algorithmic profile."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops and slices, but bounds checks, runtime metadata, and GC interaction are less favorable for top-percentile adjacency and DSU workloads."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered because primitive arrays can be fast after JIT warmup, but managed runtime startup, object baselines, and GC overhead are unnecessary for this linear native workload."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered for concise implementation, but interpreter/VM overhead is too high for 1e5-node DFS plus 1e5 LCA queries under a top 1% target."
+        }
+      ],
+      "approachJustification": "Use the closed-form parity count 2^(distance-1) for non-empty paths, and compute all path distances with iterative Tarjan offline LCA in near-linear time and linear memory.",
+      "timeComplexity": "O((n + q) alpha(n))",
+      "spaceComplexity": "O(n + q)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "A path cost is odd exactly when an odd number of path edges receive weight 1, so a path with d > 0 edges has 2^(d-1) valid assignments and d = 0 has none. The whole problem becomes batched tree distance queries; Tarjan offline LCA gives every LCA in near-linear time and linear memory while an iterative DFS avoids stack overflow.",
+  "timeComplexity": "O((n + q) alpha(n))",
+  "spaceComplexity": "O(n + q)"
+}

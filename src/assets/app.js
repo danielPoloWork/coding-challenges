@@ -13,13 +13,17 @@ function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const CC = window.CC;
   const [home, setHome] = useState(null);
+  const [manifestFailed, setManifestFailed] = useState(false);
 
   // load the manifest once — homepage stats/grid/featured are all derived from it
   useEffect(() => {
     let alive = true;
     window.CCX.loadManifest().then(m => {
       if (alive) setHome(window.CCX.deriveHome(m));
-    }).catch(e => console.warn("manifest load failed", e));
+    }).catch(e => {
+      console.warn("manifest load failed", e);
+      if (alive) setManifestFailed(true);
+    });
     return () => {
       alive = false;
     };
@@ -72,7 +76,23 @@ function App() {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Nav, {
     theme: t.dark ? "dark" : "light",
     onToggle: toggleTheme
-  }), /*#__PURE__*/React.createElement("main", {
+  }), manifestFailed && /*#__PURE__*/React.createElement("div", {
+    role: "alert",
+    className: "mono",
+    style: {
+      padding: "10px 20px",
+      textAlign: "center",
+      fontSize: 12.5,
+      background: "var(--clay-tint)",
+      color: "var(--ink-2)",
+      borderBottom: "1px solid var(--hairline)"
+    }
+  }, "Live data unavailable \u2014 the numbers below are sample placeholders.", " ", /*#__PURE__*/React.createElement("a", {
+    href: "https://github.com/danielPoloWork/coding-challenges",
+    style: {
+      color: "var(--ink)"
+    }
+  }, "Browse the repository"), " for the real thing."), /*#__PURE__*/React.createElement("main", {
     key: t.variant
   }, /*#__PURE__*/React.createElement(Hero, {
     totals: totals,

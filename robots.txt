@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://danielpolowork.github.io/coding-challenges/sitemap.xml
