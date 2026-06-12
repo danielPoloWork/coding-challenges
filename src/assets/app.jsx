@@ -66,7 +66,7 @@ function App() {
     <React.Fragment>
       <Nav theme={t.dark ? "dark" : "light"} onToggle={toggleTheme} />
       <main key={t.variant}>
-        <Hero totals={totals} />
+        <Hero totals={totals} live={!!home} />
         {t.heroGrid ? null : <style>{`.hero-grid-bg{display:none}`}</style>}
         <GlobalSearch challenges={home ? home.challenges : null} />
         <Stats totals={home ? home.totals : null} key={home ? "real" : "load"} />

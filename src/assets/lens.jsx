@@ -193,8 +193,8 @@ function LensIndex({ challenges }) {
           <Th k="others" cls="c-type">{OTHER_NOUN === "topic" ? "Topics" : "Patterns"}</Th>
           <div className="th c-go" />
         </div>
-        {rows.map((x) => (
-          <a className="prow" key={x.name} href={`${DETAIL_HREF}?${LENS.param}=${encodeURIComponent(x.name)}`}>
+        {rows.map((x, i) => (
+          <a className="prow" key={x.name} style={{ "--i": Math.min(i, 14) }} href={`${DETAIL_HREF}?${LENS.param}=${encodeURIComponent(x.name)}`}>
             <div className="c-id mono">{x.count}</div>
             <div className="c-title"><span className="prow-title">{x.name}</span></div>
             <div className="c-diff" style={{ gap: 12 }}>
@@ -369,8 +369,8 @@ function LensDetail({ challenges, value }) {
           <Th k="type" cls="c-type">Topics</Th>
           <div className="th c-go" />
         </div>
-        {rows.map((c) => (
-          <a className="prow" key={c.path} href={`src/challenge.html?path=${encodeURIComponent(c.path)}`}>
+        {rows.map((c, i) => (
+          <a className="prow" key={c.path} style={{ "--i": Math.min(i, 14) }} href={`src/challenge.html?path=${encodeURIComponent(c.path)}`}>
             <div className="c-id mono">{c.id}</div>
             <div className="c-title">
               <span className="prow-title">{c.title}</span>

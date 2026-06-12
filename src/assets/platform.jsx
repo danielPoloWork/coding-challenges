@@ -187,8 +187,8 @@ function PlatformPage() {
                 <Th k="type" cls="c-type">Topics</Th>
                 <div className="th c-go" />
               </div>
-              {rows.map((c) => (
-                <a className="prow" key={c.path} href={`src/challenge.html?path=${encodeURIComponent(c.path)}`}>
+              {rows.map((c, i) => (
+                <a className="prow" key={c.path} style={{ "--i": Math.min(i, 14) }} href={`src/challenge.html?path=${encodeURIComponent(c.path)}`}>
                   <div className="c-id mono">{c.id}</div>
                   <div className="c-title">
                     <span className="prow-title">{c.title}</span>

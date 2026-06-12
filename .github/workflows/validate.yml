@@ -35,6 +35,9 @@ jobs:
       - name: Regenerate website manifest
         run: node src/scripts/build-manifest.mjs
 
+      - name: Compile JSX sources to plain JS
+        run: node scripts/build-jsx.mjs
+
       - name: Fail if committed files drifted from the generators
         run: |
           # The manifest's "generated" field is a run-date stamp, not drift:
@@ -46,11 +49,11 @@ jobs:
           fi
           git checkout -- platforms/manifest.json
 
-          # Everything else (stats/, README STATS block, HTML ?v= hashes) must
-          # be byte-identical. `git add -A` also surfaces missing new files,
-          # e.g. the index of a platform that just got its first solution.
+          # Everything else (stats/, README STATS block, HTML ?v= hashes, compiled
+          # .js outputs) must be byte-identical. `git add -A` also surfaces missing
+          # new files, e.g. the index of a platform that just got its first solution.
           git add -A
           if ! git diff --cached --exit-code; then
-            echo "::error::Generated indexes are stale — run: python scripts/gen_indexes.py"
+            echo "::error::Generated files are stale — run: python scripts/gen_indexes.py && node scripts/build-jsx.mjs"
             exit 1
           fi

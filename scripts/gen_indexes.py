@@ -378,7 +378,7 @@ def update_readme(m: dict) -> bool:
 # --------------------------------------------------------------------------- #
 HTML_FILES = [REPO / "index.html", *sorted((REPO / "src").glob("*.html"))]
 ASSET_REF = re.compile(
-    r'(?P<attr>src|href)="(?P<path>src/[^"?]+\.(?:jsx?|css))(?:\?v=[^"]*)?"'
+    r'(?P<attr>src|href)="(?P<path>src/[^"?]+\.(?:js|css))(?:\?v=[^"]*)?"'
 )
 
 

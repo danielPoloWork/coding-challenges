@@ -1,11 +1,15 @@
 /* Coding Challenges — sections part 1 (React hooks + Icon come from ui.jsx) */
 
 /* ---------- count up ---------- */
-function CountUp({ end, dur = 1500, plus }) {
+/* `ready` gates the run: the hero passes it as "manifest loaded", so the
+   numbers count once over the real totals instead of counting the fallback
+   first and re-counting when the fetch lands. */
+function CountUp({ end, dur = 1500, plus, ready = true }) {
   const [v, setV] = useState(0);
   const ref = useRef(null);
   const done = useRef(false);
   useEffect(() => {
+    if (!ready) return;
     done.current = false;
     const el = ref.current;
     const run = () => {
@@ -32,7 +36,7 @@ function CountUp({ end, dur = 1500, plus }) {
     requestAnimationFrame(check);
     requestAnimationFrame(() => requestAnimationFrame(check));
     return cleanup;
-  }, [end, dur]);
+  }, [end, dur, ready]);
   return <span ref={ref} className="stat-num">{v.toLocaleString()}{plus && <small>+</small>}</span>;
 }
 
@@ -90,7 +94,7 @@ function Nav({ theme, onToggle }) {
 }
 
 /* ---------- HERO ---------- */
-function Hero({ totals }) {
+function Hero({ totals, live }) {
   const t = totals || {challenges: 0, platforms: 0, languages: 0, patterns: 0, topics: 0 };
   const items = [
     { n: t.challenges, label: "Challenges solved" },
@@ -126,7 +130,7 @@ function Hero({ totals }) {
           <div className="stats" data-fx>
             {items.map((s) => (
                 <div className="stat" key={s.label}>
-                  <CountUp end={s.n} plus={s.plus} />
+                  <CountUp end={s.n} plus={s.plus} ready={live} />
                   <div className="stat-label">{s.label}</div>
                   {s.sub && <div className="stat-sub mono">{s.sub}</div>}
                 </div>

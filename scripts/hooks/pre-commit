@@ -34,13 +34,16 @@ fi
 # HTML so browsers always fetch fresh JS/CSS after a deploy.
 git add -- stats README.md index.html src/*.html
 
-# Regenerate the website manifest (Node 18+). A missing Node interpreter is
-# non-fatal; a generator error blocks the commit so malformed metadata is seen.
+# Regenerate the website manifest and compile JSX → JS (Node 18+). A missing
+# Node interpreter is non-fatal; generator errors block the commit.
 if command -v node >/dev/null 2>&1; then
     node src/scripts/build-manifest.mjs
     git add -- platforms/manifest.json
+    node scripts/build-jsx.mjs
+    # Stage compiled JS (all .js siblings of .jsx sources)
+    git add -- src/assets/*.js src/tweaks-panel.js
 else
-    echo "pre-commit: no Node interpreter found; skipping manifest regeneration" >&2
+    echo "pre-commit: no Node interpreter found; skipping manifest + JSX compilation" >&2
 fi
 
 exit 0
