@@ -267,7 +267,7 @@ function Timeline({ challenges }) {
     <section className="section" id="timeline">
       <div className="wrap">
         <div className="section-head">
-          <span className="sec-no">08</span>
+          <span className="sec-no">09</span>
           <div>
             <span className="eyebrow">Learning timeline</span>
             <h2>The work, in order.</h2>
@@ -314,7 +314,7 @@ function SkillGaps({ home }) {
     <section className="section" id="gaps">
       <div className="wrap">
         <div className="section-head">
-          <span className="sec-no">09</span>
+          <span className="sec-no">10</span>
           <div>
             <span className="eyebrow">Skill-gap analysis</span>
             <h2>Where the practice is thin.</h2>
@@ -373,7 +373,7 @@ function Articles({ articles }) {
     <section className="section" id="writing">
       <div className="wrap">
         <div className="section-head">
-          <span className="sec-no">10</span>
+          <span className="sec-no">11</span>
           <div>
             <span className="eyebrow">Writing</span>
             <h2>Engineering notes from building this.</h2>
@@ -436,7 +436,7 @@ function Languages() {
     <section className="section">
       <div className="wrap">
         <div className="section-head" style={{ marginBottom: 28 }}>
-          <span className="sec-no">07</span>
+          <span className="sec-no">08</span>
           <div>
             <span className="eyebrow">Technology stack</span>
             <h2>No default language. Performance decides.</h2>
@@ -461,7 +461,7 @@ function Footer({ roadmap, totals }) {
       <section className="section">
         <div className="wrap">
           <div className="section-head">
-            <span className="sec-no">11</span>
+            <span className="sec-no">12</span>
             <div>
               <span className="eyebrow">Roadmap</span>
               <h2>From repository to learning system.</h2>

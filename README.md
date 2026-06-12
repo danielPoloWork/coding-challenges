@@ -221,7 +221,7 @@ A versioned pre-commit hook regenerates them on every commit (enable once with `
 
 ## Roadmap
 
-_Status mirrors the live site ([`src/assets/data.js`](src/assets/data.js)): Phases 1–4 are shipped; Phase 5 is planned (recommendations deliberately deferred)._
+_Status mirrors the live site ([`src/assets/data.js`](src/assets/data.js)): all five phases are shipped._
 
 ### Phase 1 — Knowledge Repository · shipped
 
@@ -248,12 +248,13 @@ _Status mirrors the live site ([`src/assets/data.js`](src/assets/data.js)): Phas
 * [x] Technical articles — `articles/*.md`, indexed by the manifest, rendered by the site ("Writing" section)
 * [x] Interview preparation resources — covered by the pattern/topic explorer: study-by-pattern and study-by-domain over every solved challenge
 
-### Phase 5 — Agentic Learning System · planned
+### Phase 5 — Agentic Learning System · shipped
 
 * [x] Automated solution classification
 * [x] Pattern extraction
 * [x] Skill gap analysis — home section derived live from the manifest: difficulty mix, untouched core domains, single-solve domains
-* [ ] Personalized learning recommendations — deferred: needs a catalogue of *unsolved* problems; the agent answers "what next?" on demand instead
+
+> Personalized learning recommendations were dropped from scope (not deferred): the repository stores solved work only, so by design there is no catalogue of unsolved problems to recommend from. "What next?" is the agent's job at solve time, with the skill-gap analysis as its input.
 
 ---
 

@@ -77,9 +77,9 @@ window.CC = (function () {
       { label: "Static site generation", done: true }, { label: "Searchable index", done: true }, { label: "Pattern explorer", done: true } ] },
     { n: "Phase 4", title: "Engineering Portfolio", done: true,  items: [
       { label: "Public showcase", done: true }, { label: "Learning timeline", done: true }, { label: "Technical articles", done: true } ] },
-    { n: "Phase 5", title: "Agentic Learning",      done: false, items: [
+    { n: "Phase 5", title: "Agentic Learning",      done: true,  items: [
       { label: "Solution classification", done: true }, { label: "Pattern extraction", done: true },
-      { label: "Skill-gap analysis", done: true }, { label: "Recommendations", done: false } ] },
+      { label: "Skill-gap analysis", done: true } ] },
   ];
 
   // sample solution proposals for the live preview (Two Sum)
