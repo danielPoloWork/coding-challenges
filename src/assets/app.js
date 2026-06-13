@@ -117,6 +117,8 @@ function App() {
     patterns: home ? home.patterns : CC.patterns
   }), /*#__PURE__*/React.createElement(Topics, {
     topics: home ? home.topics : []
+  }), /*#__PURE__*/React.createElement(Constellation, {
+    challenges: home ? home.challenges : null
   }), /*#__PURE__*/React.createElement(Languages, {
     languages: home ? home.languages : CC.languages
   }), /*#__PURE__*/React.createElement(Timeline, {

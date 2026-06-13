@@ -403,7 +403,7 @@ function Timeline({
     className: "section-head"
   }, /*#__PURE__*/React.createElement("span", {
     className: "sec-no"
-  }, "09"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+  }, "10"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
   }, "Learning timeline"), /*#__PURE__*/React.createElement("h2", null, "The work, in order."), /*#__PURE__*/React.createElement("p", null, "Every solution records the date it was solved \u2014 pick a window to see the solving cadence."))), /*#__PURE__*/React.createElement("div", {
     className: "tl reveal",
@@ -481,7 +481,7 @@ function SkillGaps({
     className: "section-head"
   }, /*#__PURE__*/React.createElement("span", {
     className: "sec-no"
-  }, "10"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+  }, "11"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
   }, "Skill-gap analysis"), /*#__PURE__*/React.createElement("h2", null, "Where the practice is thin."), /*#__PURE__*/React.createElement("p", null, "The same metadata that powers the explorer, read in reverse \u2014 what the catalogue does ", /*#__PURE__*/React.createElement("i", null, "not"), " cover yet, derived live from the manifest."))), /*#__PURE__*/React.createElement("div", {
     className: "gap reveal",
@@ -556,7 +556,7 @@ function Articles({
     className: "section-head"
   }, /*#__PURE__*/React.createElement("span", {
     className: "sec-no"
-  }, "11"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+  }, "12"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
   }, "Writing"), /*#__PURE__*/React.createElement("h2", null, "Engineering notes from building this."), /*#__PURE__*/React.createElement("p", null, "Technical articles grown out of the repository itself \u2014 postmortems, design decisions and the trade-offs behind them."))), /*#__PURE__*/React.createElement("div", {
     className: "grid-cards"
@@ -675,7 +675,7 @@ function Languages() {
     }
   }, /*#__PURE__*/React.createElement("span", {
     className: "sec-no"
-  }, "08"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+  }, "09"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
   }, "Technology stack"), /*#__PURE__*/React.createElement("h2", null, "No default language. Performance decides."))), /*#__PURE__*/React.createElement("div", {
     className: "lang-marquee"
@@ -705,7 +705,7 @@ function Footer({
     className: "section-head"
   }, /*#__PURE__*/React.createElement("span", {
     className: "sec-no"
-  }, "12"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
+  }, "13"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
   }, "Roadmap"), /*#__PURE__*/React.createElement("h2", null, "From repository to learning system."))), /*#__PURE__*/React.createElement("div", {
     className: "road"

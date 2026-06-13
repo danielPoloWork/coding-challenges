@@ -88,6 +88,7 @@ function App() {
         <SolutionPreview proposals={CC.proposals} />
         <Patterns patterns={home ? home.patterns : CC.patterns} />
         <Topics topics={home ? home.topics : []} />
+        <Constellation challenges={home ? home.challenges : null} />
         <Languages languages={home ? home.languages : CC.languages} />
         <Timeline challenges={home ? home.challenges : null} />
         <SkillGaps home={home} />
