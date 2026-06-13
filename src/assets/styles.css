@@ -979,11 +979,10 @@ section { position: relative; }
   font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--ink-2); border: 1px solid var(--hairline); border-radius: 999px; padding: 3px 10px;
 }
-.cxcard-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; }
+.cxcard-stats { display: flex; flex-direction: column; gap: 11px; }
 .cxstat { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .cxstat-l { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
 .cxstat-v { font-family: var(--mono); font-size: 13px; color: var(--clay); overflow-wrap: anywhere; }
-@media (max-width: 480px) { .cxcard-stats { grid-template-columns: 1fr; } }
 
 .cback {
   display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px;
