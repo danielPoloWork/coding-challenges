@@ -46,10 +46,12 @@ function Constellation({ challenges }) {
     const css = () => getComputedStyle(document.documentElement);
     const cvar = (name) => css().getPropertyValue(name).trim();
 
+    // the stage height is fixed by CSS (content-independent), so the canvas just
+    // fills it — the box never resizes when the inspector content changes.
     function size() {
       const dpr = Math.min(2, window.devicePixelRatio || 1);
       st.w = box.clientWidth;
-      st.h = Math.max(340, Math.min(520, Math.round(st.w * 0.56)));
+      st.h = box.clientHeight;
       canvas.width = st.w * dpr; canvas.height = st.h * dpr;
       canvas.style.height = st.h + "px";
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -190,8 +192,8 @@ function Constellation({ challenges }) {
 
     // reflow on resize: re-fit the box and let the layout re-settle briefly
     const ro = new ResizeObserver(() => {
-      const w = st.w; size();
-      if (Math.abs(st.w - w) > 4) { st.alpha = Math.max(st.alpha, 0.25); start(); }
+      const w = st.w, h = st.h; size();
+      if (Math.abs(st.w - w) > 4 || Math.abs(st.h - h) > 4) { st.alpha = Math.max(st.alpha, 0.25); start(); }
       else if (!st.raf) draw();
     });
     ro.observe(box);
