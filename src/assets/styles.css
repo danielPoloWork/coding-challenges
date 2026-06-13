@@ -963,10 +963,12 @@ section { position: relative; }
 .md hr { border: 0; border-top: 1px solid var(--hairline); margin: 28px 0; }
 
 /* complexity comparison table */
-/* Complexity comparison: one block per facet (Proposal / Time / Space / Goal),
-   label on top, the per-proposal value(s) below. Reads cleanly for a single
-   proposal and lists them inline when a challenge has 2–3. */
-.cxfacets { display: flex; flex-direction: column; gap: 10px; }
+/* Complexity comparison: per proposal, four facet blocks (Proposal / Time /
+   Space / Goal) with the label on top and the value below. The facet background
+   alternates between proposals so each proposal's group reads as a unit. */
+.cxfacets { display: flex; flex-direction: column; gap: 14px; }
+.cxproposal { display: flex; flex-direction: column; gap: 8px; }
+.cxproposal.alt .cxfacet { background: var(--surface-2); }
 .cxfacet { border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface); padding: 12px 15px; }
 .cxfacet-label {
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;

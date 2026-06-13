@@ -418,34 +418,26 @@ function ComplexityView({ complexity, variants }) {
           <div className="csection-label">comparison</div>
           {variants.length ? (
             <div className="cxfacets">
-              <div className="cxfacet">
-                <div className="cxfacet-label">Proposal</div>
-                <div className="cxfacet-val">
-                  {variants.map((pr) => (
-                    <span className="cxfacet-item nm" key={pr.file}>
-                      <span className="d" style={{ background: window.CCX.langColor(pr.language) }} />{pr.file}
-                    </span>
-                  ))}
+              {variants.map((pr, idx) => (
+                <div className={"cxproposal" + (idx % 2 ? " alt" : "")} key={pr.file}>
+                  <div className="cxfacet">
+                    <div className="cxfacet-label">Proposal</div>
+                    <div className="cxfacet-val"><span className="cxfacet-item nm"><span className="d" style={{ background: window.CCX.langColor(pr.language) }} />{pr.file}</span></div>
+                  </div>
+                  <div className="cxfacet">
+                    <div className="cxfacet-label">Time</div>
+                    <div className="cxfacet-val"><span className="cxfacet-item cx">{pr.timeComplexity || "—"}</span></div>
+                  </div>
+                  <div className="cxfacet">
+                    <div className="cxfacet-label">Space</div>
+                    <div className="cxfacet-val"><span className="cxfacet-item cx">{pr.spaceComplexity || "—"}</span></div>
+                  </div>
+                  <div className="cxfacet">
+                    <div className="cxfacet-label">Goal</div>
+                    <div className="cxfacet-val"><span className="cxfacet-item gl">{roleLabel(pr.role)}</span></div>
+                  </div>
                 </div>
-              </div>
-              <div className="cxfacet">
-                <div className="cxfacet-label">Time</div>
-                <div className="cxfacet-val">
-                  {variants.map((pr) => <span className="cxfacet-item cx" key={pr.file}>{pr.timeComplexity || "—"}</span>)}
-                </div>
-              </div>
-              <div className="cxfacet">
-                <div className="cxfacet-label">Space</div>
-                <div className="cxfacet-val">
-                  {variants.map((pr) => <span className="cxfacet-item cx" key={pr.file}>{pr.spaceComplexity || "—"}</span>)}
-                </div>
-              </div>
-              <div className="cxfacet">
-                <div className="cxfacet-label">Goal</div>
-                <div className="cxfacet-val">
-                  {variants.map((pr) => <span className="cxfacet-item gl" key={pr.file}>{roleLabel(pr.role)}</span>)}
-                </div>
-              </div>
+              ))}
             </div>
           ) : (
             <EmptyState compact kicker="no proposals" title="Nothing to compare." message="No solution files are listed for this challenge." />

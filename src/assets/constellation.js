@@ -336,7 +336,7 @@ function Constellation({
     className: "eyebrow"
   }, "Pattern map"), /*#__PURE__*/React.createElement("div", {
     className: "ins-stats"
-  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, challenges.length), /*#__PURE__*/React.createElement("span", null, "challenges")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, links), /*#__PURE__*/React.createElement("span", null, "pattern links"))), /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, challenges.length), /*#__PURE__*/React.createElement("span", null, "challenges")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, links), /*#__PURE__*/React.createElement("span", null, "shared-pattern links"))), /*#__PURE__*/React.createElement("div", {
     className: "ins-legend"
   }, ["Easy", "Medium", "Hard"].map(d => /*#__PURE__*/React.createElement("span", {
     key: d

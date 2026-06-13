@@ -233,7 +233,7 @@ function Constellation({ challenges }) {
                 <span className="eyebrow">Pattern map</span>
                 <div className="ins-stats">
                   <div><b>{challenges.length}</b><span>challenges</span></div>
-                  <div><b>{links}</b><span>pattern links</span></div>
+                  <div><b>{links}</b><span>shared-pattern links</span></div>
                 </div>
                 <div className="ins-legend">
                   {["Easy", "Medium", "Hard"].map((d) => (
