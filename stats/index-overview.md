@@ -8,7 +8,7 @@
 | Total source platforms | 2 (of 16 catalogued) |
 | Total languages used | 3 |
 | Total catalogued topics | 44 |
-| Total catalogued patterns | 136 |
+| Total catalogued patterns | 137 |
 
 _Topics are the broad algorithmic domains; patterns are the finer reusable techniques. Both counted distinct across all platforms and languages._
 
@@ -33,4 +33,4 @@ Algebra, Array, Backtracking, Binary Search, Binary Tree, Bipartite Matching, Bi
 
 ## Catalogued patterns
 
-136 distinct patterns — full list in [index-patterns.md](index-patterns.md).
+137 distinct patterns — full list in [index-patterns.md](index-patterns.md).

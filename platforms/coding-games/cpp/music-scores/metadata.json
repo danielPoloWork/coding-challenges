@@ -16,7 +16,8 @@
     "connected-component-filtering",
     "density-classification",
     "candidate-enumeration",
-    "non-maximum-suppression"
+    "non-maximum-suppression",
+    "shape-validation"
   ],
   "status": "solved",
   "dateSolved": "2026-06-13",
@@ -56,7 +57,7 @@
           "assessment": "Useful for correctness mirrors, but interpreter and VM overhead are unnecessary for the maximum 1.5 million-pixel bitmap and repeated flood-fill/projection work."
         }
       ],
-      "approachJustification": "Decode DWE into a bitmap, detect the five staff lines by horizontal projection and regular spacing, derive scale from the staff, mask staff rows, remove tiny connected components, group note columns, split unusually wide groups by localized note-head scoring on the staff grid, locate ordinary note heads by dense row projection, map each center to the staff pitch grid, and classify half versus quarter by inner head density.",
+      "approachJustification": "Decode DWE into a bitmap, detect the five staff lines by horizontal projection and regular spacing, derive scale from the staff, mask staff rows, remove tiny connected components, group note columns, split unusually wide groups by localized note-head scoring on the staff grid plus head-shape validation, locate ordinary note heads by dense row projection, map each center to the staff pitch grid, and classify half versus quarter by inner head density.",
       "timeComplexity": "O(W * H + C + S), where C is the bounded number of staff-line group combinations and S is the localized wide-group head scan work with H < 300",
       "spaceComplexity": "O(W * H)"
     }

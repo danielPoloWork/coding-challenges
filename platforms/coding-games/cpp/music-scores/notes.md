@@ -107,8 +107,9 @@ possible note heads directly on every staff-grid pitch and keeps local maxima.
 7. For a normal-width group, find the dense row band corresponding to the note
    head, merging across small gaps caused by removed staff lines.
 8. For a wide group, scan ellipse-shaped note-head windows over all possible
-   staff-grid pitches, then keep non-overlapping local maxima so close diagonal
-   notes are split correctly.
+   staff-grid pitches, reject in-between maxima that do not have either filled
+   center support or balanced hollow-head annular support, then keep
+   non-overlapping local maxima so close diagonal notes are split correctly.
 9. Convert each head center to a pitch by rounding against the staff grid.
 10. Sample the inner head density: high density means `Q`, low density means `H`.
 11. Sort by head center and print the recognized notes.
@@ -132,6 +133,8 @@ rows, filter noise, and sample the note-head interior accurately.
 - Remove tiny components before column grouping to avoid noise-driven branches.
 - Split only wide column groups with a localized grid scan, keeping the common
   path as simple projections.
+- Validate wide-group split candidates by head shape so neighboring hollow
+  notes do not create a false note between them.
 - Keep flood-fill storage as one reusable vector of pixel indices.
 - Avoid per-pixel objects, strings, maps, or dynamic polymorphism.
 - Perform only a handful of `O(W * H)` passes over a very small image.
@@ -144,6 +147,8 @@ rows, filter noise, and sample the note-head interior accurately.
   removed line rows.
 - Very close diagonal note heads are handled by the wide-group splitter instead
   of being collapsed into one large note.
+- Adjacent hollow notes can create a tempting maximum between their rings; the
+  splitter rejects it unless all four head quadrants have enough support.
 - The first `C` below the staff works because its ledger line is not one of the
   five masked staff lines and its center lies exactly on the same half-step grid.
 - Hollow notes crossed by staff or ledger lines remain hollow because density is
@@ -170,6 +175,10 @@ types, stem direction, ledger lines, and light salt noise. The mirror compared
 the detector output with the generated ground truth. The public `Doctor Who
 theme` image (`in11.png`) was also used to reproduce the reported failure; after
 adding the wide-group splitter, the mirror produced the expected 84-note output.
+The public `Random` image (`in12.png`) reproduced the later hidden-middle
+failure, where two adjacent hollow heads created a false in-between `DH`; after
+adding head-shape validation, the mirror produced the 90-note sequence with the
+middle segment corrected to `... DQ DQ CH EH CH ...`.
 The temporary script and downloaded debug images were removed after verification.
 
 ## See Also

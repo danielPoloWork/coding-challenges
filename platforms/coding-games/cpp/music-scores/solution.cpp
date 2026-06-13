@@ -320,6 +320,55 @@ int main() {
         return Note{static_cast<double>(centerX), pitches[pitchIndex], kind};
     };
 
+    auto validSplitCandidate = [&](int centerX, int pitchStepIndex, int left, int right) {
+        const double centerY = firstC - pitchStepIndex * staffStep;
+        const double radiusX = interline * 0.52;
+        const double radiusY = interline * 0.43;
+        int centerPixels = 0;
+        int centerBlack = 0;
+        int quadrantPixels[4] = {0, 0, 0, 0};
+        int quadrantBlack[4] = {0, 0, 0, 0};
+
+        const int top = max(0, static_cast<int>(floor(centerY - radiusY * 1.25)));
+        const int bottom = min(h - 1, static_cast<int>(ceil(centerY + radiusY * 1.25)));
+        const int scanLeft = max(left, static_cast<int>(floor(centerX - radiusX * 1.25)));
+        const int scanRight = min(right, static_cast<int>(ceil(centerX + radiusX * 1.25)));
+        for (int yy = top; yy <= bottom; ++yy) {
+            const double ny = (yy - centerY) / radiusY;
+            for (int xx = scanLeft; xx <= scanRight; ++xx) {
+                const double nx = (xx - centerX) / radiusX;
+                const double r2 = nx * nx + ny * ny;
+                if (r2 <= 0.22) {
+                    ++centerPixels;
+                    centerBlack += clean[yy * w + xx];
+                } else if (r2 >= 0.45 && r2 <= 1.35) {
+                    const int quadrant = (ny < 0.0 ? 0 : 2) + (nx >= 0.0 ? 1 : 0);
+                    ++quadrantPixels[quadrant];
+                    quadrantBlack[quadrant] += clean[yy * w + xx];
+                }
+            }
+        }
+
+        const double centerDensity = centerPixels == 0
+            ? 0.0
+            : static_cast<double>(centerBlack) / centerPixels;
+        if (centerDensity > 0.45) {
+            return true;
+        }
+
+        for (int quadrant = 0; quadrant < 4; ++quadrant) {
+            if (quadrantPixels[quadrant] == 0) {
+                return false;
+            }
+            const double support = static_cast<double>(quadrantBlack[quadrant]) /
+                                   quadrantPixels[quadrant];
+            if (support < 0.30) {
+                return false;
+            }
+        }
+        return true;
+    };
+
     auto splitWideGroup = [&](int left, int right) {
         vector<SplitCandidate> raw;
         const int minStep = static_cast<int>(floor((firstC - (h - 1)) / staffStep)) - 1;
@@ -347,7 +396,10 @@ int main() {
                     bestLocal = max(bestLocal, scores[other]);
                 }
                 if (score == bestLocal) {
-                    raw.push_back({score, left + offset, stepIndex});
+                    const int centerX = left + offset;
+                    if (validSplitCandidate(centerX, stepIndex, left, right)) {
+                        raw.push_back({score, centerX, stepIndex});
+                    }
                 }
             }
         }

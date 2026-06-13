@@ -141,7 +141,8 @@
         "connected-component-filtering",
         "density-classification",
         "candidate-enumeration",
-        "non-maximum-suppression"
+        "non-maximum-suppression",
+        "shape-validation"
       ],
       "path": "platforms/coding-games/cpp/music-scores",
       "recommendedSolution": "solution.cpp",
