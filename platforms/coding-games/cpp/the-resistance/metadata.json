@@ -1,0 +1,130 @@
+{
+  "id": "the-resistance",
+  "title": "The Resistance",
+  "slug": "the-resistance",
+  "platform": "coding-games",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/coding-games/cpp/the-resistance",
+  "url": "https://www.codingame.com/ide/puzzle/the-resistance",
+  "difficulty": "Hard",
+  "topics": ["String", "Dynamic Programming", "Trie", "Hash Table", "Encoding"],
+  "patterns": ["word-break-dp", "packed-binary-key", "trie-dp", "hashing"],
+  "status": "solved",
+  "dateSolved": "2026-06-13",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/coding-games/cpp/the-resistance/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "The C++ folder contains three non-coincident proposals: packed hash DP, trie DP, and sorted-vector DP.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ packs each Morse encoding into two uint64_t values plus a length, keeps DP counts in native signed 64-bit integers, and performs millions of short hash lookups without substring allocation or managed-runtime overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It gives exact packed keys, low-overhead unordered_map probes, compact vectors, and straightforward CodinGame I/O."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for raw loops, but implementing a robust custom hash table would increase risk without improving the O(L * 80) DP profile."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native speed and safety, but custom packed-key hashing and tight scanner loops are less ergonomic on CodinGame and do not improve the constant factors here."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled performance, but map/runtime overhead, bounds checks, and garbage collection are less attractive than C++ primitive storage."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed runtimes can solve the puzzle, but VM startup and object/header overhead are weaker for a large dictionary plus millions of lookups."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Useful for correctness mirrors, but interpreter/VM overhead is too high for the largest 100000-by-80 dynamic-programming scans."
+        }
+      ],
+      "approachJustification": "Translate every dictionary word to Morse, pack dot/dash bits exactly, count duplicate encodings in a hash table, then run forward word-break DP from each reachable position while extending at most 80 Morse symbols.",
+      "timeComplexity": "O(N * M + L * B), B <= 80, with expected O(1) dictionary probes",
+      "spaceComplexity": "O(U + L), where U is the number of distinct Morse encodings"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "C++ stores trie nodes as contiguous structs with two int children and one terminal multiplicity, making each DP extension a direct indexed load rather than a hash-table probe.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It combines native branch-light trie traversal with automatic vector reservation and compact integer fields."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for minimal abstraction overhead, but manual dynamic node arrays do not materially improve over C++ vectors for this binary trie."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native speed, but mutable trie construction and indexing add ceremony without a runtime advantage."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops, but slice/runtime overhead and bounds checks are less attractive in the trie hot path."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "JIT performance is competitive, but array/object layout and startup behavior are weaker than fixed native structs for raw CodinGame speed."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Rejected for the speed objective because trie transitions and DP updates run millions of times."
+        }
+      ],
+      "approachJustification": "Insert every encoded word into a binary trie and store duplicate-word counts at terminal nodes. The DP walks trie edges from each reachable Morse position and stops immediately when the current prefix disappears.",
+      "timeComplexity": "O(N * M + L * B), B <= 80, usually with fewer operations due to early trie breaks",
+      "spaceComplexity": "O(T + L), where T is the number of trie nodes and T <= total encoded dictionary length + 1"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "C++ represents all dictionary encodings in one flat sorted vector of primitive fields, avoiding hash buckets, trie prefixes, and per-object managed-runtime overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It keeps a compact contiguous array and uses standard sort plus manual binary search with negligible metadata overhead."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered, but it would reproduce the same flat array manually while saving only constant metadata and increasing implementation risk."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for compact vectors, but it does not reduce memory below the C++ primitive-entry layout."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered, but runtime overhead and less predictable struct packing are weaker for the memory objective."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays can be compact, but object-free grouped key handling is less natural and VM overhead remains."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Rejected because per-object/per-string overhead dominates the dictionary memory budget."
+        }
+      ],
+      "approachJustification": "Store packed Morse keys in a single vector, sort and merge equal encodings, index ranges by encoded length, then run the same DP using binary search inside the relevant length range.",
+      "timeComplexity": "O(N log N + N * M + L * B * log U), B <= 80",
+      "spaceComplexity": "O(U + L) with lower constants than hash or trie storage"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The puzzle is word-break counting over a dot/dash string. Since a dictionary word encodes to at most 80 Morse symbols, dynamic programming over stream positions with incremental dictionary matching gives linear-in-L behavior with a small fixed factor.",
+  "timeComplexity": "Recommended and runtime: O(N * M + L * B), memory variant: O(N log N + N * M + L * B * log U), B <= 80",
+  "spaceComplexity": "Recommended: O(U + L), runtime: O(T + L), memory: O(U + L) with smaller constants"
+}
