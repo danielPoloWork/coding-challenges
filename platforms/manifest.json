@@ -119,6 +119,38 @@
   "challenges": [
     {
       "id": "1",
+      "title": "Music Scores",
+      "slug": "music-scores",
+      "platform": "coding-games",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Hard",
+      "topics": [
+        "Image Processing",
+        "Pattern Recognition",
+        "Encoding",
+        "Geometry"
+      ],
+      "patterns": [
+        "run-length-decoding",
+        "horizontal-projection",
+        "staff-line-normalization",
+        "connected-component-filtering",
+        "density-classification",
+        "candidate-enumeration",
+        "non-maximum-suppression"
+      ],
+      "path": "platforms/coding-games/cpp/music-scores",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-13",
+      "timeComplexity": "O(W * H + C + S), dominated by linear image passes and localized wide-group scans",
+      "spaceComplexity": "O(W * H)"
+    },
+    {
+      "id": "2",
       "title": "Nintendo Sponsored Contest",
       "slug": "nintendo-sponsored-contest",
       "platform": "coding-games",
@@ -148,7 +180,7 @@
       "spaceComplexity": "O(d^2) bits"
     },
     {
-      "id": "2",
+      "id": "3",
       "title": "Shadows of the Knight - Episode 2",
       "slug": "shadows-of-the-knight-episode-2",
       "platform": "coding-games",
@@ -179,7 +211,7 @@
       "spaceComplexity": "O(V + C + K)"
     },
     {
-      "id": "3",
+      "id": "4",
       "title": "The Fall - Episode 3",
       "slug": "the-fall-episode-3",
       "platform": "coding-games",
@@ -211,7 +243,7 @@
       "spaceComplexity": "O(B * (C + R) + C)"
     },
     {
-      "id": "4",
+      "id": "5",
       "title": "The Resistance",
       "slug": "the-resistance",
       "platform": "coding-games",

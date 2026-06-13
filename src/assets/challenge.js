@@ -607,46 +607,34 @@ function ComplexityView({
   }, "comparison"), variants.length ? /*#__PURE__*/React.createElement("div", {
     className: "cxfacets"
   }, variants.map((pr, idx) => /*#__PURE__*/React.createElement("div", {
-    className: "cxproposal" + (idx % 2 ? " alt" : ""),
+    className: "cxcard" + (idx % 2 ? " alt" : ""),
     key: pr.file
   }, /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet-label"
-  }, "Proposal"), /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet-val"
+    className: "cxcard-head"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "cxfacet-item nm"
+    className: "cxcard-name"
   }, /*#__PURE__*/React.createElement("span", {
     className: "d",
     style: {
       background: window.CCX.langColor(pr.language)
     }
-  }), pr.file))), /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet"
+  }), pr.file), /*#__PURE__*/React.createElement("span", {
+    className: "cxcard-goal"
+  }, roleLabel(pr.role))), /*#__PURE__*/React.createElement("div", {
+    className: "cxcard-stats"
   }, /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet-label"
-  }, "Time"), /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet-val"
+    className: "cxstat"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "cxfacet-item cx"
-  }, pr.timeComplexity || "—"))), /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet-label"
-  }, "Space"), /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet-val"
+    className: "cxstat-l"
+  }, "Time"), /*#__PURE__*/React.createElement("span", {
+    className: "cxstat-v"
+  }, pr.timeComplexity || "—")), /*#__PURE__*/React.createElement("div", {
+    className: "cxstat"
   }, /*#__PURE__*/React.createElement("span", {
-    className: "cxfacet-item cx"
-  }, pr.spaceComplexity || "—"))), /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet"
-  }, /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet-label"
-  }, "Goal"), /*#__PURE__*/React.createElement("div", {
-    className: "cxfacet-val"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "cxfacet-item gl"
-  }, roleLabel(pr.role))))))) : /*#__PURE__*/React.createElement(EmptyState, {
+    className: "cxstat-l"
+  }, "Space"), /*#__PURE__*/React.createElement("span", {
+    className: "cxstat-v"
+  }, pr.spaceComplexity || "—")))))) : /*#__PURE__*/React.createElement(EmptyState, {
     compact: true,
     kicker: "no proposals",
     title: "Nothing to compare.",

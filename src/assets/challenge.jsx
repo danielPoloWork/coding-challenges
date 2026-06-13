@@ -433,22 +433,14 @@ function ComplexityView({ complexity, variants }) {
           {variants.length ? (
             <div className="cxfacets">
               {variants.map((pr, idx) => (
-                <div className={"cxproposal" + (idx % 2 ? " alt" : "")} key={pr.file}>
-                  <div className="cxfacet">
-                    <div className="cxfacet-label">Proposal</div>
-                    <div className="cxfacet-val"><span className="cxfacet-item nm"><span className="d" style={{ background: window.CCX.langColor(pr.language) }} />{pr.file}</span></div>
+                <div className={"cxcard" + (idx % 2 ? " alt" : "")} key={pr.file}>
+                  <div className="cxcard-head">
+                    <span className="cxcard-name"><span className="d" style={{ background: window.CCX.langColor(pr.language) }} />{pr.file}</span>
+                    <span className="cxcard-goal">{roleLabel(pr.role)}</span>
                   </div>
-                  <div className="cxfacet">
-                    <div className="cxfacet-label">Time</div>
-                    <div className="cxfacet-val"><span className="cxfacet-item cx">{pr.timeComplexity || "—"}</span></div>
-                  </div>
-                  <div className="cxfacet">
-                    <div className="cxfacet-label">Space</div>
-                    <div className="cxfacet-val"><span className="cxfacet-item cx">{pr.spaceComplexity || "—"}</span></div>
-                  </div>
-                  <div className="cxfacet">
-                    <div className="cxfacet-label">Goal</div>
-                    <div className="cxfacet-val"><span className="cxfacet-item gl">{roleLabel(pr.role)}</span></div>
+                  <div className="cxcard-stats">
+                    <div className="cxstat"><span className="cxstat-l">Time</span><span className="cxstat-v">{pr.timeComplexity || "—"}</span></div>
+                    <div className="cxstat"><span className="cxstat-l">Space</span><span className="cxstat-v">{pr.spaceComplexity || "—"}</span></div>
                   </div>
                 </div>
               ))}

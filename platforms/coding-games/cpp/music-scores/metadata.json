@@ -1,0 +1,68 @@
+{
+  "id": "music-scores",
+  "title": "Music Scores",
+  "slug": "music-scores",
+  "platform": "coding-games",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/coding-games/cpp/music-scores",
+  "url": "https://www.codingame.com/ide/puzzle/music-scores",
+  "difficulty": "Hard",
+  "topics": ["Image Processing", "Pattern Recognition", "Encoding", "Geometry"],
+  "patterns": [
+    "run-length-decoding",
+    "horizontal-projection",
+    "staff-line-normalization",
+    "connected-component-filtering",
+    "density-classification",
+    "candidate-enumeration",
+    "non-maximum-suppression"
+  ],
+  "status": "solved",
+  "dateSolved": "2026-06-13",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/coding-games/cpp/music-scores/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "The C++ proposal is simultaneously the recommended, runtime-focused, and memory-conscious solution. No separate coincident solution-runtime.cpp or solution-memory.cpp files are emitted.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ keeps the decoded image and recognition masks in compact contiguous byte vectors, performs a small fixed number of linear image scans, and avoids managed-runtime overhead in the flood-fill and projection hot paths.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It provides native-speed pixel scans, compact vectors, reusable component storage, deterministic memory use, and straightforward CodinGame I/O."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for minimal overhead, but manual queues and dynamic buffers would add implementation risk without reducing the O(W * H) image-processing bound."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native speed and safety, but the borrow/indexing ceremony is heavier for this scan-heavy recognition pipeline and does not improve constants over C++ vectors."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops, but bounds checks, slice/runtime overhead, and garbage collection are weaker for top-percentile repeated pixel passes."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed runtimes can solve the puzzle, but VM startup, array/object overhead, and GC behavior are less attractive than native contiguous storage for image scans."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Useful for correctness mirrors, but interpreter and VM overhead are unnecessary for the maximum 1.5 million-pixel bitmap and repeated flood-fill/projection work."
+        }
+      ],
+      "approachJustification": "Decode DWE into a bitmap, detect the five staff lines by horizontal projection and regular spacing, derive scale from the staff, mask staff rows, remove tiny connected components, group note columns, split unusually wide groups by localized note-head scoring on the staff grid, locate ordinary note heads by dense row projection, map each center to the staff pitch grid, and classify half versus quarter by inner head density.",
+      "timeComplexity": "O(W * H + C + S), where C is the bounded number of staff-line group combinations and S is the localized wide-group head scan work with H < 300",
+      "spaceComplexity": "O(W * H)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The staff is the dominant horizontal structure and gives all scale information. Once the staff rows are masked, most notes become isolated column groups; very close diagonal groups are split by local head scoring. Head centers determine pitch on the half-interline grid, and central density distinguishes hollow half notes from filled quarter notes.",
+  "timeComplexity": "O(W * H + C + S), dominated by linear image passes and localized wide-group scans",
+  "spaceComplexity": "O(W * H)"
+}
