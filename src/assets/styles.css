@@ -984,6 +984,24 @@ section { position: relative; }
 .cxstat-l { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); }
 .cxstat-v { font-family: var(--mono); font-size: 13px; color: var(--clay); overflow-wrap: anywhere; }
 
+/* Project-repo card: project-style challenges link out to GitHub instead of
+   inlining code. Shown in the Solution tab when metadata.json has a `repo`. */
+.proj-card {
+  display: flex; align-items: center; gap: 16px;
+  padding: 18px 20px; border: 1px solid var(--hairline); border-radius: var(--r-md);
+  background: var(--surface); color: var(--ink);
+  transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.proj-card:hover { border-color: var(--clay); background: var(--surface-2); }
+.proj-icon { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 10px; background: var(--paper-2); color: var(--ink); }
+.proj-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.proj-kicker { font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); }
+.proj-title { font-family: var(--serif); font-size: 18px; }
+.proj-desc { font-size: 13.5px; color: var(--ink-2); line-height: 1.5; }
+.proj-url { font-size: 12px; color: var(--clay); overflow-wrap: anywhere; margin-top: 2px; }
+.proj-arrow { flex: none; color: var(--ink-3); transition: transform 0.2s var(--ease), color 0.2s var(--ease); }
+.proj-card:hover .proj-arrow { color: var(--clay); transform: translateX(3px); }
+
 .cback {
   display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 13px;
   color: var(--ink-2); padding: 7px 13px; border: 1px solid var(--hairline); border-radius: 999px;

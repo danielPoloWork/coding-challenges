@@ -238,6 +238,7 @@ Metadata in each language folder should identify:
 - `challengeRecommended`: path to the challenge's overall recommended solution (may be in another language folder)
 - `crossReferences`: the sibling proposals in other language folders (role, language, path, file)
 - Solution reasoning summary and completion status
+- `repo` (optional): for **project-style challenges** (a full multi-file project rather than a single solution file), a GitHub repository — a URL string, or `{ "url": "...", "title"?: "...", "description"?: "..." }`. The challenge viewer then shows a link card to the repo instead of inlining the code. The folder still needs `metadata.json` (for topics/patterns/difficulty) and may omit `variants[]`; if `variants[]` is also present, both the repo card and the code are shown.
 
 ## Didactic Re-implementations
 

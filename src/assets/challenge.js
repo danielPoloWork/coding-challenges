@@ -428,16 +428,56 @@ function ViewTabs({
     className: "cview-n"
   }, vw.n))));
 }
+
+/* Project-style challenges (a full repo, not a single file) link out to GitHub
+   instead of inlining the code. Driven by metadata.json `repo` — a URL string
+   or { url, title?, description? }. */
+function ProjectCard({
+  repo
+}) {
+  const host = String(repo.url).replace(/^https?:\/\//, "").replace(/\/$/, "");
+  return /*#__PURE__*/React.createElement("a", {
+    className: "proj-card",
+    href: repo.url,
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "proj-icon"
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "github",
+    size: 22
+  })), /*#__PURE__*/React.createElement("span", {
+    className: "proj-body"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "proj-kicker mono"
+  }, "Project repository"), /*#__PURE__*/React.createElement("span", {
+    className: "proj-title"
+  }, repo.title || "View the full project on GitHub"), repo.description && /*#__PURE__*/React.createElement("span", {
+    className: "proj-desc"
+  }, repo.description), /*#__PURE__*/React.createElement("span", {
+    className: "proj-url mono"
+  }, host)), /*#__PURE__*/React.createElement("span", {
+    className: "proj-arrow"
+  }, /*#__PURE__*/React.createElement(Icon, {
+    name: "arrow",
+    size: 16
+  })));
+}
 function SolutionView({
   meta,
   variants,
   active,
   setActive
 }) {
+  const repo = meta.repo ? typeof meta.repo === "string" ? {
+    url: meta.repo
+  } : meta.repo : null;
   if (!variants.length) {
     return /*#__PURE__*/React.createElement("div", {
       className: "cview-panel"
-    }, /*#__PURE__*/React.createElement(EmptyState, {
+    }, repo ? /*#__PURE__*/React.createElement(ProjectCard, {
+      repo: repo
+    }) : /*#__PURE__*/React.createElement(EmptyState, {
       kicker: "no solution files",
       title: "No solutions in the repository yet.",
       message: /*#__PURE__*/React.createElement(React.Fragment, null, "This challenge\u2019s ", /*#__PURE__*/React.createElement("code", {
@@ -448,7 +488,9 @@ function SolutionView({
   const v = variants[active] || variants[0] || {};
   return /*#__PURE__*/React.createElement("div", {
     className: "cview-panel"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, repo && /*#__PURE__*/React.createElement(ProjectCard, {
+    repo: repo
+  }), /*#__PURE__*/React.createElement("div", {
     className: "sol cviewer code-full"
   }, /*#__PURE__*/React.createElement("div", {
     className: "sol-head"
@@ -848,7 +890,7 @@ function ChallengeBody({
   const views = [{
     id: "solution",
     label: "Solution",
-    n: variants.length
+    n: variants.length || null
   }, {
     id: "notes",
     label: "Notes"

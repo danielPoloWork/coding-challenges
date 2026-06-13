@@ -284,21 +284,44 @@ function ViewTabs({ views, view, setView }) {
   );
 }
 
+/* Project-style challenges (a full repo, not a single file) link out to GitHub
+   instead of inlining the code. Driven by metadata.json `repo` — a URL string
+   or { url, title?, description? }. */
+function ProjectCard({ repo }) {
+  const host = String(repo.url).replace(/^https?:\/\//, "").replace(/\/$/, "");
+  return (
+    <a className="proj-card" href={repo.url} target="_blank" rel="noopener noreferrer">
+      <span className="proj-icon"><Icon name="github" size={22} /></span>
+      <span className="proj-body">
+        <span className="proj-kicker mono">Project repository</span>
+        <span className="proj-title">{repo.title || "View the full project on GitHub"}</span>
+        {repo.description && <span className="proj-desc">{repo.description}</span>}
+        <span className="proj-url mono">{host}</span>
+      </span>
+      <span className="proj-arrow"><Icon name="arrow" size={16} /></span>
+    </a>
+  );
+}
+
 function SolutionView({ meta, variants, active, setActive }) {
+  const repo = meta.repo ? (typeof meta.repo === "string" ? { url: meta.repo } : meta.repo) : null;
   if (!variants.length) {
     return (
       <div className="cview-panel">
-        <EmptyState
-          kicker="no solution files"
-          title="No solutions in the repository yet."
-          message={<>This challenge&rsquo;s <code className="mono">metadata.json</code> declares no proposals. Add the solution sources and regenerate the manifest — they&rsquo;ll appear here automatically.</>}
-        />
+        {repo ? <ProjectCard repo={repo} /> : (
+          <EmptyState
+            kicker="no solution files"
+            title="No solutions in the repository yet."
+            message={<>This challenge&rsquo;s <code className="mono">metadata.json</code> declares no proposals. Add the solution sources and regenerate the manifest — they&rsquo;ll appear here automatically.</>}
+          />
+        )}
       </div>
     );
   }
   const v = variants[active] || variants[0] || {};
   return (
     <div className="cview-panel">
+      {repo && <ProjectCard repo={repo} />}
       <div className="sol cviewer code-full">
         <div className="sol-head">
           <div className="sol-dots"><i /><i /><i /></div>
@@ -621,7 +644,7 @@ function ChallengeBody({ meta, notes, complexity, variants, active, setActive, t
 
   const hasReasoning = !!(meta.reasoningSummary || (meta.crossReferences && meta.crossReferences.length) || (meta.patterns && meta.patterns.length));
   const views = [
-    { id: "solution", label: "Solution", n: variants.length },
+    { id: "solution", label: "Solution", n: variants.length || null },
     { id: "notes", label: "Notes" },
     { id: "complexity", label: "Complexity" },
   ];
