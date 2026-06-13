@@ -1,0 +1,61 @@
+{
+  "id": "3838",
+  "title": "Weighted Word Mapping",
+  "slug": "weighted-word-mapping",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3838-weighted-word-mapping",
+  "url": "https://leetcode.com/problems/weighted-word-mapping/",
+  "difficulty": "Easy",
+  "topics": ["Array", "String", "Math"],
+  "patterns": ["direct-addressing", "modular-arithmetic", "output-buffer"],
+  "status": "solved",
+  "dateSolved": "2026-06-13",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3838-weighted-word-mapping/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The algorithm is a lower-bound linear scan over at most 1000 lowercase characters, using direct 26-entry table lookups and a pre-sized output string. C++ matches LeetCode's vector<string>/vector<int> signature, avoids interpreter and managed-runtime overhead, and keeps auxiliary memory constant.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Native character loops, direct vector/string access, one output allocation, and compact scalar state make it the strongest runtime and memory fit for this weighted scan."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for native execution and manual memory control, but LeetCode's C API would add result allocation and string-array pointer boilerplate without reducing auxiliary memory below the C++ version."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and safety, but bounds-checking details and platform wrapper overhead do not improve a fixed 26-entry lookup over tiny strings."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops and straightforward slices, but runtime metadata and bounds checks are weaker constant factors than C++ for this direct micro-loop."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered because managed runtimes handle string scans well, but object/runtime overhead and string-builder-style output are unnecessary for 100 words of length at most 10."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered because the constraints are small enough for acceptance, but interpreter/VM overhead per character is not ideal for the top 1% execution-time target."
+        }
+      ],
+      "approachJustification": "For each word, sum weights[c - 'a'], reduce the sum modulo 26, and store 'z' - residue in a pre-sized result string. This is both the fastest and leanest exact approach because every input character may affect the output.",
+      "timeComplexity": "O(T)",
+      "spaceComplexity": "O(1) auxiliary"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Each word is independent, lowercase letters form a dense 26-entry address space, and reverse-alphabet mapping is the arithmetic expression 'z' - (sum % 26). The solution scans every character once, performs one modulo per word, and writes directly into the final output string.",
+  "timeComplexity": "O(T)",
+  "spaceComplexity": "O(1) auxiliary"
+}

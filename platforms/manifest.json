@@ -1114,6 +1114,33 @@
       "spaceComplexity": "O(1) extra"
     },
     {
+      "id": "3838",
+      "title": "Weighted Word Mapping",
+      "slug": "weighted-word-mapping",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "String",
+        "Math"
+      ],
+      "patterns": [
+        "direct-addressing",
+        "modular-arithmetic",
+        "output-buffer"
+      ],
+      "path": "platforms/leetcode/cpp/3838-weighted-word-mapping",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-13",
+      "timeComplexity": "O(T)",
+      "spaceComplexity": "O(1) auxiliary"
+    },
+    {
       "id": "3854",
       "title": "Minimum Operations to Make Array Parity Alternating",
       "slug": "minimum-operations-to-make-array-parity-alternating",
