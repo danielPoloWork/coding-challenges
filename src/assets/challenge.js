@@ -219,6 +219,17 @@ function ChallengePage() {
   const [bundles, setBundles] = useState({}); // path -> bundle | { error }
   const [error, setError] = useState(null);
   const [active, setActive] = useState(0);
+  const [manifest, setManifest] = useState(null); // resolves the display index for slug-id platforms
+
+  useEffect(() => {
+    let alive = true;
+    window.CCX.loadManifest().then(m => {
+      if (alive) setManifest(m);
+    }).catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   // discover the challenge's languages from the entry folder, then prefetch the
   // siblings so switching language is instant
@@ -276,6 +287,11 @@ function ChallengePage() {
     }
   };
   const bundle = sel ? bundles[sel] : null;
+
+  // The badge "index": numeric ids show as-is; slug ids (e.g. CodinGame) resolve
+  // to the per-platform incremental index assigned in the manifest, never the slug.
+  const m0 = bundle && bundle.meta;
+  const displayId = !m0 ? null : /^\d+$/.test(String(m0.id)) ? String(m0.id) : manifest && (manifest.challenges.find(c => c.platform === m0.platform && c.slug === m0.slug) || {}).id || String(m0.id);
 
   // keep the tab/bookmark/history title in sync with the loaded challenge
   useEffect(() => {
@@ -358,7 +374,8 @@ function ChallengePage() {
     setActive: setActive,
     langs: langs,
     sel: sel,
-    onSelectLang: selectLang
+    onSelectLang: selectLang,
+    displayId: displayId
   })))));
 }
 
@@ -439,7 +456,7 @@ function SolutionView({
     className: "sol-dots"
   }, /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("i", null), /*#__PURE__*/React.createElement("i", null)), /*#__PURE__*/React.createElement("span", {
     className: "sol-path"
-  }, "\u2026/", meta.id, "-", meta.slug, "/", /*#__PURE__*/React.createElement("b", null, v.file)), /*#__PURE__*/React.createElement("span", {
+  }, "\u2026/", (meta.platformPath || `${meta.id}-${meta.slug}`).split("/").pop(), "/", /*#__PURE__*/React.createElement("b", null, v.file)), /*#__PURE__*/React.createElement("span", {
     className: "sol-badge"
   }, roleLabel(v.role))), /*#__PURE__*/React.createElement("div", {
     className: "sol-tabs",
@@ -833,9 +850,11 @@ function ChallengeBody({
   theme,
   langs,
   sel,
-  onSelectLang
+  onSelectLang,
+  displayId
 }) {
   const diff = meta.difficulty || "—";
+  const folder = (meta.platformPath || `${meta.id}-${meta.slug}`).split("/").pop();
   const [view, setView] = useState("solution");
   const hasReasoning = !!(meta.reasoningSummary || meta.crossReferences && meta.crossReferences.length || meta.patterns && meta.patterns.length);
   const views = [{
@@ -867,11 +886,11 @@ function ChallengeBody({
     href: `src/platform.html?platform=${meta.platform}`
   }, meta.platform), /*#__PURE__*/React.createElement("span", {
     className: "sep"
-  }, "/"), /*#__PURE__*/React.createElement("b", null, meta.id, "-", meta.slug)), /*#__PURE__*/React.createElement("div", {
+  }, "/"), /*#__PURE__*/React.createElement("b", null, folder)), /*#__PURE__*/React.createElement("div", {
     className: "chead"
   }, /*#__PURE__*/React.createElement("span", {
     className: "cid-pill"
-  }, "#", meta.id), /*#__PURE__*/React.createElement("h1", null, meta.title), /*#__PURE__*/React.createElement("div", {
+  }, "#", displayId || meta.id), /*#__PURE__*/React.createElement("h1", null, meta.title), /*#__PURE__*/React.createElement("div", {
     className: "cmeta"
   }, /*#__PURE__*/React.createElement("span", {
     className: "chip solid",

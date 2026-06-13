@@ -38,6 +38,6 @@
 
 | ID | Title | Difficulty | Languages |
 | --- | --- | --- | --- |
-| nintendo-sponsored-contest | Nintendo Sponsored Contest | Hard | [C++](../platforms/coding-games/cpp/nintendo-sponsored-contest) |
-| shadows-of-the-knight-episode-2 | [Shadows of the Knight - Episode 2](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) | Hard | [C++](../platforms/coding-games/cpp/shadows-of-the-knight-episode-2) |
-| the-resistance | [The Resistance](https://www.codingame.com/ide/puzzle/the-resistance) | Hard | [C++](../platforms/coding-games/cpp/the-resistance) |
+| 0001 | Nintendo Sponsored Contest | Hard | [C++](../platforms/coding-games/cpp/nintendo-sponsored-contest) |
+| 0002 | [Shadows of the Knight - Episode 2](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) | Hard | [C++](../platforms/coding-games/cpp/shadows-of-the-knight-episode-2) |
+| 0003 | [The Resistance](https://www.codingame.com/ide/puzzle/the-resistance) | Hard | [C++](../platforms/coding-games/cpp/the-resistance) |

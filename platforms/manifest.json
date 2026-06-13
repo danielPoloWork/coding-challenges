@@ -118,7 +118,7 @@
   ],
   "challenges": [
     {
-      "id": "nintendo-sponsored-contest",
+      "id": "1",
       "title": "Nintendo Sponsored Contest",
       "slug": "nintendo-sponsored-contest",
       "platform": "coding-games",
@@ -148,7 +148,7 @@
       "spaceComplexity": "O(d^2) bits"
     },
     {
-      "id": "shadows-of-the-knight-episode-2",
+      "id": "2",
       "title": "Shadows of the Knight - Episode 2",
       "slug": "shadows-of-the-knight-episode-2",
       "platform": "coding-games",
@@ -179,7 +179,7 @@
       "spaceComplexity": "O(V + C + K)"
     },
     {
-      "id": "the-resistance",
+      "id": "3",
       "title": "The Resistance",
       "slug": "the-resistance",
       "platform": "coding-games",

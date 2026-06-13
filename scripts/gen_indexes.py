@@ -109,6 +109,8 @@ def load_challenges() -> dict:
             {
                 "platform": platform,
                 "id": cid,
+                "slug": "",
+                "dateSolved": None,
                 "title": "",
                 "difficulty": "Unknown",
                 "topics": set(),
@@ -117,6 +119,11 @@ def load_challenges() -> dict:
                 "langs": {},  # language -> platformPath (posix, repo-relative)
             },
         )
+        if data.get("slug"):
+            info["slug"] = data["slug"]
+        ds = data.get("dateSolved")
+        if ds and (info["dateSolved"] is None or ds < info["dateSolved"]):
+            info["dateSolved"] = ds
         if data.get("title"):
             info["title"] = data["title"]
         if data.get("difficulty"):
@@ -416,8 +423,25 @@ def update_html_cache_busts() -> list[str]:
 # --------------------------------------------------------------------------- #
 # Main
 # --------------------------------------------------------------------------- #
+def assign_platform_indices(challenges: dict) -> None:
+    """Mirror of build-manifest.mjs assignPlatformIndices: challenges whose id
+    isn't a plain number (slug-based platforms) get a per-platform incremental
+    index (1, 2, …) in solve order (dateSolved, then slug), so the stats markdown
+    shows "#1" instead of the solution slug — matching the website."""
+    by_platform: dict[str, list[dict]] = {}
+    for c in challenges.values():
+        if str(c["id"]).isdigit():
+            continue
+        by_platform.setdefault(c["platform"], []).append(c)
+    for items in by_platform.values():
+        items.sort(key=lambda c: (c.get("dateSolved") or "", c.get("slug") or ""))
+        for i, c in enumerate(items, 1):
+            c["id"] = str(i)
+
+
 def main() -> None:
     challenges = load_challenges()
+    assign_platform_indices(challenges)
     STATS.mkdir(parents=True, exist_ok=True)
 
     # Group challenges by platform.

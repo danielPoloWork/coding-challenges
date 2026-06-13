@@ -15,7 +15,7 @@
 | coordinate-compression | 2 | [2196](https://leetcode.com/problems/create-binary-tree-from-descriptions/) · [3609](https://leetcode.com/problems/minimum-moves-to-reach-target-in-grid/) |
 | direct-addressing | 2 | [2196](https://leetcode.com/problems/create-binary-tree-from-descriptions/) · [3838](https://leetcode.com/problems/weighted-word-mapping/) |
 | enumeration | 2 | [3635](https://leetcode.com/problems/earliest-finish-time-for-land-and-water-rides-ii/) · [3664](https://leetcode.com/problems/two-letter-card-game/) |
-| hashing | 2 | [0217](https://leetcode.com/problems/contains-duplicate/) · [the-resistance](https://www.codingame.com/ide/puzzle/the-resistance) |
+| hashing | 2 | [0003](https://www.codingame.com/ide/puzzle/the-resistance) · [0217](https://leetcode.com/problems/contains-duplicate/) |
 | interval-dp | 2 | [3563](https://leetcode.com/problems/lexicographically-smallest-string-after-adjacent-removals/) · [3957](https://leetcode.com/problems/maximum-sum-of-m-non-overlapping-subarrays-ii/) |
 | modular-arithmetic | 2 | [3463](https://leetcode.com/problems/check-if-digits-are-equal-in-string-after-operations-ii/) · [3838](https://leetcode.com/problems/weighted-word-mapping/) |
 | null-semantics | 2 | [0584](https://leetcode.com/problems/find-customer-referee/) · [1978](https://leetcode.com/problems/employees-whose-manager-left-the-company/) |
@@ -30,24 +30,24 @@
 | array-construction | 1 | [1929](https://leetcode.com/problems/concatenation-of-array/) |
 | augmenting-path | 1 | [3276](https://leetcode.com/problems/select-cells-in-grid-with-maximum-score/) |
 | balance-difference | 1 | [3900](https://leetcode.com/problems/longest-balanced-substring-after-one-swap/) |
-| berlekamp-factorization | 1 | nintendo-sponsored-contest |
+| berlekamp-factorization | 1 | 0001 |
 | bfs | 1 | [2612](https://leetcode.com/problems/minimum-reverse-operations/) |
 | binomial-transform | 1 | [3463](https://leetcode.com/problems/check-if-digits-are-equal-in-string-after-operations-ii/) |
 | bipartite-matching | 1 | [3276](https://leetcode.com/problems/select-cells-in-grid-with-maximum-score/) |
-| bit-packing | 1 | nintendo-sponsored-contest |
+| bit-packing | 1 | 0001 |
 | bitmask | 1 | [3670](https://leetcode.com/problems/maximum-product-of-two-integers-with-no-common-bits/) |
 | bitmask-enumeration | 1 | [3630](https://leetcode.com/problems/partition-array-for-maximum-xor-and-and/) |
 | bitset | 1 | [2612](https://leetcode.com/problems/minimum-reverse-operations/) |
 | bounded-scan | 1 | [3670](https://leetcode.com/problems/maximum-product-of-two-integers-with-no-common-bits/) |
 | bulk-copy | 1 | [1929](https://leetcode.com/problems/concatenation-of-array/) |
-| candidate-enumeration | 1 | [shadows-of-the-knight-episode-2](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) |
+| candidate-enumeration | 1 | [0002](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) |
 | capped-combinatorics | 1 | [3518](https://leetcode.com/problems/smallest-palindromic-rearrangement-ii/) |
 | carry-dp | 1 | [3704](https://leetcode.com/problems/count-no-zero-pairs-that-sum-to-n/) |
 | case-analysis | 1 | [0420](https://leetcode.com/problems/strong-password-checker/) |
 | center-expansion | 1 | [3504](https://leetcode.com/problems/longest-palindrome-after-substring-concatenation-ii/) |
 | combinatorics | 1 | [3256](https://leetcode.com/problems/maximum-value-sum-by-placing-three-rooks-i/) |
 | compressed-sos-dp | 1 | [3670](https://leetcode.com/problems/maximum-product-of-two-integers-with-no-common-bits/) |
-| convex-polygon-clipping | 1 | [shadows-of-the-knight-episode-2](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) |
+| convex-polygon-clipping | 1 | [0002](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) |
 | counting | 1 | [3664](https://leetcode.com/problems/two-letter-card-game/) |
 | cross-string-dp | 1 | [3504](https://leetcode.com/problems/longest-palindrome-after-substring-concatenation-ii/) |
 | crt | 1 | [3463](https://leetcode.com/problems/check-if-digits-are-equal-in-string-after-operations-ii/) |
@@ -56,18 +56,18 @@
 | diagonal-scan | 1 | [3504](https://leetcode.com/problems/longest-palindrome-after-substring-concatenation-ii/) |
 | divide-and-conquer | 1 | [2161](https://leetcode.com/problems/partition-array-according-to-given-pivot/) |
 | divisibility-rules | 1 | [3260](https://leetcode.com/problems/find-the-largest-palindrome-divisible-by-k/) |
-| divisor-enumeration | 1 | nintendo-sponsored-contest |
+| divisor-enumeration | 1 | 0001 |
 | dynamic-programming | 1 | [3409](https://leetcode.com/problems/longest-subsequence-with-decreasing-adjacent-difference/) |
 | endpoint-greedy | 1 | [3854](https://leetcode.com/problems/minimum-operations-to-make-array-parity-alternating/) |
 | extended-kmp | 1 | [3303](https://leetcode.com/problems/find-the-occurrence-of-first-almost-equal-substring/) |
 | factor-stripping | 1 | [3463](https://leetcode.com/problems/check-if-digits-are-equal-in-string-after-operations-ii/) |
-| gf2-polynomial-factorization | 1 | nintendo-sponsored-contest |
+| gf2-polynomial-factorization | 1 | 0001 |
 | greedy-basis-maximization | 1 | [3630](https://leetcode.com/problems/partition-array-for-maximum-xor-and-and/) |
-| half-plane-pruning | 1 | [shadows-of-the-knight-episode-2](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) |
+| half-plane-pruning | 1 | [0002](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) |
 | house-robber | 1 | [3165](https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/) |
 | index-remapping | 1 | [3614](https://leetcode.com/problems/process-string-with-special-operations-ii/) |
 | inner-join | 1 | [0181](https://leetcode.com/problems/employees-earning-more-than-their-managers/) |
-| interactive-binary-search | 1 | [shadows-of-the-knight-episode-2](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) |
+| interactive-binary-search | 1 | [0002](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) |
 | interval-generation | 1 | [2612](https://leetcode.com/problems/minimum-reverse-operations/) |
 | kth-permutation | 1 | [3518](https://leetcode.com/problems/smallest-palindromic-rearrangement-ii/) |
 | lazy-evaluation | 1 | [3614](https://leetcode.com/problems/process-string-with-special-operations-ii/) |
@@ -90,13 +90,13 @@
 | multiset-permutation | 1 | [3518](https://leetcode.com/problems/smallest-palindromic-rearrangement-ii/) |
 | noncrossing-matching | 1 | [3563](https://leetcode.com/problems/lexicographically-smallest-string-after-adjacent-removals/) |
 | offline-query-processing | 1 | [3559](https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii/) |
-| packed-binary-key | 1 | [the-resistance](https://www.codingame.com/ide/puzzle/the-resistance) |
+| packed-binary-key | 1 | [0003](https://www.codingame.com/ide/puzzle/the-resistance) |
 | palindrome-construction | 1 | [3260](https://leetcode.com/problems/find-the-largest-palindrome-divisible-by-k/) |
 | parity-counting | 1 | [3559](https://leetcode.com/problems/number-of-ways-to-assign-edge-weights-ii/) |
 | parity-patterns | 1 | [3854](https://leetcode.com/problems/minimum-operations-to-make-array-parity-alternating/) |
 | parity-splitting | 1 | [2612](https://leetcode.com/problems/minimum-reverse-operations/) |
 | partition-dp | 1 | [3743](https://leetcode.com/problems/maximize-cyclic-partition-score/) |
-| perpendicular-bisector | 1 | [shadows-of-the-knight-episode-2](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) |
+| perpendicular-bisector | 1 | [0002](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) |
 | point-update | 1 | [3165](https://leetcode.com/problems/maximum-sum-of-subsequence-with-non-adjacent-elements/) |
 | prefix-suffix-maxima | 1 | [3256](https://leetcode.com/problems/maximum-value-sum-by-placing-three-rooks-i/) |
 | prime-factor-deficits | 1 | [3348](https://leetcode.com/problems/smallest-divisible-digit-product-ii/) |
@@ -111,7 +111,7 @@
 | self-join | 1 | [0181](https://leetcode.com/problems/employees-earning-more-than-their-managers/) |
 | self-reference | 1 | [1978](https://leetcode.com/problems/employees-whose-manager-left-the-company/) |
 | signed-extremes | 1 | [3743](https://leetcode.com/problems/maximize-cyclic-partition-score/) |
-| square-free-factorization | 1 | nintendo-sponsored-contest |
+| square-free-factorization | 1 | 0001 |
 | stable-partition | 1 | [2161](https://leetcode.com/problems/partition-array-according-to-given-pivot/) |
 | subsequence-dp | 1 | [3509](https://leetcode.com/problems/maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k/) |
 | subset-dp | 1 | [3630](https://leetcode.com/problems/partition-array-for-maximum-xor-and-and/) |
@@ -123,12 +123,12 @@
 | top-k-pruning | 1 | [3256](https://leetcode.com/problems/maximum-value-sum-by-placing-three-rooks-i/) |
 | transversal-matroid | 1 | [3276](https://leetcode.com/problems/select-cells-in-grid-with-maximum-score/) |
 | tree-construction | 1 | [2196](https://leetcode.com/problems/create-binary-tree-from-descriptions/) |
-| trie-dp | 1 | [the-resistance](https://www.codingame.com/ide/puzzle/the-resistance) |
+| trie-dp | 1 | [0003](https://www.codingame.com/ide/puzzle/the-resistance) |
 | two-pointers | 1 | [3900](https://leetcode.com/problems/longest-balanced-substring-after-one-swap/) |
 | value-compressed-dp | 1 | [3409](https://leetcode.com/problems/longest-subsequence-with-decreasing-adjacent-difference/) |
 | virtual-string | 1 | [3303](https://leetcode.com/problems/find-the-occurrence-of-first-almost-equal-substring/) |
 | weighted-matroid-greedy | 1 | [3276](https://leetcode.com/problems/select-cells-in-grid-with-maximum-score/) |
-| word-break-dp | 1 | [the-resistance](https://www.codingame.com/ide/puzzle/the-resistance) |
+| word-break-dp | 1 | [0003](https://www.codingame.com/ide/puzzle/the-resistance) |
 | wqs-binary-search | 1 | [3957](https://leetcode.com/problems/maximum-sum-of-m-non-overlapping-subarrays-ii/) |
 | xor-linear-basis | 1 | [3630](https://leetcode.com/problems/partition-array-for-maximum-xor-and-and/) |
 | z-algorithm | 1 | [3303](https://leetcode.com/problems/find-the-occurrence-of-first-almost-equal-substring/) |

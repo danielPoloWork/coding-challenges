@@ -154,6 +154,13 @@ function ChallengePage() {
   const [bundles, setBundles] = useState({});   // path -> bundle | { error }
   const [error, setError] = useState(null);
   const [active, setActive] = useState(0);
+  const [manifest, setManifest] = useState(null);  // resolves the display index for slug-id platforms
+
+  useEffect(() => {
+    let alive = true;
+    window.CCX.loadManifest().then((m) => { if (alive) setManifest(m); }).catch(() => {});
+    return () => { alive = false; };
+  }, []);
 
   // discover the challenge's languages from the entry folder, then prefetch the
   // siblings so switching language is instant
@@ -187,6 +194,13 @@ function ChallengePage() {
 
   const selectLang = (p) => { if (p !== sel) { setActive(0); setSel(p); } };
   const bundle = sel ? bundles[sel] : null;
+
+  // The badge "index": numeric ids show as-is; slug ids (e.g. CodinGame) resolve
+  // to the per-platform incremental index assigned in the manifest, never the slug.
+  const m0 = bundle && bundle.meta;
+  const displayId = !m0 ? null
+    : /^\d+$/.test(String(m0.id)) ? String(m0.id)
+    : (manifest && (manifest.challenges.find((c) => c.platform === m0.platform && c.slug === m0.slug) || {}).id) || String(m0.id);
 
   // keep the tab/bookmark/history title in sync with the loaded challenge
   useEffect(() => {
@@ -222,7 +236,7 @@ function ChallengePage() {
         {bundle && !bundle.error && (
           <ViewErrorBoundary key={sel}>
             <ChallengeBody {...bundle} theme={theme} active={active} setActive={setActive}
-              langs={langs} sel={sel} onSelectLang={selectLang} />
+              langs={langs} sel={sel} onSelectLang={selectLang} displayId={displayId} />
           </ViewErrorBoundary>
         )}
       </main>
@@ -288,7 +302,7 @@ function SolutionView({ meta, variants, active, setActive }) {
       <div className="sol cviewer code-full">
         <div className="sol-head">
           <div className="sol-dots"><i /><i /><i /></div>
-          <span className="sol-path">…/{meta.id}-{meta.slug}/<b>{v.file}</b></span>
+          <span className="sol-path">…/{(meta.platformPath || `${meta.id}-${meta.slug}`).split("/").pop()}/<b>{v.file}</b></span>
           <span className="sol-badge">{roleLabel(v.role)}</span>
         </div>
         <div className="sol-tabs" role="tablist">
@@ -608,8 +622,9 @@ function DiscussView({ meta, theme }) {
   );
 }
 
-function ChallengeBody({ meta, notes, complexity, variants, active, setActive, theme, langs, sel, onSelectLang }) {
+function ChallengeBody({ meta, notes, complexity, variants, active, setActive, theme, langs, sel, onSelectLang, displayId }) {
   const diff = meta.difficulty || "—";
+  const folder = (meta.platformPath || `${meta.id}-${meta.slug}`).split("/").pop();
   const [view, setView] = useState("solution");
 
   const hasReasoning = !!(meta.reasoningSummary || (meta.crossReferences && meta.crossReferences.length) || (meta.patterns && meta.patterns.length));
@@ -626,11 +641,11 @@ function ChallengeBody({ meta, notes, complexity, variants, active, setActive, t
       <div className="crumb">
         <a href="index.html">platforms</a><span className="sep">/</span>
         <a href={`src/platform.html?platform=${meta.platform}`}>{meta.platform}</a><span className="sep">/</span>
-        <b>{meta.id}-{meta.slug}</b>
+        <b>{folder}</b>
       </div>
 
       <div className="chead">
-        <span className="cid-pill">#{meta.id}</span>
+        <span className="cid-pill">#{displayId || meta.id}</span>
         <h1>{meta.title}</h1>
         <div className="cmeta">
           <span className="chip solid" style={{ background: window.CCX.diffColor(diff) }}>{diff}</span>
