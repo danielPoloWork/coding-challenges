@@ -7,7 +7,7 @@
   "languageExt": "cpp",
   "platformPath": "platforms/coding-games/cpp/nintendo-sponsored-contest",
   "url": "",
-  "difficulty": "Expert",
+  "difficulty": "Hard",
   "topics": ["Math", "Bit Manipulation", "Algebra", "Enumeration"],
   "patterns": [
     "gf2-polynomial-factorization",

@@ -8,8 +8,7 @@
 
 | Difficulty | Solved |
 | --- | ---: |
-| Hard | 1 |
-| Expert | 1 |
+| Hard | 2 |
 
 ## Solved per language
 
@@ -34,5 +33,5 @@
 
 | ID | Title | Difficulty | Languages |
 | --- | --- | --- | --- |
-| nintendo-sponsored-contest | Nintendo Sponsored Contest | Expert | [C++](../platforms/coding-games/cpp/nintendo-sponsored-contest) |
+| nintendo-sponsored-contest | Nintendo Sponsored Contest | Hard | [C++](../platforms/coding-games/cpp/nintendo-sponsored-contest) |
 | shadows-of-the-knight-episode-2 | [Shadows of the Knight - Episode 2](https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2) | Hard | [C++](../platforms/coding-games/cpp/shadows-of-the-knight-episode-2) |
