@@ -1244,6 +1244,34 @@
       "spaceComplexity": "O(k)"
     },
     {
+      "id": "3751",
+      "title": "Total Waviness of Numbers in Range I",
+      "slug": "total-waviness-of-numbers-in-range-i",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Medium",
+      "topics": [
+        "Math",
+        "Dynamic Programming",
+        "Enumeration"
+      ],
+      "patterns": [
+        "digit-dp",
+        "prefix-sum",
+        "state-compression",
+        "enumeration"
+      ],
+      "path": "platforms/leetcode/cpp/3751-total-waviness-of-numbers-in-range-i",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-13",
+      "timeComplexity": "O(D) recommended / O(1) per query after setup runtime / O(R * D) memory",
+      "spaceComplexity": "O(1) recommended / O(100000) runtime / O(1) memory"
+    },
+    {
       "id": "3753",
       "title": "Total Waviness of Numbers in Range II",
       "slug": "total-waviness-of-numbers-in-range-ii",

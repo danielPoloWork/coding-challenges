@@ -1,0 +1,130 @@
+{
+  "id": "3751",
+  "title": "Total Waviness of Numbers in Range I",
+  "slug": "total-waviness-of-numbers-in-range-i",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3751-total-waviness-of-numbers-in-range-i",
+  "url": "https://leetcode.com/problems/total-waviness-of-numbers-in-range-i/",
+  "difficulty": "Medium",
+  "topics": ["Math", "Dynamic Programming", "Enumeration"],
+  "patterns": ["digit-dp", "prefix-sum", "state-compression", "enumeration"],
+  "status": "solved",
+  "dateSolved": "2026-06-13",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3751-total-waviness-of-numbers-in-range-i/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals for Range I. The recommended digit DP is the fast-and-lean default, the runtime proposal uses a full-domain prefix table, and the memory proposal keeps the hinted direct scan.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The fast-and-lean objective is best served by C++ fixed arrays and branch-light integer transitions. The digit DP touches only a few hundred states for two prefix bounds, avoids heap allocation, and keeps the method independent of interval length.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected: native loops, compact fixed arrays, inlining, and direct compatibility with the LeetCode class signature."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for minimal runtime overhead, but LeetCode's C++ class interface is more natural and C does not improve the fixed-state DP meaningfully."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and memory safety, but wrapper friction and bounds-check noise are not worthwhile for six-digit fixed arrays."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops, but runtime initialization and bounds-check constants are less attractive for this tiny branch-heavy DP."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered for JIT speed, but startup and managed runtime overhead do not help a method dominated by a few hundred integer transitions."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Accepted brute force is possible under the small constraint, but interpreter or VM overhead is weaker for the top-1% target."
+        }
+      ],
+      "approachJustification": "Compute prefix(n) with digit DP. Track meaningful digit count capped at two, previous digit, and previous comparison sign; a non-zero sign flip adds one wave for every suffix completion.",
+      "timeComplexity": "O(D), D <= 6",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "C++ can lazily initialize a static prefix array over the full 0..100000 domain with tight arithmetic loops, then answer each LeetCode call with two array reads and one subtraction.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected: static array initialization is compact, cache-friendly, and directly supports constant-time calls after setup."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for manual static storage, but it does not fit the C++ class signature as cleanly and offers no relevant asymptotic gain."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native loops, but global lazy initialization is more verbose and not faster in this judge context."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for package-level tables, but runtime startup and bounds checks are less favorable than C++ static arrays."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered for static arrays, but managed initialization and runtime overhead are heavier for a 100001-cell table."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Could precompute the same table, but per-element interpreter or VM overhead makes setup slower."
+        }
+      ],
+      "approachJustification": "Precompute cumulative waviness for every value up to the maximum constraint once. The query answer is pref[num2] - pref[num1 - 1].",
+      "timeComplexity": "O(100000 * D) setup, O(1) per query",
+      "spaceComplexity": "O(100000)"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "The memory objective only needs scalar integer state. C++ arithmetic digit extraction avoids strings, dynamic arrays, garbage collection, and per-number object allocation.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected: scalar loops and private static helpers give the same memory footprint as a C-style implementation while matching LeetCode ergonomics."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for the absolute bare-metal style, but the LeetCode problem is naturally submitted through C++ here and the scalar memory footprint is already minimal."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for stack-only native code, but it adds verbosity without reducing auxiliary memory below the C++ scalar scan."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for simple integer loops, but runtime overhead makes reported memory larger than the scalar C++ solution."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered but rejected for the least-memory axis because the managed runtime dominates the few scalar variables used by the algorithm."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered due to small constraints, but boxed or dynamic numeric/runtime representations are much heavier than scalar C++ integers."
+        }
+      ],
+      "approachJustification": "Scan every number from max(num1, 100) to num2 and extract digits arithmetically, keeping only left/middle/right rolling digits.",
+      "timeComplexity": "O((num2 - num1 + 1) * D)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "A middle digit is a wave when adjacent comparison signs flip between +1 and -1. The recommended solution counts waves in bulk with prefix digit DP; the speed extreme precomputes the full constrained domain; the memory extreme follows the hinted direct scan with scalar arithmetic digit extraction.",
+  "timeComplexity": "O(D) recommended / O(1) per query after setup runtime / O(R * D) memory",
+  "spaceComplexity": "O(1) recommended / O(100000) runtime / O(1) memory"
+}
