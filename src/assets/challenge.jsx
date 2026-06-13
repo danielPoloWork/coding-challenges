@@ -417,16 +417,35 @@ function ComplexityView({ complexity, variants }) {
         <div>
           <div className="csection-label">comparison</div>
           {variants.length ? (
-            <div className="ctable">
-              <div className="ctable-row ctable-head"><div>Proposal</div><div>Time</div><div>Space</div><div>Goal</div></div>
-              {variants.map((pr) => (
-                <div className="ctable-row" key={pr.file}>
-                  <div className="nm"><span className="d" style={{ background: window.CCX.langColor(pr.language) }} />{pr.file}</div>
-                  <div className="cx">{pr.timeComplexity}</div>
-                  <div className="cx">{pr.spaceComplexity}</div>
-                  <div className="gl">{roleLabel(pr.role)}</div>
+            <div className="cxfacets">
+              <div className="cxfacet">
+                <div className="cxfacet-label">Proposal</div>
+                <div className="cxfacet-val">
+                  {variants.map((pr) => (
+                    <span className="cxfacet-item nm" key={pr.file}>
+                      <span className="d" style={{ background: window.CCX.langColor(pr.language) }} />{pr.file}
+                    </span>
+                  ))}
                 </div>
-              ))}
+              </div>
+              <div className="cxfacet">
+                <div className="cxfacet-label">Time</div>
+                <div className="cxfacet-val">
+                  {variants.map((pr) => <span className="cxfacet-item cx" key={pr.file}>{pr.timeComplexity || "—"}</span>)}
+                </div>
+              </div>
+              <div className="cxfacet">
+                <div className="cxfacet-label">Space</div>
+                <div className="cxfacet-val">
+                  {variants.map((pr) => <span className="cxfacet-item cx" key={pr.file}>{pr.spaceComplexity || "—"}</span>)}
+                </div>
+              </div>
+              <div className="cxfacet">
+                <div className="cxfacet-label">Goal</div>
+                <div className="cxfacet-val">
+                  {variants.map((pr) => <span className="cxfacet-item gl" key={pr.file}>{roleLabel(pr.role)}</span>)}
+                </div>
+              </div>
             </div>
           ) : (
             <EmptyState compact kicker="no proposals" title="Nothing to compare." message="No solution files are listed for this challenge." />
