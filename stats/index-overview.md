@@ -4,11 +4,11 @@
 
 | Metric | Value |
 | --- | ---: |
-| Total challenges solved | 43 |
+| Total challenges solved | 44 |
 | Total source platforms | 2 (of 16 catalogued) |
 | Total languages used | 3 |
-| Total catalogued topics | 38 |
-| Total catalogued patterns | 126 |
+| Total catalogued topics | 42 |
+| Total catalogued patterns | 130 |
 
 _Topics are the broad algorithmic domains; patterns are the finer reusable techniques. Both counted distinct across all platforms and languages._
 
@@ -17,20 +17,20 @@ _Topics are the broad algorithmic domains; patterns are the finer reusable techn
 | Platform | Challenges solved |
 | --- | ---: |
 | [leetcode](index-leetcode.md) | 40 |
-| [coding-games](index-coding-games.md) | 3 |
+| [coding-games](index-coding-games.md) | 4 |
 
 ## Languages used
 
 | Language | Solved |
 | --- | ---: |
-| C++ | 38 |
+| C++ | 39 |
 | C | 7 |
 | SQL | 5 |
 
 ## Catalogued topics
 
-Algebra, Array, Binary Search, Binary Tree, Bipartite Matching, Bit Manipulation, Breadth-First Search, Combinatorics, Counting, Counting Sort, Database, Depth-First Search, Divide and Conquer, Dynamic Programming, Encoding, Enumeration, Geometry, Graph, Greedy, Hash Table, Heap (Priority Queue), Intervals, Math, Matrix, Number Theory, Ordered Set, Prefix Sum, Queue, Segment Tree, Simulation, Sorting, String, String Matching, Tree, Trie, Two Pointers, Union Find, Z-Algorithm
+Algebra, Array, Backtracking, Binary Search, Binary Tree, Bipartite Matching, Bit Manipulation, Breadth-First Search, Combinatorics, Counting, Counting Sort, Database, Depth-First Search, Divide and Conquer, Dynamic Programming, Encoding, Enumeration, Geometry, Graph, Graph Search, Greedy, Hash Table, Heap (Priority Queue), Heuristics, Intervals, Math, Matrix, Number Theory, Ordered Set, Pathfinding, Prefix Sum, Queue, Segment Tree, Simulation, Sorting, String, String Matching, Tree, Trie, Two Pointers, Union Find, Z-Algorithm
 
 ## Catalogued patterns
 
-126 distinct patterns — full list in [index-patterns.md](index-patterns.md).
+130 distinct patterns — full list in [index-patterns.md](index-patterns.md).

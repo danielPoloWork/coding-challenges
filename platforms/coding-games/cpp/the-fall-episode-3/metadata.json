@@ -1,0 +1,67 @@
+{
+  "id": "the-fall-episode-3",
+  "title": "The Fall - Episode 3",
+  "slug": "the-fall-episode-3",
+  "platform": "coding-games",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/coding-games/cpp/the-fall-episode-3",
+  "url": "https://www.codingame.com/ide/puzzle/the-fall-episode-3",
+  "difficulty": "Hard",
+  "topics": ["Pathfinding", "Backtracking", "Graph Search", "Simulation", "Heuristics"],
+  "patterns": [
+    "beam-search",
+    "decision-tree-pruning",
+    "time-expanded-search",
+    "candidate-enumeration",
+    "rotation",
+    "simulation"
+  ],
+  "status": "solved",
+  "dateSolved": "2026-06-13",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/coding-games/cpp/the-fall-episode-3/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "The C++ proposal is simultaneously the recommended, runtime-focused, and memory-conscious solution. The puzzle is interactive and reliability depends on one compact per-turn planner; no separate coincident solution-runtime.cpp or solution-memory.cpp files are emitted.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ gives deterministic sub-150 ms interactive latency, compact copied grid states, fixed-size arrays for at most 400 rooms and 10 rocks, and low-overhead hashing for beam deduplication. The hot path is dominated by state simulation and candidate pruning, both of which benefit from native value types and predictable memory layout.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It provides native-speed simulation, compact arrays, fast unordered_set deduplication, chrono-based turn budgeting, and straightforward CodinGame I/O."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for raw loops and smaller runtime overhead, but manual dynamic beam storage, hashing, and action ranking would increase implementation risk without improving the bounded 400-cell state profile."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and safe value types. It is competitive, but repeated state copying plus fixed-array ergonomics are more direct in C++ on CodinGame and do not gain an asymptotic advantage."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled performance, but slice/hash-map overhead, bounds checks, and garbage collection are less attractive inside a strict per-turn interactive search."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed runtimes can implement the search, but object headers, GC behavior, and VM startup are weaker than flat native arrays for top-percentile latency."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Useful for the correctness mirror, but interpreter or VM overhead is too high for thousands of simulated decision-tree states every turn."
+        }
+      ],
+      "approachJustification": "Replan every turn from the real grid orientation and visible rocks. A reverse BFS over room-state triples gives an optimistic distance-to-exit-cell heuristic. The live planner runs a time-bounded beam search over legal WAIT/LEFT/RIGHT actions, simulates Indy and rocks exactly after each action, handles same-cell and crossed-path collisions, removes stuck rocks, keeps states whose next target cell can still be prepared on the following turn, prunes doomed or unreachable states, and returns the first rotation of the best path found.",
+      "timeComplexity": "O(D * B * A * (C + R log R)) per turn before the chrono cap, with C <= 400 rooms, R <= 10 rocks, beam width B bounded, action count A capped, and depth D capped",
+      "spaceComplexity": "O(B * (C + R) + C), dominated by compact beam states and the 400-cell heuristic tables"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The puzzle is an online decision-tree search: one rotation is chosen before every simultaneous movement step. The solution keeps room transitions and rock collision semantics exact, uses optimistic reverse reachability to rank states, and prunes the tree with a bounded beam that only rotates cells that Indy or rocks can plausibly interact with soon.",
+  "timeComplexity": "O(D * B * A * (C + R log R)) per turn before the fixed time cap",
+  "spaceComplexity": "O(B * (C + R) + C)"
+}
