@@ -770,11 +770,31 @@ function Footer({
     size: 16
   }), " View source")))), /*#__PURE__*/React.createElement("div", {
     className: "footer-bottom"
-  }, /*#__PURE__*/React.createElement("span", {
-    className: "mono"
-  }, "\xA9 2026 \xB7 Daniel Polo"), /*#__PURE__*/React.createElement("span", {
-    className: "mono"
-  }, "Structured platforms. Smart Solutions.")))));
+  }, /*#__PURE__*/React.createElement("a", {
+    className: "brand",
+    href: "https://danielpolowork.github.io/#top"
+  }, /*#__PURE__*/React.createElement("img", {
+    src: "https://danielpolowork.github.io/src/assets/logo.png",
+    alt: "Daniel Polo logo",
+    width: "26",
+    height: "26"
+  }), /*#__PURE__*/React.createElement("span", {
+    className: "brand-name"
+  }, "Daniel Polo")), /*#__PURE__*/React.createElement("div", {
+    className: "footer-links"
+  }, /*#__PURE__*/React.createElement("a", {
+    href: "https://it.linkedin.com/in/daniel-polo-work",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, "LinkedIn"), /*#__PURE__*/React.createElement("a", {
+    href: "https://github.com/danielPoloWork",
+    target: "_blank",
+    rel: "noopener noreferrer"
+  }, "GitHub"), /*#__PURE__*/React.createElement("a", {
+    href: "#top"
+  }, "Back to top \u2191")), /*#__PURE__*/React.createElement("div", {
+    className: "footer-note"
+  }, "\xA9 2026 Daniel Polo \xB7 Software Architect / Engineer")))));
 }
 Object.assign(window, {
   Platforms,

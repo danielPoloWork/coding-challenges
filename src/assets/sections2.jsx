@@ -498,8 +498,16 @@ function Footer({ roadmap, totals }) {
             </div>
           </div>
           <div className="footer-bottom">
-            <span className="mono">© 2026 · Daniel Polo</span>
-            <span className="mono">Structured platforms. Smart Solutions.</span>
+            <a className="brand" href="https://danielpolowork.github.io/#top">
+              <img src="https://danielpolowork.github.io/src/assets/logo.png" alt="Daniel Polo logo" width="26" height="26" />
+              <span className="brand-name">Daniel Polo</span>
+            </a>
+            <div className="footer-links">
+              <a href="https://it.linkedin.com/in/daniel-polo-work" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              <a href="https://github.com/danielPoloWork" target="_blank" rel="noopener noreferrer">GitHub</a>
+              <a href="#top">Back to top ↑</a>
+            </div>
+            <div className="footer-note">© 2026 Daniel Polo · Software Architect / Engineer</div>
           </div>
         </div>
       </footer>

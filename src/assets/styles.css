@@ -309,7 +309,9 @@ p { margin: 0; }
   .cback { padding-left: 12px; padding-right: 12px; }
 }
 @media (max-width: 480px) {
-  .brand-name { display: none; }
+  /* collapse the nav brand to just the mark on small screens; the footer
+     brand keeps its name (scoped so it isn't hidden too). */
+  .nav .brand-name { display: none; }
 }
 
 .theme-toggle {
@@ -784,7 +786,18 @@ section { position: relative; }
   margin-top: 48px; padding-top: 26px; border-top: 1px solid rgba(243, 239, 230, 0.1);
   flex-wrap: wrap; font-size: 13.5px; color: rgba(243, 239, 230, 0.5);
 }
-.footer-bottom .mono { font-family: var(--mono); font-size: 12px; }
+/* the band inverts ink/paper per theme, so var(--paper) is the right
+   foreground in both light (cream on dark) and dark (dark on cream). */
+.footer-bottom .brand { color: var(--paper); }
+.footer-bottom .brand img { width: 26px; height: 26px; border-radius: 6px; display: block; object-fit: contain; }
+.footer-bottom .brand-name { font-size: 15px; font-weight: 500; }
+.footer-links { display: flex; gap: 22px; flex-wrap: wrap; }
+.footer-links a { color: var(--paper); opacity: 0.66; transition: opacity 0.2s, color 0.2s; }
+.footer-links a:hover { opacity: 1; color: var(--clay); }
+.footer-note { color: var(--paper); opacity: 0.5; }
+@media (max-width: 640px) {
+  .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
 
 /* On the dark theme the closing band inverts to a light palette card —
    var(--ink)/var(--paper) swap roles, so the cream/near-black pairing of the
