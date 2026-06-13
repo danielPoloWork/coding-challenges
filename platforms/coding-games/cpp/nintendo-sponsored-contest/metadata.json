@@ -1,0 +1,66 @@
+{
+  "id": "nintendo-sponsored-contest",
+  "title": "Nintendo Sponsored Contest",
+  "slug": "nintendo-sponsored-contest",
+  "platform": "coding-games",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/coding-games/cpp/nintendo-sponsored-contest",
+  "url": "",
+  "difficulty": "Expert",
+  "topics": ["Math", "Bit Manipulation", "Algebra", "Enumeration"],
+  "patterns": [
+    "gf2-polynomial-factorization",
+    "berlekamp-factorization",
+    "square-free-factorization",
+    "divisor-enumeration",
+    "bit-packing"
+  ],
+  "status": "solved",
+  "dateSolved": "2026-06-13",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/coding-games/cpp/nintendo-sponsored-contest/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "The C++ proposal is simultaneously the recommended, runtime-focused, and memory-conscious solution. No separate coincident solution-runtime.cpp or solution-memory.cpp files are emitted.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ gives native 64-bit bit packing, low-overhead Gaussian elimination over bitsets, deterministic memory use, and fast polynomial arithmetic for the 512-bit maximum encoded polynomial.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It combines native integer operations, compact fixed arrays, standard bitsets for Berlekamp's nullspace, and straightforward CodinGame I/O."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for minimal runtime overhead, but it would require manual matrix and dynamic-array plumbing without reducing asymptotic work or memory below the C++ fixed-buffer version."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native speed and safety, but CodinGame ergonomics and checked indexing add implementation cost without a performance advantage for 512-bit arithmetic."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops, but bounds checks, slice/runtime overhead, and less direct bitset algebra make it weaker for top-percentile execution."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed runtimes can handle the constraints, but VM startup, object layout, and allocation pressure are less attractive than fixed native storage."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Useful for correctness mirrors, but interpreter/VM overhead is a poor match for hidden tests that may need polynomial factorization and divisor enumeration near the 256-bit limit."
+        }
+      ],
+      "approachJustification": "Interpret the encoder as multiplication of two length-S binary polynomials over GF(2), factor the encoded polynomial with square-free decomposition plus Berlekamp, then enumerate every divisor whose complementary quotient also fits in S bits.",
+      "timeComplexity": "O(d^3 + F * M(d)) with d = degree(encoded) < 2S <= 512, F the number of emitted divisor candidates, and M(d) bounded 512-bit polynomial multiplication/division",
+      "spaceComplexity": "O(d^2) bits for Berlekamp's matrix plus O(d) polynomial storage"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The nested XOR encoder is exactly coefficient convolution over GF(2): the first half of a is one polynomial, the second half is another, and b is their product. Decoding is therefore all ordered factor pairs with each factor degree below S.",
+  "timeComplexity": "O(d^3 + F * M(d)), d < 2S <= 512",
+  "spaceComplexity": "O(d^2) bits"
+}

@@ -4,11 +4,11 @@
 
 | Metric | Value |
 | --- | ---: |
-| Total challenges solved | 40 |
-| Total source platforms | 1 (of 16 catalogued) |
+| Total challenges solved | 41 |
+| Total source platforms | 2 (of 16 catalogued) |
 | Total languages used | 3 |
-| Total catalogued topics | 33 |
-| Total catalogued patterns | 113 |
+| Total catalogued topics | 34 |
+| Total catalogued patterns | 118 |
 
 _Topics are the broad algorithmic domains; patterns are the finer reusable techniques. Both counted distinct across all platforms and languages._
 
@@ -17,19 +17,20 @@ _Topics are the broad algorithmic domains; patterns are the finer reusable techn
 | Platform | Challenges solved |
 | --- | ---: |
 | [leetcode](index-leetcode.md) | 40 |
+| [coding-games](index-coding-games.md) | 1 |
 
 ## Languages used
 
 | Language | Solved |
 | --- | ---: |
-| C++ | 35 |
+| C++ | 36 |
 | C | 7 |
 | SQL | 5 |
 
 ## Catalogued topics
 
-Array, Binary Search, Binary Tree, Bipartite Matching, Bit Manipulation, Breadth-First Search, Combinatorics, Counting, Counting Sort, Database, Depth-First Search, Divide and Conquer, Dynamic Programming, Enumeration, Graph, Greedy, Hash Table, Heap (Priority Queue), Math, Matrix, Number Theory, Ordered Set, Prefix Sum, Queue, Segment Tree, Simulation, Sorting, String, String Matching, Tree, Two Pointers, Union Find, Z-Algorithm
+Algebra, Array, Binary Search, Binary Tree, Bipartite Matching, Bit Manipulation, Breadth-First Search, Combinatorics, Counting, Counting Sort, Database, Depth-First Search, Divide and Conquer, Dynamic Programming, Enumeration, Graph, Greedy, Hash Table, Heap (Priority Queue), Math, Matrix, Number Theory, Ordered Set, Prefix Sum, Queue, Segment Tree, Simulation, Sorting, String, String Matching, Tree, Two Pointers, Union Find, Z-Algorithm
 
 ## Catalogued patterns
 
-113 distinct patterns — full list in [index-patterns.md](index-patterns.md).
+118 distinct patterns — full list in [index-patterns.md](index-patterns.md).
