@@ -52,13 +52,12 @@ function Constellation({
 }) {
   const boxRef = useRef(null);
   const canvasRef = useRef(null);
-  const tipRef = useRef(null);
+  const [focusIdx, setFocusIdx] = useState(-1);
   const graph = useMemo(() => challenges && challenges.length >= 3 ? buildConstellation(challenges) : null, [challenges]);
   useEffect(() => {
     if (!graph) return;
     const canvas = canvasRef.current,
-      box = boxRef.current,
-      tip = tipRef.current;
+      box = boxRef.current;
     const ctx = canvas.getContext("2d");
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
     const st = {
@@ -66,7 +65,8 @@ function Constellation({
       h: 0,
       alpha: 1,
       raf: 0,
-      hover: -1
+      hover: -1,
+      selected: -1
     };
     const {
       nodes,
@@ -217,39 +217,59 @@ function Constellation({
       });
       return best;
     };
-    const onMove = ev => {
+    const idxAt = ev => {
       const r = canvas.getBoundingClientRect();
-      const i = nodeAt(ev.clientX - r.left, ev.clientY - r.top);
-      canvas.style.cursor = i >= 0 ? "pointer" : "default";
+      return nodeAt(ev.clientX - r.left, ev.clientY - r.top);
+    };
+    const setHover = i => {
       if (i !== st.hover) {
         st.hover = i;
         if (!st.raf) draw();
-        if (i >= 0) {
-          const c = nodes[i].c;
-          tip.innerHTML = `<b>${window.CCX.escapeHtml(c.title)}</b>` + `<span class="t-meta">${window.CCX.escapeHtml(c.platform)} ${window.CCX.escapeHtml(String(c.id))} · ${window.CCX.escapeHtml(c.difficulty)}</span>` + ((c.patterns || []).length ? `<span class="t-pats">${(c.patterns || []).map(window.CCX.escapeHtml).join(" · ")}</span>` : "");
-          tip.style.opacity = 1;
-        } else tip.style.opacity = 0;
-      }
-      if (i >= 0) {
-        const flip = nodes[i].x > st.w * 0.62;
-        tip.style.left = nodes[i].x + (flip ? -14 : 14) + "px";
-        tip.style.top = nodes[i].y + "px";
-        tip.style.transform = `translateY(-50%) ${flip ? "translateX(-100%)" : ""}`;
       }
     };
-    const onLeave = () => {
-      st.hover = -1;
-      tip.style.opacity = 0;
-      if (!st.raf) draw();
+    const open = i => {
+      window.location.href = `src/challenge.html?path=${encodeURIComponent(nodes[i].c.path)}`;
     };
-    const onClick = ev => {
-      const r = canvas.getBoundingClientRect();
-      const i = nodeAt(ev.clientX - r.left, ev.clientY - r.top);
-      if (i >= 0) window.location.href = `src/challenge.html?path=${encodeURIComponent(nodes[i].c.path)}`;
+
+    // Mouse: hover previews into the inspector, click opens. Touch/pen: first tap
+    // selects (previews), a second tap on the same node opens — so there's always
+    // a preview before navigating. The inspector's button is the explicit path.
+    const onMove = ev => {
+      if (ev.pointerType && ev.pointerType !== "mouse") return;
+      const i = idxAt(ev);
+      canvas.style.cursor = i >= 0 ? "pointer" : "default";
+      setHover(i);
+      setFocusIdx(i);
     };
-    canvas.addEventListener("mousemove", onMove);
-    canvas.addEventListener("mouseleave", onLeave);
-    canvas.addEventListener("click", onClick);
+    const onLeave = ev => {
+      if (ev.pointerType && ev.pointerType !== "mouse") return;
+      st.selected = -1;
+      setHover(-1);
+      setFocusIdx(-1);
+    };
+    const onUp = ev => {
+      const i = idxAt(ev);
+      if (ev.pointerType === "mouse") {
+        if (i >= 0) open(i);
+        return;
+      }
+      if (i < 0) {
+        st.selected = -1;
+        setHover(-1);
+        setFocusIdx(-1);
+        return;
+      }
+      if (st.selected === i) {
+        open(i);
+        return;
+      }
+      st.selected = i;
+      setHover(i);
+      setFocusIdx(i);
+    };
+    canvas.addEventListener("pointermove", onMove);
+    canvas.addEventListener("pointerleave", onLeave);
+    canvas.addEventListener("pointerup", onUp);
 
     // redraw on theme toggle (canvas colors don't follow CSS vars on their own)
     const mo = new MutationObserver(() => {
@@ -272,15 +292,16 @@ function Constellation({
     ro.observe(box);
     return () => {
       cancelAnimationFrame(st.raf);
-      canvas.removeEventListener("mousemove", onMove);
-      canvas.removeEventListener("mouseleave", onLeave);
-      canvas.removeEventListener("click", onClick);
+      canvas.removeEventListener("pointermove", onMove);
+      canvas.removeEventListener("pointerleave", onLeave);
+      canvas.removeEventListener("pointerup", onUp);
       mo.disconnect();
       ro.disconnect();
     };
   }, [graph]);
   if (!graph) return null;
   const links = graph.pEdges.length;
+  const focus = focusIdx >= 0 && focusIdx < graph.nodes.length ? graph.nodes[focusIdx].c : null;
   return /*#__PURE__*/React.createElement("section", {
     className: "section",
     id: "constellation"
@@ -292,8 +313,10 @@ function Constellation({
     className: "sec-no"
   }, "08"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
-  }, "Pattern constellation"), /*#__PURE__*/React.createElement("h2", null, "How the work clusters."), /*#__PURE__*/React.createElement("p", null, "Every solved challenge is a star; a line joins two challenges that share a pattern. Topically related work drifts together on its own. Hover to explore, click to open."))), /*#__PURE__*/React.createElement("div", {
-    className: "const-box reveal",
+  }, "Pattern constellation"), /*#__PURE__*/React.createElement("h2", null, "How the work clusters."), /*#__PURE__*/React.createElement("p", null, "Every solved challenge is a star; a line joins two challenges that share a pattern. Topically related work drifts together on its own. Hover a star to inspect it on the right."))), /*#__PURE__*/React.createElement("div", {
+    className: "const-box reveal"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "const-stage",
     ref: boxRef
   }, /*#__PURE__*/React.createElement("canvas", {
     ref: canvasRef,
@@ -301,11 +324,16 @@ function Constellation({
       display: "block",
       width: "100%"
     }
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "const-tip mono",
-    ref: tipRef
-  }), /*#__PURE__*/React.createElement("div", {
-    className: "const-legend mono"
+  })), /*#__PURE__*/React.createElement("aside", {
+    className: "const-inspector"
+  }, !focus ? /*#__PURE__*/React.createElement("div", {
+    className: "ins-rest"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "eyebrow"
+  }, "Pattern map"), /*#__PURE__*/React.createElement("div", {
+    className: "ins-stats"
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, challenges.length), /*#__PURE__*/React.createElement("span", null, "challenges")), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("b", null, links), /*#__PURE__*/React.createElement("span", null, "pattern links"))), /*#__PURE__*/React.createElement("div", {
+    className: "ins-legend"
   }, ["Easy", "Medium", "Hard"].map(d => /*#__PURE__*/React.createElement("span", {
     key: d
   }, /*#__PURE__*/React.createElement("span", {
@@ -313,9 +341,39 @@ function Constellation({
     style: {
       background: window.CCX.diffColor(d)
     }
-  }), d)), /*#__PURE__*/React.createElement("span", {
-    className: "const-note"
-  }, challenges.length, " challenges \xB7 ", links, " shared-pattern links")))));
+  }), d))), /*#__PURE__*/React.createElement("p", {
+    className: "ins-hint"
+  }, "Hover a star to inspect it; click to open. On touch, tap to preview, then tap again to open.")) : /*#__PURE__*/React.createElement("div", {
+    className: "ins-detail",
+    key: focusIdx
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "ins-meta"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "ddot",
+    style: {
+      background: window.CCX.diffColor(focus.difficulty)
+    }
+  }), focus.platform, " ", focus.id, " \xB7 ", focus.difficulty), /*#__PURE__*/React.createElement("h3", {
+    className: "ins-title"
+  }, focus.title), (focus.patterns || []).length > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "ins-block"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "eyebrow"
+  }, "Patterns"), /*#__PURE__*/React.createElement("div", {
+    className: "ins-chips"
+  }, focus.patterns.map(p => /*#__PURE__*/React.createElement("a", {
+    className: "ins-chip",
+    key: p,
+    href: `src/pattern.html?p=${encodeURIComponent(p)}`
+  }, p)))), (focus.topics || []).length > 0 && /*#__PURE__*/React.createElement("div", {
+    className: "ins-topics mono"
+  }, focus.topics.join(" · ")), /*#__PURE__*/React.createElement("a", {
+    className: "btn btn-primary ins-open",
+    href: `src/challenge.html?path=${encodeURIComponent(focus.path)}`
+  }, "Open challenge ", /*#__PURE__*/React.createElement(Icon, {
+    name: "arrow",
+    size: 16
+  })))))));
 }
 Object.assign(window, {
   Constellation
