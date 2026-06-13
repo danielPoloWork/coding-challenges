@@ -1,0 +1,66 @@
+{
+  "id": "shadows-of-the-knight-episode-2",
+  "title": "Shadows of the Knight - Episode 2",
+  "slug": "shadows-of-the-knight-episode-2",
+  "platform": "coding-games",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/coding-games/cpp/shadows-of-the-knight-episode-2",
+  "url": "https://www.codingame.com/ide/puzzle/shadows-of-the-knight-episode-2",
+  "difficulty": "Hard",
+  "topics": ["Binary Search", "Geometry", "Math", "Intervals", "Simulation"],
+  "patterns": [
+    "half-plane-pruning",
+    "convex-polygon-clipping",
+    "perpendicular-bisector",
+    "interactive-binary-search",
+    "candidate-enumeration"
+  ],
+  "status": "solved",
+  "dateSolved": "2026-06-13",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/coding-games/cpp/shadows-of-the-knight-episode-2/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "The C++ proposal is simultaneously the recommended, runtime-focused, and memory-conscious solution. No separate coincident solution-runtime.cpp or solution-memory.cpp files are emitted.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "C++ gives native integer arithmetic for exact squared-distance comparisons, deterministic low-latency interactive I/O, compact vectors for the clipped polygon and candidate sets, and no garbage-collector pauses under the 150 ms per-turn limit.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It combines native speed, exact 64-bit arithmetic, low-overhead geometry containers, and straightforward CodinGame interactive output flushing."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for minimal runtime overhead, but manual vector management for polygon clipping and candidate probes would increase implementation risk without meaningful memory or speed gains over C++."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native speed and safety. It is competitive, but the borrow/indexing ceremony is less ergonomic for an interactive geometry solver and does not improve the asymptotic or constant-factor profile here."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled performance, but runtime overhead, bounds checks, and garbage-collected slices are less attractive than C++ vectors for top-percentile latency."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed runtimes can solve the puzzle, but VM startup, object layout, and possible GC pauses are weaker for strict per-turn interactive performance than compact native C++."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Useful for correctness mirrors and quick experimentation, but interpreter/VM overhead is a poor fit for repeated candidate scoring and geometry updates under a 150 ms turn budget."
+        }
+      ],
+      "approachJustification": "Each feedback response is converted into the exact perpendicular-bisector constraint between the previous and current jumps. The possible bomb region is maintained as a clipped convex polygon until exact integer candidate enumeration becomes affordable; from that point, the integer candidate set is filtered directly after every response, also removing the current window as a known miss. The next jump mirrors the current position through the candidate center, giving a binary-search-like cut, and explicit-candidate ties prefer real candidate windows near the candidate center so the endgame wins directly instead of only extracting one more split.",
+      "timeComplexity": "O(V + A*C + P*K) per turn, where V is the polygon vertex count, C is the number of constraints, A is the capped scanned box area, K is the enumerated candidate count, and P is the capped probe count",
+      "spaceComplexity": "O(V + C + K), with V and C bounded by the jump count and K capped by either a small box scan or one grid line"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "A WARMER/COLDER/SAME answer compares two squared Euclidean distances. Expanding the squares removes quadratic terms and leaves one linear half-plane or line constraint. Repeated clipping plus center-reflection turns the large implicit grid into a small convex search problem.",
+  "timeComplexity": "O(V + A*C + P*K) per turn with fixed caps under the CodinGame limits",
+  "spaceComplexity": "O(V + C + K)"
+}
