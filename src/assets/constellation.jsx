@@ -101,15 +101,17 @@ function Constellation({ challenges }) {
     }
 
     function draw() {
-      const ink = cvar("--ink"), hairline = cvar("--hairline"), clay = cvar("--clay");
+      // resting links use --ink-3 (a mid grey, legible on both surfaces) rather
+      // than the near-invisible --hairline; clay is reserved for the hover focus.
+      const ink = cvar("--ink"), rest = cvar("--ink-3"), clay = cvar("--clay");
       const hov = st.hover, dim = hov >= 0;
       const lit = dim ? new Set([hov, ...nbr[hov]]) : null;
       ctx.clearRect(0, 0, st.w, st.h);
       pEdges.forEach((e) => {
         const on = dim && (e.a === hov || e.b === hov);
-        ctx.globalAlpha = dim ? (on ? 0.9 : 0.08) : 0.55;
-        ctx.strokeStyle = on ? clay : hairline;
-        ctx.lineWidth = on ? 1.6 : (e.w > 1 ? 1.6 : 1);
+        ctx.globalAlpha = dim ? (on ? 0.9 : 0.08) : (e.w > 1 ? 0.6 : 0.45);
+        ctx.strokeStyle = on ? clay : rest;
+        ctx.lineWidth = on ? 1.6 : (e.w > 1 ? 1.4 : 1);
         ctx.beginPath();
         ctx.moveTo(nodes[e.a].x, nodes[e.a].y);
         ctx.lineTo(nodes[e.b].x, nodes[e.b].y);
