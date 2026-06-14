@@ -7,11 +7,11 @@
 
 | Metric | Value |
 | --- | ---: |
-| Challenges solved | 46 |
+| Challenges solved | 47 |
 | Source platforms | 2 active (of 16 catalogued) |
 | Languages used | 3 |
-| Catalogued topics | 44 |
-| Catalogued patterns | 137 |
+| Catalogued topics | 46 |
+| Catalogued patterns | 139 |
 <!--STATS:END-->
 
 ---
@@ -280,6 +280,6 @@ Solutions are published to document learning progress and software engineering p
 
 ## Author
 
-Software Architect & Engineering Enthusiast
+Daniel Polo ─ Software Architect & Engineering Enthusiast
 
 Building a long-term knowledge system around algorithms, software design, problem solving, and continuous technical growth.

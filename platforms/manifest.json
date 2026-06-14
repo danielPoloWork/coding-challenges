@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-13",
+  "generated": "2026-06-14",
   "version": 1,
   "catalogued": 16,
   "platforms": [
@@ -504,6 +504,33 @@
       "dateSolved": "2026-06-07",
       "timeComplexity": "O(n) logical scan plus primary-key manager existence checks; O(r log r) sort only if needed",
       "spaceComplexity": "O(r) output plus optimizer-dependent workspace"
+    },
+    {
+      "id": "2130",
+      "title": "Maximum Twin Sum of a Linked List",
+      "slug": "maximum-twin-sum-of-a-linked-list",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Medium",
+      "topics": [
+        "Linked List",
+        "Two Pointers",
+        "Stack"
+      ],
+      "patterns": [
+        "fast-slow-pointers",
+        "linked-list-reversal",
+        "two-pointers"
+      ],
+      "path": "platforms/leetcode/cpp/2130-maximum-twin-sum-of-a-linked-list",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-14",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) extra"
     },
     {
       "id": "2161",

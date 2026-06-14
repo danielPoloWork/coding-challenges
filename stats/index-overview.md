@@ -4,11 +4,11 @@
 
 | Metric | Value |
 | --- | ---: |
-| Total challenges solved | 46 |
+| Total challenges solved | 47 |
 | Total source platforms | 2 (of 16 catalogued) |
 | Total languages used | 3 |
-| Total catalogued topics | 44 |
-| Total catalogued patterns | 137 |
+| Total catalogued topics | 46 |
+| Total catalogued patterns | 139 |
 
 _Topics are the broad algorithmic domains; patterns are the finer reusable techniques. Both counted distinct across all platforms and languages._
 
@@ -16,21 +16,21 @@ _Topics are the broad algorithmic domains; patterns are the finer reusable techn
 
 | Platform | Challenges solved |
 | --- | ---: |
-| [leetcode](index-leetcode.md) | 41 |
+| [leetcode](index-leetcode.md) | 42 |
 | [coding-games](index-coding-games.md) | 5 |
 
 ## Languages used
 
 | Language | Solved |
 | --- | ---: |
-| C++ | 41 |
+| C++ | 42 |
 | C | 7 |
 | SQL | 5 |
 
 ## Catalogued topics
 
-Algebra, Array, Backtracking, Binary Search, Binary Tree, Bipartite Matching, Bit Manipulation, Breadth-First Search, Combinatorics, Counting, Counting Sort, Database, Depth-First Search, Divide and Conquer, Dynamic Programming, Encoding, Enumeration, Geometry, Graph, Graph Search, Greedy, Hash Table, Heap (Priority Queue), Heuristics, Image Processing, Intervals, Math, Matrix, Number Theory, Ordered Set, Pathfinding, Pattern Recognition, Prefix Sum, Queue, Segment Tree, Simulation, Sorting, String, String Matching, Tree, Trie, Two Pointers, Union Find, Z-Algorithm
+Algebra, Array, Backtracking, Binary Search, Binary Tree, Bipartite Matching, Bit Manipulation, Breadth-First Search, Combinatorics, Counting, Counting Sort, Database, Depth-First Search, Divide and Conquer, Dynamic Programming, Encoding, Enumeration, Geometry, Graph, Graph Search, Greedy, Hash Table, Heap (Priority Queue), Heuristics, Image Processing, Intervals, Linked List, Math, Matrix, Number Theory, Ordered Set, Pathfinding, Pattern Recognition, Prefix Sum, Queue, Segment Tree, Simulation, Sorting, Stack, String, String Matching, Tree, Trie, Two Pointers, Union Find, Z-Algorithm
 
 ## Catalogued patterns
 
-137 distinct patterns — full list in [index-patterns.md](index-patterns.md).
+139 distinct patterns — full list in [index-patterns.md](index-patterns.md).
