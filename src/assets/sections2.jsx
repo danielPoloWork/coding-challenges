@@ -2,6 +2,9 @@
 
 /* ---------- PLATFORMS grid ---------- */
 function Platforms({ platforms }) {
+  // Only surface platforms with at least one solved challenge; the empty ones
+  // stay catalogued (hero "of N catalogued") but don't earn a card here.
+  const shown = platforms ? platforms.filter((p) => p.count > 0) : null;
   return (
     <section className="section" id="platforms">
       <div className="wrap">
@@ -9,16 +12,16 @@ function Platforms({ platforms }) {
           <span className="sec-no">03</span>
           <div>
             <span className="eyebrow">The projects</span>
-            <h2>Sixteen platforms, one consistent standard.</h2>
+            <h2>One consistent standard, every platform.</h2>
             <p>Each card collects solved challenges from one source. Open it for a
               sortable, searchable index of every solution — rendered with notes and complexity.</p>
           </div>
         </div>
         <div className="grid-cards">
-          {!platforms && Array.from({ length: 6 }).map((_, i) => (
+          {!shown && Array.from({ length: 6 }).map((_, i) => (
             <div className="pcard" key={i} style={{ opacity: 0.5 }}><div className="pcard-top"><span className="pcard-icon" style={{ background: "var(--hairline)" }} /></div></div>
           ))}
-          {platforms && platforms.map((p, i) => (
+          {shown && shown.map((p, i) => (
             <a className="pcard reveal" key={p.id} href={`src/platform.html?platform=${p.id}`} style={{ transitionDelay: (i % 3 * 0.05) + "s" }}>
               <div className="pcard-top">
                 <span className="pcard-icon" style={{ background: p.color }}>{p.abbr}</span>

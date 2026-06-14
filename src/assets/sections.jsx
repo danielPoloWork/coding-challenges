@@ -99,7 +99,7 @@ function Hero({ totals, live }) {
   const t = totals || {challenges: 0, platforms: 0, languages: 0, patterns: 0, topics: 0 };
   const items = [
     { n: t.challenges, label: "Challenges solved" },
-    { n: t.platforms, label: "Source platforms", sub: t.catalogued ? `of ${t.catalogued} catalogued` : null },
+    { n: t.platforms, label: "Source platforms" },
     { n: t.languages, label: "Languages used" },
     { n: t.patterns, label: "Catalogued patterns" },
     { n: t.topics || 0, label: "Catalogued topics" },
@@ -122,7 +122,7 @@ function Hero({ totals, live }) {
           <p className="lede" data-fx>
             A long-term reference system for algorithmic problem solving — every challenge
             documented with reasoning, complexity trade-offs and reusable patterns, organised
-            across {totals.catalogued || totals.platforms} platforms and rendered to be read.
+            across {totals.platforms} platforms and rendered to be read.
           </p>
           <div className="hero-cta" data-fx>
             <a className="btn btn-primary" href="#platforms">Explore the work <Icon name="arrow" size={16}/></a>

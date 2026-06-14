@@ -5,6 +5,9 @@
 function Platforms({
   platforms
 }) {
+  // Only surface platforms with at least one solved challenge; the empty ones
+  // stay catalogued (hero "of N catalogued") but don't earn a card here.
+  const shown = platforms ? platforms.filter(p => p.count > 0) : null;
   return /*#__PURE__*/React.createElement("section", {
     className: "section",
     id: "platforms"
@@ -16,9 +19,9 @@ function Platforms({
     className: "sec-no"
   }, "03"), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("span", {
     className: "eyebrow"
-  }, "The projects"), /*#__PURE__*/React.createElement("h2", null, "Sixteen platforms, one consistent standard."), /*#__PURE__*/React.createElement("p", null, "Each card collects solved challenges from one source. Open it for a sortable, searchable index of every solution \u2014 rendered with notes and complexity."))), /*#__PURE__*/React.createElement("div", {
+  }, "The projects"), /*#__PURE__*/React.createElement("h2", null, "One consistent standard, every platform."), /*#__PURE__*/React.createElement("p", null, "Each card collects solved challenges from one source. Open it for a sortable, searchable index of every solution \u2014 rendered with notes and complexity."))), /*#__PURE__*/React.createElement("div", {
     className: "grid-cards"
-  }, !platforms && Array.from({
+  }, !shown && Array.from({
     length: 6
   }).map((_, i) => /*#__PURE__*/React.createElement("div", {
     className: "pcard",
@@ -33,7 +36,7 @@ function Platforms({
     style: {
       background: "var(--hairline)"
     }
-  })))), platforms && platforms.map((p, i) => /*#__PURE__*/React.createElement("a", {
+  })))), shown && shown.map((p, i) => /*#__PURE__*/React.createElement("a", {
     className: "pcard reveal",
     key: p.id,
     href: `src/platform.html?platform=${p.id}`,

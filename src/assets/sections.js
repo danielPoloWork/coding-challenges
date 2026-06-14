@@ -174,8 +174,7 @@ function Hero({
     label: "Challenges solved"
   }, {
     n: t.platforms,
-    label: "Source platforms",
-    sub: t.catalogued ? `of ${t.catalogued} catalogued` : null
+    label: "Source platforms"
   }, {
     n: t.languages,
     label: "Languages used"
@@ -214,7 +213,7 @@ function Hero({
   }, /*#__PURE__*/React.createElement("em", null, "Smart solutions.")), /*#__PURE__*/React.createElement("p", {
     className: "lede",
     "data-fx": true
-  }, "A long-term reference system for algorithmic problem solving \u2014 every challenge documented with reasoning, complexity trade-offs and reusable patterns, organised across ", totals.catalogued || totals.platforms, " platforms and rendered to be read."), /*#__PURE__*/React.createElement("div", {
+  }, "A long-term reference system for algorithmic problem solving \u2014 every challenge documented with reasoning, complexity trade-offs and reusable patterns, organised across ", totals.platforms, " platforms and rendered to be read."), /*#__PURE__*/React.createElement("div", {
     className: "hero-cta",
     "data-fx": true
   }, /*#__PURE__*/React.createElement("a", {
