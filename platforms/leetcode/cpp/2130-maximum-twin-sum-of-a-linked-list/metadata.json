@@ -1,0 +1,104 @@
+{
+  "id": "2130",
+  "title": "Maximum Twin Sum of a Linked List",
+  "slug": "maximum-twin-sum-of-a-linked-list",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/2130-maximum-twin-sum-of-a-linked-list",
+  "url": "https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/",
+  "difficulty": "Medium",
+  "topics": ["Linked List", "Two Pointers", "Stack"],
+  "patterns": ["fast-slow-pointers", "linked-list-reversal", "two-pointers", "fixed-buffer"],
+  "status": "solved",
+  "dateSolved": "2026-06-14",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/2130-maximum-twin-sum-of-a-linked-list/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals for this challenge: balanced in-place linked-list reversal and runtime-target fixed local array. The minimum-memory champion is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The balanced workload is pointer-heavy traversal over up to 1e5 linked-list nodes. C++ gives native pointer rewiring, inlinable helper code, no GC/interpreter overhead, and direct compatibility with LeetCode's ListNode signature.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected for native speed, direct pointer mutation, constant auxiliary memory, and ergonomic LeetCode integration."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for the smallest runtime baseline; it is used for the memory champion, while C++ remains clearer for the default class-based submission."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and memory safety; the platform-owned linked-list representation makes in-place reversal more ceremony-heavy without improving runtime or memory."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops and simple pointer operations; runtime, GC, and write-barrier costs are unnecessary for this pointer workload."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered for strong JIT performance; managed object layout, null checks, and runtime overhead are less attractive than C++ for raw linked-list traversal."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered because the algorithm is simple; interpreter/VM overhead loses to native traversal at n up to 1e5."
+        }
+      ],
+      "approachJustification": "Use fast/slow pointers to find the start of the second half, reverse that half in place, then walk the first half and reversed second half together to compute every twin sum.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) extra"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "The runtime target deliberately spends O(n) stack memory on a fixed int buffer. This reduces the work to one linked-list traversal plus a tight contiguous two-index scan, avoids vector heap allocation, and is the best candidate for LeetCode's 0 ms bucket.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected for optimized native loops, fixed local array storage, and the standard LeetCode class signature."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered and viable for similar machine code; chosen instead for the memory champion because C++ already gives the required fixed-buffer runtime shape."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance; fixed-buffer code around platform-owned linked nodes is less ergonomic without improving constants."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops; bounds checks and runtime baseline are less predictable than C++ fixed-array indexing."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered for JIT array loops; runtime/object baseline and allocation behavior are less attractive for chasing 0 ms."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered only as simple implementations; interpreter/VM overhead dominates this small hot loop."
+        }
+      ],
+      "approachJustification": "Copy node values into a fixed local array, then scan from both ends to compute twin sums with contiguous memory access and no heap allocation.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(n)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/2130-maximum-twin-sum-of-a-linked-list",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "reasoningSummary": "Twin pairs are first-half nodes matched with the second half in reverse order. The balanced solution reverses the second half in place for O(n)/O(1). The runtime solution copies values to a fixed local array to trade O(n) memory for contiguous scanning and a better shot at LeetCode's 0 ms bucket.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) extra recommended / O(n) runtime"
+}

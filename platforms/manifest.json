@@ -513,6 +513,7 @@
       "language": "C++",
       "languageExt": "cpp",
       "languages": [
+        "C",
         "C++"
       ],
       "difficulty": "Medium",
@@ -524,13 +525,14 @@
       "patterns": [
         "fast-slow-pointers",
         "linked-list-reversal",
-        "two-pointers"
+        "two-pointers",
+        "fixed-buffer"
       ],
       "path": "platforms/leetcode/cpp/2130-maximum-twin-sum-of-a-linked-list",
       "recommendedSolution": "solution.cpp",
       "dateSolved": "2026-06-14",
       "timeComplexity": "O(n)",
-      "spaceComplexity": "O(1) extra"
+      "spaceComplexity": "O(1) extra recommended / O(n) runtime"
     },
     {
       "id": "2161",

@@ -17,7 +17,7 @@
 | Language | Solved |
 | --- | ---: |
 | C++ | 37 |
-| C | 7 |
+| C | 8 |
 | SQL | 5 |
 
 ## Solved per type
@@ -73,7 +73,7 @@
 | 0912 | [Sort an Array](https://leetcode.com/problems/sort-an-array/) | Medium | [C](../platforms/leetcode/c/0912-sort-an-array) · [C++](../platforms/leetcode/cpp/0912-sort-an-array) |
 | 1929 | [Concatenation of Array](https://leetcode.com/problems/concatenation-of-array/) | Easy | [C++](../platforms/leetcode/cpp/1929-concatenation-of-array) |
 | 1978 | [Employees Whose Manager Left the Company](https://leetcode.com/problems/employees-whose-manager-left-the-company/) | Easy | [SQL](../platforms/leetcode/sql/1978-employees-whose-manager-left-the-company) |
-| 2130 | [Maximum Twin Sum of a Linked List](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/) | Medium | [C++](../platforms/leetcode/cpp/2130-maximum-twin-sum-of-a-linked-list) |
+| 2130 | [Maximum Twin Sum of a Linked List](https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/) | Medium | [C](../platforms/leetcode/c/2130-maximum-twin-sum-of-a-linked-list) · [C++](../platforms/leetcode/cpp/2130-maximum-twin-sum-of-a-linked-list) |
 | 2161 | [Partition Array According to Given Pivot](https://leetcode.com/problems/partition-array-according-to-given-pivot/) | Medium | [C++](../platforms/leetcode/cpp/2161-partition-array-according-to-given-pivot) |
 | 2196 | [Create Binary Tree From Descriptions](https://leetcode.com/problems/create-binary-tree-from-descriptions/) | Medium | [C++](../platforms/leetcode/cpp/2196-create-binary-tree-from-descriptions) |
 | 2574 | [Left and Right Sum Differences](https://leetcode.com/problems/left-and-right-sum-differences/) | Easy | [C++](../platforms/leetcode/cpp/2574-left-and-right-sum-differences) |
