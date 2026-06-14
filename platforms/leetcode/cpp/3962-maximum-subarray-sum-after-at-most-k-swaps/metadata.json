@@ -1,0 +1,130 @@
+{
+  "id": "3962",
+  "title": "Maximum Subarray Sum After at Most K Swaps",
+  "slug": "maximum-subarray-sum-after-at-most-k-swaps",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3962-maximum-subarray-sum-after-at-most-k-swaps",
+  "url": "https://leetcode.com/problems/maximum-subarray-sum-after-at-most-k-swaps/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Greedy", "Binary Indexed Tree", "Binary Search", "Sorting", "Prefix Sum"],
+  "patterns": ["exchange-argument", "top-k-greedy", "order-statistics", "fenwick-tree", "coordinate-compression"],
+  "status": "solved",
+  "dateSolved": "2026-06-14",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3962-maximum-subarray-sum-after-at-most-k-swaps/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposals. All three use the same fixed-interval exchange argument; the runtime and memory variants change the order-statistic implementation for their respective objectives.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The constraints create O(n^2) candidate intervals with many rank, kth, and rank-sum queries. C++ gives native Fenwick loops, compact vectors, and predictable 64-bit arithmetic without managed-runtime overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It provides the strongest balance of native speed, concise coordinate compression, Fenwick trees, and LeetCode runner maturity."
+        },
+        {
+          "language": "C",
+          "assessment": "Raw loops are competitive, but manual dynamic arrays and coordinate-compression plumbing add risk without reducing this variant's asymptotic memory."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and memory-safe, but mutable tree state and repeated rank queries are more verbose and typically have less favorable constants than the C++ version on LeetCode."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled and straightforward, but bounds checks and runtime overhead are less attractive for millions of Fenwick probes."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays can be fast after JIT warmup, but C++ avoids GC/runtime baseline costs and keeps memory layout lean."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The window count and order-statistic query volume are too large for interpreter or VM-heavy solutions to target the top percentile."
+        }
+      ],
+      "approachJustification": "For each subarray, use Fenwick trees for the inside and outside multisets. The useful swap count is found by checking the two global thresholds around the inside/outside crossing, then Fenwick sums compute the gain.",
+      "timeComplexity": "O(n^2 log n)",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "fastest-runtime",
+      "file": "solution-runtime.cpp",
+      "language": "C++",
+      "languageReason": "The runtime variant is dominated by Fenwick probes and per-left initialization. C++ fixed arrays, memcpy, memset, and scalar totals minimize allocation and object overhead while preserving the same optimal interval enumeration.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Fixed arrays and inlined helpers give the lowest practical constants for the hinted data-structure approach."
+        },
+        {
+          "language": "C",
+          "assessment": "Could match the array layout, but LeetCode's C++ vector input and standard sorting/compression keep the solution safer with equivalent native loops."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native performance is possible, but checked indexing and borrow management around several mutable arrays make it harder to outpace the C++ hot path."
+        },
+        {
+          "language": "Go",
+          "assessment": "Slices are convenient, but bounds checks and runtime services add overhead to the dense Fenwick loops."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "JIT can optimize primitive arrays, but C++ has lower startup and more predictable top-percentile behavior for this short dense workload."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Too many scalar tree operations for interpreted or VM-heavy implementations."
+        }
+      ],
+      "approachJustification": "Same fixed-interval exchange argument as the recommended solution, but the Fenwick trees are fixed arrays reused for every left endpoint.",
+      "timeComplexity": "O(n^2 log n)",
+      "spaceComplexity": "O(n)"
+    },
+    {
+      "role": "least-memory",
+      "file": "solution-memory.cpp",
+      "language": "C++",
+      "languageReason": "The memory variant needs a compact mutable inside tree plus static global prefixes. C++ keeps those arrays lean and avoids managed-runtime or object-heavy numeric storage.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It minimizes live mutable order-statistic state while staying practical for LeetCode constraints."
+        },
+        {
+          "language": "C",
+          "assessment": "Could reduce library baseline slightly, but it would not beat the O(n) compressed-value state and would make the implementation more fragile."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Strong memory control, but the complement-prefix order-statistic code is more cumbersome and does not improve the footprint."
+        },
+        {
+          "language": "Go",
+          "assessment": "Slice storage is simple but the runtime and GC baseline are larger than C++ for a memory objective."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays avoid boxing, but managed-runtime overhead is higher than C++."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Object-heavy numeric containers are dominated for memory use."
+        }
+      ],
+      "approachJustification": "Maintain only the inside Fenwick tree. Outside counts and sums are derived as global prefix totals minus inside prefix totals, trading an extra logarithm for fewer mutable arrays.",
+      "timeComplexity": "O(n^2 log^2 n)",
+      "spaceComplexity": "O(n)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Fix an interval. For t swaps, the optimal gain is the sum of the t largest outside values minus the sum of the t smallest inside values. The paired marginal gains are non-increasing, and the positive-pair count is maximized at one of the two global thresholds around the inside/outside crossing. Enumerating intervals and maintaining compressed order-statistic sums gives an exact solution.",
+  "timeComplexity": "O(n^2 log n) recommended/runtime; O(n^2 log^2 n) memory",
+  "spaceComplexity": "O(n)"
+}

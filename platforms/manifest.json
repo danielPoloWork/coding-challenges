@@ -1436,6 +1436,38 @@
       "dateSolved": "2026-06-07",
       "timeComplexity": "O(n log A)",
       "spaceComplexity": "O(n) recommended/runtime, O(r) memory"
+    },
+    {
+      "id": "3962",
+      "title": "Maximum Subarray Sum After at Most K Swaps",
+      "slug": "maximum-subarray-sum-after-at-most-k-swaps",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Greedy",
+        "Binary Indexed Tree",
+        "Binary Search",
+        "Sorting",
+        "Prefix Sum"
+      ],
+      "patterns": [
+        "exchange-argument",
+        "top-k-greedy",
+        "order-statistics",
+        "fenwick-tree",
+        "coordinate-compression"
+      ],
+      "path": "platforms/leetcode/cpp/3962-maximum-subarray-sum-after-at-most-k-swaps",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-14",
+      "timeComplexity": "O(n^2 log n) recommended/runtime; O(n^2 log^2 n) memory",
+      "spaceComplexity": "O(n)"
     }
   ],
   "articles": [
