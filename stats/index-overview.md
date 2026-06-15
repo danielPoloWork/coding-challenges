@@ -4,11 +4,11 @@
 
 | Metric | Value |
 | --- | ---: |
-| Total challenges solved | 48 |
+| Total challenges solved | 49 |
 | Total source platforms | 2 (of 16 catalogued) |
 | Total languages used | 3 |
 | Total catalogued topics | 47 |
-| Total catalogued patterns | 144 |
+| Total catalogued patterns | 145 |
 
 _Topics are the broad algorithmic domains; patterns are the finer reusable techniques. Both counted distinct across all platforms and languages._
 
@@ -16,15 +16,15 @@ _Topics are the broad algorithmic domains; patterns are the finer reusable techn
 
 | Platform | Challenges solved |
 | --- | ---: |
-| [leetcode](index-leetcode.md) | 43 |
+| [leetcode](index-leetcode.md) | 44 |
 | [coding-games](index-coding-games.md) | 5 |
 
 ## Languages used
 
 | Language | Solved |
 | --- | ---: |
-| C++ | 43 |
-| C | 8 |
+| C++ | 44 |
+| C | 9 |
 | SQL | 5 |
 
 ## Catalogued topics
@@ -33,4 +33,4 @@ Algebra, Array, Backtracking, Binary Indexed Tree, Binary Search, Binary Tree, B
 
 ## Catalogued patterns
 
-144 distinct patterns — full list in [index-patterns.md](index-patterns.md).
+145 distinct patterns — full list in [index-patterns.md](index-patterns.md).

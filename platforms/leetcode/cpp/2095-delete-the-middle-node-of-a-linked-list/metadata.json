@@ -1,0 +1,69 @@
+{
+  "id": "2095",
+  "title": "Delete the Middle Node of a Linked List",
+  "slug": "delete-the-middle-node-of-a-linked-list",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/2095-delete-the-middle-node-of-a-linked-list",
+  "url": "https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/",
+  "difficulty": "Medium",
+  "topics": ["Linked List", "Two Pointers"],
+  "patterns": ["fast-slow-pointers", "linked-list-deletion", "two-pointers"],
+  "status": "solved",
+  "dateSolved": "2026-06-15",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/2095-delete-the-middle-node-of-a-linked-list/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposal for this challenge: the recommended fast+lean solution is also the fastest-runtime proposal, so no separate solution-runtime.cpp is shipped. The minimum-memory champion is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The workload is a single pointer-heavy traversal over up to 100000 linked-list nodes. C++ gives native pointer rewiring, direct compatibility with LeetCode's ListNode* class signature, no GC/interpreter overhead, and O(1) auxiliary memory. The same implementation is also the fastest-runtime proposal because it reaches the singly linked-list traversal lower bound in one pass.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected for the recommended and runtime objectives: direct ListNode* mutation, native branch-light loops, no auxiliary allocation, and the standard LeetCode class submission surface."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered and used for the minimum-memory proposal. It can reduce reported runtime baseline memory, but it does not improve the one-pass runtime algorithm over C++."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and safety; LeetCode's platform-owned linked-list representation adds ownership ceremony without reducing time or auxiliary memory."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled pointer traversal; runtime and GC metadata are unnecessary for this O(1)-state linked-list operation."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered for strong JIT performance; managed object layout, runtime baseline, and null-check overhead are less attractive for top-percentile pointer traversal."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered for clarity; interpreter/VM overhead loses to native code for up to 100000 node visits."
+        }
+      ],
+      "approachJustification": "Use fast/slow pointers to place slow at index floor(n / 2), retain the predecessor as prev, and unlink the middle node with one pointer assignment.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/2095-delete-the-middle-node-of-a-linked-list",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    }
+  ],
+  "reasoningSummary": "Fast/slow pointers derive the floor(n / 2) middle during one traversal. Tracking the previous slow pointer provides the predecessor needed for singly linked-list deletion, so the middle is removed with one pointer rewrite. The C++ solution is both the recommended and runtime-optimal proposal; the C sibling targets lower reported memory baseline.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) auxiliary"
+}

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-14",
+  "generated": "2026-06-15",
   "version": 1,
   "catalogued": 16,
   "platforms": [
@@ -504,6 +504,33 @@
       "dateSolved": "2026-06-07",
       "timeComplexity": "O(n) logical scan plus primary-key manager existence checks; O(r log r) sort only if needed",
       "spaceComplexity": "O(r) output plus optimizer-dependent workspace"
+    },
+    {
+      "id": "2095",
+      "title": "Delete the Middle Node of a Linked List",
+      "slug": "delete-the-middle-node-of-a-linked-list",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
+      "difficulty": "Medium",
+      "topics": [
+        "Linked List",
+        "Two Pointers"
+      ],
+      "patterns": [
+        "fast-slow-pointers",
+        "linked-list-deletion",
+        "two-pointers"
+      ],
+      "path": "platforms/leetcode/cpp/2095-delete-the-middle-node-of-a-linked-list",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-15",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
     },
     {
       "id": "2130",

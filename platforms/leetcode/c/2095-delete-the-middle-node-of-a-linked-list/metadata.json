@@ -1,0 +1,77 @@
+{
+  "id": "2095",
+  "title": "Delete the Middle Node of a Linked List",
+  "slug": "delete-the-middle-node-of-a-linked-list",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/2095-delete-the-middle-node-of-a-linked-list",
+  "url": "https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/",
+  "difficulty": "Medium",
+  "topics": ["Linked List", "Two Pointers"],
+  "patterns": ["fast-slow-pointers", "linked-list-deletion", "two-pointers"],
+  "status": "solved",
+  "dateSolved": "2026-06-15",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/2095-delete-the-middle-node-of-a-linked-list/solution.cpp",
+  "recommendedSolution": "solution-memory.c",
+  "note": "C proposal for this challenge: the minimum-memory champion. The recommended and fastest-runtime proposal is the C++ one-pass solution; see crossReferences.",
+  "variants": [
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "C has the smallest practical LeetCode runtime/stdlib baseline among the allowed languages for this linked-list deletion task. The algorithm itself allocates nothing and stores only three node pointers.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Used for the recommended and runtime proposal; equally optimal algorithmically, but its class/STL runner baseline can report more memory than C."
+        },
+        {
+          "language": "C",
+          "assessment": "Selected for the memory objective: direct struct pointers, no STL, no heap allocation, no recursion, and minimal language baseline."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and memory safety; ownership ceremony around LeetCode list nodes does not lower memory below C."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled pointer traversal; runtime and GC baseline are weaker for the low-MB target."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered for JIT performance; managed runtime and object-layout overhead are not competitive for the memory objective."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered only for simplicity; interpreter/VM memory baselines are too high for the minimum-memory goal."
+        }
+      ],
+      "approachJustification": "Use fast/slow pointers to place slow at the middle, retain the predecessor, and unlink the middle node without allocating any auxiliary storage.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/2095-delete-the-middle-node-of-a-linked-list",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    },
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/2095-delete-the-middle-node-of-a-linked-list",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    }
+  ],
+  "reasoningSummary": "The memory proposal uses the same optimal fast/slow predecessor-tracking algorithm as the C++ runtime proposal, but submits it in C to minimize reported language/runtime memory baseline.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) auxiliary"
+}
