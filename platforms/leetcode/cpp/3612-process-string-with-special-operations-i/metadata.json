@@ -1,0 +1,61 @@
+{
+  "id": "3612",
+  "title": "Process String with Special Operations I",
+  "slug": "process-string-with-special-operations-i",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3612-process-string-with-special-operations-i",
+  "url": "https://leetcode.com/problems/process-string-with-special-operations-i/",
+  "difficulty": "Medium",
+  "topics": ["String", "Simulation"],
+  "patterns": ["simulation", "output-buffer", "bulk-copy"],
+  "status": "solved",
+  "dateSolved": "2026-06-16",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3612-process-string-with-special-operations-i/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The operation program has at most 20 characters, while the final string can still grow to about 524288 bytes. The required return value must be materialized, and C++ std::string gives a compact contiguous output buffer, native byte operations, in-place reverse, and direct LeetCode signature support. A first pass reserves the peak reachable size so the hot simulation has no reallocations.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It combines native execution, compact contiguous string storage, in-place reverse, cheap push/pop operations, and a direct string return type for LeetCode."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for manual buffer control and low overhead, but LeetCode's ergonomic string-return signature favors C++. A C version would need return-size plumbing and manual lifetime management without reducing the output-dominated memory footprint."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native performance and memory safety, but Vec/String boundary checks and the platform wrapper do not improve this tiny ASCII simulation over C++."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled performance and byte slices, but slice growth/runtime metadata and final string conversion are weaker constants than a reserved C++ string."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered because mutable string builders handle these operations cleanly, but managed runtime overhead, UTF-16 storage, and object headers are unnecessary for ASCII output with a top-percentile target."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered because n <= 20 makes correctness easy, but VM/interpreter overhead and immutable string copies are weaker for top 1% runtime than native C++."
+        }
+      ],
+      "approachJustification": "Scan once to compute the maximum intermediate length and reserve exactly that capacity, then simulate the four operations in a single output string: push letters, pop on '*', self-append on '#', and reverse in place on '%'. The required result is the only data structure.",
+      "timeComplexity": "O(n + W)",
+      "spaceComplexity": "O(M) for the returned string, O(1) auxiliary"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The problem statement is already an executable specification. Because n <= 20 and the final string is the required return value, direct simulation is optimal in practice: every returned byte must be written, and the only potentially expensive operation is avoidable reallocation, handled by reserving the peak length before the simulation. Lazy reversal or symbolic reconstruction adds overhead or worse constants without reducing the mandatory output storage.",
+  "timeComplexity": "O(n + W)",
+  "spaceComplexity": "O(M) for the returned string, O(1) auxiliary"
+}

@@ -4,7 +4,7 @@
 
 | Metric | Value |
 | --- | ---: |
-| Total challenges solved | 49 |
+| Total challenges solved | 50 |
 | Total source platforms | 2 (of 16 catalogued) |
 | Total languages used | 3 |
 | Total catalogued topics | 47 |
@@ -16,14 +16,14 @@ _Topics are the broad algorithmic domains; patterns are the finer reusable techn
 
 | Platform | Challenges solved |
 | --- | ---: |
-| [leetcode](index-leetcode.md) | 44 |
+| [leetcode](index-leetcode.md) | 45 |
 | [coding-games](index-coding-games.md) | 5 |
 
 ## Languages used
 
 | Language | Solved |
 | --- | ---: |
-| C++ | 44 |
+| C++ | 45 |
 | C | 9 |
 | SQL | 5 |
 

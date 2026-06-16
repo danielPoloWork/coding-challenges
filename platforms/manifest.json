@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-15",
+  "generated": "2026-06-16",
   "version": 1,
   "catalogued": 16,
   "platforms": [
@@ -1104,6 +1104,32 @@
       "dateSolved": "2026-06-06",
       "timeComplexity": "O(log max(tx, ty))",
       "spaceComplexity": "O(1)"
+    },
+    {
+      "id": "3612",
+      "title": "Process String with Special Operations I",
+      "slug": "process-string-with-special-operations-i",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Medium",
+      "topics": [
+        "String",
+        "Simulation"
+      ],
+      "patterns": [
+        "simulation",
+        "output-buffer",
+        "bulk-copy"
+      ],
+      "path": "platforms/leetcode/cpp/3612-process-string-with-special-operations-i",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-16",
+      "timeComplexity": "O(n + W)",
+      "spaceComplexity": "O(M) for the returned string, O(1) auxiliary"
     },
     {
       "id": "3614",
