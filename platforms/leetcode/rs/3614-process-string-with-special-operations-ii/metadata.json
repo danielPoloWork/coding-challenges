@@ -1,0 +1,86 @@
+{
+  "id": "3614",
+  "title": "Process String with Special Operations II",
+  "slug": "process-string-with-special-operations-ii",
+  "platform": "leetcode",
+  "language": "Rust",
+  "languageExt": "rs",
+  "platformPath": "platforms/leetcode/rs/3614-process-string-with-special-operations-ii",
+  "url": "https://leetcode.com/problems/process-string-with-special-operations-ii/",
+  "difficulty": "Hard",
+  "topics": ["String", "Simulation"],
+  "patterns": ["reverse-simulation", "length-tracking", "index-remapping", "lazy-evaluation"],
+  "status": "solved",
+  "dateSolved": "2026-06-17",
+  "performanceTarget": "didactic language coverage; existing C++ entry remains the top 1% performance champion",
+  "didactic": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3614-process-string-with-special-operations-ii/solution.cpp",
+  "recommendedSolution": "solution.rs",
+  "note": "Didactic Rust re-solve for language coverage. The existing C++ solution is Pareto-optimal and remains the recommended, speed-extreme, and memory-extreme champion.",
+  "variants": [
+    {
+      "role": "didactic-language-coverage",
+      "file": "solution.rs",
+      "language": "Rust",
+      "languageReason": "Rust is selected for this didactic entry because it keeps the champion's native, constant-memory two-pass scan while making byte-level matching, signed 64-bit arithmetic, and ownership explicit. It is not claimed to beat the existing C++ champion on LeetCode constants.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Already implemented and selected as the global recommended, runtime, and memory champion. It has the direct LeetCode signature, native byte scans, and the lowest practical constant-factor profile for this problem."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for low-level byte scanning, but it would not improve the algorithmic or memory profile over the existing C++ champion and is less ergonomic for the platform signature."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Selected for didactic coverage. It preserves native execution and O(1) auxiliary state while expressing the inverse operations clearly with byte-slice pattern matching."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for compiled loops, but runtime metadata and bounds-check behavior are less compelling than C++ for the top-performance champion and less instructive than Rust for this folder's learning objective."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered because managed runtimes can scan strings quickly, but UTF-16 storage, object overhead, and runtime startup do not help this ASCII-only, constant-state inverse walk."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Considered for concise code, but interpreter or VM overhead is weaker for a 100000-character hard problem when the global target is top-percentile execution time."
+        }
+      ],
+      "approachJustification": "Compute the final virtual length, reject out-of-bounds k, then scan the byte program backward. Undo # by halving length and folding k with modulo, undo % by mirroring k, undo a letter by checking whether it created the current last slot, and undo * by restoring one deleted position.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3614-process-string-with-special-operations-ii",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    },
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3614-process-string-with-special-operations-ii",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    },
+    {
+      "role": "least-memory",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3614-process-string-with-special-operations-ii",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    }
+  ],
+  "reasoningSummary": "The final string is treated as a virtual object. After computing final length, a valid target index is traced backward through the operation program: duplication folds k into the original half, reversal mirrors it, a letter answers only when it created the current last slot, and a relevant delete is undone by increasing length. This Rust folder is didactic; the C++ sibling remains the performance champion.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) auxiliary"
+}

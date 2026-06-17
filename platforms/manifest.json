@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-16",
+  "generated": "2026-06-17",
   "version": 1,
   "catalogued": 16,
   "platforms": [
@@ -1139,7 +1139,8 @@
       "language": "C++",
       "languageExt": "cpp",
       "languages": [
-        "C++"
+        "C++",
+        "Rust"
       ],
       "difficulty": "Hard",
       "topics": [

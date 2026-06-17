@@ -54,7 +54,16 @@
       "spaceComplexity": "O(1) auxiliary"
     }
   ],
-  "crossReferences": [],
+  "crossReferences": [
+    {
+      "role": "didactic-language-coverage",
+      "language": "Rust",
+      "path": "platforms/leetcode/rs/3614-process-string-with-special-operations-ii",
+      "file": "solution.rs",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) auxiliary"
+    }
+  ],
   "reasoningSummary": "The final string is a virtual object. Once final length is known, the target index can be traced backward through the operation program: duplication folds k into the first half, reversal mirrors it, a letter answers only when it is the appended last position, and a relevant delete is undone by increasing the previous length. This avoids both final-string construction and an O(n) prefix-length array.",
   "timeComplexity": "O(n)",
   "spaceComplexity": "O(1) auxiliary"

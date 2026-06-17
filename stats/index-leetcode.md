@@ -19,6 +19,7 @@
 | C++ | 40 |
 | C | 9 |
 | SQL | 5 |
+| Rust | 1 |
 
 ## Solved per type
 
@@ -96,7 +97,7 @@
 | 3563 | [Lexicographically Smallest String After Adjacent Removals](https://leetcode.com/problems/lexicographically-smallest-string-after-adjacent-removals/) | Hard | [C](../platforms/leetcode/c/3563-lexicographically-smallest-string-after-adjacent-removals) · [C++](../platforms/leetcode/cpp/3563-lexicographically-smallest-string-after-adjacent-removals) |
 | 3609 | [Minimum Moves to Reach Target in Grid](https://leetcode.com/problems/minimum-moves-to-reach-target-in-grid/) | Hard | [C++](../platforms/leetcode/cpp/3609-minimum-moves-to-reach-target-in-grid) |
 | 3612 | [Process String with Special Operations I](https://leetcode.com/problems/process-string-with-special-operations-i/) | Medium | [C++](../platforms/leetcode/cpp/3612-process-string-with-special-operations-i) |
-| 3614 | [Process String with Special Operations II](https://leetcode.com/problems/process-string-with-special-operations-ii/) | Hard | [C++](../platforms/leetcode/cpp/3614-process-string-with-special-operations-ii) |
+| 3614 | [Process String with Special Operations II](https://leetcode.com/problems/process-string-with-special-operations-ii/) | Hard | [C++](../platforms/leetcode/cpp/3614-process-string-with-special-operations-ii) · [Rust](../platforms/leetcode/rs/3614-process-string-with-special-operations-ii) |
 | 3630 | [Partition Array for Maximum XOR and AND](https://leetcode.com/problems/partition-array-for-maximum-xor-and-and/) | Hard | [C++](../platforms/leetcode/cpp/3630-partition-array-for-maximum-xor-and-and) |
 | 3635 | [Earliest Finish Time for Land and Water Rides II](https://leetcode.com/problems/earliest-finish-time-for-land-and-water-rides-ii/) | Medium | [C++](../platforms/leetcode/cpp/3635-earliest-finish-time-for-land-and-water-rides-ii) |
 | 3664 | [Two-Letter Card Game](https://leetcode.com/problems/two-letter-card-game/) | Medium | [C++](../platforms/leetcode/cpp/3664-two-letter-card-game) |

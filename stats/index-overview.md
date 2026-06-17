@@ -6,7 +6,7 @@
 | --- | ---: |
 | Total challenges solved | 50 |
 | Total source platforms | 2 (of 16 catalogued) |
-| Total languages used | 3 |
+| Total languages used | 4 |
 | Total catalogued topics | 47 |
 | Total catalogued patterns | 145 |
 
@@ -26,6 +26,7 @@ _Topics are the broad algorithmic domains; patterns are the finer reusable techn
 | C++ | 45 |
 | C | 9 |
 | SQL | 5 |
+| Rust | 1 |
 
 ## Catalogued topics
 
