@@ -1,0 +1,61 @@
+{
+  "id": "1344",
+  "title": "Angle Between Hands of a Clock",
+  "slug": "angle-between-hands-of-a-clock",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/1344-angle-between-hands-of-a-clock",
+  "url": "https://leetcode.com/problems/angle-between-hands-of-a-clock/",
+  "difficulty": "Medium",
+  "topics": ["Math"],
+  "patterns": ["modular-arithmetic", "cyclic-distance", "integer-scaling"],
+  "status": "solved",
+  "dateSolved": "2026-06-18",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/c/1344-angle-between-hands-of-a-clock/solution.c",
+  "recommendedSolution": "solution.c",
+  "note": "Pareto-optimal challenge: the single C solution is the recommended fast + lean proposal, the speed extreme, and the memory extreme. Separate solution-runtime or solution-memory files would be coincident, so they are intentionally omitted.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.c",
+      "language": "C",
+      "languageReason": "The workload is pure scalar arithmetic over fixed-size inputs: two integer hand positions, one circular-distance comparison, and one final double conversion. C gives direct integer operations, no allocation, no container or object metadata, and the smallest practical LeetCode runtime/library baseline among supported native options for this no-data-structure problem.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Can compile the same formula efficiently inside class Solution, but adds no instruction-path advantage over C for a two-int scalar function."
+        },
+        {
+          "language": "C",
+          "assessment": "Selected: direct LeetCode function signature, minimal runtime baseline, no allocation, and exact integer arithmetic until the final double return."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and safe, but its wrapper/bounds-safety ergonomics do not improve a fixed scalar arithmetic path."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled arithmetic is fast, but the Go runtime and wrapper baseline are heavier than C for this tiny no-allocation workload."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "JIT arithmetic is competitive after warm-up, but VM/class scaffolding and managed-runtime memory baseline dominate this constant-time task."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The constraints are tiny enough to pass, but interpreter/VM overhead is not competitive for top 1% scalar performance."
+        }
+      ],
+      "approachJustification": "Scale angles to half-degree units so both hand positions are integers: hour=(hour%12)*60+minutes, minute=minutes*12. The smaller clock angle is min(abs(hour-minute), 720-abs(hour-minute)), converted back by dividing by 2.0.",
+      "timeComplexity": "O(1)",
+      "spaceComplexity": "O(1)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The hour hand advances by 30 degrees per hour plus 0.5 degrees per minute, while the minute hand advances by 6 degrees per minute. Measuring in half-degrees makes both positions integral, so the solution computes their absolute difference, folds it through the circular complement when needed, and returns half the result. This fixed arithmetic path is both the runtime and memory optimum.",
+  "timeComplexity": "O(1)",
+  "spaceComplexity": "O(1)"
+}

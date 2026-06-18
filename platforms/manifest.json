@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-17",
+  "generated": "2026-06-18",
   "version": 1,
   "catalogued": 16,
   "platforms": [
@@ -452,6 +452,31 @@
       "dateSolved": "2026-06-02",
       "timeComplexity": "O(n log n) recommended / O(n + R) (counting)",
       "spaceComplexity": "O(log n) recommended / O(R) (counting)"
+    },
+    {
+      "id": "1344",
+      "title": "Angle Between Hands of a Clock",
+      "slug": "angle-between-hands-of-a-clock",
+      "platform": "leetcode",
+      "language": "C",
+      "languageExt": "c",
+      "languages": [
+        "C"
+      ],
+      "difficulty": "Medium",
+      "topics": [
+        "Math"
+      ],
+      "patterns": [
+        "modular-arithmetic",
+        "cyclic-distance",
+        "integer-scaling"
+      ],
+      "path": "platforms/leetcode/c/1344-angle-between-hands-of-a-clock",
+      "recommendedSolution": "solution.c",
+      "dateSolved": "2026-06-18",
+      "timeComplexity": "O(1)",
+      "spaceComplexity": "O(1)"
     },
     {
       "id": "1929",
