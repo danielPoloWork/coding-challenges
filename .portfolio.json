@@ -1,0 +1,10 @@
+{
+  "title": "Coding Challenges Knowledge Base",
+  "tags": ["Algorithms", "Data Structures", "Competitive Programming", "Problem Solving", "Patterns"],
+  "order": 1,
+  "description": {
+    "en": "Enterprise-grade knowledge base for algorithmic problem solving across competitive-programming platforms. It documents the reasoning, complexity trade-offs, and reusable patterns behind each solution — not just the accepted code.",
+    "ja": "競技プログラミング各プラットフォームのアルゴリズム課題を解くためのナレッジベース。正解コードを保存するだけでなく、その背後にある思考過程・計算量のトレードオフ・再利用可能なパターンを記録する。",
+    "zh": "面向各竞赛编程平台算法题的知识库：不仅保存通过的解法代码，更系统记录解题思路、复杂度权衡与可复用的模式。"
+  }
+}
