@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-19",
+  "generated": "2026-06-20",
   "version": 1,
   "catalogued": 16,
   "platforms": [
@@ -476,6 +476,31 @@
       "recommendedSolution": "solution.c",
       "dateSolved": "2026-06-18",
       "timeComplexity": "O(1)",
+      "spaceComplexity": "O(1)"
+    },
+    {
+      "id": "1732",
+      "title": "Find the Highest Altitude",
+      "slug": "find-the-highest-altitude",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Easy",
+      "topics": [
+        "Array",
+        "Prefix Sum"
+      ],
+      "patterns": [
+        "prefix-sum",
+        "running-sum"
+      ],
+      "path": "platforms/leetcode/cpp/1732-find-the-highest-altitude",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-20",
+      "timeComplexity": "O(n)",
       "spaceComplexity": "O(1)"
     },
     {

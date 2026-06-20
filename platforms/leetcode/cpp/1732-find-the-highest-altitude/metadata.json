@@ -1,0 +1,61 @@
+{
+  "id": "1732",
+  "title": "Find the Highest Altitude",
+  "slug": "find-the-highest-altitude",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/1732-find-the-highest-altitude",
+  "url": "https://leetcode.com/problems/find-the-highest-altitude/",
+  "difficulty": "Easy",
+  "topics": ["Array", "Prefix Sum"],
+  "patterns": ["prefix-sum", "running-sum"],
+  "status": "solved",
+  "dateSolved": "2026-06-20",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/1732-find-the-highest-altitude/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the single recommended solution is also the speed extreme and the memory extreme. Per the repo standard (no coincident files), only solution.cpp is shipped; there is no separate solution-runtime or solution-memory file.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The problem is a tiny arithmetic-only prefix scan. Native C++ uses LeetCode's vector<int>& input without copying, avoids interpreter and managed-runtime overhead, and keeps the method allocation-free with two scalar integers.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected for native execution, zero-copy vector<int>& judge input, compact integer arithmetic, and official class-based LeetCode ergonomics."
+        },
+        {
+          "language": "C",
+          "assessment": "Native and similarly compact, but it does not reduce the algorithmic state below two integers or provide a meaningful memory advantage over the C++ signature for this problem."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Competitive native performance, but safety/bounds-check codegen and submission overhead do not improve on the simple C++ scalar loop."
+        },
+        {
+          "language": "Go",
+          "assessment": "A slice loop is straightforward, but Go runtime and bounds-check overhead add no advantage for n <= 100."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "JIT performance is adequate, but managed runtime overhead and metadata are unnecessary for a tiny one-pass arithmetic method."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The constraints are small enough for acceptance, but interpreter or VM overhead is much larger than the work done by the algorithm."
+        }
+      ],
+      "approachJustification": "Maintain the current altitude as a running prefix sum and update the best altitude after each gain. The starting altitude 0 initializes the maximum. This same scan is also the speed and memory extreme.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "The altitude at each point is the prefix sum of gains up to that point. Because the answer only needs the maximum prefix value and every gain may change it, a single running altitude plus a running maximum is both time-optimal and memory-optimal.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1)"
+}
