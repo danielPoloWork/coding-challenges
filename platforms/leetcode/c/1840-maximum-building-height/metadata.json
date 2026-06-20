@@ -1,0 +1,77 @@
+{
+  "id": "1840",
+  "title": "Maximum Building Height",
+  "slug": "maximum-building-height",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/1840-maximum-building-height",
+  "url": "https://leetcode.com/problems/maximum-building-height/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Greedy", "Sorting"],
+  "patterns": ["sorting", "two-pass-relaxation", "lipschitz-envelope", "interval-peak-formula"],
+  "status": "solved",
+  "dateSolved": "2026-06-20",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/1840-maximum-building-height/solution.cpp",
+  "recommendedSolution": "solution-memory.c",
+  "note": "C folder with the minimum-memory champion. The recommended and fastest-runtime proposal is implemented in C++; see crossReferences.",
+  "variants": [
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "The memory objective can sort the provided int** restriction pointer array in place, relax heights in the same storage, and use only scalar state. C has the smallest practical runtime baseline and no vector/object metadata for this proposal.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Best for the recommended/runtime champion, but vector<vector<int>> and an auxiliary pair vector are larger than the in-place C pointer-array approach."
+        },
+        {
+          "language": "C",
+          "assessment": "Selected. It mutates the provided restriction rows in place, uses qsort on the pointer array, and stores only scalar loop state."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and memory-safe, but platform wrapper and slice metadata do not reduce the footprint below the direct C signature."
+        },
+        {
+          "language": "Go",
+          "assessment": "Slice headers, runtime metadata, and GC baseline are less attractive for minimum peak memory."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed object arrays and runtime overhead dominate the few scalars needed by the algorithm."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Object-heavy nested arrays and VM baselines are not competitive for a least-memory target."
+        }
+      ],
+      "approachJustification": "Sort restrictions in place, propagate caps from building 1 and the virtual right bound, then scan intervals using the same cone-intersection peak formula. The tail after the last real restriction is handled as a pure climb because the global n - 1 cap cannot be tighter than the left reachability cap.",
+      "timeComplexity": "O(m log m)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/1840-maximum-building-height",
+      "file": "solution.cpp",
+      "timeComplexity": "O(m log m)",
+      "spaceComplexity": "O(m)"
+    },
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/1840-maximum-building-height",
+      "file": "solution.cpp",
+      "timeComplexity": "O(m log m)",
+      "spaceComplexity": "O(m)"
+    }
+  ],
+  "reasoningSummary": "The C variant keeps the two-pass restriction relaxation but avoids a compact copy of the points. It pays qsort comparator overhead to minimize auxiliary memory.",
+  "timeComplexity": "O(m log m)",
+  "spaceComplexity": "O(1) extra"
+}

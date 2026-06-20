@@ -504,6 +504,35 @@
       "spaceComplexity": "O(1)"
     },
     {
+      "id": "1840",
+      "title": "Maximum Building Height",
+      "slug": "maximum-building-height",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
+      "difficulty": "Hard",
+      "topics": [
+        "Array",
+        "Greedy",
+        "Sorting"
+      ],
+      "patterns": [
+        "sorting",
+        "two-pass-relaxation",
+        "lipschitz-envelope",
+        "interval-peak-formula"
+      ],
+      "path": "platforms/leetcode/cpp/1840-maximum-building-height",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-20",
+      "timeComplexity": "O(m log m)",
+      "spaceComplexity": "O(m) recommended/runtime; O(1) extra memory champion"
+    },
+    {
       "id": "1929",
       "title": "Concatenation of Array",
       "slug": "concatenation-of-array",

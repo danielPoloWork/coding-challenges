@@ -1,0 +1,69 @@
+{
+  "id": "1840",
+  "title": "Maximum Building Height",
+  "slug": "maximum-building-height",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/1840-maximum-building-height",
+  "url": "https://leetcode.com/problems/maximum-building-height/",
+  "difficulty": "Hard",
+  "topics": ["Array", "Greedy", "Sorting"],
+  "patterns": ["sorting", "two-pass-relaxation", "lipschitz-envelope", "interval-peak-formula"],
+  "status": "solved",
+  "dateSolved": "2026-06-20",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/1840-maximum-building-height/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ folder with the recommended fast + lean proposal. The fastest-runtime proposal coincides with solution.cpp, so no duplicate solution-runtime.cpp is shipped. The minimum-memory champion is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The constraints are dominated by sorting up to 100000 restriction points and then running tight scalar passes. C++ gives an inlined std::sort over compact pair<int,int> points, direct 64-bit arithmetic, and low-overhead vector storage while still using modest O(m) auxiliary memory.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Copying restrictions into contiguous pairs makes sorting and the two relaxation scans cache-friendly, and std::sort avoids qsort function-pointer overhead."
+        },
+        {
+          "language": "C",
+          "assessment": "Excellent for the memory champion, but qsort over int** pointers is typically slower than C++ pair sorting for the runtime-oriented proposal."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native performance is strong, but LeetCode wrapper ergonomics and bounds-checking around nested input do not improve the compact C++ implementation."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled and simple, but slice/runtime overhead and comparator calls are weaker for this sort-and-scan workload."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed runtimes can sort arrays quickly after warmup, but object layout and GC/runtime overhead are unnecessary for a top-percentile native target."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The O(m log m) algorithm is the same, but interpreter or VM sorting plus per-element passes are less competitive at m = 100000."
+        }
+      ],
+      "approachJustification": "Add the mandatory first-building bound and the natural last-building bound, sort all points, relax maximum heights left-to-right and right-to-left, then compute each interval peak with floor((leftHeight + rightHeight + distance) / 2).",
+      "timeComplexity": "O(m log m)",
+      "spaceComplexity": "O(m)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/1840-maximum-building-height",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(m log m)",
+      "spaceComplexity": "O(1) extra"
+    }
+  ],
+  "reasoningSummary": "Every restriction is an upper bound under a slope-1 height constraint. Sorting the restricted positions and relaxing caps from both directions yields the tight feasible cap at each restricted building. Between two adjacent caps, the tallest possible point is where the two cones meet, giving floor((h1 + h2 + distance) / 2).",
+  "timeComplexity": "O(m log m)",
+  "spaceComplexity": "O(m) recommended/runtime; O(1) extra memory champion"
+}
