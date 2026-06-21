@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-20",
+  "generated": "2026-06-21",
   "version": 1,
   "catalogued": 16,
   "platforms": [
@@ -502,6 +502,34 @@
       "dateSolved": "2026-06-20",
       "timeComplexity": "O(n)",
       "spaceComplexity": "O(1)"
+    },
+    {
+      "id": "1833",
+      "title": "Maximum Ice Cream Bars",
+      "slug": "maximum-ice-cream-bars",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
+      "difficulty": "Medium",
+      "topics": [
+        "Array",
+        "Greedy",
+        "Sorting",
+        "Counting Sort"
+      ],
+      "patterns": [
+        "counting-sort",
+        "greedy"
+      ],
+      "path": "platforms/leetcode/cpp/1833-maximum-ice-cream-bars",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-21",
+      "timeComplexity": "O(n + R)",
+      "spaceComplexity": "O(R)"
     },
     {
       "id": "1840",

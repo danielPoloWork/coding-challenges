@@ -1,0 +1,77 @@
+{
+  "id": "1833",
+  "title": "Maximum Ice Cream Bars",
+  "slug": "maximum-ice-cream-bars",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/1833-maximum-ice-cream-bars",
+  "url": "https://leetcode.com/problems/maximum-ice-cream-bars/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Greedy", "Sorting", "Counting Sort"],
+  "patterns": ["counting-sort", "greedy"],
+  "status": "solved",
+  "dateSolved": "2026-06-21",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/1833-maximum-ice-cream-bars/solution.cpp",
+  "recommendedSolution": "solution-memory.c",
+  "note": "C proposal: the memory extreme. The recommended and fastest-runtime counting-sort proposal is in C++; see crossReferences.",
+  "variants": [
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "The memory objective still follows the mandatory counting-sort technique, but trims the table to the largest initially affordable price. C represents that table as one raw calloc buffer with no vector, object, GC, or interpreter overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Excellent for the recommended fixed-table runtime path, but vector-based capped storage adds a small container baseline and the fixed stack table spends the full R domain."
+        },
+        {
+          "language": "C",
+          "assessment": "Selected. One calloc block sized to the affordable domain is the leanest practical implementation of the counting table on LeetCode."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and memory-safe, but Vec allocation and checked indexing do not reduce the footprint below the direct C buffer."
+        },
+        {
+          "language": "Go",
+          "assessment": "Slices are convenient, but the runtime and GC baseline are larger than C for a memory-focused proposal."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays work, but managed-runtime overhead is higher than C's single allocation."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Object-heavy or VM-heavy numeric storage is dominated for minimum memory."
+        }
+      ],
+      "approachJustification": "Find the largest initially affordable price, allocate only that many counters, count affordable prices, and greedily consume buckets from cheapest upward.",
+      "timeComplexity": "O(n + A), A <= 100000",
+      "spaceComplexity": "O(A)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/1833-maximum-ice-cream-bars",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n + R)",
+      "spaceComplexity": "O(R)"
+    },
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/1833-maximum-ice-cream-bars",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n + R)",
+      "spaceComplexity": "O(R)"
+    }
+  ],
+  "reasoningSummary": "The greedy cheapest-first order is optimal by exchange argument. This memory proposal keeps the required counting-sort technique but shrinks the direct-addressed table to the largest price that can possibly be bought.",
+  "timeComplexity": "O(n + A)",
+  "spaceComplexity": "O(A)"
+}

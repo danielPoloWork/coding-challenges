@@ -1,0 +1,77 @@
+{
+  "id": "1833",
+  "title": "Maximum Ice Cream Bars",
+  "slug": "maximum-ice-cream-bars",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/1833-maximum-ice-cream-bars",
+  "url": "https://leetcode.com/problems/maximum-ice-cream-bars/",
+  "difficulty": "Medium",
+  "topics": ["Array", "Greedy", "Sorting", "Counting Sort"],
+  "patterns": ["counting-sort", "greedy"],
+  "status": "solved",
+  "dateSolved": "2026-06-21",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/1833-maximum-ice-cream-bars/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ proposal. solution.cpp is both the recommended fast + lean implementation and the speed extreme. The memory extreme is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The required counting-sort workload is a dense frequency fill over n <= 100000 and a fixed price scan over R = 100000. C++ gives tight native loops, a compact stack int[100001] table, predictable integer arithmetic, and no managed or interpreted runtime overhead.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It provides the best default/runtime balance for LeetCode: native loops, simple vector input, and a fixed contiguous frequency table."
+        },
+        {
+          "language": "C",
+          "assessment": "Competitive for raw loops and selected for the memory-specific capped-domain variant, but it does not improve the fixed-table default beyond equivalent native code."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and memory-safe, but bounds checks and more verbose array setup bring no practical advantage for this tiny direct-addressing loop."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled and simple, but slice bounds checks and runtime baseline are less attractive for top-percentile fixed-range scanning."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays are viable, but managed-runtime startup and GC baseline are unnecessary compared with C++'s compact stack storage."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The algorithm is loop-heavy over up to 100000 items and 100000 price slots, so interpreter or VM overhead is dominated for top-percentile runtime."
+        }
+      ],
+      "approachJustification": "Count every price in a fixed frequency table, then greedily consume price buckets from cheapest to most expensive. Bucket-level purchases avoid per-item subtraction for duplicates.",
+      "timeComplexity": "O(n + R), R = 100000",
+      "spaceComplexity": "O(R)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/1833-maximum-ice-cream-bars",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n + R)",
+      "spaceComplexity": "O(R)"
+    },
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/1833-maximum-ice-cream-bars",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(n + A)",
+      "spaceComplexity": "O(A)"
+    }
+  ],
+  "reasoningSummary": "An exchange argument shows the optimal set is the longest affordable prefix of prices in ascending order. Because prices are bounded by 100000, counting sort represents that order with direct-addressed frequencies and consumes whole buckets greedily.",
+  "timeComplexity": "O(n + R)",
+  "spaceComplexity": "O(R)"
+}
