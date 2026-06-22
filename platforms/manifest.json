@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-21",
+  "generated": "2026-06-22",
   "version": 1,
   "catalogued": 16,
   "platforms": [
@@ -452,6 +452,33 @@
       "dateSolved": "2026-06-02",
       "timeComplexity": "O(n log n) recommended / O(n + R) (counting)",
       "spaceComplexity": "O(log n) recommended / O(R) (counting)"
+    },
+    {
+      "id": "1189",
+      "title": "Maximum Number of Balloons",
+      "slug": "maximum-number-of-balloons",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C",
+        "C++"
+      ],
+      "difficulty": "Easy",
+      "topics": [
+        "Hash Table",
+        "String",
+        "Counting"
+      ],
+      "patterns": [
+        "counting",
+        "direct-addressing"
+      ],
+      "path": "platforms/leetcode/cpp/1189-maximum-number-of-balloons",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-22",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1) recommended/runtime; O(1) with a smaller five-counter constant for the memory champion"
     },
     {
       "id": "1344",

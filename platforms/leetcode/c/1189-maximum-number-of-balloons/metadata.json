@@ -1,0 +1,77 @@
+{
+  "id": "1189",
+  "title": "Maximum Number of Balloons",
+  "slug": "maximum-number-of-balloons",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/1189-maximum-number-of-balloons",
+  "url": "https://leetcode.com/problems/maximum-number-of-balloons/",
+  "difficulty": "Easy",
+  "topics": ["Hash Table", "String", "Counting"],
+  "patterns": ["counting"],
+  "status": "solved",
+  "dateSolved": "2026-06-22",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/1189-maximum-number-of-balloons/solution.cpp",
+  "recommendedSolution": "solution-memory.c",
+  "note": "C folder with the minimum-memory champion. The recommended and fastest-runtime proposal is implemented in C++; see crossReferences.",
+  "variants": [
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "The memory objective needs only five target-letter counters while scanning a null-terminated char* once. C minimizes explicit auxiliary storage and avoids string/container/runtime metadata beyond the platform input.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Best for the recommended/runtime sibling, but its 26-slot direct-address table intentionally spends more stack state for a branch-regular scan."
+        },
+        {
+          "language": "C",
+          "assessment": "Selected. Five scalar counters and a pointer scan are the smallest practical auxiliary state for this fixed-word counting problem."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and memory-safe, but wrapper/slice metadata and bounds-check machinery do not reduce state below the C version."
+        },
+        {
+          "language": "Go",
+          "assessment": "String/slice handling and runtime metadata are heavier than the scalar C implementation."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed string/object overhead and runtime baseline are unsuitable for the least-memory axis."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "VM strings and dictionary/counter objects are dominated by five native counters."
+        }
+      ],
+      "approachJustification": "Scan the string once, increment only b/a/l/o/n counters, halve the doubled letter counts, and return the minimum normalized count.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1), five counters"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/1189-maximum-number-of-balloons",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1), 26 stack integers"
+    },
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/1189-maximum-number-of-balloons",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1), 26 stack integers"
+    }
+  ],
+  "reasoningSummary": "The fixed target word requires only five letter frequencies. Counting target letters once and taking min(b, a, l/2, o/2, n) reaches the input-read lower bound with the smallest auxiliary state.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1)"
+}

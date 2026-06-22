@@ -1,0 +1,70 @@
+{
+  "id": "1189",
+  "title": "Maximum Number of Balloons",
+  "slug": "maximum-number-of-balloons",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/1189-maximum-number-of-balloons",
+  "url": "https://leetcode.com/problems/maximum-number-of-balloons/",
+  "difficulty": "Easy",
+  "topics": ["Hash Table", "String", "Counting"],
+  "patterns": ["counting", "direct-addressing"],
+  "status": "solved",
+  "dateSolved": "2026-06-22",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoRuntime": true,
+  "challengeRecommended": "platforms/leetcode/cpp/1189-maximum-number-of-balloons/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ solution.cpp is both the recommended balanced proposal and the fastest-runtime proposal. No solution-runtime.cpp is shipped because it would be coincident. The minimum-memory champion is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced-and-fastest-runtime",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The input is a lowercase string of length at most 10000, and the runtime objective is a tight scalar frequency scan. C++ uses LeetCode's string input directly, keeps a 26-slot stack table, avoids heap allocation and VM/GC overhead, and makes the hot loop a single direct-address increment per byte.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. Native execution, stack frequency storage, direct string access, and one indexed increment per character give the best practical constants for the recommended/runtime axis."
+        },
+        {
+          "language": "C",
+          "assessment": "Best for the minimum-memory sibling, but its target-counter scan is branchier for the runtime-oriented loop and offers no better asymptotic performance."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and safe, but byte iteration and wrapper ergonomics do not improve this tiny scalar loop over the compact C++ implementation."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled loops are acceptable, but bounds checks, runtime metadata, and string handling make it less attractive for top-percentile constants."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed runtimes can scan strings quickly after warmup, but runtime baseline and string/object overhead are unnecessary for n <= 10000."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Small constraints make them accepted-solution candidates, but interpreter/VM overhead and heavier counter objects are dominated for the repository performance target."
+        }
+      ],
+      "approachJustification": "Count all 26 lowercase letters once, then return min(count(b), count(a), count(l) / 2, count(o) / 2, count(n)). This reaches the O(n) read lower bound with a branch-free frequency update in the hot loop.",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1), 26 stack integers"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/1189-maximum-number-of-balloons",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(n)",
+      "spaceComplexity": "O(1), five counters"
+    }
+  ],
+  "reasoningSummary": "The fixed target word reduces the problem to normalized letter frequencies: one b, one a, two l, two o, and one n per copy. Counting once reaches the input-read lower bound; the answer is the minimum normalized required count.",
+  "timeComplexity": "O(n)",
+  "spaceComplexity": "O(1) recommended/runtime; O(1) with a smaller five-counter constant for the memory champion"
+}
