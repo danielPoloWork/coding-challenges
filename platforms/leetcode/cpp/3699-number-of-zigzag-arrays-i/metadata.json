@@ -1,0 +1,70 @@
+{
+  "id": "3699",
+  "title": "Number of ZigZag Arrays I",
+  "slug": "number-of-zigzag-arrays-i",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3699-number-of-zigzag-arrays-i",
+  "url": "https://leetcode.com/problems/number-of-zigzag-arrays-i/",
+  "difficulty": "Hard",
+  "topics": ["Dynamic Programming", "Prefix Sum", "Combinatorics"],
+  "patterns": ["alternating-sign-dp", "prefix-sum", "state-compression", "symmetry-reduction"],
+  "status": "solved",
+  "dateSolved": "2026-06-23",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoRuntime": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3699-number-of-zigzag-arrays-i/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "C++ solution.cpp is both the recommended balanced proposal and the fastest-runtime proposal. No solution-runtime.cpp is shipped because it would duplicate the same mirrored O(n*m) DP. The minimum-memory champion is implemented in C; see crossReferences.",
+  "variants": [
+    {
+      "role": "recommended-balanced-and-fastest-runtime",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The constraints allow at most 2000 lengths by 2000 value ranks, so the hot path is a few million modular integer additions. C++ keeps those transitions in native scalar loops, uses two fixed stack buffers, avoids heap allocation, and fits LeetCode's class method directly. The same implementation is also the runtime extreme because any faster variant still needs the rank distribution for each length and would duplicate this O(n*m) transition.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It gives native loops, fixed stack arrays, direct pointer swaps, and the lowest practical constant factors for the mirrored prefix/suffix DP under LeetCode's C++ runner."
+        },
+        {
+          "language": "C",
+          "assessment": "Selected only for the least-memory sibling. C can express the same recurrence, but the C++ class signature and two-buffer stack implementation are cleaner for the recommended/runtime axis without losing native speed."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native performance is viable, but checked indexing and LeetCode wrapper friction are less attractive than this fixed-size C++ loop for a 2000-cell DP."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled loops are adequate, but slice bounds checks and runtime overhead are unnecessary for a tight modular DP with known fixed limits."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays can be competitive after JIT warmup, but managed-runtime baseline, bounds checks, and GC/runtime metadata do not help a few million simple transitions."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The O(n*m) algorithm has only about four million states at the limit, but interpreter or VM overhead is still dominated by native C++ for a top-1% runtime target."
+        }
+      ],
+      "approachJustification": "Let rank y be value l + y. For length 2, upward-ending counts are up[y] = y. For every later length, a sequence ending upward at y must come from a previous downward-ending rank below y; downward counts are the mirror of upward counts, so nextUp[y] is the reversed prefix sum nextUp[y] = sum(up[m-y..m-1]). The answer is twice the sum of the final upward counts.",
+      "timeComplexity": "O(n * m)",
+      "spaceComplexity": "O(m)"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "least-memory",
+      "language": "C",
+      "path": "platforms/leetcode/c/3699-number-of-zigzag-arrays-i",
+      "file": "solution-memory.c",
+      "timeComplexity": "O(n * m)",
+      "spaceComplexity": "O(m), one 2000-int stack buffer"
+    }
+  ],
+  "reasoningSummary": "The no-equal-adjacent rule makes each adjacent comparison either up or down. The no-monotone-triple rule then says two consecutive comparison signs cannot be equal, so signs must alternate. A rank DP counts arrays by final value and last sign. Prefix sums make each layer linear, and value symmetry lets the recommended solution store only upward-ending counts.",
+  "timeComplexity": "O(n * m), where m = r - l + 1",
+  "spaceComplexity": "O(m) recommended/runtime; O(m) with half the DP buffer for the C memory champion"
+}

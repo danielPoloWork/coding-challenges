@@ -1,0 +1,77 @@
+{
+  "id": "3699",
+  "title": "Number of ZigZag Arrays I",
+  "slug": "number-of-zigzag-arrays-i",
+  "platform": "leetcode",
+  "language": "C",
+  "languageExt": "c",
+  "platformPath": "platforms/leetcode/c/3699-number-of-zigzag-arrays-i",
+  "url": "https://leetcode.com/problems/number-of-zigzag-arrays-i/",
+  "difficulty": "Hard",
+  "topics": ["Dynamic Programming", "Prefix Sum", "Combinatorics"],
+  "patterns": ["alternating-sign-dp", "prefix-sum", "state-compression", "symmetry-reduction"],
+  "status": "solved",
+  "dateSolved": "2026-06-23",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/leetcode/cpp/3699-number-of-zigzag-arrays-i/solution.cpp",
+  "recommendedSolution": "solution-memory.c",
+  "note": "C folder with the minimum-memory champion. The recommended and fastest-runtime proposal is implemented in C++; see crossReferences.",
+  "variants": [
+    {
+      "role": "least-memory",
+      "file": "solution-memory.c",
+      "language": "C",
+      "languageReason": "The memory objective is a scalar modular recurrence over at most 2000 ranks. C uses one raw stack buffer and scalar counters with no container, object, class, heap, or managed-runtime overhead. The in-place reversed-prefix transform halves the explicit DP buffer count relative to the C++ runtime proposal.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Best for the recommended/runtime sibling because two buffers and pointer swaps give the cleanest fast path, but it intentionally spends a second DP buffer."
+        },
+        {
+          "language": "C",
+          "assessment": "Selected. A single int[2000] stack buffer plus scalar counters is the smallest practical auxiliary layout for this recurrence."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native and memory-safe, but checked indexing and wrapper overhead do not reduce the one-buffer state below the C implementation."
+        },
+        {
+          "language": "Go",
+          "assessment": "Slices can represent the DP, but runtime and slice metadata are heavier than one raw C stack buffer."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Managed runtimes and primitive-array object headers are not competitive for the least-memory axis."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "Dynamic numeric arrays and VM/runtime baselines are far larger than a native 2000-int stack buffer."
+        }
+      ],
+      "approachJustification": "Use the same mirrored one-direction DP as the C++ proposal, but update the reversed-prefix transform in-place. While scanning y upward, old high mirrored values are consumed first; old low values that will be needed later are saved into those consumed high slots.",
+      "timeComplexity": "O(n * m)",
+      "spaceComplexity": "O(m), one 2000-int stack buffer"
+    }
+  ],
+  "crossReferences": [
+    {
+      "role": "recommended-balanced",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3699-number-of-zigzag-arrays-i",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n * m)",
+      "spaceComplexity": "O(m), two 2000-int stack buffers"
+    },
+    {
+      "role": "fastest-runtime",
+      "language": "C++",
+      "path": "platforms/leetcode/cpp/3699-number-of-zigzag-arrays-i",
+      "file": "solution.cpp",
+      "timeComplexity": "O(n * m)",
+      "spaceComplexity": "O(m), two 2000-int stack buffers"
+    }
+  ],
+  "reasoningSummary": "The comparison signs must alternate, so a rank DP by final value and last sign is sufficient. Downward counts mirror upward counts by value reversal. The C memory proposal computes the mirrored recurrence in-place to use one DP buffer.",
+  "timeComplexity": "O(n * m), where m = r - l + 1",
+  "spaceComplexity": "O(m)"
+}
