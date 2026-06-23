@@ -181,6 +181,34 @@
       "spaceComplexity": "O(d^2) bits"
     },
     {
+      "id": "6",
+      "title": "Old Calculator Buttons",
+      "slug": "old-calculator-buttons",
+      "platform": "coding-games",
+      "language": "OCaml",
+      "languageExt": "ml",
+      "languages": [
+        "OCaml"
+      ],
+      "difficulty": "Easy",
+      "topics": [
+        "String",
+        "Greedy",
+        "Digit DP",
+        "Combinatorics"
+      ],
+      "patterns": [
+        "lexicographic-construction",
+        "digit-dp",
+        "bounded-scan"
+      ],
+      "path": "platforms/coding-games/ml/old-calculator-buttons",
+      "recommendedSolution": "solution.ml",
+      "dateSolved": "2026-06-23",
+      "timeComplexity": "O(10 * L), effectively constant under the official L <= 3 bound",
+      "spaceComplexity": "O(10 + L)"
+    },
+    {
       "id": "3",
       "title": "Shadows of the Knight - Episode 2",
       "slug": "shadows-of-the-knight-episode-2",

@@ -1,0 +1,60 @@
+{
+  "id": "old-calculator-buttons",
+  "title": "Old Calculator Buttons",
+  "slug": "old-calculator-buttons",
+  "platform": "coding-games",
+  "language": "OCaml",
+  "languageExt": "ml",
+  "platformPath": "platforms/coding-games/ml/old-calculator-buttons",
+  "url": "https://www.codingame.com/multiplayer/clashofcode",
+  "difficulty": "Easy",
+  "topics": ["String", "Greedy", "Digit DP", "Combinatorics"],
+  "patterns": ["lexicographic-construction", "digit-dp", "bounded-scan"],
+  "status": "solved",
+  "dateSolved": "2026-06-23",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "challengeRecommended": "platforms/coding-games/ml/old-calculator-buttons/solution.ml",
+  "recommendedSolution": "solution.ml",
+  "note": "The OCaml proposal is simultaneously the recommended, runtime-focused, and memory-conscious solution. No separate coincident solution-runtime.ml or solution-memory.ml files are emitted.",
+  "variants": [
+    {
+      "role": "recommended-balanced",
+      "file": "solution.ml",
+      "language": "OCaml",
+      "languageReason": "The user and supplied CodinGame starter target OCaml. For the problem's three-digit bound, OCaml's fixed boolean digit table, pattern matching, and one mutable Bytes output buffer give negligible overhead while avoiding repeated candidate generation.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Considered for the lowest native constants, but the task is explicitly requested in OCaml and the input is too small for C++ to gain a meaningful advantage."
+        },
+        {
+          "language": "C",
+          "assessment": "Considered for minimal runtime overhead, but manual string handling adds risk without improving the O(10 * L) digit-construction profile."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Considered for native speed and safety, but its extra ceremony is unnecessary for this tiny parser and does not improve the requested OCaml submission."
+        },
+        {
+          "language": "Go",
+          "assessment": "Considered for simple compiled loops, but runtime overhead and bounds checks are irrelevant at L <= 3 and do not beat the direct OCaml implementation for this request."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Considered as managed alternatives, but VM startup dominates this tiny Clash task and the prompt supplied OCaml starter code."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "All can brute force the constraints, but interpreted/VM overhead is unnecessary and they do not satisfy the requested OCaml language."
+        }
+      ],
+      "approachJustification": "Construct the smallest valid decimal string directly. Try a same-length answer with left-to-right digit search; once a chosen digit exceeds the target digit, fill the suffix with the smallest working digit. If no same-length answer exists, build the smallest longer positive number.",
+      "timeComplexity": "O(10 * L), where L is the answer length and L <= 3 in the official tests",
+      "spaceComplexity": "O(10 + L)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "For equal-length positive decimal strings, lexicographic order matches numeric order. The solver therefore searches the target length from left to right, backtracking only when an equal-prefix suffix cannot be completed; after the prefix becomes larger, the suffix is greedily minimized.",
+  "timeComplexity": "O(10 * L), effectively constant under the official L <= 3 bound",
+  "spaceComplexity": "O(10 + L)"
+}
