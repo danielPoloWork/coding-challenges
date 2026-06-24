@@ -1,5 +1,5 @@
 {
-  "generated": "2026-06-23",
+  "generated": "2026-06-24",
   "version": 1,
   "catalogued": 16,
   "platforms": [
@@ -1463,6 +1463,37 @@
       "dateSolved": "2026-06-23",
       "timeComplexity": "O(n * m), where m = r - l + 1",
       "spaceComplexity": "O(m) recommended/runtime; O(m) with half the DP buffer for the C memory champion"
+    },
+    {
+      "id": "3700",
+      "title": "Number of ZigZag Arrays II",
+      "slug": "number-of-zigzag-arrays-ii",
+      "platform": "leetcode",
+      "language": "C++",
+      "languageExt": "cpp",
+      "languages": [
+        "C++"
+      ],
+      "difficulty": "Hard",
+      "topics": [
+        "Dynamic Programming",
+        "Combinatorics",
+        "Matrix",
+        "Math"
+      ],
+      "patterns": [
+        "alternating-sign-dp",
+        "state-compression",
+        "symmetry-reduction",
+        "linear-recurrence",
+        "berlekamp-massey",
+        "kitamasa"
+      ],
+      "path": "platforms/leetcode/cpp/3700-number-of-zigzag-arrays-ii",
+      "recommendedSolution": "solution.cpp",
+      "dateSolved": "2026-06-24",
+      "timeComplexity": "O(m^2 log n), where m = r - l + 1 and m <= 75",
+      "spaceComplexity": "O(m)"
     },
     {
       "id": "3704",

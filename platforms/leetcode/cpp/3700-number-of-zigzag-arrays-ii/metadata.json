@@ -1,0 +1,61 @@
+{
+  "id": "3700",
+  "title": "Number of ZigZag Arrays II",
+  "slug": "number-of-zigzag-arrays-ii",
+  "platform": "leetcode",
+  "language": "C++",
+  "languageExt": "cpp",
+  "platformPath": "platforms/leetcode/cpp/3700-number-of-zigzag-arrays-ii",
+  "url": "https://leetcode.com/problems/number-of-zigzag-arrays-ii/",
+  "difficulty": "Hard",
+  "topics": ["Dynamic Programming", "Combinatorics", "Matrix", "Math"],
+  "patterns": ["alternating-sign-dp", "state-compression", "symmetry-reduction", "linear-recurrence", "berlekamp-massey", "kitamasa"],
+  "status": "solved",
+  "dateSolved": "2026-06-24",
+  "performanceTarget": "top 1% execution time and overall performance",
+  "paretoOptimal": true,
+  "challengeRecommended": "platforms/leetcode/cpp/3700-number-of-zigzag-arrays-ii/solution.cpp",
+  "recommendedSolution": "solution.cpp",
+  "note": "Pareto-optimal challenge: the C++ linear-recurrence solution is the recommended proposal, the speed extreme, and the memory extreme. The direct matrix-exponentiation solution from the hint is correct but dominated here by the recurrence recovered from the same fixed transition operator.",
+  "variants": [
+    {
+      "role": "recommended-balanced-fastest-runtime-and-least-memory",
+      "file": "solution.cpp",
+      "language": "C++",
+      "languageReason": "The value domain has m <= 75 while n can be 1e9. C++ gives native modular arithmetic, compact stack arrays for the short DP prefix, and low-overhead vector storage for the recovered recurrence and Kitamasa polynomials. This avoids the much larger constant cost of 2m x 2m matrix exponentiation while keeping the code compatible with LeetCode's C++ class signature.",
+      "languageAlternatives": [
+        {
+          "language": "C++",
+          "assessment": "Selected. It gives the best practical mix of native modular arithmetic, concise Berlekamp-Massey/Kitamasa code, fixed small arrays, and direct LeetCode method support."
+        },
+        {
+          "language": "C",
+          "assessment": "Native and slightly lower-level, but LeetCode's C++ signature is more ergonomic and the O(m) explicit memory is already tiny; manual polynomial buffers would add risk without a meaningful footprint win."
+        },
+        {
+          "language": "Rust",
+          "assessment": "Native performance is viable, but mutable polynomial reductions and modular recurrence recovery are more verbose and tend to add bounds-check friction for no asymptotic benefit."
+        },
+        {
+          "language": "Go",
+          "assessment": "Compiled loops are adequate, yet slice bounds checks and runtime overhead are unnecessary for this small hot path."
+        },
+        {
+          "language": "Java/C#",
+          "assessment": "Primitive arrays can implement the same recurrence, but JIT/runtime startup and managed array checks do not help a one-shot small-dimensional computation."
+        },
+        {
+          "language": "Python/JavaScript/TypeScript/PHP",
+          "assessment": "The recurrence algorithm is small enough to run, but top-percentile LeetCode performance favors native modular arithmetic and avoids VM/interpreter overhead."
+        }
+      ],
+      "approachJustification": "A valid array is exactly an alternating sequence of comparison signs. Rank symmetry reduces the two-direction DP to one vector u[y], where the next layer is a reversed suffix-sum transform. That transform is linear with dimension at most m, so the answer sequence satisfies a linear recurrence of order at most m. Generate enough initial terms with O(m) DP layers, recover the minimal recurrence with Berlekamp-Massey, and evaluate the requested length with Kitamasa.",
+      "timeComplexity": "O(m^2 log n + m^2) after O(m^2) term generation; d <= m is the recovered recurrence order",
+      "spaceComplexity": "O(m)"
+    }
+  ],
+  "crossReferences": [],
+  "reasoningSummary": "Adjacent inequality makes each step either up or down; forbidding strictly monotone triples forces these signs to alternate. The rank DP from Number of ZigZag Arrays I still applies, but n is now too large for layer-by-layer iteration. Since the mirrored DP applies the same fixed linear transform at every step, the total count sequence obeys a short linear recurrence. Berlekamp-Massey recovers it from generated prefix terms, and Kitamasa evaluates the n-th term modulo 1e9+7.",
+  "timeComplexity": "O(m^2 log n), where m = r - l + 1 and m <= 75",
+  "spaceComplexity": "O(m)"
+}
